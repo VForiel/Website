@@ -1,0 +1,329 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/Section.astro';
+---
+
+<PageLayout 
+  title="CV - Vincent Foriel"
+  description="Curriculum Vitae de Vincent Foriel, expert en instrumentation astrophotonique"
+  currentPath="/cv"
+>
+  <Section class="cv-section">
+    <div class="cv-header">
+      <h1>Curriculum Vitae</h1>
+      <div class="cv-contact">
+        <span>vincent.foriel@gmail.com</span>
+        <span>•</span>
+        <span>Nice, France</span>
+      </div>
+    </div>
+
+    <div class="cv-content">
+      <!-- Formation -->
+      <div class="cv-block">
+        <h2 class="cv-block__title">Formation</h2>
+        
+        <div class="cv-item">
+          <div class="cv-item__header">
+            <h3 class="cv-item__title">Doctorat en Astrophotonique</h3>
+            <span class="cv-item__date">2021 - 2024</span>
+          </div>
+          <div class="cv-item__subtitle">Observatoire de la Côte d'Azur</div>
+          <p class="cv-item__description">
+            Développement de méthodes de simulation end-to-end pour l'imagerie à haut contraste. 
+            Conception d'outils logiciels pour l'analyse de performance d'instruments coronagraphiques.
+          </p>
+        </div>
+
+        <div class="cv-item">
+          <div class="cv-item__header">
+            <h3 class="cv-item__title">Master en Astrophysique</h3>
+            <span class="cv-item__date">2019 - 2021</span>
+          </div>
+          <div class="cv-item__subtitle">Université Côte d'Azur</div>
+          <p class="cv-item__description">
+            Spécialisation en instrumentation astronomique et techniques d'observation.
+          </p>
+        </div>
+      </div>
+
+      <!-- Expérience -->
+      <div class="cv-block">
+        <h2 class="cv-block__title">Expérience professionnelle</h2>
+        
+        <div class="cv-item">
+          <div class="cv-item__header">
+            <h3 class="cv-item__title">Chercheur en instrumentation optique</h3>
+            <span class="cv-item__date">2021 - Présent</span>
+          </div>
+          <div class="cv-item__subtitle">Observatoire de la Côte d'Azur</div>
+          <ul class="cv-item__list">
+            <li>Développement de frameworks de simulation pour instruments à haut contraste</li>
+            <li>Analyse de performance d'architectures coronagraphiques</li>
+            <li>Collaboration internationale sur projets instrumentaux (ESO, NASA)</li>
+            <li>Encadrement d'étudiants en master</li>
+          </ul>
+        </div>
+
+        <div class="cv-item">
+          <div class="cv-item__header">
+            <h3 class="cv-item__title">Développeur logiciel scientifique</h3>
+            <span class="cv-item__date">2020 - 2021</span>
+          </div>
+          <div class="cv-item__subtitle">Projet de recherche collaboratif</div>
+          <ul class="cv-item__list">
+            <li>Développement d'outils Python pour l'analyse de données astronomiques</li>
+            <li>Optimisation de pipelines de traitement d'images</li>
+            <li>Documentation technique et formation des utilisateurs</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Compétences -->
+      <div class="cv-block">
+        <h2 class="cv-block__title">Compétences</h2>
+        
+        <div class="cv-skills">
+          <div class="cv-skill-group">
+            <h3>Programmation</h3>
+            <p>Python (expert), C/C++, Fortran, Git/GitHub, CI/CD</p>
+          </div>
+          
+          <div class="cv-skill-group">
+            <h3>Outils scientifiques</h3>
+            <p>NumPy, SciPy, Matplotlib, Astropy, Pandas, Jupyter</p>
+          </div>
+          
+          <div class="cv-skill-group">
+            <h3>Domaines d'expertise</h3>
+            <p>Optique physique, Traitement d'images, Simulation numérique, Analyse statistique</p>
+          </div>
+          
+          <div class="cv-skill-group">
+            <h3>Langues</h3>
+            <p>Français (natif), Anglais (courant - B2/C1), Espagnol (A1), Japonais (A1)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Publications (placeholder) -->
+      <div class="cv-block">
+        <h2 class="cv-block__title">Publications & Présentations</h2>
+        
+        <div class="cv-item">
+          <p class="cv-item__description">
+            Publications dans des revues à comité de lecture (A&A, SPIE Proceedings)
+          </p>
+          <p class="cv-item__description">
+            Présentations orales et posters dans des conférences internationales
+          </p>
+        </div>
+      </div>
+
+      <!-- Qualities -->
+      <div class="cv-block">
+        <h2 class="cv-block__title">Qualités</h2>
+        <div class="cv-qualities">
+          <span class="cv-quality">Créatif</span>
+          <span class="cv-quality">Curieux</span>
+          <span class="cv-quality">Autonome</span>
+          <span class="cv-quality">Altruiste</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-footer">
+      <a href="/contact" class="button">Me contacter</a>
+      <button onclick="window.print()" class="button button--secondary">Imprimer le CV</button>
+    </div>
+  </Section>
+</PageLayout>
+
+<style>
+  .cv-section {
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  .cv-header {
+    text-align: center;
+    margin-block-end: var(--space-12);
+    padding-block-end: var(--space-8);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .cv-header h1 {
+    font-size: var(--text-4xl);
+    margin-block-end: var(--space-3);
+  }
+
+  .cv-contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .cv-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+  }
+
+  .cv-block__title {
+    font-size: var(--text-2xl);
+    color: var(--color-primary);
+    margin-block-end: var(--space-6);
+    padding-block-end: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .cv-item {
+    margin-block-end: var(--space-8);
+  }
+
+  .cv-item:last-child {
+    margin-block-end: 0;
+  }
+
+  .cv-item__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    margin-block-end: var(--space-2);
+  }
+
+  .cv-item__title {
+    font-size: var(--text-xl);
+    font-weight: 600;
+  }
+
+  .cv-item__date {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+
+  .cv-item__subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin-block-end: var(--space-3);
+  }
+
+  .cv-item__description {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-block-end: var(--space-2);
+  }
+
+  .cv-item__list {
+    list-style: disc;
+    padding-inline-start: var(--space-6);
+    color: var(--color-text-secondary);
+  }
+
+  .cv-item__list li {
+    margin-block-end: var(--space-2);
+  }
+
+  .cv-skills {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .cv-skill-group h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    margin-block-end: var(--space-2);
+  }
+
+  .cv-skill-group p {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .cv-qualities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .cv-quality {
+    padding: var(--space-2) var(--space-4);
+    background-color: var(--color-background-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .cv-footer {
+    margin-block-start: var(--space-16);
+    padding-block-start: var(--space-8);
+    border-top: 2px solid var(--color-border);
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .button {
+    display: inline-block;
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-base);
+    font-weight: 500;
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .button--secondary {
+    background-color: transparent;
+    color: var(--color-text);
+    border-color: var(--color-border);
+  }
+
+  .button--secondary:hover {
+    background-color: var(--color-background-secondary);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  /* Print styles */
+  @media print {
+    .cv-footer {
+      display: none;
+    }
+
+    @page {
+      margin: 2cm;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cv-item__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-1);
+    }
+
+    .cv-skills {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

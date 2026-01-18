@@ -1,0 +1,74 @@
+---
+import Navigation from './Navigation.astro';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath } = Astro.props;
+---
+
+<header class="header">
+  <div class="container">
+    <div class="header__content">
+      <a href="/" class="header__logo">
+        <span class="header__name">Vincent Foriel</span>
+        <span class="header__tagline">Astrophotonic Instrumentation</span>
+      </a>
+      <Navigation currentPath={currentPath} />
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-border-subtle);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    transition: border-color var(--transition-base);
+  }
+
+  .header__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--space-4);
+    gap: var(--space-6);
+  }
+
+  .header__logo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    text-decoration: none;
+    transition: opacity var(--transition-base);
+  }
+
+  .header__logo:hover {
+    opacity: 0.7;
+  }
+
+  .header__name {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+  }
+
+  .header__tagline {
+    font-size: var(--text-xs);
+    font-weight: 400;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 768px) {
+    .header__tagline {
+      display: none;
+    }
+  }
+</style>
