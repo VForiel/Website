@@ -14,20 +14,33 @@
       this.ctx = canvas.getContext('2d');
       this.particles = [];
       this.shootingStars = [];
+      this.binaryDigits = [];
       this.particleCount = 60;
+      this.binaryCount = 40;
       this.maxDistance = 150;
       this.mouse = { x: null, y: null, radius: 100 };
       this.lastShootingStar = 0;
-      this.shootingStarInterval = 3000; // 3 seconds minimum between stars
+      this.shootingStarInterval = 3000;
+      this.isLightTheme = false;
       
       this.init();
       this.animate();
       this.addEventListeners();
+      this.checkTheme();
     }
     
     init() {
       this.resize();
       this.createParticles();
+      this.createBinaryDigits();
+    }
+    
+    checkTheme() {
+      this.isLightTheme = document.documentElement.classList.contains('light-theme');
+      // Re-check theme periodically
+      setInterval(() => {
+        this.isLightTheme = document.documentElement.classList.contains('light-theme');
+      }, 500);
     }
     
     resize() {
@@ -70,6 +83,49 @@
     handleMouseLeave() {
       this.mouse.x = null;
       this.mouse.y = null;
+    }
+    
+    createBinaryDigits() {
+      // Create grid points for technical mesh
+      this.binaryDigits = [];
+      const spacing = 80;
+      const cols = Math.ceil(this.canvas.width / spacing) + 1;
+      const rows = Math.ceil(this.canvas.height / spacing) + 1;
+      
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          this.binaryDigits.push({
+            baseX: i * spacing,
+            baseY: j * spacing,
+            x: i * spacing,
+            y: j * spacing,
+            offsetX: 0,
+            offsetY: 0,
+            phase: Math.random() * Math.PI * 2,
+            value: Math.random() > 0.5 ? '1' : '0',
+            nextFlip: Date.now() + Math.random() * 700 + 300 // Flip every 0.3-1 second
+          });
+        }
+      }
+    }
+    
+    updateBinaryDigits() {
+      const time = Date.now() * 0.0005; // Slow animation
+      const now = Date.now();
+      
+      this.binaryDigits.forEach(point => {
+        // Gentle wave motion
+        point.offsetX = Math.sin(time + point.phase) * 15;
+        point.offsetY = Math.cos(time * 0.7 + point.phase) * 15;
+        point.x = point.baseX + point.offsetX;
+        point.y = point.baseY + point.offsetY;
+        
+        // Flip binary value
+        if (now > point.nextFlip) {
+          point.value = point.value === '1' ? '0' : '1';
+          point.nextFlip = now + Math.random() * 700 + 300;
+        }
+      });
     }
     
     createShootingStar() {
@@ -124,12 +180,17 @@
     }
     
     update() {
-      // Try to create shooting star occasionally
-      if (Math.random() < 0.01) { // 1% chance each frame (~0.6 times per second at 60fps)
+      // Try to create shooting star occasionally (dark theme only)
+      if (!this.isLightTheme && Math.random() < 0.01) {
         this.createShootingStar();
       }
       
-      this.updateShootingStars();
+      // Update based on theme
+      if (this.isLightTheme) {
+        this.updateBinaryDigits();
+      } else {
+        this.updateShootingStars();
+      }
       this.particles.forEach(particle => {
         // Apply base drift for continuous movement
         particle.vx += (particle.baseVx - particle.vx) * 0.02;
@@ -170,38 +231,94 @@
     draw() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       
-      // Draw shooting stars first (behind particles)
-      this.shootingStars.forEach(star => {
-        // Draw tail gradient
-        if (star.tail.length > 1) {
-          for (let i = 0; i < star.tail.length - 1; i++) {
-            const progress = i / star.tail.length;
-            const opacity = progress * star.opacity * 0.5;
-            
-            this.ctx.strokeStyle = `rgba(200, 230, 255, ${opacity})`;
-            this.ctx.lineWidth = 2 * (1 - progress);
-            this.ctx.beginPath();
-            this.ctx.moveTo(star.tail[i].x, star.tail[i].y);
-            this.ctx.lineTo(star.tail[i + 1].x, star.tail[i + 1].y);
-            this.ctx.stroke();
+      if (this.isLightTheme) {
+        // Light theme: Animated technical grid
+        const spacing = 80;
+        const cols = Math.ceil(this.canvas.width / spacing);
+        const rows = Math.ceil(this.canvas.height / spacing);
+        
+        this.ctx.strokeStyle = 'rgba(100, 120, 150, 0.15)';
+        this.ctx.lineWidth = 1;
+        
+        // Draw horizontal lines
+        for (let j = 0; j <= rows; j++) {
+          this.ctx.beginPath();
+          for (let i = 0; i <= cols; i++) {
+            const index = i + j * (cols + 1);
+            if (this.binaryDigits[index]) {
+              const point = this.binaryDigits[index];
+              if (i === 0) {
+                this.ctx.moveTo(point.x, point.y);
+              } else {
+                this.ctx.lineTo(point.x, point.y);
+              }
+            }
           }
+          this.ctx.stroke();
         }
         
-        // Draw bright head
-        const gradient = this.ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, 5);
-        gradient.addColorStop(0, `rgba(255, 255, 255, ${star.opacity})`);
-        gradient.addColorStop(0.5, `rgba(200, 230, 255, ${star.opacity * 0.6})`);
-        gradient.addColorStop(1, `rgba(150, 200, 255, 0)`);
+        // Draw vertical lines
+        for (let i = 0; i <= cols; i++) {
+          this.ctx.beginPath();
+          for (let j = 0; j <= rows; j++) {
+            const index = i + j * (cols + 1);
+            if (this.binaryDigits[index]) {
+              const point = this.binaryDigits[index];
+              if (j === 0) {
+                this.ctx.moveTo(point.x, point.y);
+              } else {
+                this.ctx.lineTo(point.x, point.y);
+              }
+            }
+          }
+          this.ctx.stroke();
+        }
         
-        this.ctx.fillStyle = gradient;
-        this.ctx.beginPath();
-        this.ctx.arc(star.x, star.y, 5, 0, Math.PI * 2);
-        this.ctx.fill();
-      });
+        // Draw binary digits at intersections
+        this.ctx.font = '12px "Courier New", monospace';
+        this.ctx.textAlign = 'center';
+        this.ctx.textBaseline = 'middle';
+        this.ctx.fillStyle = 'rgba(100, 120, 150, 0.4)';
+        
+        this.binaryDigits.forEach(point => {
+          this.ctx.fillText(point.value, point.x, point.y);
+        });
+      } else {
+        // Dark theme: Shooting stars and particles
+        // Draw shooting stars first (behind particles)
+        this.shootingStars.forEach(star => {
+          // Draw tail gradient
+          if (star.tail.length > 1) {
+            for (let i = 0; i < star.tail.length - 1; i++) {
+              const progress = i / star.tail.length;
+              const opacity = progress * star.opacity * 0.5;
+              
+              this.ctx.strokeStyle = `rgba(200, 230, 255, ${opacity})`;
+              this.ctx.lineWidth = 2 * (1 - progress);
+              this.ctx.beginPath();
+              this.ctx.moveTo(star.tail[i].x, star.tail[i].y);
+              this.ctx.lineTo(star.tail[i + 1].x, star.tail[i + 1].y);
+              this.ctx.stroke();
+            }
+          }
+          
+          // Draw bright head
+          const gradient = this.ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, 5);
+          gradient.addColorStop(0, `rgba(255, 255, 255, ${star.opacity})`);
+          gradient.addColorStop(0.5, `rgba(200, 230, 255, ${star.opacity * 0.6})`);
+          gradient.addColorStop(1, `rgba(150, 200, 255, 0)`);
+          
+          this.ctx.fillStyle = gradient;
+          this.ctx.beginPath();
+          this.ctx.arc(star.x, star.y, 5, 0, Math.PI * 2);
+          this.ctx.fill();
+        });
+      }
       
-      // Draw connections
-      this.ctx.strokeStyle = 'rgba(100, 160, 255, 0.15)';
-      this.ctx.lineWidth = 1;
+      // Draw connections and particles (dark theme only)
+      if (!this.isLightTheme) {
+        this.ctx.strokeStyle = 'rgba(100, 160, 255, 0.15)';
+        this.ctx.lineWidth = 1;
       
       for (let i = 0; i < this.particles.length; i++) {
         for (let j = i + 1; j < this.particles.length; j++) {
@@ -235,6 +352,7 @@
           this.ctx.fill();
         }
       });
+      }
     }
     
     animate() {
@@ -262,11 +380,6 @@
     pointer-events: none;
     opacity: 1;
     transition: opacity 0.5s ease;
-  }
-  
-  /* Hide in light theme */
-  :global(.light-theme) .particles-bg {
-    opacity: 0;
   }
   
   #particles-canvas {
