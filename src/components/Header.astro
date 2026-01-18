@@ -1,5 +1,6 @@
 ---
 import Navigation from './Navigation.astro';
+import ThemeToggle from './ThemeToggle.astro';
 
 interface Props {
   currentPath?: string;
@@ -13,9 +14,12 @@ const { currentPath } = Astro.props;
     <div class="header__content">
       <a href="/" class="header__logo">
         <span class="header__name">Vincent Foriel</span>
-        <span class="header__tagline">Astrophotonic Instrumentation</span>
+        <span class="header__tagline">Doctorant en Instrumentation Optique</span>
       </a>
-      <Navigation currentPath={currentPath} />
+      <div class="header__actions">
+        <Navigation currentPath={currentPath} />
+        <ThemeToggle />
+      </div>
     </div>
   </div>
 </header>
@@ -37,6 +41,12 @@ const { currentPath } = Astro.props;
     justify-content: space-between;
     padding-block: var(--space-4);
     gap: var(--space-6);
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
   }
 
   .header__logo {

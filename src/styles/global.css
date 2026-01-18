@@ -2,38 +2,43 @@
 @import './reset.css';
 @import './typography.css';
 
-/* Color Palette - Inspired by astronomy and scientific instruments */
+/* Color Palette - Starry Night Theme (Dark by Default) */
 :root {
-    /* Primary - Deep blue (night sky, optical instruments) */
-    --color-primary: hsl(220, 70%, 50%);
-    --color-primary-light: hsl(220, 70%, 65%);
-    --color-primary-dark: hsl(220, 70%, 35%);
+    /* Primary - Brighter blue for dark background */
+    --color-primary: hsl(210, 85%, 65%);
+    --color-primary-light: hsl(210, 85%, 75%);
+    --color-primary-dark: hsl(210, 85%, 55%);
 
-    /* Accent - Subtle amber (starlight, optical coatings) */
-    --color-accent: hsl(35, 75%, 55%);
-    --color-accent-light: hsl(35, 75%, 70%);
-    --color-accent-dark: hsl(35, 75%, 40%);
+    /* Accent - Warmer amber for starlight */
+    --color-accent: hsl(35, 85%, 65%);
+    --color-accent-light: hsl(35, 85%, 75%);
+    --color-accent-dark: hsl(35, 85%, 55%);
 
-    /* Neutrals - Cool grays */
-    --color-neutral-50: hsl(220, 15%, 97%);
-    --color-neutral-100: hsl(220, 12%, 93%);
-    --color-neutral-200: hsl(220, 10%, 85%);
-    --color-neutral-300: hsl(220, 8%, 70%);
-    --color-neutral-400: hsl(220, 6%, 55%);
-    --color-neutral-500: hsl(220, 5%, 40%);
-    --color-neutral-600: hsl(220, 7%, 28%);
-    --color-neutral-700: hsl(220, 10%, 18%);
-    --color-neutral-800: hsl(220, 15%, 12%);
-    --color-neutral-900: hsl(220, 18%, 8%);
+    /* Dark theme colors */
+    --color-neutral-50: hsl(220, 12%, 95%);
+    --color-neutral-100: hsl(220, 10%, 85%);
+    --color-neutral-200: hsl(220, 8%, 70%);
+    --color-neutral-300: hsl(220, 7%, 55%);
+    --color-neutral-400: hsl(220, 6%, 40%);
+    --color-neutral-500: hsl(220, 7%, 28%);
+    --color-neutral-600: hsl(220, 8%, 22%);
+    --color-neutral-700: hsl(220, 10%, 16%);
+    --color-neutral-800: hsl(220, 15%, 11%);
+    --color-neutral-900: hsl(220, 20%, 8%);
 
-    /* Semantic colors */
-    --color-text: var(--color-neutral-900);
-    --color-text-secondary: var(--color-neutral-600);
-    --color-text-muted: var(--color-neutral-400);
-    --color-background: hsl(0, 0%, 100%);
-    --color-background-secondary: var(--color-neutral-50);
-    --color-border: var(--color-neutral-200);
-    --color-border-subtle: var(--color-neutral-100);
+    /* Semantic colors - Dark theme as default */
+    --color-text: hsl(220, 12%, 92%);
+    --color-text-secondary: hsl(220, 8%, 68%);
+    --color-text-muted: hsl(220, 6%, 50%);
+    --color-background: hsl(220, 22%, 9%);
+    --color-background-secondary: hsl(220, 18%, 12%);
+    --color-border: hsl(220, 12%, 18%);
+    --color-border-subtle: hsl(220, 15%, 13%);
+
+    /* Star colors for background effect */
+    --color-star-1: hsla(200, 80%, 80%, 0.8);
+    --color-star-2: hsla(35, 80%, 80%, 0.6);
+    --color-star-3: hsla(280, 60%, 85%, 0.5);
 
     /* Typography scale - Perfect Fourth (1.333) */
     --text-xs: 0.75rem;
@@ -101,28 +106,52 @@
     --transition-base: 250ms ease;
     --transition-slow: 400ms ease;
 
-    /* Shadows - subtle */
+    /* Shadows - Darker for dark theme */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+
+    /* Glow effects for starry theme */
+    --glow-primary: 0 0 20px hsla(210, 85%, 65%, 0.3);
+    --glow-accent: 0 0 15px hsla(35, 85%, 65%, 0.25);
+}
+
+/* Light Theme Override */
+.light-theme {
+    /* Primary - Adjusted for light background */
+    --color-primary: hsl(220, 70%, 50%);
+    --color-primary-light: hsl(220, 70%, 65%);
+    --color-primary-dark: hsl(220, 70%, 35%);
+
+    /* Accent */
+    --color-accent: hsl(35, 75%, 55%);
+    --color-accent-light: hsl(35, 75%, 70%);
+    --color-accent-dark: hsl(35, 75%, 40%);
+
+    /* Semantic colors - Light theme */
+    --color-text: hsl(220, 18%, 15%);
+    --color-text-secondary: hsl(220, 8%, 35%);
+    --color-text-muted: hsl(220, 6%, 50%);
+    --color-background: hsl(0, 0%, 100%);
+    --color-background-secondary: hsl(220, 15%, 97%);
+    --color-border: hsl(220, 10%, 85%);
+    --color-border-subtle: hsl(220, 12%, 93%);
+
+    /* Disable stars in light mode */
+    --color-star-1: transparent;
+    --color-star-2: transparent;
+    --color-star-3: transparent;
+
+    /* Shadows - Lighter for light theme */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
 
-/* Dark mode - Optional */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-text: var(--color-neutral-50);
-        --color-text-secondary: var(--color-neutral-300);
-        --color-text-muted: var(--color-neutral-400);
-        --color-background: var(--color-neutral-900);
-        --color-background-secondary: var(--color-neutral-800);
-        --color-border: var(--color-neutral-700);
-        --color-border-subtle: var(--color-neutral-800);
-
-        /* Adjust primary for better contrast */
-        --color-primary: hsl(220, 70%, 60%);
-        --color-accent: hsl(35, 70%, 60%);
-    }
+    /* Glow effects */
+    --glow-primary: 0 0 20px hsla(220, 70%, 50%, 0.2);
+    --glow-accent: 0 0 15px hsla(35, 75%, 55%, 0.15);
 }
 
 /* Global styles */
@@ -132,7 +161,74 @@ html {
 
 body {
     color: var(--color-text);
-    background-color: var(--color-background);
+    background: var(--color-background);
+    position: relative;
+    overflow-x: hidden;
+    transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* Starry night background effect */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background:
+        radial-gradient(2px 2px at 20% 30%, var(--color-star-1), transparent),
+        radial-gradient(2px 2px at 60% 70%, var(--color-star-2), transparent),
+        radial-gradient(1px 1px at 50% 50%, var(--color-star-3), transparent),
+        radial-gradient(1px 1px at 80% 10%, var(--color-star-1), transparent),
+        radial-gradient(2px 2px at 90% 60%, var(--color-star-2), transparent),
+        radial-gradient(1px 1px at 33% 80%, var(--color-star-3), transparent),
+        radial-gradient(2px 2px at 15% 90%, var(--color-star-1), transparent),
+        radial-gradient(1px 1px at 45% 15%, var(--color-star-2), transparent),
+        radial-gradient(1px 1px at 70% 40%, var(--color-star-3), transparent);
+    background-size: 200% 200%, 180% 180%, 220% 220%, 250% 250%, 190% 190%, 210% 210%, 230% 230%, 200% 200%, 180% 180%;
+    background-position: 0% 0%, 40% 60%, 80% 20%, 20% 80%, 60% 40%, 10% 30%, 70% 90%, 50% 10%, 85% 55%;
+    opacity: 0.4;
+    animation: twinkle 120s ease-in-out infinite;
+    transition: opacity var(--transition-slow);
+}
+
+/* Disable stars animation in light mode */
+.light-theme body::before {
+    opacity: 0;
+    animation: none;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Subtle gradient overlay for depth */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(ellipse at top, hsla(220, 40%, 15%, 0.5), transparent 70%),
+        radial-gradient(ellipse at bottom, hsla(220, 30%, 10%, 0.3), transparent 70%);
+    pointer-events: none;
+    transition: opacity var(--transition-slow);
+}
+
+/* Disable gradient overlay in light mode */
+.light-theme body::after {
+    opacity: 0;
 }
 
 /* Container utility */
@@ -179,6 +275,6 @@ body {
 
 /* Selection */
 ::selection {
-    background-color: var(--color-primary-light);
-    color: white;
+    background-color: var(--color-primary);
+    color: var(--color-background);
 }

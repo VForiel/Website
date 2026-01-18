@@ -1,0 +1,130 @@
+---
+// Component pour basculer entre thème sombre et clair
+---
+
+<button id="theme-toggle" class="theme-toggle" aria-label="Basculer le thème" title="Basculer entre thème clair et sombre">
+  <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle>
+    <line x1="12" y1="1" x2="12" y2="3"></line>
+    <line x1="12" y1="21" x2="12" y2="23"></line>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+    <line x1="1" y1="12" x2="3" y2="12"></line>
+    <line x1="21" y1="12" x2="23" y2="12"></line>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+  </svg>
+  <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+  </svg>
+</button>
+
+<script>
+  // Fonction pour obtenir le thème initial
+  function getInitialTheme() {
+    // Vérifier localStorage d'abord
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      return savedTheme;
+    }
+    // Par défaut, thème sombre
+    return 'dark';
+  }
+
+  // Fonction pour appliquer le thème
+  function applyTheme(theme) {
+    const root = document.documentElement;
+    
+    if (theme === 'light') {
+      root.classList.add('light-theme');
+    } else {
+      root.classList.remove('light-theme');
+    }
+    
+    localStorage.setItem('theme', theme);
+  }
+
+  // Appliquer le thème initial immédiatement
+  const initialTheme = getInitialTheme();
+  applyTheme(initialTheme);
+
+  // Gérer le clic sur le bouton
+  document.addEventListener('DOMContentLoaded', () => {
+    const themeToggle = document.getElementById('theme-toggle');
+    
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.classList.contains('light-theme') ? 'light' : 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        applyTheme(newTheme);
+      });
+    }
+  });
+</script>
+
+<style>
+  .theme-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background-color: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .theme-toggle:hover {
+    color: var(--color-text);
+    background-color: var(--color-background-secondary);
+  }
+
+  .theme-toggle svg {
+    position: absolute;
+    transition: all var(--transition-base);
+    stroke-width: 2;
+  }
+
+  /* Par défaut (dark mode), montrer le soleil */
+  .sun-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+    color: var(--color-primary-light);
+  }
+
+  .moon-icon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
+  }
+
+  /* En light mode, montrer la lune */
+  :global(.light-theme) .theme-toggle {
+    border-color: var(--color-neutral-300);
+    background-color: var(--color-background-secondary);
+    color: var(--color-neutral-600);
+  }
+
+  :global(.light-theme) .theme-toggle:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-background);
+    color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+  }
+
+  :global(.light-theme) .sun-icon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+  }
+
+  :global(.light-theme) .moon-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+</style>
