@@ -1,21 +1,20 @@
 ---
-title: "Analyse de performance instrumentale"
-description: "Évaluation et optimisation des performances d'instruments d'observation astronomique"
-icon: "📊"
+title: "IA pour la physique"
+description: "Application raisonnée de l'apprentissage automatique aux données et modèles physiques"
+icon: "🧠"
 order: 4
 ---
 
-## Analyse instrumentale
+## Modèles hybrides
 
-Évaluation rigoureuse des performances d'instruments optiques, de la conception théorique aux tests sur le ciel.
+Combinaison de connaissances physiques et de modèles d'apprentissage pour améliorer l'analyse de données et la prédiction.
 
-### Services
+### Cas d'usage
 
-- **Budgets d'erreur** - Analyse complète des sources d'erreur et leur impact
-- **Optimisation** - Identification des leviers d'amélioration des performances
-- **Validation** - Comparaison données simulées / observations
-- **Revues techniques** - Expertise indépendante sur des projets instrumentaux
+- **Surrogate models** - Approximation rapide de simulations coûteuses pour explorer l'espace de paramètres
+- **Débruitage et détection** - Réduction de bruit, détection de signaux faibles avec contraintes physiques
+- **Calibrations assistées** - Ajustement de modèles instrumentaux en intégrant des priors issus de la physique
 
-### Domaines d'application
+### Approche
 
-Instruments d'imagerie à haut contraste, coronagraphes, spectrographes, systèmes d'optique adaptative.
+Sélection d'architectures sobres, jeux de données bien contrôlés, validation croisée et incertitudes explicites pour éviter le surapprentissage.

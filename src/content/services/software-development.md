@@ -1,21 +1,20 @@
 ---
-title: "Développement logiciel scientifique"
-description: "Conception et implémentation d'outils logiciels pour la recherche en astrophysique"
-icon: "💻"
+title: "Calcul haute performance"
+description: "Accélération de simulations et traitements massifs sur CPU et GPU"
+icon: "⚡"
 order: 3
 ---
 
-## Logiciels scientifiques
+## Optimisation ciblée
 
-Développement d'outils robustes et maintenables pour l'analyse de données astronomiques et la simulation d'instruments.
+Profilage et optimisation des codes scientifiques pour réduire le temps de calcul sans sacrifier la précision.
 
-### Compétences
+### Méthodes
 
-- **Python scientifique** - NumPy, SciPy, Matplotlib, Astropy
-- **Architecture logicielle** - Design patterns, tests unitaires, documentation
-- **Performance** - Optimisation, parallélisation, vectorisation
-- **Versionnement** - Git, GitHub, workflows collaboratifs
+- **Parallélisation** - Threads et multiprocessing en Python, vectorisation NumPy, batchs optimisés
+- **GPU & accélérateurs** - Portage sélectif sur CUDA/CuPy ou bibliothèques équivalentes quand le gain est démontré
+- **Scalabilité** - Exécution sur clusters (SLURM) avec gestion des ressources et monitoring
 
-### Philosophie
+### Bonnes pratiques
 
-Code lisible, testé, documenté. La qualité logicielle au service de la reproductibilité scientifique.
+Validation croisée avec des jeux tests, suivi des performances dans le temps, documentation succincte pour faciliter la maintenance.

@@ -1,20 +1,20 @@
 ---
-title: "Simulation et modélisation optique"
-description: "Développement de modèles numériques pour la conception et l'analyse d'instruments optiques"
-icon: "🔬"
+title: "Science des données"
+description: "Analyse statistique et modélisation de données scientifiques pour dégager des tendances fiables"
+icon: "📈"
 order: 2
 ---
 
-## Simulation optique avancée
+## Analyse et modèles
 
-Création de simulations end-to-end pour instruments d'observation astronomique, de la conception à la validation des performances.
+Construction de pipelines de données robustes pour explorer, nettoyer et modéliser des jeux de données expérimentales ou simulées.
 
-### Expertise
+### Approche
 
-- **Modélisation physique** - Propagation de la lumière, aberrations, diffraction
-- **Imagerie à haut contraste** - Coronagraphie, optique adaptative
-- **Performance instrumentale** - Estimation du rapport signal/bruit, contrastes, limites de détection
+- **Statistiques solides** - Estimation d'incertitudes, tests d'hypothèses, métriques adaptées au signal faible
+- **Modèles interprétables** - Régressions réguliarisées, détection d'anomalies, réduction de dimension
+- **Reproductibilité** - Notebooks propres, suivi des versions et traçabilité des paramètres
 
 ### Outils
 
-Développement de frameworks de simulation sur mesure en Python, intégrant des bibliothèques scientifiques de pointe (NumPy, SciPy, Astropy).
+Python scientifique (pandas, NumPy/SciPy), visualisation claire (Matplotlib, Seaborn), premiers modèles ML lorsque cela apporte une valeur mesurable.
