@@ -1,9 +1,9 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
-import Section from '../components/Section.astro';
+import PageLayout from "../layouts/PageLayout.astro";
+import Section from "../components/Section.astro";
 ---
 
-<PageLayout 
+<PageLayout
   title="CV - Vincent Foriel"
   description="Curriculum Vitae de Vincent Foriel, expert en instrumentation astrophotonique"
   currentPath="/cv"
@@ -22,7 +22,7 @@ import Section from '../components/Section.astro';
       <!-- Formation -->
       <div class="cv-block">
         <h2 class="cv-block__title">Formation</h2>
-        
+
         <div class="cv-item">
           <div class="cv-item__header">
             <h3 class="cv-item__title">Doctorat en Astrophotonique</h3>
@@ -30,8 +30,9 @@ import Section from '../components/Section.astro';
           </div>
           <div class="cv-item__subtitle">Observatoire de la Côte d'Azur</div>
           <p class="cv-item__description">
-            Développement de méthodes de simulation end-to-end pour l'imagerie à haut contraste. 
-            Conception d'outils logiciels pour l'analyse de performance d'instruments coronagraphiques.
+            Développement de méthodes de simulation end-to-end pour l'imagerie à
+            haut contraste. Conception d'outils logiciels pour l'analyse de
+            performance d'instruments coronagraphiques.
           </p>
         </div>
 
@@ -42,7 +43,8 @@ import Section from '../components/Section.astro';
           </div>
           <div class="cv-item__subtitle">Université Côte d'Azur</div>
           <p class="cv-item__description">
-            Spécialisation en instrumentation astronomique et techniques d'observation.
+            Spécialisation en instrumentation astronomique et techniques
+            d'observation.
           </p>
         </div>
       </div>
@@ -50,7 +52,7 @@ import Section from '../components/Section.astro';
       <!-- Expérience -->
       <div class="cv-block">
         <h2 class="cv-block__title">Expérience professionnelle</h2>
-        
+
         <div class="cv-item">
           <div class="cv-item__header">
             <h3 class="cv-item__title">Chercheur en instrumentation optique</h3>
@@ -58,9 +60,14 @@ import Section from '../components/Section.astro';
           </div>
           <div class="cv-item__subtitle">Observatoire de la Côte d'Azur</div>
           <ul class="cv-item__list">
-            <li>Développement de frameworks de simulation pour instruments à haut contraste</li>
+            <li>
+              Développement de frameworks de simulation pour instruments à haut
+              contraste
+            </li>
             <li>Analyse de performance d'architectures coronagraphiques</li>
-            <li>Collaboration internationale sur projets instrumentaux (ESO, NASA)</li>
+            <li>
+              Collaboration internationale sur projets instrumentaux (ESO, NASA)
+            </li>
             <li>Encadrement d'étudiants en master</li>
           </ul>
         </div>
@@ -72,7 +79,10 @@ import Section from '../components/Section.astro';
           </div>
           <div class="cv-item__subtitle">Projet de recherche collaboratif</div>
           <ul class="cv-item__list">
-            <li>Développement d'outils Python pour l'analyse de données astronomiques</li>
+            <li>
+              Développement d'outils Python pour l'analyse de données
+              astronomiques
+            </li>
             <li>Optimisation de pipelines de traitement d'images</li>
             <li>Documentation technique et formation des utilisateurs</li>
           </ul>
@@ -82,26 +92,32 @@ import Section from '../components/Section.astro';
       <!-- Compétences -->
       <div class="cv-block">
         <h2 class="cv-block__title">Compétences</h2>
-        
+
         <div class="cv-skills">
           <div class="cv-skill-group">
             <h3>Programmation</h3>
             <p>Python (expert), C/C++, Fortran, Git/GitHub, CI/CD</p>
           </div>
-          
+
           <div class="cv-skill-group">
             <h3>Outils scientifiques</h3>
             <p>NumPy, SciPy, Matplotlib, Astropy, Pandas, Jupyter</p>
           </div>
-          
+
           <div class="cv-skill-group">
             <h3>Domaines d'expertise</h3>
-            <p>Optique physique, Traitement d'images, Simulation numérique, Analyse statistique</p>
+            <p>
+              Optique physique, Traitement d'images, Simulation numérique,
+              Analyse statistique
+            </p>
           </div>
-          
+
           <div class="cv-skill-group">
             <h3>Langues</h3>
-            <p>Français (natif), Anglais (courant - B2/C1), Espagnol (A1), Japonais (A1)</p>
+            <p>
+              Français (natif), Anglais (courant - B2/C1), Espagnol (A1),
+              Japonais (A1)
+            </p>
           </div>
         </div>
       </div>
@@ -109,10 +125,11 @@ import Section from '../components/Section.astro';
       <!-- Publications (placeholder) -->
       <div class="cv-block">
         <h2 class="cv-block__title">Publications & Présentations</h2>
-        
+
         <div class="cv-item">
           <p class="cv-item__description">
-            Publications dans des revues à comité de lecture (A&A, SPIE Proceedings)
+            Publications dans des revues à comité de lecture (A&A, SPIE
+            Proceedings)
           </p>
           <p class="cv-item__description">
             Présentations orales et posters dans des conférences internationales
@@ -134,7 +151,9 @@ import Section from '../components/Section.astro';
 
     <div class="cv-footer">
       <a href="/contact" class="button">Me contacter</a>
-      <button onclick="window.print()" class="button button--secondary">Imprimer le CV</button>
+      <button onclick="window.print()" class="button button--secondary"
+        >Imprimer le CV</button
+      >
     </div>
   </Section>
 </PageLayout>
@@ -170,6 +189,9 @@ import Section from '../components/Section.astro';
     display: flex;
     flex-direction: column;
     gap: var(--space-12);
+    padding: var(--space-8);
+    background-color: var(--color-background-secondary);
+    border-radius: var(--radius-lg);
   }
 
   .cv-block__title {

@@ -1,18 +1,19 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
-import Section from '../components/Section.astro';
+import PageLayout from "../layouts/PageLayout.astro";
+import Section from "../components/Section.astro";
 ---
 
-<PageLayout 
+<PageLayout
   title="À propos - Vincent Foriel"
-  description="Parcours et recherches de Vincent Foriel, doctorant en instrumentation optique pour l'astrophysique"
+  description="Parcours et recherches de Vincent Foriel, doctorant en astrophotonique"
   currentPath="/about"
 >
   <Section>
     <div class="about-header">
       <h1>À propos</h1>
       <p class="lead">
-        Doctorant en instrumentation astronomique, imagerie à haut contraste et simulation optique
+        Doctorant en instrumentation astronomique, imagerie à haut contraste et
+        simulation optique
       </p>
     </div>
   </Section>
@@ -22,70 +23,72 @@ import Section from '../components/Section.astro';
       <div class="content-main">
         <h2>Parcours</h2>
         <p>
-          Actuellement en thèse de doctorat en astrophotonique, je travaille sur la conception et 
-          l'analyse d'instruments pour l'observation astronomique à haut contraste. Mes recherches 
-          se situent à l'intersection de l'optique physique, de la simulation numérique et du 
+          Actuellement en thèse de doctorat en astrophotonique, je travaille sur
+          la conception et l'analyse d'instruments pour l'observation
+          astronomique à haut contraste. Mes recherches se situent à
+          l'intersection de l'optique physique, de la simulation numérique et du
           développement logiciel.
         </p>
-        
+
         <p>
-          Au cours de mon doctorat, je développe des outils de simulation end-to-end permettant 
-          de modéliser avec précision les performances d'instruments complexes, de la source 
-          astronomique jusqu'au détecteur. Ces travaux contribuent à l'optimisation de stratégies 
-          d'observation pour la détection d'exoplanètes.
+          Au cours de mon doctorat, je développe des outils de simulation
+          end-to-end permettant de modéliser avec précision les performances
+          d'instruments complexes, de la source astronomique jusqu'au détecteur.
+          Ces travaux contribuent à l'optimisation de stratégies d'observation
+          pour la détection d'exoplanètes.
         </p>
 
         <h2>Domaines de recherche</h2>
         <p>
-          Mes travaux couvrent un spectre large allant de la théorie optique à sa mise en 
-          œuvre pratique via le développement logiciel :
+          Mes travaux couvrent un spectre large allant de la théorie optique à
+          sa mise en œuvre pratique via le développement logiciel :
         </p>
 
         <ul class="expertise-list">
           <li>
-            <strong>Imagerie à haut contraste</strong> - Coronagraphie, optique adaptative, 
+            <strong>Imagerie à haut contraste</strong> - Coronagraphie, optique adaptative,
             analyse de contrastes instrumentaux
           </li>
           <li>
-            <strong>Simulation optique</strong> - Modélisation de propagation de la lumière, 
-            estimation de performances
+            <strong>Simulation optique</strong> - Modélisation de propagation de la
+            lumière, estimation de performances
           </li>
           <li>
-            <strong>Développement scientifique</strong> - Frameworks Python robustes et 
-            maintenables pour la recherche
+            <strong>Développement scientifique</strong> - Frameworks Python robustes
+            et maintenables pour la recherche
           </li>
           <li>
-            <strong>Communication scientifique</strong> - Vulgarisation et transmission 
+            <strong>Communication scientifique</strong> - Vulgarisation et transmission
             des connaissances
           </li>
         </ul>
 
         <h2>Approche</h2>
-        <p>
-          Mon travail est guidé par trois principes fondamentaux :
-        </p>
+        <p>Mon travail est guidé par trois principes fondamentaux :</p>
 
         <ul class="values-list">
           <li>
-            <strong>Rigueur scientifique</strong> - Chaque analyse repose sur des fondations 
-            théoriques solides et une validation rigoureuse
+            <strong>Rigueur scientifique</strong> - Chaque analyse repose sur des
+            fondations théoriques solides et une validation rigoureuse
           </li>
           <li>
-            <strong>Clarté</strong> - La complexité ne doit jamais être un obstacle à la 
-            compréhension. Code lisible, documentation complète, communication accessible
+            <strong>Clarté</strong> - La complexité ne doit jamais être un obstacle
+            à la compréhension. Code lisible, documentation complète, communication
+            accessible
           </li>
           <li>
-            <strong>Pragmatisme</strong> - L'excellence théorique au service de l'applicabilité 
+            <strong>Pragmatisme</strong> - L'excellence théorique au service de l'applicabilité
             pratique
           </li>
         </ul>
 
         <h2>Recherche actuelle</h2>
         <p>
-          Mes intérêts de recherche actuels incluent le développement de nouvelles méthodes 
-          d'analyse pour les instruments de prochaine génération (ELT, JWST), l'optimisation 
-          d'algorithmes de traitement d'images, et la création d'outils open-source pour la 
-          communauté scientifique.
+          Mes intérêts de recherche actuels incluent le développement de
+          nouvelles méthodes d'analyse pour les instruments de prochaine
+          génération (ELT, JWST), l'optimisation d'algorithmes de traitement
+          d'images, et la création d'outils open-source pour la communauté
+          scientifique.
         </p>
       </div>
 
@@ -165,6 +168,12 @@ import Section from '../components/Section.astro';
     align-items: start;
   }
 
+  .content-main {
+    padding: var(--space-8);
+    background-color: var(--color-background-secondary);
+    border-radius: var(--radius-lg);
+  }
+
   .content-main h2 {
     font-size: var(--text-2xl);
     margin-block: var(--space-8) var(--space-4);
@@ -240,7 +249,11 @@ import Section from '../components/Section.astro';
 
   .skill-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+    background: linear-gradient(
+      90deg,
+      var(--color-primary),
+      var(--color-primary-light)
+    );
     border-radius: var(--radius-sm);
   }
 

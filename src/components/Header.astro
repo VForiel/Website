@@ -1,6 +1,6 @@
 ---
-import Navigation from './Navigation.astro';
-import ThemeToggle from './ThemeToggle.astro';
+import Navigation from "./Navigation.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 
 interface Props {
   currentPath?: string;
@@ -14,7 +14,7 @@ const { currentPath } = Astro.props;
     <div class="header__content">
       <a href="/" class="header__logo">
         <span class="header__name">Vincent Foriel</span>
-        <span class="header__tagline">Doctorant en Instrumentation Optique</span>
+        <span class="header__tagline">Doctorant en Astrophotonique</span>
       </a>
       <div class="header__actions">
         <Navigation currentPath={currentPath} />

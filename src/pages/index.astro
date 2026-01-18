@@ -1,36 +1,37 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
-import Section from '../components/Section.astro';
-import { getCollection } from 'astro:content';
+import PageLayout from "../layouts/PageLayout.astro";
+import Section from "../components/Section.astro";
+import { getCollection } from "astro:content";
 
 // Get featured projects
-const allProjects = await getCollection('projects');
+const allProjects = await getCollection("projects");
 const featuredProjects = allProjects
-  .filter(project => project.data.featured)
+  .filter((project) => project.data.featured)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 2);
 ---
 
-<PageLayout 
-  title="Vincent Foriel - Doctorant en Instrumentation Optique"
-  description="Doctorant en instrumentation astronomique, imagerie à haut contraste et simulation optique"
+<PageLayout
+  title="Vincent Foriel - Doctorant en Astrophotonique"
+  description="Doctorant en astrophotonique, imagerie à haut contraste et simulation optique"
   currentPath="/"
 >
   <!-- Hero Section -->
   <Section class="hero">
     <div class="hero__content">
       <h1 class="hero__title">
-        Doctorant en Instrumentation<br />
-        <span class="hero__highlight">Optique pour l'Astrophysique</span>
+        Doctorant en<br />
+        <span class="hero__highlight">Astrophotonique</span>
       </h1>
-      
+
       <p class="hero__description">
-        Recherche en imagerie à haut contraste, simulation optique end-to-end 
-        et développement d'outils logiciels pour l'astronomie.
+        Recherche en imagerie à haut contraste pour la détection d'exo-planètes.
       </p>
-      
+
       <div class="hero__cta">
-        <a href="/portfolio" class="button button--primary">Découvrir mes projets</a>
+        <a href="/portfolio" class="button button--primary"
+          >Découvrir mes projets</a
+        >
         <a href="/contact" class="button button--secondary">Me contacter</a>
       </div>
     </div>
@@ -39,16 +40,17 @@ const featuredProjects = allProjects
   <!-- Expertise Overview -->
   <Section class="expertise-overview">
     <h2 class="section-title">Domaines d'expertise</h2>
-    
+
     <div class="expertise-grid">
       <div class="expertise-card">
         <div class="expertise-card__icon">🎤</div>
         <h3 class="expertise-card__title">Communication scientifique</h3>
         <p class="expertise-card__description">
-          Vulgarisation et diffusion des connaissances en astronomie et instrumentation
+          Vulgarisation et diffusion des connaissances en astronomie et
+          instrumentation
         </p>
       </div>
-      
+
       <div class="expertise-card">
         <div class="expertise-card__icon">🔬</div>
         <h3 class="expertise-card__title">Simulation optique</h3>
@@ -56,7 +58,7 @@ const featuredProjects = allProjects
           Modélisation end-to-end d'instruments d'observation astronomique
         </p>
       </div>
-      
+
       <div class="expertise-card">
         <div class="expertise-card__icon">📊</div>
         <h3 class="expertise-card__title">Analyse instrumentale</h3>
@@ -64,7 +66,7 @@ const featuredProjects = allProjects
           Évaluation de performance et optimisation d'instruments optiques
         </p>
       </div>
-      
+
       <div class="expertise-card">
         <div class="expertise-card__icon">💻</div>
         <h3 class="expertise-card__title">Développement logiciel</h3>
@@ -73,47 +75,51 @@ const featuredProjects = allProjects
         </p>
       </div>
     </div>
-    
+
     <div class="cta-center">
       <a href="/expertise" class="link-arrow">Voir tous les services →</a>
     </div>
   </Section>
 
   <!-- Featured Projects -->
-  {featuredProjects.length > 0 && (
-    <Section class="featured-projects">
-      <h2 class="section-title">Projets en vedette</h2>
-      
-      <div class="projects-grid">
-        {featuredProjects.map(project => {
-          const { title, description, date, tags } = project.data;
-          return (
-            <div class="project-highlight">
-              <h3 class="project-highlight__title">{title}</h3>
-              <p class="project-highlight__description">{description}</p>
-              <div class="project-highlight__tags">
-                {tags.slice(0, 3).map(tag => (
-                  <span class="tag">{tag}</span>
-                ))}
+  {
+    featuredProjects.length > 0 && (
+      <Section class="featured-projects">
+        <h2 class="section-title">Projets en vedette</h2>
+
+        <div class="projects-grid">
+          {featuredProjects.map((project) => {
+            const { title, description, date, tags } = project.data;
+            return (
+              <div class="project-highlight">
+                <h3 class="project-highlight__title">{title}</h3>
+                <p class="project-highlight__description">{description}</p>
+                <div class="project-highlight__tags">
+                  {tags.slice(0, 3).map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
-      
-      <div class="cta-center">
-        <a href="/portfolio" class="link-arrow">Voir tous les projets →</a>
-      </div>
-    </Section>
-  )}
+            );
+          })}
+        </div>
+
+        <div class="cta-center">
+          <a href="/portfolio" class="link-arrow">
+            Voir tous les projets →
+          </a>
+        </div>
+      </Section>
+    )
+  }
 
   <!-- CTA Section -->
   <Section class="cta-section">
     <div class="cta-box">
       <h2 class="cta-box__title">Vous avez un projet ?</h2>
       <p class="cta-box__description">
-        Je suis disponible pour des collaborations en recherche, du conseil technique, 
-        ou des interventions de communication scientifique.
+        Je suis disponible pour des collaborations en recherche, du conseil
+        technique, ou des interventions de communication scientifique.
       </p>
       <a href="/contact" class="button button--primary">Discutons-en</a>
     </div>

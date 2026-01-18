@@ -2,7 +2,7 @@
 
 ## Objectif du projet
 
-Ce projet est un **site web professionnel personnel** pour Vincent Foriel, doctorant en instrumentation optique pour l'astrophysique. Le site sert simultanément de :
+Ce projet est un **site web professionnel personnel** pour Vincent Foriel, doctorant en astrophotonique. Le site sert simultanément de :
 
 - **CV / Profil** - Présentation du parcours académique et professionnel
 - **Portfolio** - Projets de recherche et développements logiciels
