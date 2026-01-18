@@ -5,6 +5,7 @@ import { z, defineCollection } from "astro:content";
 const projectsCollection = defineCollection({
     type: 'content',
     schema: z.object({
+        locale: z.enum(['fr','en']).default('fr'),
         title: z.string(),
         description: z.string(),
         date: z.date(),
@@ -18,6 +19,7 @@ const projectsCollection = defineCollection({
 const servicesCollection = defineCollection({
     type: 'content',
     schema: z.object({
+        locale: z.enum(['fr','en']).default('fr'),
         title: z.string(),
         description: z.string(),
         icon: z.string().optional(),

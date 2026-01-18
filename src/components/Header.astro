@@ -1,12 +1,16 @@
 ---
 import Navigation from "./Navigation.astro";
 import ThemeToggle from "./ThemeToggle.astro";
+import LanguageToggle from "./LanguageToggle.astro";
+import { strings } from "../i18n/strings";
 
 interface Props {
   currentPath?: string;
+  lang?: 'fr' | 'en';
 }
 
-const { currentPath } = Astro.props;
+const { currentPath, lang = 'fr' } = Astro.props;
+const tagline = strings[lang].headerTagline;
 ---
 
 <header class="header">
@@ -14,10 +18,11 @@ const { currentPath } = Astro.props;
     <div class="header__content">
       <a href="/" class="header__logo">
         <span class="header__name">Vincent Foriel</span>
-        <span class="header__tagline">Doctorant en Astrophotonique</span>
+        <span class="header__tagline">{tagline}</span>
       </a>
       <div class="header__actions">
-        <Navigation currentPath={currentPath} />
+        <Navigation currentPath={currentPath} lang={lang} />
+        <LanguageToggle currentPath={currentPath} lang={lang} />
         <ThemeToggle />
       </div>
     </div>

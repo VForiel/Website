@@ -6,7 +6,7 @@ import Section from "../components/Section.astro";
 <PageLayout
   title="À propos - Vincent Foriel"
   description="Parcours et recherches de Vincent Foriel, doctorant en astrophotonique"
-  currentPath="/about"
+  currentPath={Astro.url.pathname}
 >
   <Section>
     <div class="about-header">

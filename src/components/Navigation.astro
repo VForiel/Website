@@ -1,21 +1,26 @@
 ---
+import { strings } from "../i18n/strings";
+import { withLocalePrefix } from "../i18n/config";
+
 interface Props {
   currentPath?: string;
+  lang?: 'fr' | 'en';
 }
 
-const { currentPath } = Astro.props;
+const { currentPath, lang = 'fr' } = Astro.props;
 
+const t = strings[lang].nav;
 const navItems = [
-  { href: '/', label: 'Accueil' },
-  { href: '/about', label: 'À propos' },
-  { href: '/expertise', label: 'Expertise' },
-  { href: '/portfolio', label: 'Portfolio' },
-  { href: '/cv', label: 'CV' },
-  { href: '/contact', label: 'Contact' },
+  { href: withLocalePrefix('/', lang), label: t.home },
+  { href: withLocalePrefix('/about', lang), label: t.about },
+  { href: withLocalePrefix('/expertise', lang), label: t.expertise },
+  { href: withLocalePrefix('/portfolio', lang), label: t.portfolio },
+  { href: withLocalePrefix('/cv', lang), label: t.cv },
+  { href: withLocalePrefix('/contact', lang), label: t.contact },
 ];
 
 const isActiveLink = (href: string) => {
-  if (href === '/') return currentPath === '/';
+  if (href.endsWith('/')) return currentPath === href;
   return currentPath?.startsWith(href);
 };
 ---

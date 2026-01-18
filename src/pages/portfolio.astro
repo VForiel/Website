@@ -16,7 +16,7 @@ const regularProjects = projects.filter(p => !p.data.featured);
 <PageLayout 
   title="Portfolio - Vincent Foriel"
   description="Projets de recherche et développements logiciels en instrumentation astronomique"
-  currentPath="/portfolio"
+  currentPath={Astro.url.pathname}
 >
   <Section>
     <div class="page-header">

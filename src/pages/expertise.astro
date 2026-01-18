@@ -19,7 +19,7 @@ const renderedServices = await Promise.all(
 <PageLayout
   title="Expertise & Services - Vincent Foriel"
   description="Services de communication scientifique, simulation optique, développement logiciel et analyse instrumentale"
-  currentPath="/expertise"
+  currentPath={Astro.url.pathname}
 >
   <Section>
     <div class="page-header">

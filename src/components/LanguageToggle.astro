@@ -1,0 +1,123 @@
+---
+import { toggleLocaleHref } from '../i18n/config';
+
+interface Props {
+  currentPath?: string;
+  lang?: 'fr' | 'en';
+}
+
+const { currentPath = '/', lang = 'fr' } = Astro.props;
+const enHref = toggleLocaleHref(currentPath, 'fr');
+const frHref = toggleLocaleHref(currentPath, 'en');
+---
+
+<div class="lang" data-component="language-toggle">
+  <button class="lang__button" aria-haspopup="menu" aria-expanded="false" aria-label="Changer de langue">
+    <!-- Lucide: languages (inline, stroke) -->
+    <svg class="lang__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <title>Languages</title>
+      <path d="m5 8 6 6" />
+      <path d="m4 14 6-6 2-3" />
+      <path d="M2 5h12" />
+      <path d="M7 2h1" />
+      <path d="m22 22-5-10-5 10" />
+      <path d="M14 18h6" />
+    </svg>
+  </button>
+  <div class="lang__menu" role="menu">
+    <a role="menuitem" href={frHref} class:list={["lang__item", {"lang__item--active": lang === 'fr'}]}>Français</a>
+    <a role="menuitem" href={enHref} class:list={["lang__item", {"lang__item--active": lang === 'en'}]}>English</a>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const root = document.querySelector('[data-component="language-toggle"]');
+    if (!root) return;
+    const button = root.querySelector('.lang__button') as HTMLButtonElement | null;
+    const menu = root.querySelector('.lang__menu') as HTMLElement | null;
+    if (!button || !menu) return;
+
+    const openMenu = () => {
+      menu.classList.add('is-open');
+      button.setAttribute('aria-expanded', 'true');
+      document.addEventListener('click', onDocClick);
+      document.addEventListener('keydown', onKeyDown);
+    };
+    const closeMenu = () => {
+      menu.classList.remove('is-open');
+      button.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('click', onDocClick);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+    const onDocClick = (e: MouseEvent) => {
+      const target = e.target as Node | null;
+      if (target && !root.contains(target)) closeMenu();
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeMenu();
+    };
+
+    button.addEventListener('click', () => {
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+      expanded ? closeMenu() : openMenu();
+    });
+  });
+  </script>
+
+<style>
+  .lang { position: relative; }
+  .lang__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+  .lang__button:hover { color: var(--color-text); background-color: var(--color-background-secondary); }
+  .lang__button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+  .lang__icon { display: block; }
+
+  .lang__menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    min-width: 160px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-2);
+    z-index: 200;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px) scale(0.98);
+    transition: opacity 160ms ease, transform 160ms ease, visibility 0s linear 160ms;
+    will-change: opacity, transform;
+    pointer-events: none;
+  }
+  .lang__menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    transition: opacity 160ms ease, transform 160ms ease;
+    pointer-events: auto;
+  }
+  .lang__item {
+    display: block;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    transition: all var(--transition-fast);
+  }
+  .lang__item:hover { color: var(--color-text); background-color: var(--color-background-secondary); }
+  .lang__item--active { color: var(--color-primary); background-color: hsla(220, 70%, 50%, 0.1); }
+</style>
