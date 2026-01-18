@@ -1,0 +1,289 @@
+---
+// Animated background with particles and connections
+// Scientific/constellation theme
+---
+
+<div class="particles-bg" id="particles-bg">
+  <canvas id="particles-canvas"></canvas>
+</div>
+
+<script>
+  class ParticleSystem {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = canvas.getContext('2d');
+      this.particles = [];
+      this.shootingStars = [];
+      this.particleCount = 60;
+      this.maxDistance = 150;
+      this.mouse = { x: null, y: null, radius: 100 };
+      this.lastShootingStar = 0;
+      this.shootingStarInterval = 3000; // 3 seconds minimum between stars
+      
+      this.init();
+      this.animate();
+      this.addEventListeners();
+    }
+    
+    init() {
+      this.resize();
+      this.createParticles();
+    }
+    
+    resize() {
+      this.canvas.width = window.innerWidth;
+      this.canvas.height = Math.min(window.innerHeight * 0.8, 800);
+    }
+    
+    createParticles() {
+      this.particles = [];
+      for (let i = 0; i < this.particleCount; i++) {
+        this.particles.push({
+          x: Math.random() * this.canvas.width,
+          y: Math.random() * this.canvas.height,
+          vx: (Math.random() - 0.5) * 0.5, // Increased base velocity
+          vy: (Math.random() - 0.5) * 0.5,
+          radius: Math.random() * 1.5 + 0.5,
+          opacity: Math.random() * 0.5 + 0.3,
+          baseVx: (Math.random() - 0.5) * 0.2, // Continuous drift
+          baseVy: (Math.random() - 0.5) * 0.2
+        });
+      }
+    }
+    
+    addEventListeners() {
+      window.addEventListener('resize', () => this.handleResize());
+      this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+      this.canvas.addEventListener('mouseleave', () => this.handleMouseLeave());
+    }
+    
+    handleResize() {
+      this.resize();
+      this.createParticles();
+    }
+    
+    handleMouseMove(e) {
+      this.mouse.x = e.clientX;
+      this.mouse.y = e.clientY;
+    }
+    
+    handleMouseLeave() {
+      this.mouse.x = null;
+      this.mouse.y = null;
+    }
+    
+    createShootingStar() {
+      const now = Date.now();
+      if (now - this.lastShootingStar < this.shootingStarInterval) return;
+      
+      // Random chance (20% when called)
+      if (Math.random() > 0.2) return;
+      
+      this.lastShootingStar = now;
+      
+      // Start from top or right edge
+      const fromTop = Math.random() > 0.5;
+      const x = fromTop ? Math.random() * this.canvas.width : this.canvas.width;
+      const y = fromTop ? 0 : Math.random() * this.canvas.height * 0.3;
+      
+      // Shooting stars go down and to the left
+      const angle = fromTop ? Math.PI / 4 + (Math.random() - 0.5) * 0.3 : Math.PI / 3;
+      const speed = 8 + Math.random() * 4;
+      
+      this.shootingStars.push({
+        x,
+        y,
+        vx: Math.cos(angle) * speed * (fromTop ? 1 : -1),
+        vy: Math.sin(angle) * speed,
+        length: 40 + Math.random() * 30,
+        opacity: 1,
+        tail: []
+      });
+    }
+    
+    updateShootingStars() {
+      this.shootingStars = this.shootingStars.filter(star => {
+        // Update position
+        star.x += star.vx;
+        star.y += star.vy;
+        
+        // Add to tail
+        star.tail.push({ x: star.x, y: star.y });
+        if (star.tail.length > 15) {
+          star.tail.shift();
+        }
+        
+        // Fade out near end of screen
+        if (star.x < 0 || star.y > this.canvas.height) {
+          star.opacity -= 0.05;
+        }
+        
+        // Remove if off screen or faded
+        return star.opacity > 0 && star.x > -100 && star.y < this.canvas.height + 100;
+      });
+    }
+    
+    update() {
+      // Try to create shooting star occasionally
+      if (Math.random() < 0.01) { // 1% chance each frame (~0.6 times per second at 60fps)
+        this.createShootingStar();
+      }
+      
+      this.updateShootingStars();
+      this.particles.forEach(particle => {
+        // Apply base drift for continuous movement
+        particle.vx += (particle.baseVx - particle.vx) * 0.02;
+        particle.vy += (particle.baseVy - particle.vy) * 0.02;
+        
+        // Update position
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        
+        // Bounce off edges
+        if (particle.x < 0 || particle.x > this.canvas.width) {
+          particle.vx *= -1;
+          particle.baseVx *= -1;
+          particle.x = Math.max(0, Math.min(this.canvas.width, particle.x));
+        }
+        if (particle.y < 0 || particle.y > this.canvas.height) {
+          particle.vy *= -1;
+          particle.baseVy *= -1;
+          particle.y = Math.max(0, Math.min(this.canvas.height, particle.y));
+        }
+        
+        // Mouse interaction - repulsion
+        if (this.mouse.x !== null && this.mouse.y !== null) {
+          const dx = particle.x - this.mouse.x;
+          const dy = particle.y - this.mouse.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < this.mouse.radius) {
+            const angle = Math.atan2(dy, dx);
+            const force = (this.mouse.radius - distance) / this.mouse.radius;
+            particle.vx += Math.cos(angle) * force * 0.5;
+            particle.vy += Math.sin(angle) * force * 0.5;
+          }
+        }
+      });
+    }
+    
+    draw() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      
+      // Draw shooting stars first (behind particles)
+      this.shootingStars.forEach(star => {
+        // Draw tail gradient
+        if (star.tail.length > 1) {
+          for (let i = 0; i < star.tail.length - 1; i++) {
+            const progress = i / star.tail.length;
+            const opacity = progress * star.opacity * 0.5;
+            
+            this.ctx.strokeStyle = `rgba(200, 230, 255, ${opacity})`;
+            this.ctx.lineWidth = 2 * (1 - progress);
+            this.ctx.beginPath();
+            this.ctx.moveTo(star.tail[i].x, star.tail[i].y);
+            this.ctx.lineTo(star.tail[i + 1].x, star.tail[i + 1].y);
+            this.ctx.stroke();
+          }
+        }
+        
+        // Draw bright head
+        const gradient = this.ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, 5);
+        gradient.addColorStop(0, `rgba(255, 255, 255, ${star.opacity})`);
+        gradient.addColorStop(0.5, `rgba(200, 230, 255, ${star.opacity * 0.6})`);
+        gradient.addColorStop(1, `rgba(150, 200, 255, 0)`);
+        
+        this.ctx.fillStyle = gradient;
+        this.ctx.beginPath();
+        this.ctx.arc(star.x, star.y, 5, 0, Math.PI * 2);
+        this.ctx.fill();
+      });
+      
+      // Draw connections
+      this.ctx.strokeStyle = 'rgba(100, 160, 255, 0.15)';
+      this.ctx.lineWidth = 1;
+      
+      for (let i = 0; i < this.particles.length; i++) {
+        for (let j = i + 1; j < this.particles.length; j++) {
+          const dx = this.particles[i].x - this.particles[j].x;
+          const dy = this.particles[i].y - this.particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < this.maxDistance) {
+            const opacity = (1 - distance / this.maxDistance) * 0.2;
+            this.ctx.strokeStyle = `rgba(100, 160, 255, ${opacity})`;
+            this.ctx.beginPath();
+            this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
+            this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
+            this.ctx.stroke();
+          }
+        }
+      }
+      
+      // Draw particles
+      this.particles.forEach(particle => {
+        this.ctx.fillStyle = `rgba(200, 220, 255, ${particle.opacity})`;
+        this.ctx.beginPath();
+        this.ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        this.ctx.fill();
+        
+        // Glow effect for larger particles
+        if (particle.radius > 1) {
+          this.ctx.fillStyle = `rgba(150, 200, 255, ${particle.opacity * 0.3})`;
+          this.ctx.beginPath();
+          this.ctx.arc(particle.x, particle.y, particle.radius * 2, 0, Math.PI * 2);
+          this.ctx.fill();
+        }
+      });
+    }
+    
+    animate() {
+      this.update();
+      this.draw();
+      requestAnimationFrame(() => this.animate());
+    }
+  }
+  
+  // Initialize particle system
+  const canvas = document.getElementById('particles-canvas');
+  if (canvas) {
+    new ParticleSystem(canvas);
+  }
+</script>
+
+<style>
+  .particles-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+  
+  /* Hide in light theme */
+  :global(.light-theme) .particles-bg {
+    opacity: 0;
+  }
+  
+  #particles-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Fade out towards bottom */
+  .particles-bg::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent, var(--color-background));
+    pointer-events: none;
+  }
+</style>
