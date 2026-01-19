@@ -3,6 +3,7 @@ title: "Calcul haute performance"
 description: "Accélération de simulations et traitements massifs sur CPU et GPU"
 icon: "⚡"
 order: 3
+locale: fr
 ---
 
 ## Optimisation ciblée

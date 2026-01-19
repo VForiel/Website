@@ -4,6 +4,7 @@ description: "Étude comparative de différentes architectures de coronagraphes 
 date: 2024-06-01
 tags: ["Coronagraphie", "Imagerie", "Haut contraste"]
 featured: false
+locale: fr
 ---
 
 Travail de recherche portant sur l'analyse comparative de plusieurs types de coronagraphes (Lyot, vortex, PIAA) dans le contexte de la détection d'exoplanètes.

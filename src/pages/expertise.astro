@@ -4,7 +4,9 @@ import Section from "../components/Section.astro";
 import { getCollection } from "astro:content";
 
 // Get all services sorted by order
-const allServices = await getCollection("services");
+const allServices = await getCollection("services", ({ data }) => {
+  return data.locale === 'fr';
+});
 const services = allServices.sort((a, b) => a.data.order - b.data.order);
 
 // Render all services

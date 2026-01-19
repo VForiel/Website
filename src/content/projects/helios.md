@@ -6,6 +6,7 @@ tags: ["Python", "Simulation", "Optique", "Open Source"]
 image: "/images/projects/helios.jpg"
 url: "https://github.com/VForiel/HELIOS"
 featured: true
+locale: fr
 ---
 
 HELIOS est un framework de simulation développé dans le cadre de ma thèse de doctorat. Il permet de modéliser de manière complète la chaîne d'observation astronomique, de la source céleste jusqu'au détecteur.

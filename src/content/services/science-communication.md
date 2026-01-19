@@ -3,6 +3,7 @@ title: "Communication scientifique"
 description: "Vulgarisation et diffusion des connaissances scientifiques auprès de publics variés"
 icon: "🎤"
 order: 1
+locale: fr
 ---
 
 ## Vulgarisation scientifique

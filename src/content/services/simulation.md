@@ -3,6 +3,7 @@ title: "Science des données"
 description: "Analyse statistique et modélisation de données scientifiques pour dégager des tendances fiables"
 icon: "📈"
 order: 2
+locale: fr
 ---
 
 ## Analyse et modèles

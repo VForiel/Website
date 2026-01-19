@@ -3,6 +3,7 @@ title: "IA pour la physique"
 description: "Application raisonnée de l'apprentissage automatique aux données et modèles physiques"
 icon: "🧠"
 order: 4
+locale: fr
 ---
 
 ## Modèles hybrides

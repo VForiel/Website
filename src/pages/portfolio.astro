@@ -5,7 +5,9 @@ import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
 
 // Get all projects sorted by date
-const allProjects = await getCollection('projects');
+const allProjects = await getCollection('projects', ({ data }) => {
+  return data.locale === 'fr';
+});
 const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 // Group by featured/not featured

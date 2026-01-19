@@ -4,7 +4,9 @@ import Section from "../components/Section.astro";
 import { getCollection } from "astro:content";
 
 // Get featured projects
-const allProjects = await getCollection("projects");
+const allProjects = await getCollection("projects", ({ data }) => {
+  return data.locale === 'fr';
+});
 const featuredProjects = allProjects
   .filter((project) => project.data.featured)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
