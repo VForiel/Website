@@ -1,5 +1,295 @@
 ---
-import ContactPage from '../contact.astro';
+import PageLayout from "../../layouts/PageLayout.astro";
+import Section from "../../components/Section.astro";
 ---
 
-<ContactPage />
+<PageLayout
+  title="Contact - Vincent Foriel"
+  description="Get in touch with Vincent Foriel for collaborations, consulting or science communication"
+  currentPath={Astro.url.pathname}
+>
+  <Section>
+    <div class="contact-header">
+      <h1>Contact</h1>
+      <p class="lead">
+        To discuss a collaboration project, an intervention or simply exchange
+      </p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="contact-grid">
+      <!-- Contact information -->
+      <div class="contact-main">
+        <h2>Let's get in touch</h2>
+        <p>
+          I am available for research collaborations, technical consulting in
+          optical instrumentation, scientific software development or science
+          communication interventions.
+        </p>
+
+        <div class="contact-methods">
+          <div class="contact-method">
+            <div class="contact-method__icon">✉️</div>
+            <div>
+              <h3 class="contact-method__title">Email</h3>
+              <a
+                href="mailto:vincent.foriel@gmail.com"
+                class="contact-method__link"
+              >
+                vincent.foriel@gmail.com
+              </a>
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="contact-method__icon">📍</div>
+            <div>
+              <h3 class="contact-method__title">Location</h3>
+              <p class="contact-method__text">Nice, France</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <h3>Professional Profiles</h3>
+          <div class="social-links__list">
+            <a
+              href="https://github.com/VForiel"
+              class="social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="social-link__icon">🔗</span>
+              <span class="social-link__name">GitHub</span>
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/vincent-foriel"
+              class="social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="social-link__icon">🔗</span>
+              <span class="social-link__name">LinkedIn</span>
+            </a>
+
+            <a
+              href="https://orcid.org/"
+              class="social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="social-link__icon">🔗</span>
+              <span class="social-link__name">ORCID</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar with availability -->
+      <aside class="contact-sidebar">
+        <div class="info-card">
+          <h3>Availability</h3>
+          <p>
+            Currently available for research collaborations and consulting
+            projects.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3>Response Time</h3>
+          <p>
+            I typically respond within 48 hours to email requests.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3>Types of Collaborations</h3>
+          <ul class="collaboration-list">
+            <li>Collaborative research</li>
+            <li>Technical consulting</li>
+            <li>Software development</li>
+            <li>Science communication</li>
+            <li>Conferences & workshops</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </Section>
+</PageLayout>
+
+<style>
+  .contact-header {
+    max-width: 65ch;
+    margin-inline: auto;
+    text-align: center;
+    margin-block-end: var(--space-12);
+  }
+
+  .contact-header h1 {
+    font-size: var(--text-4xl);
+    margin-block-end: var(--space-4);
+  }
+
+  .lead {
+    font-size: var(--text-xl);
+    color: var(--color-text-secondary);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  .contact-main {
+    padding: var(--space-8);
+    background-color: var(--color-background-secondary);
+    border-radius: var(--radius-lg);
+  }
+
+  .contact-main h2 {
+    font-size: var(--text-2xl);
+    margin-block-end: var(--space-4);
+  }
+
+  .contact-main > p {
+    color: var(--color-text-secondary);
+    margin-block-end: var(--space-10);
+    line-height: 1.7;
+  }
+
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    margin-block-end: var(--space-12);
+  }
+
+  .contact-method {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .contact-method__icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .contact-method__title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin-block-end: var(--space-1);
+  }
+
+  .contact-method__link {
+    font-size: var(--text-base);
+    color: var(--color-primary);
+    transition: color var(--transition-fast);
+  }
+
+  .contact-method__link:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+  }
+
+  .contact-method__text {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+  }
+
+  .social-links h3 {
+    font-size: var(--text-lg);
+    margin-block-end: var(--space-4);
+  }
+
+  .social-links__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+  }
+
+  .social-link:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-background-secondary);
+    transform: translateX(4px);
+  }
+
+  .social-link__icon {
+    font-size: 1.5rem;
+  }
+
+  .social-link__name {
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .contact-sidebar {
+    position: sticky;
+    top: calc(var(--space-16) + 60px);
+  }
+
+  .info-card {
+    padding: var(--space-6);
+    background-color: var(--color-background-secondary);
+    border-radius: var(--radius-lg);
+    margin-block-end: var(--space-6);
+  }
+
+  .info-card h3 {
+    font-size: var(--text-lg);
+    margin-block-end: var(--space-3);
+  }
+
+  .info-card p {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .collaboration-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .collaboration-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    padding-inline-start: var(--space-5);
+    position: relative;
+  }
+
+  .collaboration-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  @media (max-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-sidebar {
+      position: static;
+    }
+  }
+</style>

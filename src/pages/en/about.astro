@@ -1,5 +1,275 @@
 ---
-import AboutPage from '../about.astro';
+import PageLayout from "../../layouts/PageLayout.astro";
+import Section from "../../components/Section.astro";
 ---
 
-<AboutPage />
+<PageLayout
+  title="About - Vincent Foriel"
+  description="Background and research of Vincent Foriel, PhD candidate in astrophotonics"
+  currentPath={Astro.url.pathname}
+>
+  <Section>
+    <div class="about-header">
+      <h1>About</h1>
+      <p class="lead">
+        PhD candidate in astronomical instrumentation, high-contrast imaging and
+        optical simulation
+      </p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="content-grid">
+      <div class="content-main">
+        <h2>Background</h2>
+        <p>
+          Currently pursuing a PhD in astrophotonics, I work on the design and
+          analysis of instruments for high-contrast astronomical observation. My
+          research lies at the intersection of physical optics, numerical
+          simulation, and software development.
+        </p>
+
+        <p>
+          During my PhD, I develop end-to-end simulation tools that accurately
+          model the performance of complex instruments, from the astronomical
+          source to the detector. This work contributes to optimizing observation
+          strategies for exoplanet detection.
+        </p>
+
+        <h2>Research Areas</h2>
+        <p>
+          My work covers a broad spectrum ranging from optical theory to its
+          practical implementation through software development:
+        </p>
+
+        <ul class="expertise-list">
+          <li>
+            <strong>High-contrast imaging</strong> - Coronagraphy, adaptive optics,
+            instrumental contrast analysis
+          </li>
+          <li>
+            <strong>Optical simulation</strong> - Light propagation modeling,
+            performance estimation
+          </li>
+          <li>
+            <strong>Scientific development</strong> - Robust and maintainable Python
+            frameworks for research
+          </li>
+          <li>
+            <strong>Science communication</strong> - Popularization and knowledge
+            transfer
+          </li>
+        </ul>
+
+        <h2>Approach</h2>
+        <p>My work is guided by three fundamental principles:</p>
+
+        <ul class="values-list">
+          <li>
+            <strong>Scientific rigor</strong> - Each analysis rests on solid
+            theoretical foundations and rigorous validation
+          </li>
+          <li>
+            <strong>Clarity</strong> - Complexity should never be an obstacle
+            to understanding. Readable code, complete documentation, accessible
+            communication
+          </li>
+          <li>
+            <strong>Pragmatism</strong> - Theoretical excellence in service of
+            practical applicability
+          </li>
+        </ul>
+
+        <h2>Current Research</h2>
+        <p>
+          My current research interests include developing new analysis methods
+          for next-generation instruments (ELT, JWST), optimizing image
+          processing algorithms, and creating open-source tools for the
+          scientific community.
+        </p>
+      </div>
+
+      <aside class="content-sidebar">
+        <div class="sidebar-card">
+          <h3>Technical Skills</h3>
+          <div class="skills-list">
+            <div class="skill">
+              <span class="skill-name">Python</span>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width: 95%"></div>
+              </div>
+            </div>
+            <div class="skill">
+              <span class="skill-name">Optical simulation</span>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width: 90%"></div>
+              </div>
+            </div>
+            <div class="skill">
+              <span class="skill-name">Data analysis</span>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width: 85%"></div>
+              </div>
+            </div>
+            <div class="skill">
+              <span class="skill-name">Git / GitHub</span>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width: 85%"></div>
+              </div>
+            </div>
+            <div class="skill">
+              <span class="skill-name">C / C++ / Fortran</span>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width: 70%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Languages</h3>
+          <ul class="languages-list">
+            <li><strong>French</strong> - Native</li>
+            <li><strong>English</strong> - Fluent (B2/C1)</li>
+            <li><strong>Spanish</strong> - Basic (A1)</li>
+            <li><strong>Japanese</strong> - Basic (A1)</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </Section>
+</PageLayout>
+
+<style>
+  .about-header {
+    max-width: 65ch;
+    margin-inline: auto;
+    text-align: center;
+    margin-block-end: var(--space-12);
+  }
+
+  .about-header h1 {
+    font-size: var(--text-4xl);
+    margin-block-end: var(--space-4);
+  }
+
+  .lead {
+    font-size: var(--text-xl);
+    color: var(--color-text-secondary);
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  .content-main {
+    padding: var(--space-8);
+    background-color: var(--color-background-secondary);
+    border-radius: var(--radius-lg);
+  }
+
+  .content-main h2 {
+    font-size: var(--text-2xl);
+    margin-block: var(--space-8) var(--space-4);
+  }
+
+  .content-main h2:first-of-type {
+    margin-block-start: 0;
+  }
+
+  .content-main p {
+    margin-block-end: var(--space-4);
+    color: var(--color-text-secondary);
+  }
+
+  .expertise-list,
+  .values-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-block: var(--space-6);
+  }
+
+  .expertise-list li,
+  .values-list li {
+    padding-inline-start: var(--space-6);
+    position: relative;
+    color: var(--color-text-secondary);
+  }
+
+  .expertise-list li::before,
+  .values-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .sidebar-card {
+    padding: var(--space-6);
+    background-color: var(--color-background-secondary);
+    border-radius: var(--radius-lg);
+    margin-block-end: var(--space-6);
+    position: sticky;
+    top: calc(var(--space-16) + 60px);
+  }
+
+  .sidebar-card h3 {
+    font-size: var(--text-lg);
+    margin-block-end: var(--space-4);
+  }
+
+  .skills-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .skill-name {
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    display: block;
+    margin-block-end: var(--space-1);
+  }
+
+  .skill-bar {
+    height: 6px;
+    background-color: var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .skill-fill {
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      var(--color-primary),
+      var(--color-primary-light)
+    );
+    border-radius: var(--radius-sm);
+  }
+
+  .languages-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+  }
+
+  @media (max-width: 1024px) {
+    .content-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sidebar-card {
+      position: static;
+    }
+  }
+</style>

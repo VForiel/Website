@@ -1,5 +1,150 @@
 ---
-import PortfolioPage from '../portfolio.astro';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Section from '../../components/Section.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+// Get all projects sorted by date
+const allProjects = await getCollection('projects');
+const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Group by featured/not featured
+const featuredProjects = projects.filter(p => p.data.featured);
+const regularProjects = projects.filter(p => !p.data.featured);
 ---
 
-<PortfolioPage />
+<PageLayout 
+  title="Portfolio - Vincent Foriel"
+  description="Research projects and software developments in astronomical instrumentation"
+  currentPath={Astro.url.pathname}
+>
+  <Section>
+    <div class="page-header">
+      <h1>Portfolio</h1>
+      <p class="lead">
+        Research projects, simulation frameworks and software tools for astronomical instrumentation
+      </p>
+    </div>
+  </Section>
+
+  {featuredProjects.length > 0 && (
+    <Section>
+      <h2 class="section-title">Main Projects</h2>
+      <div class="projects-grid">
+        {featuredProjects.map(project => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            date={project.data.date}
+            tags={project.data.tags}
+            image={project.data.image}
+            href={project.data.url}
+          />
+        ))}
+      </div>
+    </Section>
+  )}
+
+  {regularProjects.length > 0 && (
+    <Section>
+      <h2 class="section-title">Other Projects</h2>
+      <div class="projects-grid">
+        {regularProjects.map(project => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            date={project.data.date}
+            tags={project.data.tags}
+            image={project.data.image}
+            href={project.data.url}
+          />
+        ))}
+      </div>
+    </Section>
+  )}
+
+  <Section class="cta-section">
+    <div class="cta-box">
+      <h2>Interested in my work?</h2>
+      <p>
+        To discuss a collaboration, a research project or simply exchange on
+        these topics, feel free to contact me.
+      </p>
+      <a href="/en/contact" class="button">Get in touch</a>
+    </div>
+  </Section>
+</PageLayout>
+
+<style>
+  .page-header {
+    max-width: 65ch;
+    margin-inline: auto;
+    text-align: center;
+    margin-block-end: var(--space-12);
+  }
+
+  .page-header h1 {
+    font-size: var(--text-4xl);
+    margin-block-end: var(--space-4);
+  }
+
+  .lead {
+    font-size: var(--text-xl);
+    color: var(--color-text-secondary);
+  }
+
+  .section-title {
+    font-size: var(--text-2xl);
+    margin-block-end: var(--space-8);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: var(--space-8);
+  }
+
+  .cta-section {
+    background-color: var(--color-background-secondary);
+  }
+
+  .cta-box {
+    max-width: 600px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .cta-box h2 {
+    font-size: var(--text-3xl);
+    margin-block-end: var(--space-4);
+  }
+
+  .cta-box p {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    margin-block-end: var(--space-8);
+  }
+
+  .button {
+    display: inline-block;
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-base);
+    font-weight: 500;
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+  }
+
+  .button:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
