@@ -92,8 +92,9 @@ const featuredProjects = allProjects
         <div class="projects-grid">
           {featuredProjects.map((project) => {
             const { title, description, date, tags } = project.data;
+            const cleanSlug = project.slug.replace(/fr$/, '');
             return (
-              <div class="project-highlight">
+              <a href={`/fr/projects/${cleanSlug}`} class="project-highlight">
                 <h3 class="project-highlight__title">{title}</h3>
                 <p class="project-highlight__description">{description}</p>
                 <div class="project-highlight__tags">
@@ -101,7 +102,7 @@ const featuredProjects = allProjects
                     <span class="tag">{tag}</span>
                   ))}
                 </div>
-              </div>
+              </a>
             );
           })}
         </div>
@@ -253,7 +254,18 @@ const featuredProjects = allProjects
   .project-highlight {
     padding: var(--space-8);
     background-color: var(--color-background-secondary);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .project-highlight:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
   }
 
   .project-highlight__title {
