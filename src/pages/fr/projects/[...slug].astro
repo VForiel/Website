@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectLayout from '../../../layouts/ProjectLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) => {
+    return data.locale === 'fr';
+  });
+
+  return projects.map(project => {
+    // Remove .fr suffix from slug (e.g., "heliosfr" -> "helios")
+    const cleanSlug = project.slug.replace(/fr$/, '');
+    return {
+      params: { slug: cleanSlug },
+      props: { project },
+    };
+  });
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+const { title, description, date, tags, image, url } = project.data;
+---
+
+<ProjectLayout
+  title={title}
+  description={description}
+  date={date}
+  tags={tags}
+  image={image}
+  url={url}
+  lang="fr"
+>
+  <Content />
+</ProjectLayout>

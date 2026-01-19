@@ -30,6 +30,19 @@ const { title, description = "Doctorant en instrumentation astronomique, imageri
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     
+    <!-- Prevent theme flash on page load -->
+    <script is:inline>
+      // This script runs immediately before the page renders to prevent theme flash
+      (function() {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+    
     <!-- Styles -->
     <link rel="stylesheet" href="/src/styles/global.css" />
   </head>

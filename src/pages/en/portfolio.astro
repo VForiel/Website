@@ -33,16 +33,22 @@ const regularProjects = projects.filter(p => !p.data.featured);
     <Section>
       <h2 class="section-title">Main Projects</h2>
       <div class="projects-grid">
-        {featuredProjects.map(project => (
-          <ProjectCard
-            title={project.data.title}
-            description={project.data.description}
-            date={project.data.date}
-            tags={project.data.tags}
-            image={project.data.image}
-            href={project.data.url}
-          />
-        ))}
+        {featuredProjects.map(project => {
+          // Remove .en suffix from slug (e.g., "heliosen" -> "helios")
+          const cleanSlug = project.slug.replace(/en$/, '');
+          return (
+            <ProjectCard
+              title={project.data.title}
+              description={project.data.description}
+              date={project.data.date}
+              tags={project.data.tags}
+              image={project.data.image}
+              projectSlug={cleanSlug}
+              externalUrl={project.data.url}
+              lang="en"
+            />
+          );
+        })}
       </div>
     </Section>
   )}
@@ -51,16 +57,22 @@ const regularProjects = projects.filter(p => !p.data.featured);
     <Section>
       <h2 class="section-title">Other Projects</h2>
       <div class="projects-grid">
-        {regularProjects.map(project => (
-          <ProjectCard
-            title={project.data.title}
-            description={project.data.description}
-            date={project.data.date}
-            tags={project.data.tags}
-            image={project.data.image}
-            href={project.data.url}
-          />
-        ))}
+        {regularProjects.map(project => {
+          // Remove .en suffix from slug (e.g., "heliosen" -> "helios")
+          const cleanSlug = project.slug.replace(/en$/, '');
+          return (
+            <ProjectCard
+              title={project.data.title}
+              description={project.data.description}
+              date={project.data.date}
+              tags={project.data.tags}
+              image={project.data.image}
+              projectSlug={cleanSlug}
+              externalUrl={project.data.url}
+              lang="en"
+            />
+          );
+        })}
       </div>
     </Section>
   )}

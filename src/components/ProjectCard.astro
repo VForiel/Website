@@ -5,15 +5,22 @@ interface Props {
   date?: Date;
   tags?: string[];
   image?: string;
-  href?: string;
+  projectSlug?: string;  // Internal project page link
+  externalUrl?: string;  // External URL (GitHub, etc.)
+  lang?: 'fr' | 'en';
 }
 
-const { title, description, date, tags = [], image, href } = Astro.props;
+const { title, description, date, tags = [], image, projectSlug, externalUrl, lang = 'fr' } = Astro.props;
 
-const formattedDate = date ? new Intl.DateTimeFormat('fr-FR', { year: 'numeric', month: 'long' }).format(date) : null;
+const formattedDate = date ? new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-US', { year: 'numeric', month: 'long' }).format(date) : null;
+const projectLink = projectSlug ? `/${lang}/projects/${projectSlug}` : null;
+const readMoreLabel = lang === 'fr' ? 'Lire la suite →' : 'Read more →';
+const externalLinkLabel = lang === 'fr' ? 'Voir le projet →' : 'View project →';
 ---
 
 <article class="project-card">
+  {projectLink && <a href={projectLink} class="project-card__link-overlay" aria-label={title}></a>}
+  
   {image && (
     <div class="project-card__image">
       <img src={image} alt={title} loading="lazy" />
@@ -39,11 +46,22 @@ const formattedDate = date ? new Intl.DateTimeFormat('fr-FR', { year: 'numeric',
       </ul>
     )}
     
-    {href && (
-      <a href={href} class="project-card__link" target="_blank" rel="noopener noreferrer">
-        En savoir plus →
-      </a>
-    )}
+    <div class="project-card__actions">
+      {projectLink && (
+        <span class="project-card__read-more">{readMoreLabel}</span>
+      )}
+      {externalUrl && (
+        <a 
+          href={externalUrl} 
+          class="project-card__external" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          onclick="event.stopPropagation()"
+        >
+          {externalLinkLabel}
+        </a>
+      )}
+    </div>
   </div>
 </article>
 
@@ -57,12 +75,20 @@ const formattedDate = date ? new Intl.DateTimeFormat('fr-FR', { year: 'numeric',
     overflow: hidden;
     transition: all var(--transition-base);
     height: 100%;
+    position: relative;
+    cursor: pointer;
   }
 
   .project-card:hover {
     border-color: var(--color-primary);
     box-shadow: var(--shadow-md);
     transform: translateY(-2px);
+  }
+
+  .project-card__link-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
   }
 
   .project-card__image {
@@ -104,7 +130,7 @@ const formattedDate = date ? new Intl.DateTimeFormat('fr-FR', { year: 'numeric',
   .project-card__description {
     font-size: var(--text-base);
     color: var(--color-text-secondary);
-    line-height: 1. 6;
+    line-height: 1.6;
   }
 
   .project-card__tags {
@@ -123,15 +149,30 @@ const formattedDate = date ? new Intl.DateTimeFormat('fr-FR', { year: 'numeric',
     font-weight: 500;
   }
 
-  .project-card__link {
+  .project-card__actions {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+    margin-block-start: var(--space-2);
+  }
+
+  .project-card__read-more {
     font-size: var(--text-sm);
     font-weight: 500;
     color: var(--color-primary);
-    margin-block-start: var(--space-2);
+  }
+
+  .project-card__external {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-primary);
+    position: relative;
+    z-index: 2;
     transition: color var(--transition-fast);
   }
 
-  .project-card__link:hover {
+  .project-card__external:hover {
     color: var(--color-primary-dark);
+    text-decoration: underline;
   }
 </style>
