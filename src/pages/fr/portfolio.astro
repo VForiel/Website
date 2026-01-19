@@ -2,6 +2,7 @@
 import PageLayout from "../../layouts/PageLayout.astro";
 import Section from "../../components/Section.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
+import ProjectTimeline from "../../components/ProjectTimeline.astro";
 import { getCollection } from "astro:content";
 
 // Get all projects sorted by date
@@ -53,29 +54,9 @@ const regularProjects = projects.filter(p => !p.data.featured);
     </Section>
   )}
 
-  {regularProjects.length > 0 && (
-    <Section>
-      <h2 class="section-title">Autres projets</h2>
-      <div class="projects-grid">
-        {regularProjects.map(project => {
-          // Remove .fr suffix from slug (e.g., "heliosfr" -> "helios")
-          const cleanSlug = project.slug.replace(/fr$/, '');
-          return (
-            <ProjectCard
-              title={project.data.title}
-              description={project.data.description}
-              date={project.data.date}
-              tags={project.data.tags}
-              image={project.data.image}
-              projectSlug={cleanSlug}
-              externalUrl={project.data.url}
-              lang="fr"
-            />
-          );
-        })}
-      </div>
-    </Section>
-  )}
+  <Section>
+    <ProjectTimeline projects={projects} lang="fr" />
+  </Section>
 
   <Section class="cta-section">
     <div class="cta-box">
