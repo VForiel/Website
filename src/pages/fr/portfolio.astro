@@ -1,8 +1,8 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
-import Section from '../components/Section.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import { getCollection } from 'astro:content';
+import PageLayout from "../../layouts/PageLayout.astro";
+import Section from "../../components/Section.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { getCollection } from "astro:content";
 
 // Get all projects sorted by date
 const allProjects = await getCollection('projects', ({ data }) => {

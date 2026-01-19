@@ -1,7 +1,8 @@
 ---
-import PageLayout from "../layouts/PageLayout.astro";
-import Section from "../components/Section.astro";
+import PageLayout from "../../layouts/PageLayout.astro";
+import Section from "../../components/Section.astro";
 import { getCollection } from "astro:content";
+
 
 // Get all services sorted by order
 const allServices = await getCollection("services", ({ data }) => {

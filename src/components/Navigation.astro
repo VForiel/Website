@@ -20,8 +20,12 @@ const navItems = [
 ];
 
 const isActiveLink = (href: string) => {
-  if (href.endsWith('/')) return currentPath === href;
-  return currentPath?.startsWith(href);
+  // Normalize paths for comparison (remove trailing slash except for root)
+  const normalizedCurrent = currentPath?.replace(/\/$/, '') || '';
+  const normalizedHref = href.replace(/\/$/, '');
+  
+  // Exact match for all links (including home)
+  return normalizedCurrent === normalizedHref;
 };
 ---
 
