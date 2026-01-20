@@ -11,7 +11,6 @@ const { currentPath, lang = 'fr' } = Astro.props;
 
 const t = strings[lang].nav;
 const navItems = [
-  { href: withLocalePrefix('/', lang), label: t.home },
   { href: withLocalePrefix('/about', lang), label: t.about },
   { href: withLocalePrefix('/expertise', lang), label: t.expertise },
   { href: withLocalePrefix('/portfolio', lang), label: t.portfolio },
@@ -76,12 +75,16 @@ const isActiveLink = (href: string) => {
 
   @media (max-width: 768px) {
     .nav__list {
+      flex-direction: column;
+      align-items: stretch;
       gap: var(--space-1);
     }
 
     .nav__link {
-      padding: var(--space-2) var(--space-3);
-      font-size: var(--text-xs);
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-base);
+      text-align: left;
+      width: 100%;
     }
   }
 </style>

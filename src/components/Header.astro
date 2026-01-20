@@ -17,17 +17,51 @@ const tagline = strings[lang].headerTagline;
   <div class="container">
     <div class="header__content">
       <a href="/" class="header__logo">
-        <span class="header__name">Vincent Foriel</span>
-        <span class="header__tagline">{tagline}</span>
+        <img 
+          src="/profile-picture.jpg" 
+          alt="Vincent Foriel" 
+          class="header__avatar" 
+          id="profilePicture"
+        />
+        <div class="header__text">
+          <span class="header__name">Vincent Foriel</span>
+          <span class="header__tagline">{tagline}</span>
+        </div>
       </a>
+      
+      {/* Desktop navigation */}
       <div class="header__actions">
         <Navigation currentPath={currentPath} lang={lang} />
+        <LanguageToggle currentPath={currentPath} lang={lang} />
+        <ThemeToggle />
+      </div>
+
+      {/* Mobile menu button */}
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+
+  {/* Mobile menu overlay */}
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu__content">
+      <Navigation currentPath={currentPath} lang={lang} />
+      <div class="mobile-menu__toggles">
         <LanguageToggle currentPath={currentPath} lang={lang} />
         <ThemeToggle />
       </div>
     </div>
   </div>
 </header>
+
+{/* Lightbox for profile picture */}
+<div class="lightbox" id="lightbox">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Close">&times;</button>
+  <img src="/profile-picture.jpg" alt="Vincent Foriel" class="lightbox__image" />
+</div>
 
 <style>
   .header {
@@ -56,14 +90,39 @@ const tagline = strings[lang].headerTagline;
 
   .header__logo {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-3);
     text-decoration: none;
     transition: opacity var(--transition-base);
   }
 
   .header__logo:hover {
     opacity: 0.7;
+  }
+
+  .header__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-border);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    position: relative;
+    z-index: 1;
+  }
+
+  .header__avatar:hover {
+    transform: scale(1.1);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  }
+
+  .header__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
   }
 
   .header__name {
@@ -81,9 +140,225 @@ const tagline = strings[lang].headerTagline;
     letter-spacing: 0.05em;
   }
 
+  /* Mobile menu button - hidden on desktop */
+  .mobile-menu-btn {
+    display: none;
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-2);
+    z-index: 101;
+    width: 40px;
+    height: 40px;
+  }
+
+  .mobile-menu-btn span {
+    position: absolute;
+    left: 50%;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-text);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    transform-origin: center;
+  }
+
+  /* Position des 3 barres à l'état fermé */
+  .mobile-menu-btn span:nth-child(1) {
+    top: 10px;
+  }
+  .mobile-menu-btn span:nth-child(2) {
+    top: 19px;
+  }
+  .mobile-menu-btn span:nth-child(3) {
+    top: 28px;
+  }
+
+  /* Animation vers X : toutes les barres au centre */
+  .mobile-menu-btn.active span:nth-child(1) {
+    top: 19px;
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  .mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-btn.active span:nth-child(3) {
+    top: 19px;
+    transform: translateX(-50%) rotate(-45deg);
+  }
+
+  /* Mobile menu overlay - hidden by default */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background-color: var(--color-background);
+    border-left: 1px solid var(--color-border);
+    transition: right 0.3s ease;
+    z-index: 99;
+    padding-top: 80px;
+  }
+
+  .mobile-menu.open {
+    right: 0;
+  }
+
+  .mobile-menu__content {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .mobile-menu__toggles {
+    display: flex;
+    gap: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* Lightbox for profile picture */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    cursor: pointer;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .lightbox.open {
+    display: flex;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .lightbox__image {
+    max-width: 90%;
+    max-height: 90vh;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: zoomIn 0.3s ease;
+  }
+
+  @keyframes zoomIn {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .lightbox__close {
+    position: absolute;
+    top: var(--space-6);
+    right: var(--space-6);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: var(--space-2);
+    transition: transform 0.2s ease;
+  }
+
+  .lightbox__close:hover {
+    transform: scale(1.2);
+  }
+
+  /* Responsive */
   @media (max-width: 768px) {
     .header__tagline {
       display: none;
     }
+
+    /* Hide desktop navigation on mobile */
+    .header__actions {
+      display: none;
+    }
+
+    /* Show mobile menu button */
+    .mobile-menu-btn {
+      display: flex;
+    }
   }
 </style>
+
+<script is:inline>
+  // Profile picture lightbox
+  document.addEventListener('DOMContentLoaded', () => {
+    const profilePicture = document.getElementById('profilePicture');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    if (profilePicture && lightbox) {
+      // Open lightbox on avatar click
+      profilePicture.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+
+      // Close lightbox on close button or backdrop click
+      const closeLightbox = () => {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+      };
+
+      lightboxClose?.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('open')) {
+          closeLightbox();
+        }
+      });
+    }
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuBtn.classList.toggle('active');
+        mobileMenu.classList.toggle('open');
+        document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+      });
+
+      // Close mobile menu when clicking a link
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenuBtn.classList.remove('active');
+          mobileMenu.classList.remove('open');
+          document.body.style.overflow = '';
+        });
+      });
+    }
+  });
+</script>

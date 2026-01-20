@@ -19,7 +19,7 @@
   </svg>
 </button>
 
-<script>
+<script is:inline>
   // Fonction pour obtenir le thème initial
   function getInitialTheme() {
     // Vérifier localStorage d'abord
@@ -48,17 +48,19 @@
   const initialTheme = getInitialTheme();
   applyTheme(initialTheme);
 
-  // Gérer le clic sur le bouton
+  // Gérer le clic sur tous les boutons (desktop ET mobile)
   document.addEventListener('DOMContentLoaded', () => {
-    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggles = document.querySelectorAll('#theme-toggle');
     
-    if (themeToggle) {
-      themeToggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.classList.contains('light-theme') ? 'light' : 'dark';
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        applyTheme(newTheme);
-      });
-    }
+    themeToggles.forEach((themeToggle) => {
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          const currentTheme = document.documentElement.classList.contains('light-theme') ? 'light' : 'dark';
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          applyTheme(newTheme);
+        });
+      }
+    });
   });
 </script>
 

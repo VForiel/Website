@@ -30,39 +30,53 @@ const frHref = toggleLocaleHref(currentPath, 'en');
   </div>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const root = document.querySelector('[data-component="language-toggle"]');
-    if (!root) return;
-    const button = root.querySelector('.lang__button') as HTMLButtonElement | null;
-    const menu = root.querySelector('.lang__menu') as HTMLElement | null;
-    if (!button || !menu) return;
+<script is:inline>
+  // Fonction pour initialiser les toggles de langue
+  (function initLanguageToggles() {
+    const roots = document.querySelectorAll('[data-component="language-toggle"]');
+    
+    roots.forEach((root) => {
+      // Éviter de re-bind si déjà initialisé
+      if (root.dataset.initialized) return;
+      
+      const button = root.querySelector('.lang__button');
+      const menu = root.querySelector('.lang__menu');
+      if (!button || !menu) return;
 
-    const openMenu = () => {
-      menu.classList.add('is-open');
-      button.setAttribute('aria-expanded', 'true');
-      document.addEventListener('click', onDocClick);
-      document.addEventListener('keydown', onKeyDown);
-    };
-    const closeMenu = () => {
-      menu.classList.remove('is-open');
-      button.setAttribute('aria-expanded', 'false');
-      document.removeEventListener('click', onDocClick);
-      document.removeEventListener('keydown', onKeyDown);
-    };
-    const onDocClick = (e: MouseEvent) => {
-      const target = e.target as Node | null;
-      if (target && !root.contains(target)) closeMenu();
-    };
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeMenu();
-    };
+      const openMenu = () => {
+        menu.classList.add('is-open');
+        button.setAttribute('aria-expanded', 'true');
+        document.addEventListener('click', onDocClick);
+        document.addEventListener('keydown', onKeyDown);
+      };
+      const closeMenu = () => {
+        menu.classList.remove('is-open');
+        button.setAttribute('aria-expanded', 'false');
+        document.removeEventListener('click', onDocClick);
+        document.removeEventListener('keydown', onKeyDown);
+      };
+      const onDocClick = (e) => {
+        const target = e.target;
+        if (target && !root.contains(target)) closeMenu();
+      };
+      const onKeyDown = (e) => {
+        if (e.key === 'Escape') closeMenu();
+      };
 
-    button.addEventListener('click', () => {
-      const expanded = button.getAttribute('aria-expanded') === 'true';
-      expanded ? closeMenu() : openMenu();
+      button.addEventListener('click', () => {
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        expanded ? closeMenu() : openMenu();
+      });
+      
+      // Marquer comme initialisé
+      root.dataset.initialized = 'true';
     });
-  });
+    
+    // Ré-initialiser après chargement DOM si nécessaire
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLanguageToggles);
+    }
+  })();
   </script>
 
 <style>
