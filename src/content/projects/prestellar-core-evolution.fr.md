@@ -1,0 +1,12 @@
+---
+title: "Évolution des cœurs pré-stellaires"
+description: "Création d'une bibliothèque Fortran pour faciliter la création de simulations d'évolution des cœurs pré-stellaires"
+end_date: 2022-12-01
+tags: ["Fortran", "Simulation", "Astrophysique"]
+featured: false
+locale: fr
+---
+
+Création d'une bibliothèque Fortran pour faciliter la création de simulations d'évolution des cœurs pré-stellaires.
+
+**Aucune information détaillée disponible pour le moment.**

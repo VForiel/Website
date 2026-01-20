@@ -2,7 +2,8 @@
 interface Props {
   title: string;
   description: string;
-  date?: Date;
+  start_date?: Date;
+  end_date?: Date;
   tags?: string[];
   image?: string;
   projectSlug?: string;  // Internal project page link
@@ -10,9 +11,9 @@ interface Props {
   lang?: 'fr' | 'en';
 }
 
-const { title, description, date, tags = [], image, projectSlug, externalUrl, lang = 'fr' } = Astro.props;
+const { title, description, start_date, end_date, tags = [], image, projectSlug, externalUrl, lang = 'fr' } = Astro.props;
 
-const formattedDate = date ? new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-US', { year: 'numeric', month: 'long' }).format(date) : null;
+const formattedDate = end_date ? new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-US', { year: 'numeric', month: 'long' }).format(end_date) : null;
 const projectLink = projectSlug ? `/${lang}/projects/${projectSlug}` : null;
 const readMoreLabel = lang === 'fr' ? 'Lire la suite →' : 'Read more →';
 const externalLinkLabel = lang === 'fr' ? 'Voir le projet →' : 'View project →';
@@ -31,7 +32,7 @@ const externalLinkLabel = lang === 'fr' ? 'Voir le projet →' : 'View project �
     <h3 class="project-card__title">{title}</h3>
     
     {formattedDate && (
-      <time class="project-card__date" datetime={date?.toISOString()}>
+      <time class="project-card__date" datetime={end_date?.toISOString()}>
         {formattedDate}
       </time>
     )}

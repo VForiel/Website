@@ -1,0 +1,12 @@
+---
+title: "PageRank Algorithm"
+description: "Master project - PageRank algorithm implementation (2021)"
+end_date: 2021-12-01
+tags: ["Algorithm", "Mathematics", "Master"]
+featured: false
+locale: en
+---
+
+Master project - PageRank algorithm.
+
+**No detailed information available yet.**

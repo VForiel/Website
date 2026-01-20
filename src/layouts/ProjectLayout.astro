@@ -4,20 +4,21 @@ import PageLayout from './PageLayout.astro';
 interface Props {
   title: string;
   description: string;
-  date: Date;
+  start_date?: Date;
+  end_date?: Date;
   tags?: string[];
   image?: string;
   url?: string;
   lang?: 'fr' | 'en';
 }
 
-const { title, description, date, tags = [], image, url, lang = 'fr' } = Astro.props;
+const { title, description, start_date, end_date, tags = [], image, url, lang = 'fr' } = Astro.props;
 
-const formattedDate = new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-US', {
+const formattedDate = end_date ? new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
-}).format(date);
+}).format(end_date) : (lang === 'fr' ? 'En cours' : 'Ongoing');
 
 const backLabel = lang === 'fr' ? '← Retour au portfolio' : '← Back to portfolio';
 const backHref = `/${lang}/portfolio`;
@@ -40,9 +41,16 @@ const externalLinkLabel = lang === 'fr' ? 'Voir le projet' : 'View project';
           <p class="project-description">{description}</p>
           
           <div class="project-meta">
-            <time class="project-date" datetime={date.toISOString()}>
-              {formattedDate}
-            </time>
+            {end_date && (
+              <time class="project-date" datetime={end_date.toISOString()}>
+                {formattedDate}
+              </time>
+            )}
+            {!end_date && (
+              <span class="project-date">
+                {formattedDate}
+              </span>
+            )}
             
             {tags.length > 0 && (
               <div class="project-tags">

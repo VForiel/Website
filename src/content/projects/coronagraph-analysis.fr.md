@@ -1,7 +1,7 @@
 ---
 title: "Analyse de coronagraphes stellaires"
 description: "Étude comparative de différentes architectures de coronagraphes pour l'imagerie d'exoplanètes"
-date: 2024-06-01
+end_date: 2024-06-01
 tags: ["Coronagraphie", "Imagerie", "Haut contraste"]
 featured: false
 locale: fr

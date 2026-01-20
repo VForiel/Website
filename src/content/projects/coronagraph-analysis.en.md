@@ -1,7 +1,7 @@
 ---
 title: "Stellar Coronagraph Analysis"
 description: "Comparative study of different coronagraph architectures for exoplanet imaging"
-date: 2024-06-01
+end_date: 2024-06-01
 tags: ["Coronagraphy", "Imaging", "High contrast"]
 featured: false
 locale: en

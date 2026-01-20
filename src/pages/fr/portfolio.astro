@@ -5,11 +5,17 @@ import ProjectCard from "../../components/ProjectCard.astro";
 import ProjectTimeline from "../../components/ProjectTimeline.astro";
 import { getCollection } from "astro:content";
 
-// Get all projects sorted by date
+// Get all projects sorted by end_date (most recent first, ongoing projects first)
 const allProjects = await getCollection('projects', ({ data }) => {
   return data.locale === 'fr';
 });
-const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const projects = allProjects.sort((a, b) => {
+  // Projects without end_date (ongoing) come first
+  if (!a.data.end_date && !b.data.end_date) return 0;
+  if (!a.data.end_date) return -1;
+  if (!b.data.end_date) return 1;
+  return b.data.end_date.valueOf() - a.data.end_date.valueOf();
+});
 
 // Group by featured/not featured
 const featuredProjects = projects.filter(p => p.data.featured);
@@ -41,7 +47,8 @@ const regularProjects = projects.filter(p => !p.data.featured);
             <ProjectCard
               title={project.data.title}
               description={project.data.description}
-              date={project.data.date}
+              start_date={project.data.start_date}
+              end_date={project.data.end_date}
               tags={project.data.tags}
               image={project.data.image}
               projectSlug={cleanSlug}
