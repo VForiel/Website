@@ -1,0 +1,307 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Section from '../../components/Section.astro';
+import { getCollection } from 'astro:content';
+
+// Get all English associations
+const associations = await getCollection('associations', ({ data }) => {
+  return data.locale === 'en';
+});
+
+// Sort by order
+const sortedAssociations = associations.sort((a, b) => a.data.order - b.data.order);
+---
+
+<PageLayout 
+  title="Associative Commitments - Vincent Foriel"
+  description="My involvement in scientific and educational associations"
+  currentPath={Astro.url.pathname}
+>
+  <Section>
+    <div class="page-header">
+      <h1>Associative Commitments</h1>
+      <p class="lead">
+        Beyond my research work, I actively engage in associations 
+        that share my values of mutual aid, learning, and knowledge transmission.
+      </p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="associations-grid">
+      {sortedAssociations.map(async (association) => {
+        const { Content } = await association.render();
+        const { title, role, description, missions, quote, logo, url, socialLinks } = association.data;
+        
+        return (
+          <article class="association-card">
+            <div class="association-header">
+              <div class="association-logo">
+                <img src={logo} alt={`${title} Logo`} />
+              </div>
+              <div>
+                <h2>{title}</h2>
+                <p class="role">{role}</p>
+              </div>
+            </div>
+            
+            <p class="association-description">{description}</p>
+
+            {missions.length > 0 && (
+              <div class="association-missions">
+                <h3>Main Missions</h3>
+                <ul>
+                  {missions.map((mission) => (
+                    <li set:html={mission} />
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {quote && (
+              <div class="association-quote">
+                <blockquote>{quote}</blockquote>
+              </div>
+            )}
+
+            <div class="association-links">
+              <a href={url} target="_blank" rel="noopener noreferrer" class="link-button">
+                Visit website →
+              </a>
+              {socialLinks.length > 0 && (
+                <div class="social-links">
+                  {socialLinks.map((link) => {
+                    if (link.type === 'discord') {
+                      return (
+                        <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+                          </svg>
+                        </a>
+                      );
+                    } else if (link.type === 'instagram') {
+                      return (
+                        <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                          </svg>
+                        </a>
+                      );
+                    } else if (link.type === 'facebook') {
+                      return (
+                        <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                          </svg>
+                        </a>
+                      );
+                    } else {
+                      return (
+                        <a href={link.url} target="_blank" rel="noopener noreferrer" class="social-link-text">
+                          {link.name}
+                        </a>
+                      );
+                    }
+                  })}
+                </div>
+              )}
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </Section>
+</PageLayout>
+
+<style>
+  .page-header {
+    max-width: 65ch;
+    margin-inline: auto;
+    text-align: center;
+    margin-block-end: var(--space-16);
+  }
+
+  .page-header h1 {
+    font-size: var(--text-4xl);
+    margin-block-end: var(--space-4);
+  }
+
+  .lead {
+    font-size: var(--text-xl);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .associations-grid {
+    display: grid;
+    gap: var(--space-12);
+    max-width: 1000px;
+    margin-inline: auto;
+  }
+
+  .association-card {
+    background: var(--color-background-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    transition: all var(--transition-base);
+  }
+
+  .association-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .association-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-block-end: var(--space-6);
+  }
+
+  .association-logo {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-background);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-border);
+    padding: var(--space-2);
+  }
+
+  .association-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+  }
+
+  .association-header h2 {
+    font-size: var(--text-3xl);
+    margin: 0;
+  }
+
+  .role {
+    color: var(--color-primary);
+    font-weight: 500;
+    font-size: var(--text-base);
+    margin: 0;
+  }
+
+  .association-description {
+    font-size: var(--text-lg);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-block-end: var(--space-6);
+  }
+
+  .association-missions h3 {
+    font-size: var(--text-xl);
+    margin-block-end: var(--space-3);
+  }
+
+  .association-missions ul {
+    list-style: none;
+    padding: 0;
+    margin-block-end: var(--space-6);
+  }
+
+  .association-missions li {
+    padding-inline-start: var(--space-6);
+    margin-block-end: var(--space-2);
+    position: relative;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .association-missions li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+  }
+
+  .association-quote {
+    margin-block: var(--space-6);
+    padding: var(--space-4);
+    background: var(--color-background);
+    border-left: 4px solid var(--color-primary);
+    border-radius: var(--radius-md);
+  }
+
+  .association-quote blockquote {
+    margin: 0;
+    font-style: italic;
+    color: var(--color-text);
+    font-size: var(--text-lg);
+  }
+
+  .association-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-block-start: var(--space-6);
+    padding-block-start: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .link-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background: var(--color-primary);
+    color: white;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    transition: all var(--transition-base);
+  }
+
+  .link-button:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .social-links {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+  }
+
+  .social-links a {
+    color: var(--color-text-secondary);
+    transition: color var(--transition-fast);
+  }
+
+  .social-links a:hover {
+    color: var(--color-primary);
+  }
+
+  .social-link-text {
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .association-header {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .association-links {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .social-links {
+      justify-content: center;
+    }
+  }
+</style>

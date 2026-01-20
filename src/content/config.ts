@@ -28,8 +28,29 @@ const servicesCollection = defineCollection({
     }),
 });
 
+const associationsCollection = defineCollection({
+    type: 'content',
+    schema: z.object({
+        locale: z.enum(['fr', 'en']).default('fr'),
+        title: z.string(),
+        role: z.string(),
+        description: z.string(),
+        missions: z.array(z.string()).default([]),
+        quote: z.string().optional(),
+        logo: z.string(),
+        url: z.string().url(),
+        socialLinks: z.array(z.object({
+            name: z.string(),
+            url: z.string().url(),
+            type: z.enum(['discord', 'instagram', 'facebook', 'twitter', 'website']).optional(),
+        })).default([]),
+        order: z.number().default(999),
+    }),
+});
+
 // Export a single `collections` object to register your collection(s)
 export const collections = {
     'projects': projectsCollection,
     'services': servicesCollection,
+    'associations': associationsCollection,
 };
