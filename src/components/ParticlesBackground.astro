@@ -4,426 +4,493 @@
 ---
 
 <div class="particles-bg" id="particles-bg">
-  <canvas id="particles-canvas"></canvas>
+    <canvas id="particles-canvas"></canvas>
 </div>
 
 <script>
-  class ParticleSystem {
-    constructor(canvas) {
-      this.canvas = canvas;
-      this.ctx = canvas.getContext("2d");
-      this.particles = [];
-      this.shootingStars = [];
-      this.binaryDigits = [];
-      this.particleCount = 300; // Dense starry sky
-      this.binaryCount = 40;
-      this.maxDistance = 100;
-      this.mouse = { x: null, y: null, radius: 100 };
-      this.lastShootingStar = 0;
-      this.shootingStarInterval = 1500;
-      this.isLightTheme = false;
+    class ParticleSystem {
+        constructor(canvas) {
+            this.canvas = canvas;
+            this.ctx = canvas.getContext("2d");
+            this.particles = [];
+            this.shootingStars = [];
+            this.binaryDigits = [];
+            this.particleCount = window.innerWidth < 768 ? 40 : 100; // Drastically reduced for performance
+            this.binaryCount = 40;
+            this.maxDistance = 100;
+            this.mouse = { x: null, y: null, radius: 100 };
+            this.lastShootingStar = 0;
+            this.shootingStarInterval = 1500;
+            this.isLightTheme = false;
 
-      this.init();
-      this.animate();
-      this.addEventListeners();
-      this.checkTheme();
-    }
-
-    init() {
-      this.resize();
-      this.createParticles();
-      this.createBinaryDigits();
-    }
-
-    checkTheme() {
-      this.isLightTheme =
-        document.documentElement.classList.contains("light-theme");
-      // Re-check theme periodically
-      setInterval(() => {
-        this.isLightTheme =
-          document.documentElement.classList.contains("light-theme");
-      }, 500);
-    }
-
-    resize() {
-      this.canvas.width = window.innerWidth;
-      this.canvas.height = Math.max(
-        document.body.scrollHeight,
-        window.innerHeight,
-      );
-    }
-
-    createParticles() {
-      this.particles = [];
-      for (let i = 0; i < this.particleCount; i++) {
-        this.particles.push({
-          x: Math.random() * this.canvas.width,
-          y: Math.random() * this.canvas.height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          radius: Math.random() * 1.5 + 0.5,
-          opacity: Math.random() * 0.5 + 0.3,
-          baseVx: (Math.random() - 0.5) * 0.2,
-          baseVy: (Math.random() - 0.5) * 0.2,
-        });
-      }
-    }
-
-    createBinaryDigits() {
-      // Create scattered binary nodes similar to particles
-      this.binaryDigits = [];
-      const numNodes = 200; // Balanced node count
-
-      for (let i = 0; i < numNodes; i++) {
-        this.binaryDigits.push({
-          x: Math.random() * this.canvas.width,
-          y: Math.random() * this.canvas.height,
-          vx: (Math.random() - 0.5) * 0.3,
-          vy: (Math.random() - 0.5) * 0.3,
-          baseVx: (Math.random() - 0.5) * 0.15,
-          baseVy: (Math.random() - 0.5) * 0.15,
-          value: Math.random() > 0.5 ? "1" : "0",
-          nextFlip: Date.now() + Math.random() * 700 + 300,
-        });
-      }
-    }
-
-    addEventListeners() {
-      window.addEventListener("resize", () => this.handleResize());
-      this.canvas.addEventListener("mousemove", (e) => this.handleMouseMove(e));
-      this.canvas.addEventListener("mouseleave", () => this.handleMouseLeave());
-    }
-
-    handleResize() {
-      this.resize();
-      this.createParticles();
-      this.createBinaryDigits();
-    }
-
-    handleMouseMove(e) {
-      this.mouse.x = e.clientX;
-      this.mouse.y = e.clientY;
-    }
-
-    handleMouseLeave() {
-      this.mouse.x = null;
-      this.mouse.y = null;
-    }
-
-    updateBinaryDigits() {
-      const now = Date.now();
-
-      this.binaryDigits.forEach((node) => {
-        // Apply base drift for continuous movement
-        node.vx += (node.baseVx - node.vx) * 0.02;
-        node.vy += (node.baseVy - node.vy) * 0.02;
-
-        // Update position
-        node.x += node.vx;
-        node.y += node.vy;
-
-        // Bounce off edges
-        if (node.x < 0 || node.x > this.canvas.width) {
-          node.vx *= -1;
-          node.baseVx *= -1;
-          node.x = Math.max(0, Math.min(this.canvas.width, node.x));
-        }
-        if (node.y < 0 || node.y > this.canvas.height) {
-          node.vy *= -1;
-          node.baseVy *= -1;
-          node.y = Math.max(0, Math.min(this.canvas.height, node.y));
+            this.init();
+            this.animate();
+            this.addEventListeners();
+            this.checkTheme();
         }
 
-        // Flip binary value
-        if (now > node.nextFlip) {
-          node.value = node.value === "1" ? "0" : "1";
-          node.nextFlip = now + Math.random() * 700 + 300;
-        }
-      });
-    }
-
-    createShootingStar() {
-      const now = Date.now();
-      if (now - this.lastShootingStar < this.shootingStarInterval) return;
-
-      // Random chance (20% when called)
-      if (Math.random() > 0.2) return;
-
-      this.lastShootingStar = now;
-
-      // Start from top or right edge
-      const fromTop = Math.random() > 0.5;
-      const x = fromTop ? Math.random() * this.canvas.width : this.canvas.width;
-      const y = fromTop ? 0 : Math.random() * this.canvas.height * 0.3;
-
-      // Shooting stars go down and to the left
-      const angle = fromTop
-        ? Math.PI / 4 + (Math.random() - 0.5) * 0.3
-        : Math.PI / 3;
-      const speed = 8 + Math.random() * 4;
-
-      this.shootingStars.push({
-        x,
-        y,
-        vx: Math.cos(angle) * speed * (fromTop ? 1 : -1),
-        vy: Math.sin(angle) * speed,
-        length: 40 + Math.random() * 30,
-        opacity: 1,
-        tail: [],
-      });
-    }
-
-    updateShootingStars() {
-      this.shootingStars = this.shootingStars.filter((star) => {
-        // Update position
-        star.x += star.vx;
-        star.y += star.vy;
-
-        // Add to tail
-        star.tail.push({ x: star.x, y: star.y });
-        if (star.tail.length > 15) {
-          star.tail.shift();
+        init() {
+            this.resize();
+            this.createParticles();
+            this.createBinaryDigits();
         }
 
-        // Fade out near end of screen
-        if (star.x < 0 || star.y > this.canvas.height) {
-          star.opacity -= 0.05;
+        checkTheme() {
+            this.isLightTheme =
+                document.documentElement.classList.contains("light-theme");
+            // Re-check theme periodically
+            setInterval(() => {
+                this.isLightTheme =
+                    document.documentElement.classList.contains("light-theme");
+            }, 500);
         }
 
-        // Remove if off screen or faded
-        return (
-          star.opacity > 0 && star.x > -100 && star.y < this.canvas.height + 100
-        );
-      });
-    }
-
-    update() {
-      // Try to create shooting star occasionally (dark theme only)
-      if (!this.isLightTheme && Math.random() < 0.02) {
-        this.createShootingStar();
-      }
-
-      // Update based on theme
-      if (this.isLightTheme) {
-        this.updateBinaryDigits();
-      } else {
-        this.updateShootingStars();
-      }
-      this.particles.forEach((particle) => {
-        // Apply base drift for continuous movement
-        particle.vx += (particle.baseVx - particle.vx) * 0.02;
-        particle.vy += (particle.baseVy - particle.vy) * 0.02;
-
-        // Update position
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-
-        // Bounce off edges
-        if (particle.x < 0 || particle.x > this.canvas.width) {
-          particle.vx *= -1;
-          particle.baseVx *= -1;
-          particle.x = Math.max(0, Math.min(this.canvas.width, particle.x));
-        }
-        if (particle.y < 0 || particle.y > this.canvas.height) {
-          particle.vy *= -1;
-          particle.baseVy *= -1;
-          particle.y = Math.max(0, Math.min(this.canvas.height, particle.y));
+        resize() {
+            this.canvas.width = window.innerWidth;
+            this.canvas.height = window.innerHeight;
         }
 
-        // Mouse interaction - repulsion
-        if (this.mouse.x !== null && this.mouse.y !== null) {
-          const dx = particle.x - this.mouse.x;
-          const dy = particle.y - this.mouse.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < this.mouse.radius) {
-            const angle = Math.atan2(dy, dx);
-            const force = (this.mouse.radius - distance) / this.mouse.radius;
-            particle.vx += Math.cos(angle) * force * 0.5;
-            particle.vy += Math.sin(angle) * force * 0.5;
-          }
-        }
-      });
-    }
-
-    draw() {
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-      if (this.isLightTheme) {
-        // Light theme: Scattered binary network
-        const maxDistance = 350;
-        const nodeRadius = 12; // Distance at which connections stop
-
-        // Draw connections between nearby nodes
-        this.ctx.lineWidth = 0.5;
-
-        for (let i = 0; i < this.binaryDigits.length; i++) {
-          for (let j = i + 1; j < this.binaryDigits.length; j++) {
-            const dx = this.binaryDigits[i].x - this.binaryDigits[j].x;
-            const dy = this.binaryDigits[i].y - this.binaryDigits[j].y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < maxDistance) {
-              // Calculate points that stop before reaching the nodes
-              const angle = Math.atan2(dy, dx);
-              const x1 = this.binaryDigits[i].x - Math.cos(angle) * nodeRadius;
-              const y1 = this.binaryDigits[i].y - Math.sin(angle) * nodeRadius;
-              const x2 = this.binaryDigits[j].x + Math.cos(angle) * nodeRadius;
-              const y2 = this.binaryDigits[j].y + Math.sin(angle) * nodeRadius;
-
-              const opacity = (1 - distance / maxDistance) * 0.25; // Increased from 0.15
-              this.ctx.strokeStyle = `rgba(100, 120, 150, ${opacity})`;
-              this.ctx.beginPath();
-              this.ctx.moveTo(x1, y1);
-              this.ctx.lineTo(x2, y2);
-              this.ctx.stroke();
+        createParticles() {
+            this.particles = [];
+            for (let i = 0; i < this.particleCount; i++) {
+                this.particles.push({
+                    x: Math.random() * this.canvas.width,
+                    y: Math.random() * this.canvas.height,
+                    vx: (Math.random() - 0.5) * 0.25, // Halved speed
+                    vy: (Math.random() - 0.5) * 0.25, // Halved speed
+                    radius: Math.random() * 1.5 + 0.5,
+                    opacity: Math.random() * 0.5 + 0.3,
+                    baseVx: (Math.random() - 0.5) * 0.1, // Halved speed
+                    baseVy: (Math.random() - 0.5) * 0.1, // Halved speed
+                });
             }
-          }
         }
 
-        // Draw binary digits only (no circles)
-        this.ctx.font = '11px "Courier New", monospace';
-        this.ctx.textAlign = "center";
-        this.ctx.textBaseline = "middle";
-        this.ctx.fillStyle = "rgba(80, 100, 130, 0.7)"; // Slightly increased opacity
+        createBinaryDigits() {
+            // Create scattered binary nodes similar to particles
+            this.binaryDigits = [];
+            const numNodes = window.innerWidth < 768 ? 40 : 80; // Reduced from 200
 
-        this.binaryDigits.forEach((node) => {
-          this.ctx.fillText(node.value, node.x, node.y);
-        });
-      } else {
-        // Dark theme: Shooting stars and particles
-        // Draw shooting stars first (behind particles)
-        this.shootingStars.forEach((star) => {
-          // Draw tail gradient
-          if (star.tail.length > 1) {
-            for (let i = 0; i < star.tail.length - 1; i++) {
-              const progress = i / star.tail.length;
-              const opacity = progress * star.opacity * 0.5;
-
-              this.ctx.strokeStyle = `rgba(200, 230, 255, ${opacity})`;
-              this.ctx.lineWidth = 2 * (1 - progress);
-              this.ctx.beginPath();
-              this.ctx.moveTo(star.tail[i].x, star.tail[i].y);
-              this.ctx.lineTo(star.tail[i + 1].x, star.tail[i + 1].y);
-              this.ctx.stroke();
+            for (let i = 0; i < numNodes; i++) {
+                this.binaryDigits.push({
+                    x: Math.random() * this.canvas.width,
+                    y: Math.random() * this.canvas.height,
+                    vx: (Math.random() - 0.5) * 0.6, // Doubled speed
+                    vy: (Math.random() - 0.5) * 0.6, // Doubled speed
+                    baseVx: (Math.random() - 0.5) * 0.3, // Doubled speed
+                    baseVy: (Math.random() - 0.5) * 0.3, // Doubled speed
+                    value: Math.random() > 0.5 ? "1" : "0",
+                    nextFlip: Date.now() + Math.random() * 700 + 300,
+                });
             }
-          }
-
-          // Draw bright head
-          const gradient = this.ctx.createRadialGradient(
-            star.x,
-            star.y,
-            0,
-            star.x,
-            star.y,
-            5,
-          );
-          gradient.addColorStop(0, `rgba(255, 255, 255, ${star.opacity})`);
-          gradient.addColorStop(
-            0.5,
-            `rgba(200, 230, 255, ${star.opacity * 0.6})`,
-          );
-          gradient.addColorStop(1, `rgba(150, 200, 255, 0)`);
-
-          this.ctx.fillStyle = gradient;
-          this.ctx.beginPath();
-          this.ctx.arc(star.x, star.y, 5, 0, Math.PI * 2);
-          this.ctx.fill();
-        });
-      }
-
-      // Draw connections and particles (dark theme only)
-      if (!this.isLightTheme) {
-        this.ctx.strokeStyle = "rgba(100, 160, 255, 0.15)";
-        this.ctx.lineWidth = 1;
-
-        for (let i = 0; i < this.particles.length; i++) {
-          for (let j = i + 1; j < this.particles.length; j++) {
-            const dx = this.particles[i].x - this.particles[j].x;
-            const dy = this.particles[i].y - this.particles[j].y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < this.maxDistance) {
-              const opacity = (1 - distance / this.maxDistance) * 0.2;
-              this.ctx.strokeStyle = `rgba(100, 160, 255, ${opacity})`;
-              this.ctx.beginPath();
-              this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
-              this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
-              this.ctx.stroke();
-            }
-          }
         }
 
-        // Draw particles
-        this.particles.forEach((particle) => {
-          this.ctx.fillStyle = `rgba(200, 220, 255, ${particle.opacity})`;
-          this.ctx.beginPath();
-          this.ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-          this.ctx.fill();
-
-          // Glow effect for larger particles
-          if (particle.radius > 1) {
-            this.ctx.fillStyle = `rgba(150, 200, 255, ${particle.opacity * 0.3})`;
-            this.ctx.beginPath();
-            this.ctx.arc(
-              particle.x,
-              particle.y,
-              particle.radius * 2,
-              0,
-              Math.PI * 2,
+        addEventListeners() {
+            window.addEventListener("resize", () => this.handleResize());
+            this.canvas.addEventListener("mousemove", (e) =>
+                this.handleMouseMove(e),
             );
-            this.ctx.fill();
-          }
-        });
-      }
+            this.canvas.addEventListener("mouseleave", () =>
+                this.handleMouseLeave(),
+            );
+        }
+
+        handleResize() {
+            this.resize();
+            this.createParticles();
+            this.createBinaryDigits();
+        }
+
+        handleMouseMove(e) {
+            this.mouse.x = e.clientX;
+            this.mouse.y = e.clientY;
+        }
+
+        handleMouseLeave() {
+            this.mouse.x = null;
+            this.mouse.y = null;
+        }
+
+        updateBinaryDigits() {
+            const now = Date.now();
+
+            this.binaryDigits.forEach((node) => {
+                // Apply base drift for continuous movement
+                node.vx += (node.baseVx - node.vx) * 0.02;
+                node.vy += (node.baseVy - node.vy) * 0.02;
+
+                // Update position
+                node.x += node.vx;
+                node.y += node.vy;
+
+                // Bounce off edges
+                if (node.x < 0 || node.x > this.canvas.width) {
+                    node.vx *= -1;
+                    node.baseVx *= -1;
+                    node.x = Math.max(0, Math.min(this.canvas.width, node.x));
+                }
+                if (node.y < 0 || node.y > this.canvas.height) {
+                    node.vy *= -1;
+                    node.baseVy *= -1;
+                    node.y = Math.max(0, Math.min(this.canvas.height, node.y));
+                }
+
+                // Flip binary value
+                if (now > node.nextFlip) {
+                    node.value = node.value === "1" ? "0" : "1";
+                    node.nextFlip = now + Math.random() * 700 + 300;
+                }
+            });
+        }
+
+        createShootingStar() {
+            const now = Date.now();
+            if (now - this.lastShootingStar < this.shootingStarInterval) return;
+
+            // Random chance (20% when called)
+            if (Math.random() > 0.2) return;
+
+            this.lastShootingStar = now;
+
+            // Start from top, left, or right edge
+            const perimeter = this.canvas.width + this.canvas.height * 2;
+            const spawnPos = Math.random() * perimeter;
+
+            let x, y, angle;
+
+            if (spawnPos < this.canvas.width) {
+                // Top edge
+                x = spawnPos;
+                y = 0;
+                // Angle: Generally down (45 to 135 degrees)
+                angle = Math.PI / 4 + Math.random() * (Math.PI / 2);
+            } else if (spawnPos < this.canvas.width + this.canvas.height) {
+                // Left edge
+                x = 0;
+                y = spawnPos - this.canvas.width;
+                // Angle: Down and Right (10 to 80 degrees)
+                angle = 0.2 + Math.random() * (Math.PI / 2 - 0.4);
+            } else {
+                // Right edge
+                x = this.canvas.width;
+                y = spawnPos - (this.canvas.width + this.canvas.height);
+                // Angle: Down and Left (100 to 170 degrees)
+                angle = Math.PI / 2 + 0.2 + Math.random() * (Math.PI / 2 - 0.4);
+            }
+
+            const speed = 8 + Math.random() * 4; // Restored to original speed (Doubled from previous step)
+
+            this.shootingStars.push({
+                x,
+                y,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                length: 40 + Math.random() * 30,
+                opacity: 1,
+                tail: [],
+            });
+        }
+
+        updateShootingStars() {
+            this.shootingStars = this.shootingStars.filter((star) => {
+                // Update position
+                star.x += star.vx;
+                star.y += star.vy;
+
+                // Add to tail
+                star.tail.push({ x: star.x, y: star.y });
+                if (star.tail.length > 15) {
+                    star.tail.shift();
+                }
+
+                // Fade out near end of screen
+                if (star.x < 0 || star.y > this.canvas.height) {
+                    star.opacity -= 0.05;
+                }
+
+                // Remove if off screen or faded
+                return (
+                    star.opacity > 0 &&
+                    star.x > -100 &&
+                    star.y < this.canvas.height + 100
+                );
+            });
+        }
+
+        update() {
+            // Try to create shooting star occasionally (dark theme only)
+            if (!this.isLightTheme && Math.random() < 0.02) {
+                this.createShootingStar();
+            }
+
+            // Update based on theme
+            if (this.isLightTheme) {
+                this.updateBinaryDigits();
+            } else {
+                this.updateShootingStars();
+            }
+            this.particles.forEach((particle) => {
+                // Apply base drift for continuous movement
+                particle.vx += (particle.baseVx - particle.vx) * 0.02;
+                particle.vy += (particle.baseVy - particle.vy) * 0.02;
+
+                // Update position
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+
+                // Bounce off edges
+                if (particle.x < 0 || particle.x > this.canvas.width) {
+                    particle.vx *= -1;
+                    particle.baseVx *= -1;
+                    particle.x = Math.max(
+                        0,
+                        Math.min(this.canvas.width, particle.x),
+                    );
+                }
+                if (particle.y < 0 || particle.y > this.canvas.height) {
+                    particle.vy *= -1;
+                    particle.baseVy *= -1;
+                    particle.y = Math.max(
+                        0,
+                        Math.min(this.canvas.height, particle.y),
+                    );
+                }
+
+                // Mouse interaction - repulsion
+                if (this.mouse.x !== null && this.mouse.y !== null) {
+                    const dx = particle.x - this.mouse.x;
+                    const dy = particle.y - this.mouse.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < this.mouse.radius) {
+                        const angle = Math.atan2(dy, dx);
+                        const force =
+                            (this.mouse.radius - distance) / this.mouse.radius;
+                        particle.vx += Math.cos(angle) * force * 0.5;
+                        particle.vy += Math.sin(angle) * force * 0.5;
+                    }
+                }
+            });
+        }
+
+        draw() {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+            if (this.isLightTheme) {
+                // Light theme: Scattered binary network
+                const maxDistance = 350;
+                const nodeRadius = 12; // Distance at which connections stop
+
+                // Draw connections between nearby nodes
+                this.ctx.lineWidth = 0.5;
+
+                for (let i = 0; i < this.binaryDigits.length; i++) {
+                    for (let j = i + 1; j < this.binaryDigits.length; j++) {
+                        const dx =
+                            this.binaryDigits[i].x - this.binaryDigits[j].x;
+                        const dy =
+                            this.binaryDigits[i].y - this.binaryDigits[j].y;
+                        if (
+                            Math.abs(dx) < maxDistance &&
+                            Math.abs(dy) < maxDistance
+                        ) {
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+
+                            if (distance < maxDistance) {
+                                // Calculate points that stop before reaching the nodes
+                                const angle = Math.atan2(dy, dx);
+                                const x1 =
+                                    this.binaryDigits[i].x -
+                                    Math.cos(angle) * nodeRadius;
+                                const y1 =
+                                    this.binaryDigits[i].y -
+                                    Math.sin(angle) * nodeRadius;
+                                const x2 =
+                                    this.binaryDigits[j].x +
+                                    Math.cos(angle) * nodeRadius;
+                                const y2 =
+                                    this.binaryDigits[j].y +
+                                    Math.sin(angle) * nodeRadius;
+
+                                const opacity =
+                                    (1 - distance / maxDistance) * 0.25; // Increased from 0.15
+                                this.ctx.strokeStyle = `rgba(100, 120, 150, ${opacity})`;
+                                this.ctx.beginPath();
+                                this.ctx.moveTo(x1, y1);
+                                this.ctx.lineTo(x2, y2);
+                                this.ctx.stroke();
+                            }
+                        }
+                    }
+                }
+
+                // Draw binary digits only (no circles)
+                this.ctx.font = '11px "Courier New", monospace';
+                this.ctx.textAlign = "center";
+                this.ctx.textBaseline = "middle";
+                this.ctx.fillStyle = "rgba(80, 100, 130, 0.7)"; // Slightly increased opacity
+
+                this.binaryDigits.forEach((node) => {
+                    this.ctx.fillText(node.value, node.x, node.y);
+                });
+            } else {
+                // Dark theme: Shooting stars and particles
+                // Draw shooting stars first (behind particles)
+                this.shootingStars.forEach((star) => {
+                    // Draw tail gradient
+                    if (star.tail.length > 1) {
+                        for (let i = 0; i < star.tail.length - 1; i++) {
+                            const progress = i / star.tail.length;
+                            const opacity = progress * star.opacity * 0.5;
+
+                            this.ctx.strokeStyle = `rgba(200, 230, 255, ${opacity})`;
+                            this.ctx.lineWidth = 2 * (1 - progress);
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(star.tail[i].x, star.tail[i].y);
+                            this.ctx.lineTo(
+                                star.tail[i + 1].x,
+                                star.tail[i + 1].y,
+                            );
+                            this.ctx.stroke();
+                        }
+                    }
+
+                    // Draw bright head
+                    const gradient = this.ctx.createRadialGradient(
+                        star.x,
+                        star.y,
+                        0,
+                        star.x,
+                        star.y,
+                        5,
+                    );
+                    gradient.addColorStop(
+                        0,
+                        `rgba(255, 255, 255, ${star.opacity})`,
+                    );
+                    gradient.addColorStop(
+                        0.5,
+                        `rgba(200, 230, 255, ${star.opacity * 0.6})`,
+                    );
+                    gradient.addColorStop(1, `rgba(150, 200, 255, 0)`);
+
+                    this.ctx.fillStyle = gradient;
+                    this.ctx.beginPath();
+                    this.ctx.arc(star.x, star.y, 5, 0, Math.PI * 2);
+                    this.ctx.fill();
+                });
+            }
+
+            // Draw connections and particles (dark theme only)
+            if (!this.isLightTheme) {
+                this.ctx.strokeStyle = "rgba(100, 160, 255, 0.15)";
+                this.ctx.lineWidth = 1;
+
+                for (let i = 0; i < this.particles.length; i++) {
+                    for (let j = i + 1; j < this.particles.length; j++) {
+                        const dx = this.particles[i].x - this.particles[j].x;
+                        const dy = this.particles[i].y - this.particles[j].y;
+                        if (
+                            Math.abs(dx) < this.maxDistance &&
+                            Math.abs(dy) < this.maxDistance
+                        ) {
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+
+                            if (distance < this.maxDistance) {
+                                const opacity =
+                                    (1 - distance / this.maxDistance) * 0.2;
+                                this.ctx.strokeStyle = `rgba(100, 160, 255, ${opacity})`;
+                                this.ctx.beginPath();
+                                this.ctx.moveTo(
+                                    this.particles[i].x,
+                                    this.particles[i].y,
+                                );
+                                this.ctx.lineTo(
+                                    this.particles[j].x,
+                                    this.particles[j].y,
+                                );
+                                this.ctx.stroke();
+                            }
+                        }
+                    }
+                }
+
+                // Draw particles
+                this.particles.forEach((particle) => {
+                    this.ctx.fillStyle = `rgba(200, 220, 255, ${particle.opacity})`;
+                    this.ctx.beginPath();
+                    this.ctx.arc(
+                        particle.x,
+                        particle.y,
+                        particle.radius,
+                        0,
+                        Math.PI * 2,
+                    );
+                    this.ctx.fill();
+
+                    // Glow effect for larger particles
+                    if (particle.radius > 1) {
+                        this.ctx.fillStyle = `rgba(150, 200, 255, ${particle.opacity * 0.3})`;
+                        this.ctx.beginPath();
+                        this.ctx.arc(
+                            particle.x,
+                            particle.y,
+                            particle.radius * 2,
+                            0,
+                            Math.PI * 2,
+                        );
+                        this.ctx.fill();
+                    }
+                });
+            }
+        }
+
+        animate() {
+            this.update();
+            this.draw();
+            requestAnimationFrame(() => this.animate());
+        }
     }
 
-    animate() {
-      this.update();
-      this.draw();
-      requestAnimationFrame(() => this.animate());
+    // Initialize particle system
+    const canvas = document.getElementById("particles-canvas");
+    if (canvas) {
+        new ParticleSystem(canvas);
     }
-  }
-
-  // Initialize particle system
-  const canvas = document.getElementById("particles-canvas");
-  if (canvas) {
-    new ParticleSystem(canvas);
-  }
 </script>
 
 <style>
-  .particles-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
-    opacity: 1;
-    transition: opacity 0.5s ease;
-  }
+    .particles-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+    }
 
-  #particles-canvas {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
+    #particles-canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
 
-  /* Fade out towards bottom */
-  .particles-bg::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 200px;
-    background: linear-gradient(
-      to bottom,
-      transparent,
-      var(--color-background)
-    );
-    pointer-events: none;
-  }
+    /* Fade out towards bottom */
+    .particles-bg::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 200px;
+        background: linear-gradient(
+            to bottom,
+            transparent,
+            var(--color-background)
+        );
+        pointer-events: none;
+    }
 </style>
