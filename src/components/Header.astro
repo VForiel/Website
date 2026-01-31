@@ -81,10 +81,12 @@ const tagline = strings[lang].headerTagline;
         border-bottom: 1px solid var(--color-border-subtle);
         /* backdrop-filter removed for scroll performance */
         z-index: 100;
-        transition: border-color var(--transition-base);
+        transition:
+            background-color var(--transition-base),
+            border-color var(--transition-base);
     }
 
-    .light-theme .header {
+    :global(.light-theme) .header {
         background-color: hsla(0, 0%, 100%, 0.95);
     }
 

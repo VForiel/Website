@@ -4,6 +4,8 @@ description: "Statistical analysis and modeling of scientific data to extract re
 icon: "📈"
 order: 2
 locale: en
+available: false
+reason: "Currently focused on finishing my PhD"
 ---
 
 ## Analysis and Models

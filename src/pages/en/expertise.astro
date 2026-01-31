@@ -5,200 +5,268 @@ import { getCollection } from "astro:content";
 
 // Get all services sorted by order
 const allServices = await getCollection("services", ({ data }) => {
-  return data.locale === 'en';
+    return data.locale === "en";
 });
 const services = allServices.sort((a, b) => a.data.order - b.data.order);
 
 // Render all services
 const renderedServices = await Promise.all(
-  services.map(async (service) => ({
-    data: service.data,
-    Content: (await service.render()).Content,
-  })),
+    services.map(async (service) => ({
+        data: service.data,
+        Content: (await service.render()).Content,
+    })),
 );
 ---
 
 <PageLayout
-  title="Expertise & Services - Vincent Foriel"
-  description="Services in science communication, data science, high performance computing and AI for physics"
-  currentPath={Astro.url.pathname}
+    title="Expertise & Services - Vincent Foriel"
+    description="Services in science communication, data science, high performance computing and AI for physics"
+    currentPath={Astro.url.pathname}
 >
-  <Section>
-    <div class="page-header">
-      <h1>Expertise & Services</h1>
-      <p class="lead">
-        From technical consulting to science communication, including data
-        science, high performance computing and AI applied to physical models
-      </p>
-    </div>
-  </Section>
+    <Section>
+        <div class="page-header">
+            <h1>Expertise & Services</h1>
+            <p class="lead">
+                From technical consulting to science communication, including
+                data science, high performance computing and AI applied to
+                physical models
+            </p>
+        </div>
+    </Section>
 
-  {
-    renderedServices.map(({ data, Content }) => {
-      const { title, description, icon } = data;
+    {
+        renderedServices.map(({ data, Content }) => {
+            const { title, description, icon, available, reason } = data;
 
-      return (
-        <Section class="service-section">
-          <div class="service">
-            <div class="service__header">
-              {icon && <div class="service__icon">{icon}</div>}
-              <div>
-                <h2 class="service__title">{title}</h2>
-                <p class="service__description">{description}</p>
-              </div>
-            </div>
+            return (
+                <Section class="service-section">
+                    <div
+                        class={`service ${!available ? "service--unavailable" : ""}`}
+                    >
+                        <div class="service__header">
+                            {icon && <div class="service__icon">{icon}</div>}
+                            <div>
+                                <div class="service__title-row">
+                                    <h2 class="service__title">{title}</h2>
+                                    {!available && (
+                                        <span
+                                            class="service__badge"
+                                            title={reason}
+                                        >
+                                            Unavailable
+                                        </span>
+                                    )}
+                                </div>
+                                <p class="service__description">
+                                    {description}
+                                </p>
+                            </div>
+                        </div>
 
-            <div class="service__content prose">
-              <Content />
-            </div>
-          </div>
-        </Section>
-      );
-    })
-  }
+                        <div class="service__content prose">
+                            <Content />
+                        </div>
+                    </div>
+                </Section>
+            );
+        })
+    }
 
-  <Section class="cta-section">
-    <div class="cta-box">
-      <h2>Need an expert?</h2>
-      <p>
-        Whether for a research project, technical analysis or a popularization
-        intervention, let's discuss your needs.
-      </p>
-      <a href="/en/contact" class="button">Contact me</a>
-    </div>
-  </Section>
+    <Section class="cta-section">
+        <div class="cta-box">
+            <h2>Need an expert?</h2>
+            <p>
+                Whether for a research project, technical analysis or a
+                popularization intervention, let's discuss your needs.
+            </p>
+            <a href="/en/contact" class="button">Contact me</a>
+        </div>
+    </Section>
 </PageLayout>
 
 <style>
-  .page-header {
-    max-width: 65ch;
-    margin-inline: auto;
-    text-align: center;
-    margin-block-end: var(--space-12);
-  }
+    .page-header {
+        max-width: 65ch;
+        margin-inline: auto;
+        text-align: center;
+        margin-block-end: var(--space-12);
+    }
 
-  .page-header h1 {
-    font-size: var(--text-4xl);
-    margin-block-end: var(--space-4);
-  }
+    .page-header h1 {
+        font-size: var(--text-4xl);
+        margin-block-end: var(--space-4);
+    }
 
-  .lead {
-    font-size: var(--text-xl);
-    color: var(--color-text-secondary);
-  }
+    .lead {
+        font-size: var(--text-xl);
+        color: var(--color-text-secondary);
+    }
 
-  .service-section:nth-of-type(even) {
-    background-color: var(--color-background-secondary);
-  }
+    .service-section:nth-of-type(even) {
+        background-color: var(--color-background-secondary);
+    }
 
-  .service {
-    max-width: 900px;
-    margin-inline: auto;
-    padding: var(--space-8);
-    background-color: var(--color-background-secondary);
-    border-radius: var(--radius-lg);
-  }
+    .service {
+        max-width: 900px;
+        margin-inline: auto;
+        padding: var(--space-8);
+        background-color: var(--color-background-secondary);
+        border-radius: var(--radius-lg);
+    }
 
-  .service__header {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-6);
-    margin-block-end: var(--space-8);
-  }
-
-  .service__icon {
-    font-size: 4rem;
-    flex-shrink: 0;
-  }
-
-  .service__title {
-    font-size: var(--text-3xl);
-    margin-block-end: var(--space-2);
-  }
-
-  .service__description {
-    font-size: var(--text-lg);
-    color: var(--color-text-secondary);
-  }
-
-  .service__content {
-    padding-inline-start: calc(4rem + var(--space-6));
-  }
-
-  /* Prose styling for markdown content */
-  .prose :global(h2) {
-    font-size: var(--text-2xl);
-    margin-block: var(--space-6) var(--space-4);
-  }
-
-  .prose :global(h3) {
-    font-size: var(--text-xl);
-    margin-block: var(--space-5) var(--space-3);
-  }
-
-  .prose :global(p) {
-    color: var(--color-text-secondary);
-    margin-block-end: var(--space-4);
-  }
-
-  .prose :global(ul) {
-    list-style: disc;
-    padding-inline-start: var(--space-6);
-    margin-block: var(--space-4);
-  }
-
-  .prose :global(li) {
-    color: var(--color-text-secondary);
-    margin-block-end: var(--space-2);
-  }
-
-  .cta-section {
-    background-color: var(--color-background-secondary);
-  }
-
-  .cta-box {
-    max-width: 600px;
-    margin-inline: auto;
-    text-align: center;
-  }
-
-  .cta-box h2 {
-    font-size: var(--text-3xl);
-    margin-block-end: var(--space-4);
-  }
-
-  .cta-box p {
-    font-size: var(--text-lg);
-    color: var(--color-text-secondary);
-    margin-block-end: var(--space-8);
-  }
-
-  .button {
-    display: inline-block;
-    padding: var(--space-4) var(--space-8);
-    font-size: var(--text-base);
-    font-weight: 500;
-    background-color: var(--color-primary);
-    color: white;
-    border-radius: var(--radius-md);
-    transition: all var(--transition-base);
-  }
-
-  .button:hover {
-    background-color: var(--color-primary-dark);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-  }
-
-  @media (max-width: 768px) {
     .service__header {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-6);
+        margin-block-end: var(--space-8);
+    }
+
+    .service__icon {
+        font-size: 4rem;
+        flex-shrink: 0;
+    }
+
+    .service__title-row {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        flex-wrap: wrap;
+    }
+
+    .service__title {
+        font-size: var(--text-3xl);
+        margin-block-end: var(--space-2);
+    }
+
+    .service__badge {
+        display: inline-block;
+        padding: var(--space-1) var(--space-3);
+        font-size: var(--text-xs);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        background-color: hsl(0, 70%, 50%);
+        color: white;
+        border-radius: var(--radius-sm);
+        cursor: help;
+        position: relative;
+    }
+
+    .service__badge[title]:hover::after {
+        content: attr(title);
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: var(--space-2);
+        padding: var(--space-2) var(--space-3);
+        background-color: var(--color-neutral-800);
+        color: var(--color-neutral-50);
+        font-size: var(--text-sm);
+        font-weight: 400;
+        text-transform: none;
+        letter-spacing: normal;
+        white-space: nowrap;
+        border-radius: var(--radius-sm);
+        z-index: 10;
+        box-shadow: var(--shadow-md);
+    }
+
+    .service__description {
+        font-size: var(--text-lg);
+        color: var(--color-text-secondary);
+    }
+
+    .service__reason {
+        font-size: var(--text-sm);
+        font-style: italic;
+        color: var(--color-text-muted);
+        margin-block-start: var(--space-2);
+    }
+
+    .service--unavailable {
+        opacity: 0.5;
+        filter: grayscale(0.3);
     }
 
     .service__content {
-      padding-inline-start: 0;
+        padding-inline-start: calc(4rem + var(--space-6));
     }
-  }
+
+    /* Prose styling for markdown content */
+    .prose :global(h2) {
+        font-size: var(--text-2xl);
+        margin-block: var(--space-6) var(--space-4);
+    }
+
+    .prose :global(h3) {
+        font-size: var(--text-xl);
+        margin-block: var(--space-5) var(--space-3);
+    }
+
+    .prose :global(p) {
+        color: var(--color-text-secondary);
+        margin-block-end: var(--space-4);
+    }
+
+    .prose :global(ul) {
+        list-style: disc;
+        padding-inline-start: var(--space-6);
+        margin-block: var(--space-4);
+    }
+
+    .prose :global(li) {
+        color: var(--color-text-secondary);
+        margin-block-end: var(--space-2);
+    }
+
+    .cta-section {
+        background-color: var(--color-background-secondary);
+    }
+
+    .cta-box {
+        max-width: 600px;
+        margin-inline: auto;
+        text-align: center;
+    }
+
+    .cta-box h2 {
+        font-size: var(--text-3xl);
+        margin-block-end: var(--space-4);
+    }
+
+    .cta-box p {
+        font-size: var(--text-lg);
+        color: var(--color-text-secondary);
+        margin-block-end: var(--space-8);
+    }
+
+    .button {
+        display: inline-block;
+        padding: var(--space-4) var(--space-8);
+        font-size: var(--text-base);
+        font-weight: 500;
+        background-color: var(--color-primary);
+        color: white;
+        border-radius: var(--radius-md);
+        transition: all var(--transition-base);
+    }
+
+    .button:hover {
+        background-color: var(--color-primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+    @media (max-width: 768px) {
+        .service__header {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .service__content {
+            padding-inline-start: 0;
+        }
+    }
 </style>

@@ -4,6 +4,8 @@ description: "Analyse statistique et modélisation de données scientifiques pou
 icon: "📈"
 order: 2
 locale: fr
+available: false
+reason: "Actuellement occupé à terminer mon doctorat"
 ---
 
 ## Analyse et modèles

@@ -4,6 +4,8 @@ description: "Accélération de simulations et traitements massifs sur CPU et GP
 icon: "⚡"
 order: 3
 locale: fr
+available: false
+reason: "Actuellement occupé à terminer mon doctorat"
 ---
 
 ## Optimisation ciblée

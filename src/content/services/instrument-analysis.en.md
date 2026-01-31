@@ -4,6 +4,8 @@ description: "Reasoned application of machine learning to physical data and mode
 icon: "🧠"
 order: 4
 locale: en
+available: false
+reason: "Currently focused on finishing my PhD"
 ---
 
 ## Hybrid Models

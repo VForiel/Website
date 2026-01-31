@@ -25,6 +25,8 @@ const servicesCollection = defineCollection({
         description: z.string(),
         icon: z.string().optional(),
         order: z.number().default(999),
+        available: z.boolean().default(true),
+        reason: z.string().optional(),
     }),
 });
 

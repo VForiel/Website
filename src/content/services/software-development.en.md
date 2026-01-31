@@ -4,6 +4,8 @@ description: "Acceleration of simulations and massive processing on CPU and GPU"
 icon: "⚡"
 order: 3
 locale: en
+available: false
+reason: "Currently focused on finishing my PhD"
 ---
 
 ## Targeted Optimization

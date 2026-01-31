@@ -4,6 +4,8 @@ description: "Application raisonnée de l'apprentissage automatique aux données
 icon: "🧠"
 order: 4
 locale: fr
+available: false
+reason: "Actuellement occupé à terminer mon doctorat"
 ---
 
 ## Modèles hybrides
