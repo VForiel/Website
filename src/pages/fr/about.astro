@@ -91,54 +91,32 @@ import Section from "../../components/Section.astro";
 
             <aside class="content-sidebar">
                 <div class="sidebar-card">
-                    <h3>Compétences techniques</h3>
-                    <div class="skills-list">
-                        <div class="skill">
-                            <span class="skill-name">Python</span>
-                            <div class="skill-bar">
-                                <div class="skill-fill" style="width: 95%">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill">
-                            <span class="skill-name">Simulation optique</span>
-                            <div class="skill-bar">
-                                <div class="skill-fill" style="width: 90%">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill">
-                            <span class="skill-name">Analyse de données</span>
-                            <div class="skill-bar">
-                                <div class="skill-fill" style="width: 85%">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill">
-                            <span class="skill-name">Git / GitHub</span>
-                            <div class="skill-bar">
-                                <div class="skill-fill" style="width: 85%">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill">
-                            <span class="skill-name">C / C++ / Fortran</span>
-                            <div class="skill-bar">
-                                <div class="skill-fill" style="width: 70%">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <h3>🎨 Touche-à-tout</h3>
+                    <p class="interests-text">
+                        J'adore apprendre et explorer de nouveaux domaines.
+                        Aujourd'hui le piano, demain le japonais, après-demain
+                        l'impression 3D — peu importe le sujet, c'est la
+                        curiosité qui me guide.
+                    </p>
                 </div>
 
-                <div class="sidebar-card">
-                    <h3>Langues</h3>
-                    <ul class="languages-list">
-                        <li><strong>Français</strong> - Natif</li>
-                        <li><strong>Anglais</strong> - Courant (B2/C1)</li>
-                        <li><strong>Espagnol</strong> - Notions (A1)</li>
-                        <li><strong>Japonais</strong> - Notions (A1)</li>
-                    </ul>
+                <div class="sidebar-card fun-fact">
+                    <h3>🎮 Fun fact</h3>
+                    <p>
+                        C'est en créant un système de projectiles dans Minecraft
+                        — physique du point, trigonométrie — que j'ai décidé de
+                        me lancer dans des études de physique.
+                    </p>
+                    <p>
+                        Ce projet a donné naissance à
+                        <a href="/fr/associations">Altearn</a> et à
+                        <a
+                            href="https://docs.mcbookshelf.dev/en/latest/"
+                            target="_blank"
+                            rel="noopener">Bookshelf</a
+                        >, une vraie librairie de développement Minecraft
+                        incluant des outils de maths et de physique.
+                    </p>
                 </div>
             </aside>
         </div>
@@ -233,43 +211,50 @@ import Section from "../../components/Section.astro";
         margin-block-end: var(--space-4);
     }
 
-    .skills-list {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-4);
-    }
-
-    .skill-name {
+    .sidebar-intro {
         font-size: var(--text-sm);
-        color: var(--color-text);
-        display: block;
-        margin-block-end: var(--space-1);
+        color: var(--color-text-secondary);
+        margin-block-end: var(--space-3);
+        font-style: italic;
     }
 
-    .skill-bar {
-        height: 6px;
-        background-color: var(--color-border);
-        border-radius: var(--radius-sm);
-        overflow: hidden;
-    }
-
-    .skill-fill {
-        height: 100%;
-        background: linear-gradient(
-            90deg,
-            var(--color-primary),
-            var(--color-primary-light)
-        );
-        border-radius: var(--radius-sm);
-    }
-
-    .languages-list {
+    .interests-list {
         list-style: none;
         display: flex;
         flex-direction: column;
         gap: var(--space-2);
         font-size: var(--text-sm);
         color: var(--color-text-secondary);
+    }
+
+    .interests-list li {
+        padding-inline-start: 0;
+    }
+
+    .inspirations-text {
+        font-size: var(--text-sm);
+        color: var(--color-text-secondary);
+        margin: 0;
+    }
+
+    .fun-fact {
+        background: linear-gradient(
+            135deg,
+            var(--color-background-secondary) 0%,
+            color-mix(
+                    in srgb,
+                    var(--color-primary) 10%,
+                    var(--color-background-secondary)
+                )
+                100%
+        );
+        border-left: 3px solid var(--color-primary);
+    }
+
+    .fun-fact p {
+        font-size: var(--text-sm);
+        color: var(--color-text-secondary);
+        margin: 0;
     }
 
     @media (max-width: 1024px) {
