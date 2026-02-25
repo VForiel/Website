@@ -318,7 +318,18 @@ const t = labels[lang];
             } else {
                 item.style.display = "none";
                 item.classList.remove("visible");
+                item.classList.remove("is-first");
+                item.classList.remove("is-last");
             }
+        });
+
+        // Apply is-first and is-last to visible elements
+        const visibleItems = Array.from(timelineItems).filter(
+            (item) => (item as HTMLElement).style.display === "grid",
+        );
+        visibleItems.forEach((item, index) => {
+            item.classList.toggle("is-first", index === 0);
+            item.classList.toggle("is-last", index === visibleItems.length - 1);
         });
 
         if (visibleCount === 0) {
@@ -581,7 +592,7 @@ const t = labels[lang];
     }
 
     /* Gradient for first item */
-    .timeline-item:first-child .timeline-marker::before {
+    .timeline-item.is-first .timeline-marker::before {
         background: linear-gradient(
             to bottom,
             transparent,
@@ -590,11 +601,23 @@ const t = labels[lang];
     }
 
     /* Gradient for last item */
-    .timeline-item:last-child .timeline-marker::before {
+    .timeline-item.is-last .timeline-marker::before {
         height: 100%;
         background: linear-gradient(
             to bottom,
             var(--color-primary),
+            var(--color-primary) 80%,
+            transparent
+        );
+    }
+
+    /* Gradient for single item (both first and last) */
+    .timeline-item.is-first.is-last .timeline-marker::before {
+        height: 100%;
+        background: linear-gradient(
+            to bottom,
+            transparent,
+            var(--color-primary) 10%,
             var(--color-primary) 80%,
             transparent
         );
