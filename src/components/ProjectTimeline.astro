@@ -1,660 +1,722 @@
 ---
 interface Props {
-  projects: Array<{
-    slug: string;
-    data: {
-      title: string;
-      description: string;
-      start_date?: Date;
-      end_date?: Date;
-      tags: string[];
-      image?: any;
-    };
-  }>;
-  lang: 'fr' | 'en';
+    projects: Array<{
+        slug: string;
+        data: {
+            title: string;
+            description: string;
+            "start-date"?: Date;
+            "end-date"?: Date;
+            tags: string[];
+            image?: any;
+        };
+    }>;
+    lang: "fr" | "en";
 }
 
 const { projects, lang } = Astro.props;
 
 // Extract all unique tags from all projects
-const allTags = [...new Set(projects.flatMap(p => p.data.tags))].sort();
+const allTags = [...new Set(projects.flatMap((p) => p.data.tags))].sort();
 
 // Format date based on language
-const formatDate = (date: Date | undefined, lang: 'fr' | 'en') => {
-  if (!date) {
-    return lang === 'fr' ? 'En cours' : 'Ongoing';
-  }
-  const options: Intl.DateTimeFormatOptions = { 
-    year: 'numeric', 
-    month: lang === 'fr' ? 'long' : 'long'
-  };
-  return new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-US', options).format(date);
+const formatDate = (date: Date | undefined, lang: "fr" | "en") => {
+    if (!date) {
+        return lang === "fr" ? "En cours" : "Ongoing";
+    }
+    const options: Intl.DateTimeFormatOptions = {
+        year: "numeric",
+        month: lang === "fr" ? "long" : "long",
+    };
+    return new Intl.DateTimeFormat(
+        lang === "fr" ? "fr-FR" : "en-US",
+        options,
+    ).format(date);
 };
 
 const labels = {
-  fr: {
-    filterLabel: 'Filtrer par tags',
-    allProjects: 'Tous les projets',
-    noProjects: 'Aucun projet ne correspond aux filtres sélectionnés',
-    modeAll: 'Tous',
-    modeAny: 'Un ou plus',
-    showFilters: 'Afficher les filtres',
-    hideFilters: 'Masquer les filtres',
-    selectAll: 'Tout sélectionner',
-    deselectAll: 'Tout désélectionner'
-  },
-  en: {
-    filterLabel: 'Filter by tags',
-    allProjects: 'All projects',
-    noProjects: 'No projects match the selected filters',
-    modeAll: 'All',
-    modeAny: 'Any',
-    showFilters: 'Show filters',
-    hideFilters: 'Hide filters',
-    selectAll: 'Select all',
-    deselectAll: 'Deselect all'
-  }
+    fr: {
+        filterLabel: "Filtrer par tags",
+        allProjects: "Tous les projets",
+        noProjects: "Aucun projet ne correspond aux filtres sélectionnés",
+        modeAll: "Tous",
+        modeAny: "Un ou plus",
+        showFilters: "Afficher les filtres",
+        hideFilters: "Masquer les filtres",
+        selectAll: "Tout sélectionner",
+        deselectAll: "Tout désélectionner",
+    },
+    en: {
+        filterLabel: "Filter by tags",
+        allProjects: "All projects",
+        noProjects: "No projects match the selected filters",
+        modeAll: "All",
+        modeAny: "Any",
+        showFilters: "Show filters",
+        hideFilters: "Hide filters",
+        selectAll: "Select all",
+        deselectAll: "Deselect all",
+    },
 };
 
 const t = labels[lang];
 ---
 
 <div class="timeline-container">
-  <div class="timeline-header">
-    <div class="title-with-filter">
-      <h2 class="section-title">{t.allProjects}</h2>
-      <button class="filter-toggle-link" id="filter-toggle" type="button">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="4" y1="21" x2="4" y2="14"></line>
-          <line x1="4" y1="10" x2="4" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="12"></line>
-          <line x1="12" y1="8" x2="12" y2="3"></line>
-          <line x1="20" y1="21" x2="20" y2="16"></line>
-          <line x1="20" y1="12" x2="20" y2="3"></line>
-          <line x1="1" y1="14" x2="7" y2="14"></line>
-          <line x1="9" y1="8" x2="15" y2="8"></line>
-          <line x1="17" y1="16" x2="23" y2="16"></line>
-        </svg>
-        <span id="filter-toggle-text">{t.showFilters}</span>
-      </button>
-    </div>
-    
-    <div class="tag-filter" id="tag-filter-content">
-      <div class="filter-header">
-        <span class="filter-label">{t.filterLabel}</span>
-        <div class="filter-actions">
-          <button class="toggle-all-button" id="toggle-all-tags" type="button">
-            {t.deselectAll}
-          </button>
-          <div class="filter-mode-switch">
-            <button 
-              class="mode-button active" 
-              id="mode-any"
-              data-mode="any"
-              type="button"
-            >
-              {t.modeAny}
+    <div class="timeline-header">
+        <div class="title-with-filter">
+            <h2 class="section-title">{t.allProjects}</h2>
+            <button class="filter-toggle-link" id="filter-toggle" type="button">
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <line x1="4" y1="21" x2="4" y2="14"></line>
+                    <line x1="4" y1="10" x2="4" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12" y2="3"></line>
+                    <line x1="20" y1="21" x2="20" y2="16"></line>
+                    <line x1="20" y1="12" x2="20" y2="3"></line>
+                    <line x1="1" y1="14" x2="7" y2="14"></line>
+                    <line x1="9" y1="8" x2="15" y2="8"></line>
+                    <line x1="17" y1="16" x2="23" y2="16"></line>
+                </svg>
+                <span id="filter-toggle-text">{t.showFilters}</span>
             </button>
-            <button 
-              class="mode-button" 
-              id="mode-all"
-              data-mode="all"
-              type="button"
-            >
-              {t.modeAll}
-            </button>
-          </div>
         </div>
-      </div>
-      <div class="tag-list">
-        {allTags.map(tag => (
-          <button 
-            class="tag-button active" 
-            data-tag={tag}
-            type="button"
-          >
-            {tag}
-          </button>
-        ))}
-      </div>
+
+        <div class="tag-filter" id="tag-filter-content">
+            <div class="filter-header">
+                <span class="filter-label">{t.filterLabel}</span>
+                <div class="filter-actions">
+                    <button
+                        class="toggle-all-button"
+                        id="toggle-all-tags"
+                        type="button"
+                    >
+                        {t.deselectAll}
+                    </button>
+                    <div class="filter-mode-switch">
+                        <button
+                            class="mode-button active"
+                            id="mode-any"
+                            data-mode="any"
+                            type="button"
+                        >
+                            {t.modeAny}
+                        </button>
+                        <button
+                            class="mode-button"
+                            id="mode-all"
+                            data-mode="all"
+                            type="button"
+                        >
+                            {t.modeAll}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="tag-list">
+                {
+                    allTags.map((tag) => (
+                        <button
+                            class="tag-button active"
+                            data-tag={tag}
+                            type="button"
+                        >
+                            {tag}
+                        </button>
+                    ))
+                }
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="timeline" id="timeline">
-    {projects.map((project) => {
-      const cleanSlug = project.slug.replace(new RegExp(`${lang}$`), '');
-      return (
-        <div class="timeline-item" data-tags={JSON.stringify(project.data.tags)}>
-          <div class="timeline-date">
-            <span>{formatDate(project.data.end_date, lang)}</span>
-          </div>
-          <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <a href={`/${lang}/projects/${cleanSlug}`} class="timeline-card">
-              <div class="mobile-date">{formatDate(project.data.end_date, lang)}</div>
-              <h3>{project.data.title}</h3>
-              <p class="description">{project.data.description}</p>
-              <div class="project-tags">
-                {project.data.tags.map(tag => (
-                  <span class="tag">{tag}</span>
-                ))}
-              </div>
-            </a>
-          </div>
-        </div>
-      );
-    })}
-  </div>
+    <div class="timeline" id="timeline">
+        {
+            projects.map((project) => {
+                const cleanSlug = project.slug.replace(
+                    new RegExp(`${lang}$`),
+                    "",
+                );
+                return (
+                    <div
+                        class="timeline-item"
+                        data-tags={JSON.stringify(project.data.tags)}
+                    >
+                        <div class="timeline-date">
+                            <span>
+                                {formatDate(project.data["end-date"], lang)}
+                            </span>
+                        </div>
+                        <div class="timeline-marker" />
+                        <div class="timeline-content">
+                            <a
+                                href={`/${lang}/projects/${cleanSlug}`}
+                                class="timeline-card"
+                            >
+                                <div class="mobile-date">
+                                    {formatDate(project.data["end-date"], lang)}
+                                </div>
+                                <h3>{project.data.title}</h3>
+                                <p class="description">
+                                    {project.data.description}
+                                </p>
+                                <div class="project-tags">
+                                    {project.data.tags.map((tag) => (
+                                        <span class="tag">{tag}</span>
+                                    ))}
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                );
+            })
+        }
+    </div>
 
-  <div class="no-results" id="no-results" style="display: none;">
-    <p>{t.noProjects}</p>
-  </div>
+    <div class="no-results" id="no-results" style="display: none;">
+        <p>{t.noProjects}</p>
+    </div>
 </div>
 
 <script>
-  // Tag filtering logic with All/Any mode support and collapsible UI
-  const filterToggle = document.getElementById('filter-toggle');
-  const filterToggleText = document.getElementById('filter-toggle-text');
-  const filterContent = document.getElementById('tag-filter-content');
-  const toggleAllButton = document.getElementById('toggle-all-tags');
-  const tagButtons = document.querySelectorAll('.tag-button');
-  const modeButtons = document.querySelectorAll('.mode-button');
-  const timelineItems = document.querySelectorAll('.timeline-item');
-  const noResults = document.getElementById('no-results');
-  
-  let selectedTags = new Set(Array.from(tagButtons).map(btn => btn.getAttribute('data-tag')));
-  let filterMode = 'any'; // Default mode is 'any'
-  let isFilterOpen = false;
+    // Tag filtering logic with All/Any mode support and collapsible UI
+    const filterToggle = document.getElementById("filter-toggle");
+    const filterToggleText = document.getElementById("filter-toggle-text");
+    const filterContent = document.getElementById("tag-filter-content");
+    const toggleAllButton = document.getElementById("toggle-all-tags");
+    const tagButtons = document.querySelectorAll(".tag-button");
+    const modeButtons = document.querySelectorAll(".mode-button");
+    const timelineItems = document.querySelectorAll(".timeline-item");
+    const noResults = document.getElementById("no-results");
 
-  // Labels for i18n
-  const labels = {
-    showFilters: filterToggleText.textContent,
-    hideFilters: document.documentElement.lang === 'fr' ? 'Masquer les filtres' : 'Hide filters',
-    selectAll: document.documentElement.lang === 'fr' ? 'Tout sélectionner' : 'Select all',
-    deselectAll: document.documentElement.lang === 'fr' ? 'Tout désélectionner' : 'Deselect all',
-  };
+    let selectedTags = new Set(
+        Array.from(tagButtons).map((btn) => btn.getAttribute("data-tag")),
+    );
+    let filterMode = "any"; // Default mode is 'any'
+    let isFilterOpen = false;
 
-  // Filter toggle
-  filterToggle.addEventListener('click', () => {
-    isFilterOpen = !isFilterOpen;
-    filterContent.classList.toggle('open');
-    filterToggleText.textContent = isFilterOpen ? labels.hideFilters : labels.showFilters;
-  });
+    // Labels for i18n
+    const labels = {
+        showFilters: filterToggleText.textContent,
+        hideFilters:
+            document.documentElement.lang === "fr"
+                ? "Masquer les filtres"
+                : "Hide filters",
+        selectAll:
+            document.documentElement.lang === "fr"
+                ? "Tout sélectionner"
+                : "Select all",
+        deselectAll:
+            document.documentElement.lang === "fr"
+                ? "Tout désélectionner"
+                : "Deselect all",
+    };
 
-  // Toggle all tags
-  toggleAllButton.addEventListener('click', () => {
-    const allSelected = selectedTags.size === tagButtons.length;
-    
-    if (allSelected) {
-      // Deselect all
-      selectedTags.clear();
-      tagButtons.forEach(btn => btn.classList.remove('active'));
-      toggleAllButton.textContent = labels.selectAll;
-    } else {
-      // Select all
-      selectedTags = new Set(Array.from(tagButtons).map(btn => btn.getAttribute('data-tag')));
-      tagButtons.forEach(btn => btn.classList.add('active'));
-      toggleAllButton.textContent = labels.deselectAll;
+    // Filter toggle
+    filterToggle.addEventListener("click", () => {
+        isFilterOpen = !isFilterOpen;
+        filterContent.classList.toggle("open");
+        filterToggleText.textContent = isFilterOpen
+            ? labels.hideFilters
+            : labels.showFilters;
+    });
+
+    // Toggle all tags
+    toggleAllButton.addEventListener("click", () => {
+        const allSelected = selectedTags.size === tagButtons.length;
+
+        if (allSelected) {
+            // Deselect all
+            selectedTags.clear();
+            tagButtons.forEach((btn) => btn.classList.remove("active"));
+            toggleAllButton.textContent = labels.selectAll;
+        } else {
+            // Select all
+            selectedTags = new Set(
+                Array.from(tagButtons).map((btn) =>
+                    btn.getAttribute("data-tag"),
+                ),
+            );
+            tagButtons.forEach((btn) => btn.classList.add("active"));
+            toggleAllButton.textContent = labels.deselectAll;
+        }
+
+        filterProjects();
+    });
+
+    // Mode switching
+    modeButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const mode = button.getAttribute("data-mode");
+            if (mode === filterMode) return; // Already in this mode
+
+            filterMode = mode;
+
+            // Update button states
+            modeButtons.forEach((btn) => btn.classList.remove("active"));
+            button.classList.add("active");
+
+            filterProjects();
+        });
+    });
+
+    // Tag selection
+    tagButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const tag = button.getAttribute("data-tag");
+
+            if (selectedTags.has(tag)) {
+                selectedTags.delete(tag);
+                button.classList.remove("active");
+            } else {
+                selectedTags.add(tag);
+                button.classList.add("active");
+            }
+
+            // Update toggle all button text
+            const allSelected = selectedTags.size === tagButtons.length;
+            toggleAllButton.textContent = allSelected
+                ? labels.deselectAll
+                : labels.selectAll;
+
+            filterProjects();
+        });
+    });
+
+    function filterProjects() {
+        let visibleCount = 0;
+
+        timelineItems.forEach((item) => {
+            const itemTags = JSON.parse(item.getAttribute("data-tags") || "[]");
+            let shouldShow = false;
+
+            if (selectedTags.size === 0) {
+                // No tags selected: show all
+                shouldShow = true;
+            } else if (filterMode === "any") {
+                // ANY mode: show if item has at least one selected tag
+                shouldShow = itemTags.some((tag) => selectedTags.has(tag));
+            } else {
+                // ALL mode: show only if item has all selected tags
+                shouldShow = Array.from(selectedTags).every((tag) =>
+                    itemTags.includes(tag),
+                );
+            }
+
+            if (shouldShow) {
+                item.style.display = "grid";
+                item.classList.add("visible");
+                visibleCount++;
+            } else {
+                item.style.display = "none";
+                item.classList.remove("visible");
+            }
+        });
+
+        if (visibleCount === 0) {
+            noResults.style.display = "block";
+        } else {
+            noResults.style.display = "none";
+        }
     }
-    
+
+    // Initial state: all visible
     filterProjects();
-  });
 
-  // Mode switching
-  modeButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const mode = button.getAttribute('data-mode');
-      if (mode === filterMode) return; // Already in this mode
-      
-      filterMode = mode;
-      
-      // Update button states
-      modeButtons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-      
-      filterProjects();
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("animate-in");
+                }
+            });
+        },
+        {
+            threshold: 0.1,
+        },
+    );
+
+    timelineItems.forEach((item) => {
+        observer.observe(item);
     });
-  });
-
-  // Tag selection
-  tagButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const tag = button.getAttribute('data-tag');
-      
-      if (selectedTags.has(tag)) {
-        selectedTags.delete(tag);
-        button.classList.remove('active');
-      } else {
-        selectedTags.add(tag);
-        button.classList.add('active');
-      }
-      
-      // Update toggle all button text
-      const allSelected = selectedTags.size === tagButtons.length;
-      toggleAllButton.textContent = allSelected ? labels.deselectAll : labels.selectAll;
-      
-      filterProjects();
-    });
-  });
-
-  function filterProjects() {
-    let visibleCount = 0;
-    
-    timelineItems.forEach(item => {
-      const itemTags = JSON.parse(item.getAttribute('data-tags') || '[]');
-      let shouldShow = false;
-      
-      if (selectedTags.size === 0) {
-        // No tags selected: show all
-        shouldShow = true;
-      } else if (filterMode === 'any') {
-        // ANY mode: show if item has at least one selected tag
-        shouldShow = itemTags.some(tag => selectedTags.has(tag));
-      } else {
-        // ALL mode: show only if item has all selected tags
-        shouldShow = Array.from(selectedTags).every(tag => itemTags.includes(tag));
-      }
-      
-      if (shouldShow) {
-        item.style.display = 'grid';
-        item.classList.add('visible');
-        visibleCount++;
-      } else {
-        item.style.display = 'none';
-        item.classList.remove('visible');
-      }
-    });
-    
-    if (visibleCount === 0) {
-      noResults.style.display = 'block';
-    } else {
-      noResults.style.display = 'none';
-    }
-  }
-
-  // Initial state: all visible
-  filterProjects();
-
-  // Intersection Observer for scroll animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animate-in');
-      }
-    });
-  }, {
-    threshold: 0.1
-  });
-
-  timelineItems.forEach(item => {
-    observer.observe(item);
-  });
 </script>
 
 <style>
-  .timeline-container {
-    width: 100%;
-  }
-
-  .timeline-header {
-    margin-block-end: var(--space-12);
-  }
-
-  .title-with-filter {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-    margin-block-end: var(--space-6);
-  }
-
-  .section-title {
-    font-size: var(--text-2xl);
-    margin: 0;
-  }
-
-  .filter-toggle-link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: 0;
-    background: none;
-    border: none;
-    color: var(--color-primary);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .filter-toggle-link:hover {
-    text-decoration: underline;
-    opacity: 0.8;
-  }
-
-  .filter-toggle-link svg {
-    color: var(--color-primary);
-    flex-shrink: 0;
-  }
-
-  .tag-filter {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    padding: var(--space-6);
-    background: var(--color-background-secondary);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-border);
-    margin-block-end: var(--space-4);
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transform: translateY(-10px);
-    transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease, padding 0.3s ease;
-    padding-block: 0;
-  }
-
-  .tag-filter.open {
-    max-height: 500px;
-    opacity: 1;
-    transform: translateY(0);
-    padding-block: var(--space-6);
-  }
-
-  .filter-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-3);
-  }
-
-  .filter-actions {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    flex-wrap: wrap;
-  }
-
-  .toggle-all-button {
-    padding: var(--space-2) var(--space-4);
-    border: 1px solid var(--color-border);
-    background: var(--color-background);
-    color: var(--color-text-secondary);
-    font-size: var(--text-xs);
-    font-weight: 500;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .toggle-all-button:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-  }
-
-  .filter-label {
-    font-weight: 500;
-    color: var(--color-text-secondary);
-    font-size: var(--text-sm);
-  }
-
-  .filter-mode-switch {
-    display: flex;
-    gap: 0;
-    background: var(--color-background);
-    border-radius: var(--radius-md);
-    padding: 2px;
-    border: 1px solid var(--color-border);
-  }
-
-  .mode-button {
-    padding: var(--space-2) var(--space-3);
-    border: none;
-    background: transparent;
-    color: var(--color-text-secondary);
-    font-size: var(--text-xs);
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border-radius: var(--radius-sm);
-  }
-
-  .mode-button:hover {
-    color: var(--color-text);
-  }
-
-  .mode-button.active {
-    background: var(--color-primary);
-    color: white;
-  }
-
-  .tag-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-  }
-
-  .tag-button {
-    padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-full);
-    border: 2px solid var(--color-border);
-    background: transparent;
-    color: var(--color-text-secondary);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .tag-button:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    transform: translateY(-1px);
-  }
-
-  .tag-button.active {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: white;
-  }
-
-  .timeline {
-    position: relative;
-    padding-block: var(--space-8);
-  }
-
-  .timeline-item {
-    display: grid;
-    grid-template-columns: 180px 40px 1fr;
-    gap: var(--space-6);
-    margin-block-end: var(--space-10);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-    position: relative;
-  }
-
-  .timeline-item.visible {
-    opacity: 1;
-  }
-
-  .timeline-item.animate-in {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .timeline-date {
-    text-align: right;
-    padding-top: 4px;
-  }
-
-  .timeline-date span {
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-text-secondary);
-    display: inline-block;
-  }
-
-  .timeline-marker {
-    position: relative;
-    width: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-  }
-
-  /* Vertical line segment */
-  .timeline-marker::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 0;
-    height: calc(100% + var(--space-10) + 40px);
-    width: 2px;
-    background: var(--color-primary);
-    z-index: 0;
-  }
-
-  /* Gradient for first item */
-  .timeline-item:first-child .timeline-marker::before {
-    background: linear-gradient(
-      to bottom,
-      transparent,
-      var(--color-primary) 10%
-    );
-  }
-
-  /* Gradient for last item */
-  .timeline-item:last-child .timeline-marker::before {
-    height: 100%;
-    background: linear-gradient(
-      to bottom,
-      var(--color-primary),
-      var(--color-primary) 80%,
-      transparent
-    );
-  }
-
-  /* Marker circle */
-  .timeline-marker::after {
-    content: '';
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    border: 3px solid var(--color-background);
-    box-shadow: 0 0 0 2px var(--color-primary);
-    transition: all 0.3s ease;
-    margin-top: 4px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .mobile-date {
-    display: none;
-  }
-
-  .timeline-item:hover .timeline-marker::after {
-    transform: scale(1.3);
-    box-shadow: 0 0 0 4px var(--color-primary-light);
-  }
-
-  .timeline-content {
-    padding-block-start: 0;
-  }
-
-  .timeline-card {
-    display: block;
-    padding: var(--space-6);
-    background: var(--color-background-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    transition: all 0.3s ease;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .timeline-card:hover {
-    transform: translateX(8px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--color-primary);
-  }
-
-  .timeline-card h3 {
-    font-size: var(--text-xl);
-    margin-block-end: var(--space-3);
-    color: var(--color-text);
-  }
-
-  .timeline-card .description {
-    font-size: var(--text-base);
-    color: var(--color-text-secondary);
-    margin-block-end: var(--space-4);
-    line-height: 1.6;
-  }
-
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-  }
-
-  .project-tags .tag {
-    padding: var(--space-1) var(--space-3);
-    background: var(--color-background);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
-    font-size: var(--text-xs);
-    color: var(--color-text-secondary);
-  }
-
-  .no-results {
-    text-align: center;
-    padding: var(--space-12);
-    color: var(--color-text-secondary);
-  }
-
-  .no-results p {
-    font-size: var(--text-lg);
-  }
-
-  /* Responsive design */
-  @media (max-width: 768px) {
-
-    .timeline-item {
-      grid-template-columns: 40px 1fr;
-      gap: var(--space-4);
+    .timeline-container {
+        width: 100%;
     }
 
-    .timeline-date {
-      display: none;
+    .timeline-header {
+        margin-block-end: var(--space-12);
     }
 
-    .mobile-date {
-      display: block;
-      font-size: var(--text-xs);
-      color: var(--color-text-secondary);
-      margin-block-end: var(--space-2);
-      font-weight: 500;
+    .title-with-filter {
+        display: flex;
+        align-items: center;
+        gap: var(--space-4);
+        flex-wrap: wrap;
+        margin-block-end: var(--space-6);
     }
 
-    .timeline-marker {
-      width: 40px;
+    .section-title {
+        font-size: var(--text-2xl);
+        margin: 0;
     }
 
-    .timeline-card {
-      padding: var(--space-4);
+    .filter-toggle-link {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        padding: 0;
+        background: none;
+        border: none;
+        color: var(--color-primary);
+        font-size: var(--text-sm);
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
     }
 
-    .timeline-card:hover {
-      transform: translateX(4px);
+    .filter-toggle-link:hover {
+        text-decoration: underline;
+        opacity: 0.8;
+    }
+
+    .filter-toggle-link svg {
+        color: var(--color-primary);
+        flex-shrink: 0;
     }
 
     .tag-filter {
-      flex-direction: column;
-      align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-4);
+        padding: var(--space-6);
+        background: var(--color-background-secondary);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--color-border);
+        margin-block-end: var(--space-4);
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transform: translateY(-10px);
+        transition:
+            max-height 0.3s ease,
+            opacity 0.3s ease,
+            transform 0.3s ease,
+            padding 0.3s ease;
+        padding-block: 0;
     }
-  }
+
+    .tag-filter.open {
+        max-height: 500px;
+        opacity: 1;
+        transform: translateY(0);
+        padding-block: var(--space-6);
+    }
+
+    .filter-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-3);
+    }
+
+    .filter-actions {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        flex-wrap: wrap;
+    }
+
+    .toggle-all-button {
+        padding: var(--space-2) var(--space-4);
+        border: 1px solid var(--color-border);
+        background: var(--color-background);
+        color: var(--color-text-secondary);
+        font-size: var(--text-xs);
+        font-weight: 500;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .toggle-all-button:hover {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    .filter-label {
+        font-weight: 500;
+        color: var(--color-text-secondary);
+        font-size: var(--text-sm);
+    }
+
+    .filter-mode-switch {
+        display: flex;
+        gap: 0;
+        background: var(--color-background);
+        border-radius: var(--radius-md);
+        padding: 2px;
+        border: 1px solid var(--color-border);
+    }
+
+    .mode-button {
+        padding: var(--space-2) var(--space-3);
+        border: none;
+        background: transparent;
+        color: var(--color-text-secondary);
+        font-size: var(--text-xs);
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-radius: var(--radius-sm);
+    }
+
+    .mode-button:hover {
+        color: var(--color-text);
+    }
+
+    .mode-button.active {
+        background: var(--color-primary);
+        color: white;
+    }
+
+    .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+    }
+
+    .tag-button {
+        padding: var(--space-2) var(--space-4);
+        border-radius: var(--radius-full);
+        border: 2px solid var(--color-border);
+        background: transparent;
+        color: var(--color-text-secondary);
+        font-size: var(--text-sm);
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .tag-button:hover {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+        transform: translateY(-1px);
+    }
+
+    .tag-button.active {
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+        color: white;
+    }
+
+    .timeline {
+        position: relative;
+        padding-block: var(--space-8);
+    }
+
+    .timeline-item {
+        display: grid;
+        grid-template-columns: 180px 40px 1fr;
+        gap: var(--space-6);
+        margin-block-end: var(--space-10);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s ease;
+        position: relative;
+    }
+
+    .timeline-item.visible {
+        opacity: 1;
+    }
+
+    .timeline-item.animate-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .timeline-date {
+        text-align: right;
+        padding-top: 4px;
+    }
+
+    .timeline-date span {
+        font-size: var(--text-sm);
+        font-weight: 500;
+        color: var(--color-text-secondary);
+        display: inline-block;
+    }
+
+    .timeline-marker {
+        position: relative;
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    /* Vertical line segment */
+    .timeline-marker::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 0;
+        height: calc(100% + var(--space-10) + 40px);
+        width: 2px;
+        background: var(--color-primary);
+        z-index: 0;
+    }
+
+    /* Gradient for first item */
+    .timeline-item:first-child .timeline-marker::before {
+        background: linear-gradient(
+            to bottom,
+            transparent,
+            var(--color-primary) 10%
+        );
+    }
+
+    /* Gradient for last item */
+    .timeline-item:last-child .timeline-marker::before {
+        height: 100%;
+        background: linear-gradient(
+            to bottom,
+            var(--color-primary),
+            var(--color-primary) 80%,
+            transparent
+        );
+    }
+
+    /* Marker circle */
+    .timeline-marker::after {
+        content: "";
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--color-primary);
+        border: 3px solid var(--color-background);
+        box-shadow: 0 0 0 2px var(--color-primary);
+        transition: all 0.3s ease;
+        margin-top: 4px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .mobile-date {
+        display: none;
+    }
+
+    .timeline-item:hover .timeline-marker::after {
+        transform: scale(1.3);
+        box-shadow: 0 0 0 4px var(--color-primary-light);
+    }
+
+    .timeline-content {
+        padding-block-start: 0;
+    }
+
+    .timeline-card {
+        display: block;
+        padding: var(--space-6);
+        background: var(--color-background-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .timeline-card:hover {
+        transform: translateX(8px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--color-primary);
+    }
+
+    .timeline-card h3 {
+        font-size: var(--text-xl);
+        margin-block-end: var(--space-3);
+        color: var(--color-text);
+    }
+
+    .timeline-card .description {
+        font-size: var(--text-base);
+        color: var(--color-text-secondary);
+        margin-block-end: var(--space-4);
+        line-height: 1.6;
+    }
+
+    .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+    }
+
+    .project-tags .tag {
+        padding: var(--space-1) var(--space-3);
+        background: var(--color-background);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        font-size: var(--text-xs);
+        color: var(--color-text-secondary);
+    }
+
+    .no-results {
+        text-align: center;
+        padding: var(--space-12);
+        color: var(--color-text-secondary);
+    }
+
+    .no-results p {
+        font-size: var(--text-lg);
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .timeline-item {
+            grid-template-columns: 40px 1fr;
+            gap: var(--space-4);
+        }
+
+        .timeline-date {
+            display: none;
+        }
+
+        .mobile-date {
+            display: block;
+            font-size: var(--text-xs);
+            color: var(--color-text-secondary);
+            margin-block-end: var(--space-2);
+            font-weight: 500;
+        }
+
+        .timeline-marker {
+            width: 40px;
+        }
+
+        .timeline-card {
+            padding: var(--space-4);
+        }
+
+        .timeline-card:hover {
+            transform: translateX(4px);
+        }
+
+        .tag-filter {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
 </style>

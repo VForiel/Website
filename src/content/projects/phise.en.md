@@ -1,7 +1,7 @@
 ---
 title: "PHISE - Photonic Interferometric Simulation"
 description: "Python library for simulating photonic interferometric instruments applied to exoplanet detection"
-end_date: 2025-12-01
+start-date: 2023-11-01
 tags: ["Python", "Simulation", "Photonics", "Interferometry", "Open Source"]
 image: "/images/projects/PHISE.webp"
 url: "https://phise.readthedocs.io/"

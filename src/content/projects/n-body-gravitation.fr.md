@@ -1,7 +1,7 @@
 ---
 title: "Simulation de gravitation à N corps"
 description: "Projet de Master - Simulation de gravitation à N corps (2022)"
-end_date: 2022-12-01
+end-date: 2022-12-01
 tags: ["Simulation", "Physique", "Master"]
 featured: false
 locale: fr

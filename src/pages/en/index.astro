@@ -18,7 +18,11 @@ const allProjects = await getCollection("projects", ({ data }) => {
 });
 const featuredProjects = allProjects
     .filter((project) => project.data.featured)
-    .sort((a, b) => b.data.end_date.valueOf() - a.data.end_date.valueOf());
+    .sort(
+        (a, b) =>
+            (b.data["end-date"]?.valueOf() ?? Infinity) -
+            (a.data["end-date"]?.valueOf() ?? Infinity),
+    );
 ---
 
 <PageLayout
@@ -90,7 +94,8 @@ const featuredProjects = allProjects
                             <ProjectCard
                                 title={project.data.title}
                                 description={project.data.description}
-                                end_date={project.data.end_date}
+                                startDate={project.data["start-date"]}
+                                endDate={project.data["end-date"]}
                                 tags={project.data.tags}
                                 image={project.data.image}
                                 projectSlug={cleanSlug}

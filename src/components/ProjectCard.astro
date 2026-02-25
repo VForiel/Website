@@ -2,8 +2,8 @@
 interface Props {
     title: string;
     description: string;
-    start_date?: Date;
-    end_date?: Date;
+    startDate?: Date;
+    endDate?: Date;
     tags?: string[];
     image?: string;
     projectSlug?: string; // Internal project page link
@@ -15,8 +15,8 @@ interface Props {
 const {
     title,
     description,
-    start_date,
-    end_date,
+    "start-date": startDate,
+    "end-date": endDate,
     tags = [],
     image,
     projectSlug,
@@ -25,12 +25,19 @@ const {
     showFallback = true,
 } = Astro.props;
 
-const formattedDate = end_date
-    ? new Intl.DateTimeFormat(lang === "fr" ? "fr-FR" : "en-US", {
-          year: "numeric",
-          month: "long",
-      }).format(end_date)
+const dateFormat = { year: "numeric" as const, month: "long" as const };
+const locale = lang === "fr" ? "fr-FR" : "en-US";
+const formattedStart = startDate
+    ? new Intl.DateTimeFormat(locale, dateFormat).format(startDate)
     : null;
+const formattedEnd = endDate
+    ? new Intl.DateTimeFormat(locale, dateFormat).format(endDate)
+    : lang === "fr"
+      ? "En cours"
+      : "Ongoing";
+const dateLabel = formattedStart
+    ? `${formattedStart} — ${formattedEnd}`
+    : formattedEnd;
 const projectLink = projectSlug ? `/${lang}/projects/${projectSlug}` : null;
 const readMoreLabel = lang === "fr" ? "Lire la suite →" : "Read more →";
 const externalLinkLabel = lang === "fr" ? "Voir le projet →" : "View project →";
@@ -65,13 +72,17 @@ const externalLinkLabel = lang === "fr" ? "Voir le projet →" : "View project �
         <h3 class="project-card__title">{title}</h3>
 
         {
-            formattedDate && (
+            endDate ? (
                 <time
                     class="project-card__date"
-                    datetime={end_date?.toISOString()}
+                    datetime={endDate.toISOString()}
                 >
-                    {formattedDate}
+                    {dateLabel}
                 </time>
+            ) : (
+                <span class="project-card__date project-card__date--ongoing">
+                    {dateLabel}
+                </span>
             )
         }
 

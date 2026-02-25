@@ -1,7 +1,7 @@
 ---
 title: "Plongée sous-marine"
 description: "Un mini-jeu de sensibilisation sur la biodiversité océanique, réalisé en collaboration avec GreenPeace France"
-end_date: 2020-12-01
+end-date: 2020-12-01
 tags: ["Développement de jeux", "Éducation", "Environnement"]
 featured: false
 locale: fr
