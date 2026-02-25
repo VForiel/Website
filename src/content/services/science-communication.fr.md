@@ -8,14 +8,11 @@ locale: fr
 
 ## Vulgarisation scientifique
 
-Transmission des connaissances scientifiques complexes à un public large, du grand public aux étudiants en passant par les professionnels d'autres domaines.
+Transmission des connaissances scientifiques complexes à un public large, des enfants aux passionnés d'astronomie, à travers des présentations vivantes conçues pour rendre les concepts accessibles sans sacrifier la rigueur.
 
 ### Interventions
 
-- **Conférences publiques** - Présentations accessibles sur les instruments astronomiques et l'imagerie à haut contraste
-- **Ateliers pédagogiques** - Sessions interactives sur l'optique et la simulation
-- **Rédaction d'articles** - Publications de vulgarisation scientifique
-
-### Approche
-
-La clarté et la rigueur au service de la compréhension. Chaque présentation est conçue pour rendre les concepts complexes accessibles sans sacrifier leur précision scientifique.
+- **Conférences publiques** — Comme *Chasseurs de mondes* à AstroValberg, portant sur la détection d'exoplanètes
+- **Événements scientifiques** — Animation de stands lors de la Fête de la Science et de la Nuit des Coupoles Ouvertes (tout public, y compris jeune public)
+- **Interventions scolaires** — Présentation en classe de collège comme intervenant extérieur pour transmettre la passion de l'espace
+- **Ma Thèse en 180 secondes** — Participation au concours [MT180](https://www.youtube.com/watch?v=wZDASBM8bMo), exercice ultime de synthèse et de pédagogie

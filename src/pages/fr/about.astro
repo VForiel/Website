@@ -33,11 +33,10 @@ import Section from "../../components/Section.astro";
                 <p>
                     J'ai d'abord suivi un cursus en informatique, domaine où
                     j'avais des facilités naturelles. Mais c'est en suivant des
-                    vulgarisateurs scientifiques et, plus surprenant, en créant
-                    des systèmes de trajectoires dans Minecraft — trigonométrie,
-                    changements de base, physique du point — que je me suis
-                    réconcilié avec les maths et que j'ai décidé de repartir
-                    vers la physique.
+                    vulgarisateurs scientifiques et en m'essayant à la
+                    modélisation physique par le jeu que je me suis réconcilié
+                    avec les maths et que j'ai décidé de repartir vers la
+                    physique.
                 </p>
 
                 <p>
@@ -100,7 +99,7 @@ import Section from "../../components/Section.astro";
                     </p>
                 </div>
 
-                <div class="sidebar-card fun-fact">
+                <div class="sidebar-card">
                     <h3>🎮 Fun fact</h3>
                     <p>
                         C'est en créant un système de projectiles dans Minecraft
@@ -237,21 +236,7 @@ import Section from "../../components/Section.astro";
         margin: 0;
     }
 
-    .fun-fact {
-        background: linear-gradient(
-            135deg,
-            var(--color-background-secondary) 0%,
-            color-mix(
-                    in srgb,
-                    var(--color-primary) 10%,
-                    var(--color-background-secondary)
-                )
-                100%
-        );
-        border-left: 3px solid var(--color-primary);
-    }
-
-    .fun-fact p {
+    .sidebar-card:last-child p {
         font-size: var(--text-sm);
         color: var(--color-text-secondary);
         margin: 0;

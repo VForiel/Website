@@ -1,6 +1,6 @@
 ---
 title: "High Performance Computing"
-description: "Acceleration of simulations and massive processing on CPU and GPU"
+description: "Speeding up simulations and heavy processing on CPU and GPU"
 icon: "⚡"
 order: 3
 locale: en
@@ -10,14 +10,15 @@ reason: "Currently focused on finishing my PhD"
 
 ## Targeted Optimization
 
-Profiling and optimization of scientific codes to reduce computation time without sacrificing accuracy.
+Profiling and optimizing scientific codes to reduce computation time without sacrificing accuracy. I also enjoy finding algorithmic tricks that reduce problem complexity.
 
-### Methods
+### Languages and Tools
 
-- **Parallelization** - Threads and multiprocessing in Python, NumPy vectorization, optimized batches
-- **GPU & accelerators** - Selective porting to CUDA/CuPy or equivalent libraries when the gain is demonstrated
-- **Scalability** - Execution on clusters (SLURM) with resource management and monitoring
+- **Fortran & OpenMP** — For native, parallelized high-performance computing
+- **Python & Numba** — My daily approach: writing Python code quickly with performance far exceeding standard Python thanks to JIT compilation
+- **C/C++** — Proficient, quick to pick back up depending on project needs
+- **CuPy, JAX, PyTorch** — Currently learning for GPU acceleration
 
-### Best Practices
+### Experience
 
-Cross-validation with test sets, performance tracking over time, concise documentation to facilitate maintenance.
+I worked on the computing cluster at the University of Franche-Comté (Besançon, France) for my simulations. My daily work involves optimizing optical and interferometric simulations as part of my PhD to be able to run millions of simulations on a laptop before having the time to make a coffee.

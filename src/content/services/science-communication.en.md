@@ -6,16 +6,13 @@ order: 1
 locale: en
 ---
 
-## Science Popularization
+## Science Outreach
 
-Transmission of complex scientific knowledge to a broad audience, from the general public to students and professionals from other fields.
+Making complex scientific concepts accessible to broad audiences — from children to astronomy enthusiasts — through engaging presentations designed to convey ideas without sacrificing accuracy.
 
-### Interventions
+### Activities
 
-- **Public lectures** - Accessible presentations on astronomical instruments and high-contrast imaging
-- **Educational workshops** - Interactive sessions on optics and simulation
-- **Article writing** - Science popularization publications
-
-### Approach
-
-Clarity and rigor in service of understanding. Each presentation is designed to make complex concepts accessible without sacrificing their scientific accuracy.
+- **Public lectures** — Such as *World Hunters* at AstroValberg, on exoplanet detection methods
+- **Science events** — Hosting booths at the Fête de la Science and the Open Dome Night (all audiences, including young children)
+- **School outreach** — Guest speaker in middle school classrooms to share the wonders of space and inspire young minds
+- **My Thesis in 180 Seconds** — Participation in the [MT180](https://www.youtube.com/watch?v=wZDASBM8bMo) competition, the ultimate exercise in synthesis and pedagogy

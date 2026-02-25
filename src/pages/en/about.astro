@@ -33,10 +33,9 @@ import Section from "../../components/Section.astro";
                 <p>
                     I first pursued a computer science degree, a field where I
                     had natural aptitude. But it was through following science
-                    communicators and, more surprisingly, creating projectile
-                    trajectory systems in Minecraft — trigonometry, basis
-                    changes, point physics — that I made peace with math and
-                    decided to pivot toward physics.
+                    communicators and experimenting with physics modeling
+                    through gaming that I made peace with math and decided to
+                    pivot toward physics.
                 </p>
 
                 <p>
@@ -98,7 +97,7 @@ import Section from "../../components/Section.astro";
                     </p>
                 </div>
 
-                <div class="sidebar-card fun-fact">
+                <div class="sidebar-card">
                     <h3>🎮 Fun fact</h3>
                     <p>
                         It was while building a projectile system in Minecraft —
@@ -235,21 +234,7 @@ import Section from "../../components/Section.astro";
         margin: 0;
     }
 
-    .fun-fact {
-        background: linear-gradient(
-            135deg,
-            var(--color-background-secondary) 0%,
-            color-mix(
-                    in srgb,
-                    var(--color-primary) 10%,
-                    var(--color-background-secondary)
-                )
-                100%
-        );
-        border-left: 3px solid var(--color-primary);
-    }
-
-    .fun-fact p {
+    .sidebar-card:last-child p {
         font-size: var(--text-sm);
         color: var(--color-text-secondary);
         margin: 0;

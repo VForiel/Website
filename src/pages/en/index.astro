@@ -3,347 +3,356 @@ import PageLayout from "../../layouts/PageLayout.astro";
 import Section from "../../components/Section.astro";
 import { getCollection } from "astro:content";
 
+// Get top 4 services sorted by order
+const allServices = await getCollection("services", ({ data }) => {
+    return data.locale === "en";
+});
+const topServices = allServices
+    .sort((a, b) => a.data.order - b.data.order)
+    .slice(0, 4);
+
 // Get featured projects
 const allProjects = await getCollection("projects", ({ data }) => {
-  return data.locale === 'en';
+    return data.locale === "en";
 });
 const featuredProjects = allProjects
-  .filter((project) => project.data.featured)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 2);
+    .filter((project) => project.data.featured)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+    .slice(0, 2);
 ---
 
 <PageLayout
-  title="Vincent Foriel - PhD Candidate in Astrophotonics"
-  description="PhD candidate in astrophotonics, high-contrast imaging and optical simulation"
-  currentPath={Astro.url.pathname}
+    title="Vincent Foriel - PhD Candidate in Astrophotonics"
+    description="PhD candidate in astrophotonics, high-contrast imaging and optical simulation"
+    currentPath={Astro.url.pathname}
 >
-  <!-- Hero Section -->
-  <Section class="hero">
-    <div class="hero__content">
-      <h1 class="hero__title">
-        PhD Candidate in<br />
-        <span class="hero__highlight">Astrophotonics</span>
-      </h1>
+    <!-- Hero Section -->
+    <Section class="hero">
+        <div class="hero__content">
+            <h1 class="hero__title">
+                PhD Candidate in<br />
+                <span class="hero__highlight">Astrophotonics</span>
+            </h1>
 
-      <p class="hero__description">
-        Passionate about science and space, inspired by art and powered by computer science.
-      </p>
+            <p class="hero__description">
+                Passionate about science and space, inspired by art and powered
+                by computer science.
+            </p>
 
-      <div class="hero__cta">
-        <a href="/en/portfolio" class="button button--primary"
-          >Discover my projects</a
-        >
-        <a href="/en/contact" class="button button--secondary">Contact me</a>
-      </div>
-    </div>
-  </Section>
+            <div class="hero__cta">
+                <a href="/en/portfolio" class="button button--primary"
+                    >Discover my projects</a
+                >
+                <a href="/en/contact" class="button button--secondary"
+                    >Contact me</a
+                >
+            </div>
+        </div>
+    </Section>
 
-  <!-- Expertise Overview -->
-  <Section class="expertise-overview">
-    <h2 class="section-title">Areas of Expertise</h2>
+    <!-- Expertise Overview -->
+    <Section class="expertise-overview">
+        <h2 class="section-title">Areas of Expertise</h2>
 
-    <div class="expertise-grid">
-      <div class="expertise-card">
-        <div class="expertise-card__icon">🎤</div>
-        <h3 class="expertise-card__title">Science Communication</h3>
-        <p class="expertise-card__description">
-          Popularization and dissemination of knowledge in astronomy and
-          instrumentation
-        </p>
-      </div>
-
-      <div class="expertise-card">
-        <div class="expertise-card__icon">📈</div>
-        <h3 class="expertise-card__title">Data Science</h3>
-        <p class="expertise-card__description">
-          Robust statistical analyses and interpretable models for scientific data
-        </p>
-      </div>
-
-      <div class="expertise-card">
-        <div class="expertise-card__icon">⚡</div>
-        <h3 class="expertise-card__title">High Performance Computing</h3>
-        <p class="expertise-card__description">
-          Optimization and parallelization of scientific codes on CPU and GPU
-        </p>
-      </div>
-
-      <div class="expertise-card">
-        <div class="expertise-card__icon">🧠</div>
-        <h3 class="expertise-card__title">AI for Physics</h3>
-        <p class="expertise-card__description">
-          Hybrid physics/AI models for detection, denoising and calibration
-        </p>
-      </div>
-    </div>
-
-    <div class="cta-center">
-      <a href="/en/expertise" class="link-arrow">View all services →</a>
-    </div>
-  </Section>
-
-  <!-- Featured Projects -->
-  {
-    featuredProjects.length > 0 && (
-      <Section class="featured-projects">
-        <h2 class="section-title">Featured Projects</h2>
-
-        <div class="projects-grid">
-          {featuredProjects.map((project) => {
-            const { title, description, date, tags } = project.data;
-            const cleanSlug = project.slug.replace(/en$/, '');
-            return (
-              <a href={`/en/projects/${cleanSlug}`} class="project-highlight">
-                <h3 class="project-highlight__title">{title}</h3>
-                <p class="project-highlight__description">{description}</p>
-                <div class="project-highlight__tags">
-                  {tags.slice(0, 3).map((tag) => (
-                    <span class="tag">{tag}</span>
-                  ))}
-                </div>
-              </a>
-            );
-          })}
+        <div class="expertise-grid">
+            {
+                topServices.map((service) => (
+                    <div class="expertise-card">
+                        <div class="expertise-card__icon">
+                            {service.data.icon}
+                        </div>
+                        <h3 class="expertise-card__title">
+                            {service.data.title}
+                        </h3>
+                        <p class="expertise-card__description">
+                            {service.data.description}
+                        </p>
+                    </div>
+                ))
+            }
         </div>
 
         <div class="cta-center">
-          <a href="/en/portfolio" class="link-arrow">
-            View all projects →
-          </a>
+            <a href="/en/expertise" class="link-arrow">View all services →</a>
         </div>
-      </Section>
-    )
-  }
+    </Section>
 
-  <!-- CTA Section -->
-  <Section class="cta-section">
-    <div class="cta-box">
-      <h2 class="cta-box__title">Have a project?</h2>
-      <p class="cta-box__description">
-        I am available for research collaborations, technical consulting,
-        or science communication interventions.
-      </p>
-      <a href="/en/contact" class="button button--primary">Let's discuss</a>
-    </div>
-  </Section>
+    <!-- Featured Projects -->
+    {
+        featuredProjects.length > 0 && (
+            <Section class="featured-projects">
+                <h2 class="section-title">Featured Projects</h2>
+
+                <div class="projects-grid">
+                    {featuredProjects.map((project) => {
+                        const { title, description, date, tags } = project.data;
+                        const cleanSlug = project.slug.replace(/en$/, "");
+                        return (
+                            <a
+                                href={`/en/projects/${cleanSlug}`}
+                                class="project-highlight"
+                            >
+                                <h3 class="project-highlight__title">
+                                    {title}
+                                </h3>
+                                <p class="project-highlight__description">
+                                    {description}
+                                </p>
+                                <div class="project-highlight__tags">
+                                    {tags.slice(0, 3).map((tag) => (
+                                        <span class="tag">{tag}</span>
+                                    ))}
+                                </div>
+                            </a>
+                        );
+                    })}
+                </div>
+
+                <div class="cta-center">
+                    <a href="/en/portfolio" class="link-arrow">
+                        View all projects →
+                    </a>
+                </div>
+            </Section>
+        )
+    }
+
+    <!-- CTA Section -->
+    <Section class="cta-section">
+        <div class="cta-box">
+            <h2 class="cta-box__title">Have a project?</h2>
+            <p class="cta-box__description">
+                I am available for research collaborations, technical
+                consulting, or science communication interventions.
+            </p>
+            <a href="/en/contact" class="button button--primary"
+                >Let's discuss</a
+            >
+        </div>
+    </Section>
 </PageLayout>
 
 <style>
-  /* Hero Section */
-  .hero {
-    padding-block: var(--space-32) var(--space-24);
-  }
+    /* Hero Section */
+    .hero {
+        padding-block: var(--space-32) var(--space-24);
+    }
 
-  .hero__content {
-    max-width: 800px;
-    margin-inline: auto;
-    text-align: center;
-  }
+    .hero__content {
+        max-width: 800px;
+        margin-inline: auto;
+        text-align: center;
+    }
 
-  .hero__title {
-    font-size: var(--text-5xl);
-    font-weight: 700;
-    margin-block-end: var(--space-6);
-    line-height: 1.1;
-  }
-
-  .hero__highlight {
-    color: var(--color-primary);
-  }
-
-  .hero__description {
-    font-size: var(--text-xl);
-    color: var(--color-text-secondary);
-    margin-block-end: var(--space-8);
-    max-width: 65ch;
-    margin-inline: auto;
-  }
-
-  .hero__cta {
-    display: flex;
-    gap: var(--space-4);
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  /* Buttons */
-  .button {
-    display: inline-block;
-    padding: var(--space-4) var(--space-8);
-    font-size: var(--text-base);
-    font-weight: 500;
-    border-radius: var(--radius-md);
-    transition: all var(--transition-base);
-    border: 2px solid transparent;
-  }
-
-  .button--primary {
-    background-color: var(--color-primary);
-    color: white;
-  }
-
-  .button--primary:hover {
-    background-color: var(--color-primary-dark);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-  }
-
-  .button--secondary {
-    border-color: var(--color-border);
-    color: var(--color-text);
-  }
-
-  .button--secondary:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-  }
-
-  /* Section Title */
-  .section-title {
-    font-size: var(--text-3xl);
-    text-align: center;
-    margin-block-end: var(--space-12);
-  }
-
-  /* Expertise Grid */
-  .expertise-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-6);
-    margin-block-end: var(--space-8);
-  }
-
-  .expertise-card {
-    padding: var(--space-8);
-    background-color: var(--color-background);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    transition: all var(--transition-base);
-  }
-
-  .expertise-card:hover {
-    border-color: var(--color-primary);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-4px);
-  }
-
-  .expertise-card__icon {
-    font-size: 3rem;
-    margin-block-end: var(--space-4);
-  }
-
-  .expertise-card__title {
-    font-size: var(--text-xl);
-    margin-block-end: var(--space-3);
-  }
-
-  .expertise-card__description {
-    color: var(--color-text-secondary);
-    font-size: var(--text-base);
-  }
-
-  /* Projects Grid */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--space-8);
-    margin-block-end: var(--space-8);
-  }
-
-  .project-highlight {
-    padding: var(--space-8);
-    background-color: var(--color-background-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    transition: all var(--transition-base);
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-
-  .project-highlight:hover {
-    border-color: var(--color-primary);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-4px);
-  }
-
-  .project-highlight__title {
-    font-size: var(--text-2xl);
-    margin-block-end: var(--space-3);
-  }
-
-  .project-highlight__description {
-    color: var(--color-text-secondary);
-    margin-block-end: var(--space-4);
-  }
-
-  .project-highlight__tags {
-    display: flex;
-    gap: var(--space-2);
-    flex-wrap: wrap;
-  }
-
-  .tag {
-    font-size: var(--text-xs);
-    padding: var(--space-1) var(--space-3);
-    background-color: var(--color-background);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    color: var(--color-text-secondary);
-  }
-
-  /* CTA Section */
-  .cta-section {
-    background-color: var(--color-background-secondary);
-  }
-
-  .cta-box {
-    max-width: 600px;
-    margin-inline: auto;
-    text-align: center;
-  }
-
-  .cta-box__title {
-    font-size: var(--text-3xl);
-    margin-block-end: var(--space-4);
-  }
-
-  .cta-box__description {
-    font-size: var(--text-lg);
-    color: var(--color-text-secondary);
-    margin-block-end: var(--space-8);
-  }
-
-  /* Link Arrow */
-  .cta-center {
-    text-align: center;
-  }
-
-  .link-arrow {
-    font-size: var(--text-lg);
-    font-weight: 500;
-    color: var(--color-primary);
-    transition: transform var(--transition-base);
-    display: inline-block;
-  }
-
-  .link-arrow:hover {
-    transform: translateX(4px);
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
     .hero__title {
-      font-size: var(--text-4xl);
+        font-size: var(--text-5xl);
+        font-weight: 700;
+        margin-block-end: var(--space-6);
+        line-height: 1.1;
+    }
+
+    .hero__highlight {
+        color: var(--color-primary);
     }
 
     .hero__description {
-      font-size: var(--text-lg);
+        font-size: var(--text-xl);
+        color: var(--color-text-secondary);
+        margin-block-end: var(--space-8);
+        max-width: 65ch;
+        margin-inline: auto;
     }
 
-    .expertise-grid {
-      grid-template-columns: 1fr;
+    .hero__cta {
+        display: flex;
+        gap: var(--space-4);
+        justify-content: center;
+        flex-wrap: wrap;
     }
-  }
+
+    /* Buttons */
+    .button {
+        display: inline-block;
+        padding: var(--space-4) var(--space-8);
+        font-size: var(--text-base);
+        font-weight: 500;
+        border-radius: var(--radius-md);
+        transition: all var(--transition-base);
+        border: 2px solid transparent;
+    }
+
+    .button--primary {
+        background-color: var(--color-primary);
+        color: white;
+    }
+
+    .button--primary:hover {
+        background-color: var(--color-primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .button--secondary {
+        border-color: var(--color-border);
+        color: var(--color-text);
+    }
+
+    .button--secondary:hover {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    /* Section Title */
+    .section-title {
+        font-size: var(--text-3xl);
+        text-align: center;
+        margin-block-end: var(--space-12);
+    }
+
+    /* Expertise Grid */
+    .expertise-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-6);
+        margin-block-end: var(--space-8);
+    }
+
+    .expertise-card {
+        padding: var(--space-8);
+        background-color: var(--color-background);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        transition: all var(--transition-base);
+    }
+
+    .expertise-card:hover {
+        border-color: var(--color-primary);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-4px);
+    }
+
+    .expertise-card__icon {
+        font-size: 3rem;
+        margin-block-end: var(--space-4);
+    }
+
+    .expertise-card__title {
+        font-size: var(--text-xl);
+        margin-block-end: var(--space-3);
+    }
+
+    .expertise-card__description {
+        color: var(--color-text-secondary);
+        font-size: var(--text-base);
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: var(--space-8);
+        margin-block-end: var(--space-8);
+    }
+
+    .project-highlight {
+        padding: var(--space-8);
+        background-color: var(--color-background-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        transition: all var(--transition-base);
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .project-highlight:hover {
+        border-color: var(--color-primary);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-4px);
+    }
+
+    .project-highlight__title {
+        font-size: var(--text-2xl);
+        margin-block-end: var(--space-3);
+    }
+
+    .project-highlight__description {
+        color: var(--color-text-secondary);
+        margin-block-end: var(--space-4);
+    }
+
+    .project-highlight__tags {
+        display: flex;
+        gap: var(--space-2);
+        flex-wrap: wrap;
+    }
+
+    .tag {
+        font-size: var(--text-xs);
+        padding: var(--space-1) var(--space-3);
+        background-color: var(--color-background);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
+        color: var(--color-text-secondary);
+    }
+
+    /* CTA Section */
+    .cta-section {
+        background-color: var(--color-background-secondary);
+    }
+
+    .cta-box {
+        max-width: 600px;
+        margin-inline: auto;
+        text-align: center;
+    }
+
+    .cta-box__title {
+        font-size: var(--text-3xl);
+        margin-block-end: var(--space-4);
+    }
+
+    .cta-box__description {
+        font-size: var(--text-lg);
+        color: var(--color-text-secondary);
+        margin-block-end: var(--space-8);
+    }
+
+    /* Link Arrow */
+    .cta-center {
+        text-align: center;
+    }
+
+    .link-arrow {
+        font-size: var(--text-lg);
+        font-weight: 500;
+        color: var(--color-primary);
+        transition: transform var(--transition-base);
+        display: inline-block;
+    }
+
+    .link-arrow:hover {
+        transform: translateX(4px);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .hero__title {
+            font-size: var(--text-4xl);
+        }
+
+        .hero__description {
+            font-size: var(--text-lg);
+        }
+
+        .expertise-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .expertise-grid {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>

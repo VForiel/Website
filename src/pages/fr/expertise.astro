@@ -20,7 +20,7 @@ const renderedServices = await Promise.all(
 
 <PageLayout
     title="Expertise & Services - Vincent Foriel"
-    description="Services de communication scientifique, science des données, calcul haute performance et IA pour la physique"
+    description="Services de communication scientifique, science des données, calcul haute performance, IA pour la physique et cours de math/physique/informatique"
     currentPath={Astro.url.pathname}
 >
     <Section>
@@ -218,6 +218,16 @@ const renderedServices = await Promise.all(
     .prose :global(li) {
         color: var(--color-text-secondary);
         margin-block-end: var(--space-2);
+    }
+
+    .prose :global(a) {
+        color: var(--color-primary);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+
+    .prose :global(a:hover) {
+        color: var(--color-primary-dark);
     }
 
     .cta-section {

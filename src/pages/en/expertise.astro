@@ -20,7 +20,7 @@ const renderedServices = await Promise.all(
 
 <PageLayout
     title="Expertise & Services - Vincent Foriel"
-    description="Services in science communication, data science, high performance computing and AI for physics"
+    description="Services in science communication, data science, high performance computing, AI for physics and math/physics/CS tutoring"
     currentPath={Astro.url.pathname}
 >
     <Section>
@@ -218,6 +218,16 @@ const renderedServices = await Promise.all(
     .prose :global(li) {
         color: var(--color-text-secondary);
         margin-block-end: var(--space-2);
+    }
+
+    .prose :global(a) {
+        color: var(--color-primary);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+
+    .prose :global(a:hover) {
+        color: var(--color-primary-dark);
     }
 
     .cta-section {
