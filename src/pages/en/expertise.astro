@@ -222,12 +222,13 @@ const renderedServices = await Promise.all(
 
     .prose :global(a) {
         color: var(--color-primary);
-        text-decoration: underline;
-        text-underline-offset: 2px;
+        text-decoration: none;
     }
 
     .prose :global(a:hover) {
         color: var(--color-primary-dark);
+        text-decoration: underline;
+        text-underline-offset: 2px;
     }
 
     .cta-section {

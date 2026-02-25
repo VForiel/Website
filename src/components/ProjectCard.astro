@@ -1,179 +1,344 @@
 ---
 interface Props {
-  title: string;
-  description: string;
-  start_date?: Date;
-  end_date?: Date;
-  tags?: string[];
-  image?: string;
-  projectSlug?: string;  // Internal project page link
-  externalUrl?: string;  // External URL (GitHub, etc.)
-  lang?: 'fr' | 'en';
+    title: string;
+    description: string;
+    start_date?: Date;
+    end_date?: Date;
+    tags?: string[];
+    image?: string;
+    projectSlug?: string; // Internal project page link
+    externalUrl?: string; // External URL (GitHub, etc.)
+    lang?: "fr" | "en";
+    showFallback?: boolean; // Show default image when no image provided (default: true)
 }
 
-const { title, description, start_date, end_date, tags = [], image, projectSlug, externalUrl, lang = 'fr' } = Astro.props;
+const {
+    title,
+    description,
+    start_date,
+    end_date,
+    tags = [],
+    image,
+    projectSlug,
+    externalUrl,
+    lang = "fr",
+    showFallback = true,
+} = Astro.props;
 
-const formattedDate = end_date ? new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-US', { year: 'numeric', month: 'long' }).format(end_date) : null;
+const formattedDate = end_date
+    ? new Intl.DateTimeFormat(lang === "fr" ? "fr-FR" : "en-US", {
+          year: "numeric",
+          month: "long",
+      }).format(end_date)
+    : null;
 const projectLink = projectSlug ? `/${lang}/projects/${projectSlug}` : null;
-const readMoreLabel = lang === 'fr' ? 'Lire la suite →' : 'Read more →';
-const externalLinkLabel = lang === 'fr' ? 'Voir le projet →' : 'View project →';
+const readMoreLabel = lang === "fr" ? "Lire la suite →" : "Read more →";
+const externalLinkLabel = lang === "fr" ? "Voir le projet →" : "View project →";
 ---
 
 <article class="project-card">
-  {projectLink && <a href={projectLink} class="project-card__link-overlay" aria-label={title}></a>}
-  
-  {image && (
-    <div class="project-card__image">
-      <img src={image} alt={title} loading="lazy" />
+    {
+        projectLink && (
+            <a
+                href={projectLink}
+                class="project-card__link-overlay"
+                aria-label={title}
+            />
+        )
+    }
+
+    {
+        image ? (
+            <div class="project-card__image">
+                <img src={image} alt={title} loading="lazy" />
+            </div>
+        ) : showFallback ? (
+            <div
+                class="project-card__image project-card__image--default"
+                role="img"
+                aria-label={title}
+            />
+        ) : null
+    }
+
+    <div class="project-card__content">
+        <h3 class="project-card__title">{title}</h3>
+
+        {
+            formattedDate && (
+                <time
+                    class="project-card__date"
+                    datetime={end_date?.toISOString()}
+                >
+                    {formattedDate}
+                </time>
+            )
+        }
+
+        <p class="project-card__description">{description}</p>
+
+        {
+            tags.length > 0 && (
+                <ul class="project-card__tags">
+                    {tags.map((tag) => (
+                        <li class="project-card__tag">{tag}</li>
+                    ))}
+                </ul>
+            )
+        }
+
+        <div class="project-card__actions">
+            {
+                projectLink && (
+                    <span class="project-card__read-more">{readMoreLabel}</span>
+                )
+            }
+            {
+                externalUrl && (
+                    <a
+                        href={externalUrl}
+                        class="project-card__external"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onclick="event.stopPropagation()"
+                    >
+                        {externalLinkLabel}
+                    </a>
+                )
+            }
+        </div>
     </div>
-  )}
-  
-  <div class="project-card__content">
-    <h3 class="project-card__title">{title}</h3>
-    
-    {formattedDate && (
-      <time class="project-card__date" datetime={end_date?.toISOString()}>
-        {formattedDate}
-      </time>
-    )}
-    
-    <p class="project-card__description">{description}</p>
-    
-    {tags.length > 0 && (
-      <ul class="project-card__tags">
-        {tags.map((tag) => (
-          <li class="project-card__tag">{tag}</li>
-        ))}
-      </ul>
-    )}
-    
-    <div class="project-card__actions">
-      {projectLink && (
-        <span class="project-card__read-more">{readMoreLabel}</span>
-      )}
-      {externalUrl && (
-        <a 
-          href={externalUrl} 
-          class="project-card__external" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          onclick="event.stopPropagation()"
-        >
-          {externalLinkLabel}
-        </a>
-      )}
-    </div>
-  </div>
 </article>
 
 <style>
-  .project-card {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--color-background);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    transition: all var(--transition-base);
-    height: 100%;
-    position: relative;
-    cursor: pointer;
-  }
+    .project-card {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--color-background);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        transition: all var(--transition-base);
+        height: 100%;
+        position: relative;
+        cursor: pointer;
+    }
 
-  .project-card:hover {
-    border-color: var(--color-primary);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-  }
+    .project-card:hover {
+        border-color: var(--color-primary);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+    }
 
-  .project-card__link-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-  }
+    .project-card__link-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+    }
 
-  .project-card__image {
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    background-color: var(--color-background-secondary);
-  }
+    .project-card__image {
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background-color: var(--color-background-secondary);
+    }
 
-  .project-card__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform var(--transition-slow);
-  }
+    .project-card__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform var(--transition-slow);
+    }
 
-  .project-card:hover .project-card__image img {
-    transform: scale(1.05);
-  }
+    .project-card:hover .project-card__image img {
+        transform: scale(1.05);
+    }
 
-  .project-card__content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    padding: var(--space-6);
-    flex-grow: 1;
-  }
+    .project-card__image--default {
+        --_bg: var(--color-background);
+        --_star1: var(--color-text-muted);
+        --_star2: var(--color-primary);
+        --_glow: var(--color-primary);
+        background:
+            /* Large sparse stars */
+            radial-gradient(
+                2px 2px at 10% 15%,
+                var(--_star2) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                2px 2px at 25% 70%,
+                var(--_star1) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                1.5px 1.5px at 40% 30%,
+                var(--_star2) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                2px 2px at 55% 85%,
+                var(--_star1) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                1.5px 1.5px at 70% 20%,
+                var(--_star2) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                2px 2px at 85% 55%,
+                var(--_star1) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                1px 1px at 15% 45%,
+                var(--_star1) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                1px 1px at 50% 50%,
+                var(--_star2) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                1.5px 1.5px at 90% 10%,
+                var(--_star1) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                1px 1px at 35% 90%,
+                var(--_star2) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                1px 1px at 60% 40%,
+                var(--_star1) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                1.5px 1.5px at 5% 80%,
+                var(--_star2) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                1px 1px at 75% 65%,
+                var(--_star1) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                1px 1px at 95% 35%,
+                var(--_star2) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                1.5px 1.5px at 45% 5%,
+                var(--_star1) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                1px 1px at 20% 25%,
+                var(--_star1) 50%,
+                transparent 100%
+            ),
+            radial-gradient(
+                1px 1px at 80% 80%,
+                var(--_star2) 50%,
+                transparent 100%
+            ),
+            /* Subtle glow */
+            radial-gradient(
+                    ellipse at 30% 40%,
+                    color-mix(in srgb, var(--_glow) 8%, transparent) 0%,
+                    transparent 60%
+                ),
+            radial-gradient(
+                ellipse at 70% 60%,
+                color-mix(in srgb, var(--_glow) 5%, transparent) 0%,
+                transparent 50%
+            ),
+            /* Base */ var(--_bg);
+        position: relative;
+    }
 
-  .project-card__title {
-    font-size: var(--text-xl);
-    font-weight: 600;
-    color: var(--color-text);
-  }
+    .project-card__image--default::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 48px;
+        height: 48px;
+        opacity: 0.25;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.5 6.5H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-10a1 1 0 0 0-1-1h-3.5l-1.72-2.58A1 1 0 0 0 14.95 3H9.05a1 1 0 0 0-.83.42L6.5 6.5z'/%3E%3Ccircle cx='12' cy='13' r='3.5'/%3E%3Cline x1='2' y1='2' x2='22' y2='22'/%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
 
-  .project-card__date {
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-  }
+    .project-card__content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+        padding: var(--space-6);
+        flex-grow: 1;
+    }
 
-  .project-card__description {
-    font-size: var(--text-base);
-    color: var(--color-text-secondary);
-    line-height: 1.6;
-  }
+    .project-card__title {
+        font-size: var(--text-xl);
+        font-weight: 600;
+        color: var(--color-text);
+    }
 
-  .project-card__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin-block-start: auto;
-  }
+    .project-card__date {
+        font-size: var(--text-sm);
+        color: var(--color-text-muted);
+    }
 
-  .project-card__tag {
-    font-size: var(--text-xs);
-    padding: var(--space-1) var(--space-3);
-    background-color: var(--color-background-secondary);
-    color: var(--color-text-secondary);
-    border-radius: var(--radius-sm);
-    font-weight: 500;
-  }
+    .project-card__description {
+        font-size: var(--text-base);
+        color: var(--color-text-secondary);
+        line-height: 1.6;
+    }
 
-  .project-card__actions {
-    display: flex;
-    gap: var(--space-4);
-    align-items: center;
-    margin-block-start: var(--space-2);
-  }
+    .project-card__tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+        margin-block-start: auto;
+    }
 
-  .project-card__read-more {
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-primary);
-  }
+    .project-card__tag {
+        font-size: var(--text-xs);
+        padding: var(--space-1) var(--space-3);
+        background-color: var(--color-background-secondary);
+        color: var(--color-text-secondary);
+        border-radius: var(--radius-sm);
+        font-weight: 500;
+    }
 
-  .project-card__external {
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-primary);
-    position: relative;
-    z-index: 2;
-    transition: color var(--transition-fast);
-  }
+    .project-card__actions {
+        display: flex;
+        gap: var(--space-4);
+        align-items: center;
+        margin-block-start: var(--space-2);
+    }
 
-  .project-card__external:hover {
-    color: var(--color-primary-dark);
-    text-decoration: underline;
-  }
+    .project-card__read-more {
+        font-size: var(--text-sm);
+        font-weight: 500;
+        color: var(--color-primary);
+    }
+
+    .project-card__external {
+        font-size: var(--text-sm);
+        font-weight: 500;
+        color: var(--color-primary);
+        position: relative;
+        z-index: 2;
+        transition: color var(--transition-fast);
+    }
+
+    .project-card__external:hover {
+        color: var(--color-primary-dark);
+        text-decoration: underline;
+    }
 </style>

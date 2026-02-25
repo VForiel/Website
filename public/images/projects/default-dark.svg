@@ -1,0 +1,369 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <rect width="1200" height="675" fill="#0a0e1a"/>
+  <line x1="335" y1="371" x2="251" y2="244" stroke="#4488cc" stroke-width="0.5" opacity="0.06924459525221859"/>
+<line x1="335" y1="371" x2="381" y2="527" stroke="#4488cc" stroke-width="0.5" opacity="0.0657864305629014"/>
+<line x1="335" y1="371" x2="267" y2="307" stroke="#4488cc" stroke-width="0.5" opacity="0.08887301992018999"/>
+<line x1="335" y1="371" x2="134" y2="504" stroke="#4488cc" stroke-width="0.5" opacity="0.04"/>
+<line x1="335" y1="371" x2="189" y2="485" stroke="#4488cc" stroke-width="0.5" opacity="0.05825500470123555"/>
+<line x1="335" y1="371" x2="562" y2="475" stroke="#4488cc" stroke-width="0.5" opacity="0.04"/>
+<line x1="335" y1="371" x2="247" y2="463" stroke="#4488cc" stroke-width="0.5" opacity="0.07756311876576119"/>
+<line x1="251" y1="244" x2="267" y2="307" stroke="#4488cc" stroke-width="0.5" opacity="0.09833333333333333"/>
+<line x1="251" y1="244" x2="189" y2="485" stroke="#4488cc" stroke-width="0.5" opacity="0.04"/>
+<line x1="251" y1="244" x2="247" y2="463" stroke="#4488cc" stroke-width="0.5" opacity="0.04698782445524734"/>
+<line x1="638" y1="540" x2="562" y2="475" stroke="#4488cc" stroke-width="0.5" opacity="0.08666500004166458"/>
+<line x1="381" y1="527" x2="267" y2="307" stroke="#4488cc" stroke-width="0.5" opacity="0.04"/>
+<line x1="381" y1="527" x2="134" y2="504" stroke="#4488cc" stroke-width="0.5" opacity="0.04"/>
+<line x1="381" y1="527" x2="189" y2="485" stroke="#4488cc" stroke-width="0.5" opacity="0.05448664258336319"/>
+<line x1="381" y1="527" x2="562" y2="475" stroke="#4488cc" stroke-width="0.5" opacity="0.05722615548211535"/>
+<line x1="381" y1="527" x2="247" y2="463" stroke="#4488cc" stroke-width="0.5" opacity="0.07050028058440913"/>
+<line x1="267" y1="307" x2="134" y2="504" stroke="#4488cc" stroke-width="0.5" opacity="0.04076897352958529"/>
+<line x1="267" y1="307" x2="189" y2="485" stroke="#4488cc" stroke-width="0.5" opacity="0.05522003053069224"/>
+<line x1="267" y1="307" x2="247" y2="463" stroke="#4488cc" stroke-width="0.5" opacity="0.06757439132976667"/>
+<line x1="1003" y1="437" x2="1108" y2="462" stroke="#4488cc" stroke-width="0.5" opacity="0.08402161142512848"/>
+<line x1="134" y1="504" x2="189" y2="485" stroke="#4488cc" stroke-width="0.5" opacity="0.10060355129869845"/>
+<line x1="134" y1="504" x2="247" y2="463" stroke="#4488cc" stroke-width="0.5" opacity="0.0799306157327623"/>
+<line x1="189" y1="485" x2="247" y2="463" stroke="#4488cc" stroke-width="0.5" opacity="0.09932258344097222"/>
+
+  <text x="-2.857631926295614" y="-3.67688151274975" fill="#4488cc" opacity="0.09020800004666525" font-family="monospace" font-size="16">1</text>
+<text x="-0.2702705705540627" y="44.07059961485937" fill="#4488cc" opacity="0.051869751815615206" font-family="monospace" font-size="16">1</text>
+<text x="-0.6894881759362246" y="89.23578623019921" fill="#4488cc" opacity="0.0387237732805941" font-family="monospace" font-size="16">0</text>
+<text x="-4.458288127678295" y="136.53455488265791" fill="#4488cc" opacity="0.10774530735326429" font-family="monospace" font-size="16">1</text>
+<text x="2.2821358844118267" y="183.005925108617" fill="#4488cc" opacity="0.03545514066693123" font-family="monospace" font-size="16">0</text>
+<text x="-3.0979109155918847" y="224.4861354783313" fill="#4488cc" opacity="0.0523790700528257" font-family="monospace" font-size="16">0</text>
+<text x="-0.3737193159903267" y="273.7448595407058" fill="#4488cc" opacity="0.04651392322085099" font-family="monospace" font-size="16">1</text>
+<text x="3.6134910476183055" y="315.5032531244985" fill="#4488cc" opacity="0.06988176705481113" font-family="monospace" font-size="16">0</text>
+<text x="0.4058793810030501" y="355.1475785649565" fill="#4488cc" opacity="0.08869304045986698" font-family="monospace" font-size="16">0</text>
+<text x="3.486957344143054" y="401.66311110603914" fill="#4488cc" opacity="0.11337302847073148" font-family="monospace" font-size="16">0</text>
+<text x="3.6465039403021553" y="454.0244286551055" fill="#4488cc" opacity="0.07332225761739355" font-family="monospace" font-size="16">1</text>
+<text x="4.853088437797259" y="492.65203058172153" fill="#4488cc" opacity="0.06410758070792244" font-family="monospace" font-size="16">0</text>
+<text x="1.9659150360016255" y="542.3050531741546" fill="#4488cc" opacity="0.055672430605222825" font-family="monospace" font-size="16">1</text>
+<text x="-2.0329217450543577" y="589.6870936496916" fill="#4488cc" opacity="0.04393171427466577" font-family="monospace" font-size="16">1</text>
+<text x="-4.428347270925169" y="630.8417759445897" fill="#4488cc" opacity="0.09731780043411577" font-family="monospace" font-size="16">0</text>
+<text x="60.07828496993419" y="3.513425453441215" fill="#4488cc" opacity="0.03511916217558161" font-family="monospace" font-size="16">0</text>
+<text x="61.7521255360409" y="42.35203895000931" fill="#4488cc" opacity="0.0835531595805025" font-family="monospace" font-size="16">0</text>
+<text x="60.69675410138185" y="90.78919057507211" fill="#4488cc" opacity="0.11474365145061804" font-family="monospace" font-size="16">0</text>
+<text x="59.19224915335872" y="135.83672289291223" fill="#4488cc" opacity="0.08574433592988928" font-family="monospace" font-size="16">0</text>
+<text x="57.042591994235366" y="182.16191800789414" fill="#4488cc" opacity="0.11412356319627845" font-family="monospace" font-size="16">1</text>
+<text x="56.30878282127456" y="226.45500788837649" fill="#4488cc" opacity="0.05390530612782184" font-family="monospace" font-size="16">0</text>
+<text x="62.51864492414402" y="265.7254311449316" fill="#4488cc" opacity="0.058455947664466865" font-family="monospace" font-size="16">1</text>
+<text x="60.62993645638946" y="310.99981248924587" fill="#4488cc" opacity="0.08590433299437836" font-family="monospace" font-size="16">1</text>
+<text x="56.324565703664675" y="358.49008834964513" fill="#4488cc" opacity="0.07552962246438888" font-family="monospace" font-size="16">0</text>
+<text x="58.69527088738884" y="401.5774683235723" fill="#4488cc" opacity="0.10913432182360884" font-family="monospace" font-size="16">0</text>
+<text x="64.87233063631504" y="451.5397631771073" fill="#4488cc" opacity="0.0850509989153355" font-family="monospace" font-size="16">1</text>
+<text x="60.54602282489678" y="499.3175603943608" fill="#4488cc" opacity="0.09010768833413252" font-family="monospace" font-size="16">0</text>
+<text x="56.34291114393368" y="536.154286704191" fill="#4488cc" opacity="0.11450370035343935" font-family="monospace" font-size="16">0</text>
+<text x="56.554479097749905" y="582.8175627145789" fill="#4488cc" opacity="0.09681750155828987" font-family="monospace" font-size="16">0</text>
+<text x="57.03597312327453" y="631.3423795888508" fill="#4488cc" opacity="0.0945850968424918" font-family="monospace" font-size="16">0</text>
+<text x="117.51121252069895" y="4.081590462185719" fill="#4488cc" opacity="0.07548681522881884" font-family="monospace" font-size="16">1</text>
+<text x="119.23575772563726" y="42.766802239722516" fill="#4488cc" opacity="0.03830686209414601" font-family="monospace" font-size="16">0</text>
+<text x="116.30819660701702" y="94.79797953828836" fill="#4488cc" opacity="0.06002008847445793" font-family="monospace" font-size="16">0</text>
+<text x="120.51680421126392" y="134.2768691898068" fill="#4488cc" opacity="0.09671078175131377" font-family="monospace" font-size="16">0</text>
+<text x="124.4505093904664" y="181.91019623755875" fill="#4488cc" opacity="0.04006864925304015" font-family="monospace" font-size="16">0</text>
+<text x="123.34595019886017" y="225.82509566489793" fill="#4488cc" opacity="0.079103126028497" font-family="monospace" font-size="16">0</text>
+<text x="115.41828858168859" y="268.64651515327256" fill="#4488cc" opacity="0.06868080415926946" font-family="monospace" font-size="16">0</text>
+<text x="117.10076538339754" y="312.49529739222925" fill="#4488cc" opacity="0.11090321728738271" font-family="monospace" font-size="16">0</text>
+<text x="120.5988351914387" y="363.7471272354109" fill="#4488cc" opacity="0.06183107711531565" font-family="monospace" font-size="16">0</text>
+<text x="117.36737332229359" y="401.6250176710044" fill="#4488cc" opacity="0.11331874403126009" font-family="monospace" font-size="16">0</text>
+<text x="115.24786361898188" y="452.3656447175508" fill="#4488cc" opacity="0.1093274584196992" font-family="monospace" font-size="16">0</text>
+<text x="119.11713166551553" y="496.69907129288197" fill="#4488cc" opacity="0.10041478465328685" font-family="monospace" font-size="16">1</text>
+<text x="122.8737450913547" y="536.0809562640296" fill="#4488cc" opacity="0.054012513863502476" font-family="monospace" font-size="16">0</text>
+<text x="117.22433717545664" y="588.1658660559693" fill="#4488cc" opacity="0.10727339262040034" font-family="monospace" font-size="16">0</text>
+<text x="123.20536380971562" y="633.7132303586301" fill="#4488cc" opacity="0.06146925820013268" font-family="monospace" font-size="16">1</text>
+<text x="176.9312978832771" y="-1.7173804880229349" fill="#4488cc" opacity="0.03212979912313064" font-family="monospace" font-size="16">0</text>
+<text x="177.7912499272187" y="46.41481738607628" fill="#4488cc" opacity="0.1170200193643525" font-family="monospace" font-size="16">0</text>
+<text x="183.4366116327208" y="88.31149868214408" fill="#4488cc" opacity="0.09115663065242373" font-family="monospace" font-size="16">1</text>
+<text x="184.70400611022228" y="131.78567816172463" fill="#4488cc" opacity="0.04038075766662848" font-family="monospace" font-size="16">0</text>
+<text x="180.96571254987745" y="178.456871116798" fill="#4488cc" opacity="0.03344314776179364" font-family="monospace" font-size="16">1</text>
+<text x="184.8423584931659" y="221.1564578402933" fill="#4488cc" opacity="0.06927544954835471" font-family="monospace" font-size="16">1</text>
+<text x="182.08785283834172" y="265.0169127821863" fill="#4488cc" opacity="0.052925025552472374" font-family="monospace" font-size="16">0</text>
+<text x="175.69973811126312" y="316.64237684911274" fill="#4488cc" opacity="0.06277993246031377" font-family="monospace" font-size="16">0</text>
+<text x="181.63387476265544" y="356.24625315664366" fill="#4488cc" opacity="0.08608398689517682" font-family="monospace" font-size="16">1</text>
+<text x="181.6689290410573" y="403.261829048574" fill="#4488cc" opacity="0.07564102536317421" font-family="monospace" font-size="16">1</text>
+<text x="176.91840092990148" y="451.6492943421277" fill="#4488cc" opacity="0.07989712299001142" font-family="monospace" font-size="16">1</text>
+<text x="184.02805545732582" y="496.1551491595138" fill="#4488cc" opacity="0.09095861507454596" font-family="monospace" font-size="16">1</text>
+<text x="183.33725169304057" y="538.0387494926836" fill="#4488cc" opacity="0.06654676518823466" font-family="monospace" font-size="16">1</text>
+<text x="180.79984781195682" y="586.5470562370307" fill="#4488cc" opacity="0.06868993349908512" font-family="monospace" font-size="16">0</text>
+<text x="181.756272331901" y="630.1117399687458" fill="#4488cc" opacity="0.06976074151541575" font-family="monospace" font-size="16">1</text>
+<text x="237.83786404993026" y="1.638538363049987" fill="#4488cc" opacity="0.08929656704985796" font-family="monospace" font-size="16">0</text>
+<text x="244.51999662452477" y="42.34868598526684" fill="#4488cc" opacity="0.038404848006800635" font-family="monospace" font-size="16">1</text>
+<text x="236.99129932726578" y="85.24425387726826" fill="#4488cc" opacity="0.05021765993975594" font-family="monospace" font-size="16">1</text>
+<text x="241.1127397306068" y="137.68489339000197" fill="#4488cc" opacity="0.11855424205036663" font-family="monospace" font-size="16">0</text>
+<text x="241.29765380737715" y="176.9443523673971" fill="#4488cc" opacity="0.06729969098979474" font-family="monospace" font-size="16">1</text>
+<text x="237.43984439578438" y="226.56058011111784" fill="#4488cc" opacity="0.07449394521093933" font-family="monospace" font-size="16">1</text>
+<text x="243.60440565422522" y="273.85465205509865" fill="#4488cc" opacity="0.11033938435902298" font-family="monospace" font-size="16">0</text>
+<text x="243.04109856173142" y="316.9591177640824" fill="#4488cc" opacity="0.04969570231310874" font-family="monospace" font-size="16">1</text>
+<text x="237.49198279659973" y="363.4833634735166" fill="#4488cc" opacity="0.03451965466265768" font-family="monospace" font-size="16">1</text>
+<text x="239.64643237498237" y="405.31131885855586" fill="#4488cc" opacity="0.0420005195001326" font-family="monospace" font-size="16">1</text>
+<text x="243.91425925810438" y="451.1265232276176" fill="#4488cc" opacity="0.11550356475988403" font-family="monospace" font-size="16">1</text>
+<text x="240.4787195061083" y="498.9720810323326" fill="#4488cc" opacity="0.10475122527492735" font-family="monospace" font-size="16">1</text>
+<text x="242.5177678650051" y="543.3986288784192" fill="#4488cc" opacity="0.07050627815222173" font-family="monospace" font-size="16">1</text>
+<text x="240.21299812827982" y="586.2674843698178" fill="#4488cc" opacity="0.09892323158674489" font-family="monospace" font-size="16">1</text>
+<text x="242.13544862611056" y="627.3449357801463" fill="#4488cc" opacity="0.06958853339384125" font-family="monospace" font-size="16">1</text>
+<text x="300.4015222251846" y="-3.616259384838443" fill="#4488cc" opacity="0.05877386115768861" font-family="monospace" font-size="16">1</text>
+<text x="296.5280526657715" y="42.13952877105987" fill="#4488cc" opacity="0.06447317631882044" font-family="monospace" font-size="16">0</text>
+<text x="300.42611140503914" y="89.15774234103156" fill="#4488cc" opacity="0.0666839432699928" font-family="monospace" font-size="16">1</text>
+<text x="298.8947681266694" y="137.69795772314663" fill="#4488cc" opacity="0.10496020524064388" font-family="monospace" font-size="16">0</text>
+<text x="302.6559457611807" y="178.80381028927712" fill="#4488cc" opacity="0.10710588290735408" font-family="monospace" font-size="16">0</text>
+<text x="297.98612652372384" y="223.8998664806372" fill="#4488cc" opacity="0.11484674916906872" font-family="monospace" font-size="16">0</text>
+<text x="302.3463406075636" y="272.99868170941266" fill="#4488cc" opacity="0.07843985108492083" font-family="monospace" font-size="16">1</text>
+<text x="297.72935311763257" y="314.856419937985" fill="#4488cc" opacity="0.07394065297952254" font-family="monospace" font-size="16">0</text>
+<text x="301.7914188502835" y="359.04316669137637" fill="#4488cc" opacity="0.06025165893285442" font-family="monospace" font-size="16">1</text>
+<text x="304.19541620668974" y="409.80721977518925" fill="#4488cc" opacity="0.10564550967563027" font-family="monospace" font-size="16">0</text>
+<text x="300.9189277562791" y="451.6299975683616" fill="#4488cc" opacity="0.11162359763280914" font-family="monospace" font-size="16">0</text>
+<text x="296.3569948723056" y="494.6169844405151" fill="#4488cc" opacity="0.08784746832084021" font-family="monospace" font-size="16">0</text>
+<text x="298.2735266694173" y="539.5469932501649" fill="#4488cc" opacity="0.05341406825273742" font-family="monospace" font-size="16">0</text>
+<text x="298.79126215564133" y="587.5200982355478" fill="#4488cc" opacity="0.09851067371046243" font-family="monospace" font-size="16">1</text>
+<text x="295.81906232761645" y="625.1938328705002" fill="#4488cc" opacity="0.052704437860414254" font-family="monospace" font-size="16">1</text>
+<text x="358.4996034372018" y="1.5014409324987499" fill="#4488cc" opacity="0.11999170456582883" font-family="monospace" font-size="16">0</text>
+<text x="364.4961173271599" y="41.99360682362533" fill="#4488cc" opacity="0.09788098836535736" font-family="monospace" font-size="16">0</text>
+<text x="357.38544941888904" y="89.73561060946128" fill="#4488cc" opacity="0.0859202090927542" font-family="monospace" font-size="16">0</text>
+<text x="357.179645409065" y="136.9946497124615" fill="#4488cc" opacity="0.08075726237370172" font-family="monospace" font-size="16">0</text>
+<text x="361.0724749389093" y="182.47925651955285" fill="#4488cc" opacity="0.0451010229031022" font-family="monospace" font-size="16">1</text>
+<text x="356.637658101672" y="223.110389195986" fill="#4488cc" opacity="0.10000126975578894" font-family="monospace" font-size="16">0</text>
+<text x="360.75796728412416" y="274.08026151047443" fill="#4488cc" opacity="0.11359984515664094" font-family="monospace" font-size="16">0</text>
+<text x="362.1501470504947" y="310.7599647784306" fill="#4488cc" opacity="0.06569889973649645" font-family="monospace" font-size="16">1</text>
+<text x="362.7248088495122" y="363.50293239088796" fill="#4488cc" opacity="0.03917111749013789" font-family="monospace" font-size="16">0</text>
+<text x="360.65932555367317" y="400.41069130206137" fill="#4488cc" opacity="0.10166044949401908" font-family="monospace" font-size="16">0</text>
+<text x="355.6895673651964" y="451.4754325405681" fill="#4488cc" opacity="0.08953692066186203" font-family="monospace" font-size="16">1</text>
+<text x="363.22330918090057" y="491.05538870644" fill="#4488cc" opacity="0.10646180642996196" font-family="monospace" font-size="16">0</text>
+<text x="363.2870731100246" y="542.0730864370607" fill="#4488cc" opacity="0.08720265954913013" font-family="monospace" font-size="16">1</text>
+<text x="360.2174674693848" y="586.5045741401674" fill="#4488cc" opacity="0.045852326497745344" font-family="monospace" font-size="16">1</text>
+<text x="363.2573459842076" y="630.924746190637" fill="#4488cc" opacity="0.0718386394471057" font-family="monospace" font-size="16">1</text>
+<text x="423.30731018890606" y="-4.133371019443256" fill="#4488cc" opacity="0.10665418440173986" font-family="monospace" font-size="16">1</text>
+<text x="419.6470846660323" y="46.10331704230521" fill="#4488cc" opacity="0.05194770952718604" font-family="monospace" font-size="16">1</text>
+<text x="419.9430650361592" y="88.2501416788876" fill="#4488cc" opacity="0.06027569579022377" font-family="monospace" font-size="16">1</text>
+<text x="422.978323568281" y="133.40338843164284" fill="#4488cc" opacity="0.04909078651617651" font-family="monospace" font-size="16">1</text>
+<text x="420.16627251714937" y="176.91056423527098" fill="#4488cc" opacity="0.08002119251276255" font-family="monospace" font-size="16">1</text>
+<text x="419.8857784684879" y="227.58164653482467" fill="#4488cc" opacity="0.09480671976937749" font-family="monospace" font-size="16">0</text>
+<text x="419.90821335078584" y="272.92932868132317" fill="#4488cc" opacity="0.0881312609766857" font-family="monospace" font-size="16">1</text>
+<text x="419.04401128677927" y="312.43305163876755" fill="#4488cc" opacity="0.05648120231884476" font-family="monospace" font-size="16">0</text>
+<text x="420.3092193114577" y="359.25503812705216" fill="#4488cc" opacity="0.07259344398835722" font-family="monospace" font-size="16">1</text>
+<text x="419.5374526285318" y="403.0662299134883" fill="#4488cc" opacity="0.06166294748527515" font-family="monospace" font-size="16">1</text>
+<text x="416.9258429345152" y="446.1955474125505" fill="#4488cc" opacity="0.04085902962770752" font-family="monospace" font-size="16">0</text>
+<text x="422.3860465350895" y="492.7649962696869" fill="#4488cc" opacity="0.047238687570949026" font-family="monospace" font-size="16">0</text>
+<text x="423.3262836332707" y="537.9624646326514" fill="#4488cc" opacity="0.11824595674162618" font-family="monospace" font-size="16">1</text>
+<text x="415.14148367256064" y="585.3413508926766" fill="#4488cc" opacity="0.04614973893168629" font-family="monospace" font-size="16">1</text>
+<text x="415.5452602023899" y="627.9213664455277" fill="#4488cc" opacity="0.03409641308848965" font-family="monospace" font-size="16">1</text>
+<text x="482.52792175791257" y="-3.9741235321223933" fill="#4488cc" opacity="0.08740826895953346" font-family="monospace" font-size="16">0</text>
+<text x="479.6939694493051" y="44.404687981360105" fill="#4488cc" opacity="0.0816657797663699" font-family="monospace" font-size="16">0</text>
+<text x="477.52478390492973" y="93.61722964627513" fill="#4488cc" opacity="0.11689478788244653" font-family="monospace" font-size="16">0</text>
+<text x="479.0070744225194" y="130.7408217025564" fill="#4488cc" opacity="0.10399040807694873" font-family="monospace" font-size="16">0</text>
+<text x="483.11142076275047" y="184.49125642358032" fill="#4488cc" opacity="0.04365543062558608" font-family="monospace" font-size="16">0</text>
+<text x="476.1845156221146" y="227.64443445326194" fill="#4488cc" opacity="0.11945263104391982" font-family="monospace" font-size="16">0</text>
+<text x="478.8037802614655" y="274.085043776238" fill="#4488cc" opacity="0.09981241857283955" font-family="monospace" font-size="16">0</text>
+<text x="484.900312604668" y="313.0538024431936" fill="#4488cc" opacity="0.1074149999243562" font-family="monospace" font-size="16">1</text>
+<text x="482.4008930548454" y="364.4759020032538" fill="#4488cc" opacity="0.08486678210206172" font-family="monospace" font-size="16">0</text>
+<text x="477.64646125290005" y="400.81187465466985" fill="#4488cc" opacity="0.08629635273659428" font-family="monospace" font-size="16">0</text>
+<text x="475.75064868901165" y="445.02675722602885" fill="#4488cc" opacity="0.0456432193493791" font-family="monospace" font-size="16">0</text>
+<text x="479.69912479007684" y="490.32639855380927" fill="#4488cc" opacity="0.0920434022206292" font-family="monospace" font-size="16">1</text>
+<text x="482.0298755809372" y="539.5403132640704" fill="#4488cc" opacity="0.09362602468911299" font-family="monospace" font-size="16">1</text>
+<text x="482.8782802664673" y="586.2505800716422" fill="#4488cc" opacity="0.11315199400342937" font-family="monospace" font-size="16">0</text>
+<text x="480.4456237871058" y="631.4763472340248" fill="#4488cc" opacity="0.06826250694937905" font-family="monospace" font-size="16">0</text>
+<text x="535.7140983685581" y="-3.3407721077927532" fill="#4488cc" opacity="0.10439680436850536" font-family="monospace" font-size="16">1</text>
+<text x="543.2424030132001" y="49.21192528967638" fill="#4488cc" opacity="0.08355396335874642" font-family="monospace" font-size="16">1</text>
+<text x="541.8867799121209" y="91.99733684975718" fill="#4488cc" opacity="0.04119182923572374" font-family="monospace" font-size="16">1</text>
+<text x="539.9379521934509" y="130.804418518993" fill="#4488cc" opacity="0.0750424959406133" font-family="monospace" font-size="16">1</text>
+<text x="542.3453392328562" y="181.0371364094591" fill="#4488cc" opacity="0.11004806003632082" font-family="monospace" font-size="16">0</text>
+<text x="544.6191110219283" y="228.3595861390618" fill="#4488cc" opacity="0.03821941979678867" font-family="monospace" font-size="16">0</text>
+<text x="541.7228158430324" y="267.6951102596705" fill="#4488cc" opacity="0.11996151751897062" font-family="monospace" font-size="16">0</text>
+<text x="536.7519072793797" y="315.189638409876" fill="#4488cc" opacity="0.0986798103754535" font-family="monospace" font-size="16">0</text>
+<text x="536.8148914722312" y="360.85329625277853" fill="#4488cc" opacity="0.11244655091340908" font-family="monospace" font-size="16">1</text>
+<text x="539.7001039496035" y="404.08348093430016" fill="#4488cc" opacity="0.11721497124591332" font-family="monospace" font-size="16">1</text>
+<text x="543.5773309440035" y="448.29803663578963" fill="#4488cc" opacity="0.09031201585690668" font-family="monospace" font-size="16">1</text>
+<text x="544.4519353956321" y="498.1356603473797" fill="#4488cc" opacity="0.055939601582531015" font-family="monospace" font-size="16">1</text>
+<text x="538.1451715717017" y="538.2327378627599" fill="#4488cc" opacity="0.07093433177415565" font-family="monospace" font-size="16">0</text>
+<text x="543.249272032687" y="580.0115106744811" fill="#4488cc" opacity="0.10784195256466911" font-family="monospace" font-size="16">1</text>
+<text x="536.8758254139452" y="628.6177935915167" fill="#4488cc" opacity="0.06719228137193893" font-family="monospace" font-size="16">1</text>
+<text x="602.5999053606101" y="-2.9644176164972613" fill="#4488cc" opacity="0.0862867867930508" font-family="monospace" font-size="16">1</text>
+<text x="599.3811609507238" y="46.982500291221726" fill="#4488cc" opacity="0.11349054847600029" font-family="monospace" font-size="16">0</text>
+<text x="601.3002227700406" y="92.99313733274471" fill="#4488cc" opacity="0.03259824981974969" font-family="monospace" font-size="16">0</text>
+<text x="595.1367446446606" y="134.07990687289902" fill="#4488cc" opacity="0.05796751245540016" font-family="monospace" font-size="16">0</text>
+<text x="604.1292987848417" y="179.61447894178784" fill="#4488cc" opacity="0.11930314254556976" font-family="monospace" font-size="16">0</text>
+<text x="596.5397112442832" y="229.32653059934105" fill="#4488cc" opacity="0.08829387199053829" font-family="monospace" font-size="16">0</text>
+<text x="597.7342489671328" y="273.34723945576695" fill="#4488cc" opacity="0.07579848135625605" font-family="monospace" font-size="16">1</text>
+<text x="600.5126507688047" y="313.8358601324715" fill="#4488cc" opacity="0.051935781546762455" font-family="monospace" font-size="16">1</text>
+<text x="597.7624740282204" y="362.9000618200311" fill="#4488cc" opacity="0.10776242409857292" font-family="monospace" font-size="16">0</text>
+<text x="602.877174057643" y="402.67172663066907" fill="#4488cc" opacity="0.06058877188028659" font-family="monospace" font-size="16">1</text>
+<text x="597.9855584977176" y="450.8693772241416" fill="#4488cc" opacity="0.0554555084954544" font-family="monospace" font-size="16">0</text>
+<text x="599.4654739304319" y="494.8434138555172" fill="#4488cc" opacity="0.10787345352302183" font-family="monospace" font-size="16">1</text>
+<text x="600.4343006295867" y="539.553446168665" fill="#4488cc" opacity="0.07967256753637299" font-family="monospace" font-size="16">1</text>
+<text x="604.807746313326" y="582.3880554416625" fill="#4488cc" opacity="0.10826415149106616" font-family="monospace" font-size="16">1</text>
+<text x="602.7554447509926" y="625.436472990973" fill="#4488cc" opacity="0.051020620145210374" font-family="monospace" font-size="16">1</text>
+<text x="663.1140890256488" y="-1.1392124750901766" fill="#4488cc" opacity="0.09347050929225023" font-family="monospace" font-size="16">1</text>
+<text x="655.3701961134558" y="45.02291150132966" fill="#4488cc" opacity="0.07457957846547811" font-family="monospace" font-size="16">0</text>
+<text x="663.7419037405431" y="89.40306209770677" fill="#4488cc" opacity="0.10827302820259939" font-family="monospace" font-size="16">1</text>
+<text x="656.4415541596695" y="138.7093297134922" fill="#4488cc" opacity="0.031381283812373456" font-family="monospace" font-size="16">1</text>
+<text x="662.8152529127302" y="177.6502277954341" fill="#4488cc" opacity="0.036734542341933796" font-family="monospace" font-size="16">0</text>
+<text x="663.517652923507" y="228.52341336565894" fill="#4488cc" opacity="0.08848529873213454" font-family="monospace" font-size="16">1</text>
+<text x="661.2679917900799" y="273.8743868290932" fill="#4488cc" opacity="0.11587256333604085" font-family="monospace" font-size="16">1</text>
+<text x="655.3589909983768" y="310.6842074718155" fill="#4488cc" opacity="0.10851447156586826" font-family="monospace" font-size="16">1</text>
+<text x="662.4676636673793" y="359.33971471923127" fill="#4488cc" opacity="0.11976833306605937" font-family="monospace" font-size="16">1</text>
+<text x="662.0389082932904" y="401.00507240322816" fill="#4488cc" opacity="0.09843327236948388" font-family="monospace" font-size="16">0</text>
+<text x="664.0342406205049" y="445.4599096867721" fill="#4488cc" opacity="0.0924601046513911" font-family="monospace" font-size="16">0</text>
+<text x="658.7484108977532" y="491.45569795699396" fill="#4488cc" opacity="0.056403099836868795" font-family="monospace" font-size="16">0</text>
+<text x="662.9251947388095" y="536.6998364906809" fill="#4488cc" opacity="0.0809335255724343" font-family="monospace" font-size="16">1</text>
+<text x="658.8254429861687" y="586.8313457996271" fill="#4488cc" opacity="0.0848542608199683" font-family="monospace" font-size="16">0</text>
+<text x="656.4311772012851" y="629.61149913355" fill="#4488cc" opacity="0.11215461144211993" font-family="monospace" font-size="16">1</text>
+<text x="721.6684071726648" y="3.9890853170032106" fill="#4488cc" opacity="0.07136134492590579" font-family="monospace" font-size="16">1</text>
+<text x="721.7761088569908" y="41.57975622071787" fill="#4488cc" opacity="0.11110884812389947" font-family="monospace" font-size="16">1</text>
+<text x="724.8765169521847" y="87.99154249123772" fill="#4488cc" opacity="0.11507120714411814" font-family="monospace" font-size="16">1</text>
+<text x="719.5683581266778" y="133.02121670538313" fill="#4488cc" opacity="0.09212821612141162" font-family="monospace" font-size="16">1</text>
+<text x="716.0665326742236" y="178.8136429765763" fill="#4488cc" opacity="0.10680019127941671" font-family="monospace" font-size="16">1</text>
+<text x="724.926920436269" y="222.95230753883268" fill="#4488cc" opacity="0.08173307371607805" font-family="monospace" font-size="16">1</text>
+<text x="720.659290169557" y="271.85799492734014" fill="#4488cc" opacity="0.054703234216040494" font-family="monospace" font-size="16">1</text>
+<text x="722.4517215413397" y="318.32838899673186" fill="#4488cc" opacity="0.11195552583468395" font-family="monospace" font-size="16">0</text>
+<text x="717.3011839097042" y="363.01931957545287" fill="#4488cc" opacity="0.09981668816430427" font-family="monospace" font-size="16">1</text>
+<text x="721.2089116313031" y="406.7776445862336" fill="#4488cc" opacity="0.08729560902053027" font-family="monospace" font-size="16">0</text>
+<text x="724.0340370407297" y="451.46340608890523" fill="#4488cc" opacity="0.08654232933182085" font-family="monospace" font-size="16">0</text>
+<text x="715.3336453124563" y="493.6486123302847" fill="#4488cc" opacity="0.10097494356091384" font-family="monospace" font-size="16">1</text>
+<text x="717.9511045162916" y="542.4748086493837" fill="#4488cc" opacity="0.038112003817159706" font-family="monospace" font-size="16">0</text>
+<text x="722.865128110305" y="588.7646059670664" fill="#4488cc" opacity="0.048071531518506856" font-family="monospace" font-size="16">0</text>
+<text x="724.134869744817" y="633.304726195674" fill="#4488cc" opacity="0.07777671363325064" font-family="monospace" font-size="16">1</text>
+<text x="784.441878160972" y="4.673840761668123" fill="#4488cc" opacity="0.11226440581844808" font-family="monospace" font-size="16">1</text>
+<text x="778.3871525380189" y="41.15169707449759" fill="#4488cc" opacity="0.09719034156453404" font-family="monospace" font-size="16">1</text>
+<text x="784.6650020946275" y="93.60140596898822" fill="#4488cc" opacity="0.04266813135052944" font-family="monospace" font-size="16">0</text>
+<text x="783.0458764402056" y="133.65775049405568" fill="#4488cc" opacity="0.1170542772570029" font-family="monospace" font-size="16">1</text>
+<text x="780.3657230826906" y="179.54786027733874" fill="#4488cc" opacity="0.031252678959081105" font-family="monospace" font-size="16">1</text>
+<text x="783.2241730122678" y="229.40291891779555" fill="#4488cc" opacity="0.08261040824869495" font-family="monospace" font-size="16">1</text>
+<text x="779.7147686798144" y="271.1954686704453" fill="#4488cc" opacity="0.09073528998377897" font-family="monospace" font-size="16">0</text>
+<text x="777.2136720007398" y="310.632170411602" fill="#4488cc" opacity="0.11237303178688435" font-family="monospace" font-size="16">1</text>
+<text x="778.0219017452926" y="359.0829585579541" fill="#4488cc" opacity="0.11184488745851028" font-family="monospace" font-size="16">1</text>
+<text x="775.372121282247" y="409.9592737475503" fill="#4488cc" opacity="0.03408121299120439" font-family="monospace" font-size="16">0</text>
+<text x="783.8725930852851" y="446.3566404870634" fill="#4488cc" opacity="0.03874727987596394" font-family="monospace" font-size="16">0</text>
+<text x="784.493807684119" y="496.9648399163763" fill="#4488cc" opacity="0.06339103639381943" font-family="monospace" font-size="16">1</text>
+<text x="782.2659915055724" y="543.8541378389958" fill="#4488cc" opacity="0.08286063109937467" font-family="monospace" font-size="16">1</text>
+<text x="781.1565221405116" y="589.3905306571365" fill="#4488cc" opacity="0.10503237749666894" font-family="monospace" font-size="16">0</text>
+<text x="778.7052995873444" y="629.433830860607" fill="#4488cc" opacity="0.03294446581695422" font-family="monospace" font-size="16">1</text>
+<text x="835.9935462460613" y="1.8568026548128538" fill="#4488cc" opacity="0.10699051739753591" font-family="monospace" font-size="16">0</text>
+<text x="837.7588144086159" y="49.682068759363865" fill="#4488cc" opacity="0.03544950802499479" font-family="monospace" font-size="16">1</text>
+<text x="837.1210581542331" y="91.39492918529703" fill="#4488cc" opacity="0.03825060814357688" font-family="monospace" font-size="16">1</text>
+<text x="838.3350915643251" y="139.88820903941422" fill="#4488cc" opacity="0.03455206595965857" font-family="monospace" font-size="16">0</text>
+<text x="842.6515737588859" y="177.07157370346658" fill="#4488cc" opacity="0.03617491375419203" font-family="monospace" font-size="16">0</text>
+<text x="837.3299867904603" y="227.7436857780482" fill="#4488cc" opacity="0.1031747683008953" font-family="monospace" font-size="16">0</text>
+<text x="844.8402813184774" y="274.8752730436617" fill="#4488cc" opacity="0.05495473613781146" font-family="monospace" font-size="16">0</text>
+<text x="836.0992634788944" y="318.66447888506804" fill="#4488cc" opacity="0.10186624412018612" font-family="monospace" font-size="16">1</text>
+<text x="842.8998466423475" y="357.3793160609046" fill="#4488cc" opacity="0.031337429450763794" font-family="monospace" font-size="16">0</text>
+<text x="837.6536750832497" y="401.2675854371278" fill="#4488cc" opacity="0.03142029751600442" font-family="monospace" font-size="16">1</text>
+<text x="842.4566527503399" y="449.7624596542325" fill="#4488cc" opacity="0.07734769739380803" font-family="monospace" font-size="16">1</text>
+<text x="836.0905401000384" y="495.03838689785823" fill="#4488cc" opacity="0.07619141618482725" font-family="monospace" font-size="16">1</text>
+<text x="844.0875168790654" y="541.5890307367929" fill="#4488cc" opacity="0.09545186974473617" font-family="monospace" font-size="16">0</text>
+<text x="844.6402618312203" y="580.6082540749451" fill="#4488cc" opacity="0.07122382698879137" font-family="monospace" font-size="16">1</text>
+<text x="839.2627361927999" y="626.0796182967923" fill="#4488cc" opacity="0.10625686888505184" font-family="monospace" font-size="16">1</text>
+<text x="895.8079047741079" y="1.0829742363343993" fill="#4488cc" opacity="0.03661416441898054" font-family="monospace" font-size="16">1</text>
+<text x="901.2431749428121" y="45.85364688548121" fill="#4488cc" opacity="0.04135724294745505" font-family="monospace" font-size="16">0</text>
+<text x="900.9739185519932" y="87.94897745949889" fill="#4488cc" opacity="0.06428139589366687" font-family="monospace" font-size="16">1</text>
+<text x="902.0177941854606" y="138.52792737295576" fill="#4488cc" opacity="0.03892606155111378" font-family="monospace" font-size="16">1</text>
+<text x="903.880910219885" y="179.13813571176914" fill="#4488cc" opacity="0.06870629474997478" font-family="monospace" font-size="16">0</text>
+<text x="902.296125076345" y="223.12548349997132" fill="#4488cc" opacity="0.0658857165831258" font-family="monospace" font-size="16">1</text>
+<text x="898.7430102343553" y="266.52638924768723" fill="#4488cc" opacity="0.0898597076754278" font-family="monospace" font-size="16">1</text>
+<text x="903.3177188847485" y="310.93230101703676" fill="#4488cc" opacity="0.0360419977322983" font-family="monospace" font-size="16">1</text>
+<text x="898.726468593759" y="356.3011545357384" fill="#4488cc" opacity="0.0970130072272691" font-family="monospace" font-size="16">0</text>
+<text x="900.6158641399207" y="403.29645981416206" fill="#4488cc" opacity="0.08278185744655292" font-family="monospace" font-size="16">0</text>
+<text x="903.7360737223432" y="454.4112986885223" fill="#4488cc" opacity="0.06697277696299424" font-family="monospace" font-size="16">0</text>
+<text x="902.2106067874615" y="499.68398625311477" fill="#4488cc" opacity="0.10812829339821584" font-family="monospace" font-size="16">1</text>
+<text x="900.7791851838986" y="537.1273880567201" fill="#4488cc" opacity="0.061648156712383405" font-family="monospace" font-size="16">1</text>
+<text x="896.0821838192727" y="588.4537341860134" fill="#4488cc" opacity="0.0501820382196809" font-family="monospace" font-size="16">1</text>
+<text x="897.78568212495" y="627.2615909432785" fill="#4488cc" opacity="0.040339678217727735" font-family="monospace" font-size="16">1</text>
+<text x="964.7454660212571" y="3.184268595406696" fill="#4488cc" opacity="0.10606396451955223" font-family="monospace" font-size="16">1</text>
+<text x="961.5783122799888" y="46.93471187855659" fill="#4488cc" opacity="0.08480954239977587" font-family="monospace" font-size="16">0</text>
+<text x="962.0269877286561" y="88.0898468882991" fill="#4488cc" opacity="0.046237446476476894" font-family="monospace" font-size="16">0</text>
+<text x="956.8140555821257" y="131.4325149034203" fill="#4488cc" opacity="0.061592107866328356" font-family="monospace" font-size="16">1</text>
+<text x="962.4096905911842" y="184.7181031875802" fill="#4488cc" opacity="0.03626268791235028" font-family="monospace" font-size="16">1</text>
+<text x="957.1513288003351" y="224.19832493764503" fill="#4488cc" opacity="0.0971500585805136" font-family="monospace" font-size="16">0</text>
+<text x="958.1163736970421" y="268.24382892078427" fill="#4488cc" opacity="0.04416683482605798" font-family="monospace" font-size="16">1</text>
+<text x="956.5557990340449" y="317.54435879124986" fill="#4488cc" opacity="0.1095007966066509" font-family="monospace" font-size="16">0</text>
+<text x="957.7210284354622" y="361.61938692808263" fill="#4488cc" opacity="0.09065718395518016" font-family="monospace" font-size="16">0</text>
+<text x="959.1418373788273" y="402.15568965337746" fill="#4488cc" opacity="0.08463684066969138" font-family="monospace" font-size="16">1</text>
+<text x="956.1088977220093" y="451.7821789293353" fill="#4488cc" opacity="0.061065556993277564" font-family="monospace" font-size="16">0</text>
+<text x="958.0841939185126" y="492.20518435502527" fill="#4488cc" opacity="0.07742406964333304" font-family="monospace" font-size="16">1</text>
+<text x="958.0141936201844" y="537.1123397922031" fill="#4488cc" opacity="0.030691837730989456" font-family="monospace" font-size="16">0</text>
+<text x="957.8944713121743" y="581.1998434370555" fill="#4488cc" opacity="0.09877448061851228" font-family="monospace" font-size="16">0</text>
+<text x="956.7569480187584" y="628.8020744571523" fill="#4488cc" opacity="0.0972312711086791" font-family="monospace" font-size="16">1</text>
+<text x="1023.3335420241988" y="3.0620018656676393" fill="#4488cc" opacity="0.07502361119005918" font-family="monospace" font-size="16">0</text>
+<text x="1022.4204132737444" y="44.36219595512312" fill="#4488cc" opacity="0.06573640568225675" font-family="monospace" font-size="16">0</text>
+<text x="1023.6211001361206" y="90.75759160736831" fill="#4488cc" opacity="0.11290461910521711" font-family="monospace" font-size="16">1</text>
+<text x="1019.1769395984348" y="131.15173372663799" fill="#4488cc" opacity="0.09385490654120407" font-family="monospace" font-size="16">1</text>
+<text x="1016.7187318057806" y="184.47614309326747" fill="#4488cc" opacity="0.11695797219298135" font-family="monospace" font-size="16">0</text>
+<text x="1024.1976975174139" y="220.88129881297886" fill="#4488cc" opacity="0.10488233217645364" font-family="monospace" font-size="16">1</text>
+<text x="1020.8887128830291" y="270.2396254300063" fill="#4488cc" opacity="0.05189848273404603" font-family="monospace" font-size="16">0</text>
+<text x="1022.458048264646" y="312.21572058894253" fill="#4488cc" opacity="0.10834719745758704" font-family="monospace" font-size="16">1</text>
+<text x="1021.3322466696818" y="360.30604820772646" fill="#4488cc" opacity="0.0368741439725719" font-family="monospace" font-size="16">0</text>
+<text x="1018.4937526547238" y="407.273791056739" fill="#4488cc" opacity="0.11153304584220454" font-family="monospace" font-size="16">0</text>
+<text x="1016.4644421827769" y="446.97271802823985" fill="#4488cc" opacity="0.05126419640520519" font-family="monospace" font-size="16">0</text>
+<text x="1021.5550901051874" y="491.7714612894723" fill="#4488cc" opacity="0.09841937659922027" font-family="monospace" font-size="16">0</text>
+<text x="1020.6373548328785" y="540.794680897065" fill="#4488cc" opacity="0.07175577616617176" font-family="monospace" font-size="16">1</text>
+<text x="1021.2721740689977" y="581.5095740139308" fill="#4488cc" opacity="0.10778221873482745" font-family="monospace" font-size="16">1</text>
+<text x="1021.3138512002542" y="632.9632967915143" fill="#4488cc" opacity="0.07220289751737359" font-family="monospace" font-size="16">0</text>
+<text x="1075.7419065617328" y="-0.3825751355354594" fill="#4488cc" opacity="0.06167480003580689" font-family="monospace" font-size="16">0</text>
+<text x="1083.3169663166311" y="40.76731001173455" fill="#4488cc" opacity="0.03512010457505571" font-family="monospace" font-size="16">0</text>
+<text x="1080.0706781733395" y="89.62711658927272" fill="#4488cc" opacity="0.08535075495740162" font-family="monospace" font-size="16">0</text>
+<text x="1083.0981591769796" y="136.5183745464861" fill="#4488cc" opacity="0.07047603332858156" font-family="monospace" font-size="16">0</text>
+<text x="1080.0136730187282" y="184.57722358866584" fill="#4488cc" opacity="0.08445052506630578" font-family="monospace" font-size="16">1</text>
+<text x="1083.9912683395578" y="223.43437775838268" fill="#4488cc" opacity="0.03931516895433525" font-family="monospace" font-size="16">1</text>
+<text x="1076.7255891143636" y="267.47743723598285" fill="#4488cc" opacity="0.07540941013508616" font-family="monospace" font-size="16">0</text>
+<text x="1080.2406855317017" y="316.09805406322675" fill="#4488cc" opacity="0.11918874203821987" font-family="monospace" font-size="16">1</text>
+<text x="1077.8289357861443" y="359.0876939724732" fill="#4488cc" opacity="0.06355667838911944" font-family="monospace" font-size="16">1</text>
+<text x="1075.52365517536" y="406.3088657444198" fill="#4488cc" opacity="0.0911007948503623" font-family="monospace" font-size="16">1</text>
+<text x="1075.9450594751509" y="451.7837934484008" fill="#4488cc" opacity="0.03593206688517457" font-family="monospace" font-size="16">1</text>
+<text x="1083.515662599844" y="499.6441002865391" fill="#4488cc" opacity="0.05267962064695379" font-family="monospace" font-size="16">1</text>
+<text x="1080.827395145864" y="536.4142838058432" fill="#4488cc" opacity="0.06000258324545009" font-family="monospace" font-size="16">0</text>
+<text x="1081.5605471803606" y="586.6213515692918" fill="#4488cc" opacity="0.057920856379663085" font-family="monospace" font-size="16">1</text>
+<text x="1084.3800219956577" y="628.0958188741596" fill="#4488cc" opacity="0.08355371053364172" font-family="monospace" font-size="16">0</text>
+<text x="1138.2847655425358" y="-3.7220623589965407" fill="#4488cc" opacity="0.08791439370251874" font-family="monospace" font-size="16">1</text>
+<text x="1139.2340636632211" y="43.618280963467846" fill="#4488cc" opacity="0.08814223386601391" font-family="monospace" font-size="16">0</text>
+<text x="1144.5116931359614" y="88.41732345131548" fill="#4488cc" opacity="0.057797946305749276" font-family="monospace" font-size="16">1</text>
+<text x="1144.9997662110302" y="131.54945172944406" fill="#4488cc" opacity="0.04728047102979476" font-family="monospace" font-size="16">1</text>
+<text x="1136.011407636679" y="182.70874720363102" fill="#4488cc" opacity="0.1059985549817295" font-family="monospace" font-size="16">1</text>
+<text x="1143.7639277254275" y="226.18031465493507" fill="#4488cc" opacity="0.08957363136342758" font-family="monospace" font-size="16">0</text>
+<text x="1136.808459671687" y="271.92845640861225" fill="#4488cc" opacity="0.043882748518900935" font-family="monospace" font-size="16">1</text>
+<text x="1135.436924279545" y="313.64299414130767" fill="#4488cc" opacity="0.09490646980248843" font-family="monospace" font-size="16">0</text>
+<text x="1141.1059542212581" y="362.5239116511149" fill="#4488cc" opacity="0.11726297430677624" font-family="monospace" font-size="16">0</text>
+<text x="1137.391684972455" y="409.65596637194034" fill="#4488cc" opacity="0.0510602649901882" font-family="monospace" font-size="16">1</text>
+<text x="1136.9401617622257" y="451.7830682506509" fill="#4488cc" opacity="0.11135769043237123" font-family="monospace" font-size="16">1</text>
+<text x="1137.8177173270378" y="493.8187243419071" fill="#4488cc" opacity="0.07155119805968901" font-family="monospace" font-size="16">1</text>
+<text x="1143.1689123958124" y="543.0125922415154" fill="#4488cc" opacity="0.11696413378853525" font-family="monospace" font-size="16">1</text>
+<text x="1135.5217980326101" y="584.8059065546182" fill="#4488cc" opacity="0.10857017280534124" font-family="monospace" font-size="16">0</text>
+<text x="1136.0258973174841" y="633.4589227673343" fill="#4488cc" opacity="0.0799086670881988" font-family="monospace" font-size="16">1</text>
+
+  <circle cx="228" cy="25" r="1.6898605997117995" fill="#ffffff" opacity="0.5469351122820858"/>
+<circle cx="209" cy="558" r="0.9043265991552994" fill="#ffffff" opacity="0.6531530918111623"/>
+<circle cx="191" cy="223" r="1.0791930720688876" fill="#88aaee" opacity="0.7612112374299882"/>
+<circle cx="407" cy="665" r="1.641589968308283" fill="#aaccff" opacity="0.6517118925769952"/>
+<circle cx="569" cy="6" r="1.7105688405557207" fill="#aaccff" opacity="0.4957955898261341"/>
+<circle cx="696" cy="284" r="0.9865753997741379" fill="#aaccff" opacity="0.9743278433240687"/>
+<circle cx="209" cy="94" r="1.2559127607648048" fill="#aaccff" opacity="0.6153876282907771"/>
+<circle cx="541" cy="44" r="1.6756781440325814" fill="#aaccff" opacity="0.7217368548728205"/>
+<circle cx="161" cy="565" r="1.1518139376885115" fill="#aaccff" opacity="0.777183879696666"/>
+<circle cx="1182" cy="196" r="1.6454862034579083" fill="#ffffff" opacity="0.42749463019339734"/>
+<circle cx="592" cy="81" r="1.8263812652181763" fill="#aaccff" opacity="0.9198902000531618"/>
+<circle cx="569" cy="464" r="1.5628213331172802" fill="#aaccff" opacity="0.6188993073820506"/>
+<circle cx="727" cy="214" r="1.6042102092532322" fill="#88aaee" opacity="0.8210921880751307"/>
+<circle cx="146" cy="623" r="1.5619739458364723" fill="#ffffff" opacity="0.7204839262178249"/>
+<circle cx="334" cy="473" r="1.2553465301091773" fill="#88aaee" opacity="0.9937140103819572"/>
+<circle cx="1140" cy="224" r="1.6215371011878497" fill="#ffffff" opacity="0.9057111521138858"/>
+<circle cx="469" cy="32" r="1.7660549609254572" fill="#ffffff" opacity="0.6406988722133974"/>
+<circle cx="432" cy="580" r="1.8516411517672027" fill="#88aaee" opacity="0.5888067284790868"/>
+<circle cx="1022" cy="405" r="1.861619784664043" fill="#ffffff" opacity="0.7857111221202546"/>
+<circle cx="542" cy="142" r="1.09595300923278" fill="#aaccff" opacity="0.7368208804978904"/>
+<circle cx="1197" cy="438" r="1.8773874603229723" fill="#ffffff" opacity="0.6396403030842384"/>
+<circle cx="283" cy="521" r="1.392219001867557" fill="#ffffff" opacity="0.8534692945202427"/>
+<circle cx="313" cy="642" r="0.9919784020669403" fill="#88aaee" opacity="0.8082887280977962"/>
+<circle cx="130" cy="394" r="1.257943143807844" fill="#88aaee" opacity="0.9976728281440581"/>
+<circle cx="514" cy="566" r="1.8329356426813976" fill="#88aaee" opacity="0.4068886131656918"/>
+<circle cx="234" cy="549" r="1.7010533595099315" fill="#aaccff" opacity="0.8611592395944676"/>
+<circle cx="228" cy="300" r="1.3217183008029258" fill="#88aaee" opacity="0.6722342237975238"/>
+<circle cx="539" cy="512" r="1.7143546388624775" fill="#ffffff" opacity="0.7046090047625951"/>
+<circle cx="611" cy="654" r="1.4091954583731612" fill="#aaccff" opacity="0.5193466610588399"/>
+<circle cx="330" cy="552" r="1.9441996971842033" fill="#ffffff" opacity="0.9534604483709648"/>
+<circle cx="663" cy="500" r="0.8233720908629988" fill="#aaccff" opacity="0.9574591697587702"/>
+<circle cx="490" cy="59" r="1.0890459109366797" fill="#ffffff" opacity="0.740414166213346"/>
+<circle cx="175" cy="497" r="1.7792279041041064" fill="#88aaee" opacity="0.9867906962064005"/>
+<circle cx="257" cy="131" r="1.591700987296841" fill="#ffffff" opacity="0.9681092078229945"/>
+<circle cx="542" cy="540" r="1.846919649302309" fill="#ffffff" opacity="0.6538827641205321"/>
+<circle cx="1104" cy="205" r="1.6555387673829463" fill="#88aaee" opacity="0.6393953799984575"/>
+<circle cx="764" cy="448" r="1.8795369015715346" fill="#ffffff" opacity="0.6708916848346779"/>
+<circle cx="460" cy="65" r="1.2057026745769464" fill="#ffffff" opacity="0.75298523107434"/>
+<circle cx="451" cy="7" r="0.8851917032108391" fill="#ffffff" opacity="0.7786617743620594"/>
+<circle cx="138" cy="32" r="1.8315624803044959" fill="#ffffff" opacity="0.4425144099331921"/>
+
+</svg>
