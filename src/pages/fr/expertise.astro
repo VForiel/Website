@@ -27,9 +27,10 @@ const renderedServices = await Promise.all(
         <div class="page-header">
             <h1>Expertise & Services</h1>
             <p class="lead">
-                Du conseil technique à la communication scientifique, en passant
-                par la science des données, le calcul haute performance et l'IA
-                appliquée aux modèles physiques
+                Du conseil technique à la communication scientifique, je propose
+                mes services en <strong style="color: var(--color-primary)"
+                    >freelance</strong
+                > pour de courtes collaborations en parallèle de mon activité principale.
             </p>
         </div>
     </Section>
@@ -103,6 +104,7 @@ const renderedServices = await Promise.all(
     .lead {
         font-size: var(--text-xl);
         color: var(--color-text-secondary);
+        margin-block-end: var(--space-6);
     }
 
     .service-section:nth-of-type(even) {
@@ -139,6 +141,12 @@ const renderedServices = await Promise.all(
     .service__title {
         font-size: var(--text-3xl);
         margin-block-end: var(--space-2);
+    }
+
+    .service__availability-status {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
     }
 
     .service__badge {
