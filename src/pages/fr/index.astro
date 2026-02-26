@@ -45,11 +45,11 @@ const featuredProjects = allProjects
 
             <div class="hero__cta">
                 <a
-                    href={`${import.meta.env.BASE_URL}fr/portfolio`}
+                    href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}fr/portfolio`}
                     class="button button--primary">Découvrir mes projets</a
                 >
                 <a
-                    href={`${import.meta.env.BASE_URL}fr/contact`}
+                    href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}fr/contact`}
                     class="button button--secondary">Me contacter</a
                 >
             </div>
@@ -80,7 +80,7 @@ const featuredProjects = allProjects
 
         <div class="cta-center">
             <a
-                href={`${import.meta.env.BASE_URL}fr/expertise`}
+                href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}fr/expertise`}
                 class="link-arrow">Voir tous les services →</a
             >
         </div>
@@ -113,7 +113,7 @@ const featuredProjects = allProjects
 
                 <div class="cta-center">
                     <a
-                        href={`${import.meta.env.BASE_URL}fr/portfolio`}
+                        href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}fr/portfolio`}
                         class="link-arrow"
                     >
                         Voir tous les projets →
@@ -133,7 +133,7 @@ const featuredProjects = allProjects
                 scientifique.
             </p>
             <a
-                href={`${import.meta.env.BASE_URL}fr/contact`}
+                href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}fr/contact`}
                 class="button button--primary">Discutons-en</a
             >
         </div>

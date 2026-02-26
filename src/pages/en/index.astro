@@ -45,11 +45,11 @@ const featuredProjects = allProjects
 
             <div class="hero__cta">
                 <a
-                    href={`${import.meta.env.BASE_URL}en/portfolio`}
+                    href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/portfolio`}
                     class="button button--primary">Discover my projects</a
                 >
                 <a
-                    href={`${import.meta.env.BASE_URL}en/contact`}
+                    href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/contact`}
                     class="button button--secondary">Contact me</a
                 >
             </div>
@@ -80,7 +80,7 @@ const featuredProjects = allProjects
 
         <div class="cta-center">
             <a
-                href={`${import.meta.env.BASE_URL}en/expertise`}
+                href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/expertise`}
                 class="link-arrow">View all services →</a
             >
         </div>
@@ -113,7 +113,7 @@ const featuredProjects = allProjects
 
                 <div class="cta-center">
                     <a
-                        href={`${import.meta.env.BASE_URL}en/portfolio`}
+                        href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/portfolio`}
                         class="link-arrow"
                     >
                         View all projects →
@@ -132,7 +132,7 @@ const featuredProjects = allProjects
                 consulting, or science communication interventions.
             </p>
             <a
-                href={`${import.meta.env.BASE_URL}en/contact`}
+                href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/contact`}
                 class="button button--primary">Let's discuss</a
             >
         </div>

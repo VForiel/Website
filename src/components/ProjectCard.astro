@@ -38,9 +38,13 @@ const formattedEnd = endDate
 const dateLabel = formattedStart
     ? `${formattedStart} — ${formattedEnd}`
     : formattedEnd;
-const projectLink = projectSlug ? `/${lang}/projects/${projectSlug}` : null;
+const projectLink = projectSlug
+    ? `${import.meta.env.BASE_URL.replace(/\/$/, "")}/${lang}/projects/${projectSlug}`
+    : null;
 const readMoreLabel = lang === "fr" ? "Lire la suite →" : "Read more →";
 const externalLinkLabel = lang === "fr" ? "Voir le projet →" : "View project →";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const finalImage = image?.startsWith("/") ? `${base}${image}` : image;
 ---
 
 <article class="project-card">
@@ -57,7 +61,7 @@ const externalLinkLabel = lang === "fr" ? "Voir le projet →" : "View project �
     {
         image ? (
             <div class="project-card__image">
-                <img src={image} alt={title} loading="lazy" />
+                <img src={finalImage} alt={title} loading="lazy" />
             </div>
         ) : showFallback ? (
             <div
