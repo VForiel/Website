@@ -4,8 +4,15 @@ export const SUPPORTED_LOCALES: Locale[] = ['fr', 'en'];
 export const DEFAULT_LOCALE: Locale = 'fr';
 
 export function detectLocaleFromPath(pathname: string): Locale {
-    if (pathname.startsWith('/fr')) return 'fr';
-    if (pathname.startsWith('/en')) return 'en';
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+    let pathWithoutLocale = pathname;
+
+    if (base) {
+        pathWithoutLocale = pathWithoutLocale.replace(new RegExp(`^${base}`), '');
+    }
+
+    if (pathWithoutLocale.startsWith('/fr') || pathWithoutLocale === 'fr') return 'fr';
+    if (pathWithoutLocale.startsWith('/en') || pathWithoutLocale === 'en') return 'en';
     // Default to fr for root path (before redirection)
     return 'fr';
 }

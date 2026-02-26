@@ -45,7 +45,7 @@ const dateLabel = formattedStart
 
 const backLabel =
     lang === "fr" ? "← Retour au portfolio" : "← Back to portfolio";
-const backHref = `/${lang}/portfolio`;
+const backHref = `${import.meta.env.BASE_URL.replace(/\/?$/, "")}/${lang}/portfolio`;
 const externalLinkLabel = lang === "fr" ? "Voir le projet" : "View project";
 ---
 
@@ -109,7 +109,14 @@ const externalLinkLabel = lang === "fr" ? "Voir le projet" : "View project";
                 {
                     image && (
                         <div class="project-image">
-                            <img src={image} alt={title} />
+                            <img
+                                src={
+                                    image.startsWith("/")
+                                        ? `${import.meta.env.BASE_URL.replace(/\/$/, "")}${image}`
+                                        : image
+                                }
+                                alt={title}
+                            />
                         </div>
                     )
                 }
