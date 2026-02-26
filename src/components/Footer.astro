@@ -1,125 +1,171 @@
 ---
+import { withLocalePrefix } from "../i18n/config";
+import type { Locale } from "../i18n/config";
+
+interface Props {
+    lang?: Locale;
+}
+
+const { lang = "fr" } = Astro.props;
 const currentYear = new Date().getFullYear();
 ---
 
 <footer class="footer">
-  <div class="container">
-    <div class="footer__content">
-      <div class="footer__section">
-        <h3 class="footer__heading">Vincent Foriel</h3>
-        <p class="footer__text">
-          Doctorant en instrumentation astronomique, imagerie à haut contraste et simulation optique
-        </p>
-      </div>
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__section">
+                <h3 class="footer__heading">Vincent Foriel</h3>
+                <p class="footer__text">
+                    Doctorant en instrumentation astronomique, imagerie à haut
+                    contraste et simulation optique
+                </p>
+            </div>
 
-      <div class="footer__section">
-        <h3 class="footer__heading">Contact</h3>
-        <ul class="footer__links">
-          <li>
-            <a href="mailto:vincent.foriel@gmail.com" class="footer__link">
-              vincent.foriel@gmail.com
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/VForiel" class="footer__link" target="_blank" rel="noopener noreferrer">
-              GitHub
-            </a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/in/vincent-foriel" class="footer__link" target="_blank" rel="noopener noreferrer">
-              LinkedIn
-            </a>
-          </li>
-        </ul>
-      </div>
+            <div class="footer__section">
+                <h3 class="footer__heading">Contact</h3>
+                <ul class="footer__links">
+                    <li>
+                        <a
+                            href="mailto:vincent.foriel@gmail.com"
+                            class="footer__link"
+                        >
+                            vincent.foriel@gmail.com
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://github.com/VForiel"
+                            class="footer__link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://www.linkedin.com/in/vincent-foriel"
+                            class="footer__link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            LinkedIn
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-      <div class="footer__section">
-        <h3 class="footer__heading">Navigation</h3>
-        <ul class="footer__links">
-          <li><a href="/" class="footer__link">Accueil</a></li>
-          <li><a href="/about" class="footer__link">À propos</a></li>
-          <li><a href="/expertise" class="footer__link">Expertise</a></li>
-          <li><a href="/portfolio" class="footer__link">Portfolio</a></li>
-          <li><a href="/cv" class="footer__link">CV</a></li>
-          <li><a href="/contact" class="footer__link">Contact</a></li>
-        </ul>
-      </div>
+            <div class="footer__section">
+                <h3 class="footer__heading">Navigation</h3>
+                <ul class="footer__links">
+                    <li>
+                        <a
+                            href={withLocalePrefix("/", lang)}
+                            class="footer__link">Accueil</a>
+                    </li>
+                    <li>
+                        <a
+                            href={withLocalePrefix("/about", lang)}
+                            class="footer__link">À propos</a>
+                    </li>
+                    <li>
+                        <a
+                            href={withLocalePrefix("/expertise", lang)}
+                            class="footer__link">Expertise</a>
+                    </li>
+                    <li>
+                        <a
+                            href={withLocalePrefix("/portfolio", lang)}
+                            class="footer__link">Portfolio</a>
+                    </li>
+                    <li>
+                        <a
+                            href={withLocalePrefix("/cv", lang)}
+                            class="footer__link">CV</a>
+                    </li>
+                    <li>
+                        <a
+                            href={withLocalePrefix("/contact", lang)}
+                            class="footer__link">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer__bottom">
+            <p class="footer__copyright">
+                © {currentYear} Vincent Foriel. Tous droits réservés.
+            </p>
+        </div>
     </div>
-
-    <div class="footer__bottom">
-      <p class="footer__copyright">
-        © {currentYear} Vincent Foriel. Tous droits réservés.
-      </p>
-    </div>
-  </div>
 </footer>
 
 <style>
-  .footer {
-    margin-block-start: var(--space-32);
-    padding-block: var(--space-16);
-    background-color: var(--color-background-secondary);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .footer__content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-12);
-    margin-block-end: var(--space-12);
-  }
-
-  .footer__section {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .footer__heading {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-text);
-  }
-
-  .footer__text {
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
-    line-height: 1.6;
-  }
-
-  .footer__links {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .footer__link {
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
-    transition: color var(--transition-fast);
-  }
-
-  .footer__link:hover {
-    color: var(--color-primary);
-  }
-
-  .footer__bottom {
-    padding-block-start: var(--space-8);
-    border-top: 1px solid var(--color-border-subtle);
-  }
-
-  .footer__copyright {
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    text-align: center;
-  }
-
-  @media (max-width: 768px) {
-    .footer__content {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
+    .footer {
+        margin-block-start: var(--space-32);
+        padding-block: var(--space-16);
+        background-color: var(--color-background-secondary);
+        border-top: 1px solid var(--color-border);
     }
-  }
+
+    .footer__content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--space-12);
+        margin-block-end: var(--space-12);
+    }
+
+    .footer__section {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-4);
+    }
+
+    .footer__heading {
+        font-size: var(--text-sm);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--color-text);
+    }
+
+    .footer__text {
+        font-size: var(--text-sm);
+        color: var(--color-text-secondary);
+        line-height: 1.6;
+    }
+
+    .footer__links {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+
+    .footer__link {
+        font-size: var(--text-sm);
+        color: var(--color-text-secondary);
+        transition: color var(--transition-fast);
+    }
+
+    .footer__link:hover {
+        color: var(--color-primary);
+    }
+
+    .footer__bottom {
+        padding-block-start: var(--space-8);
+        border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .footer__copyright {
+        font-size: var(--text-xs);
+        color: var(--color-text-muted);
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        .footer__content {
+            grid-template-columns: 1fr;
+            gap: var(--space-8);
+        }
+    }
 </style>

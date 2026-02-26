@@ -1,14 +1,14 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import ParticlesBackground from '../components/ParticlesBackground.astro';
-import { detectLocaleFromPath } from '../i18n/config';
+import BaseLayout from "./BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ParticlesBackground from "../components/ParticlesBackground.astro";
+import { detectLocaleFromPath } from "../i18n/config";
 
 interface Props {
-  title: string;
-  description?: string;
-  currentPath?: string;
+    title: string;
+    description?: string;
+    currentPath?: string;
 }
 
 const { title, description, currentPath } = Astro.props;
@@ -17,17 +17,17 @@ const lang = detectLocaleFromPath(path);
 ---
 
 <BaseLayout title={title} description={description} lang={lang}>
-  <ParticlesBackground />
-  <Header currentPath={path} lang={lang} />
-  <main>
-    <slot />
-  </main>
-  <Footer />
+    <ParticlesBackground />
+    <Header currentPath={path} lang={lang} />
+    <main>
+        <slot />
+    </main>
+    <Footer lang={lang} />
 </BaseLayout>
 
 <style>
-  main {
-    min-height: calc(100vh - 200px);
-    padding-block-start: var(--space-8);
-  }
+    main {
+        min-height: calc(100vh - 200px);
+        padding-block-start: var(--space-8);
+    }
 </style>

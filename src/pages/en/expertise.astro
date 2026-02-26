@@ -79,7 +79,9 @@ const renderedServices = await Promise.all(
                 Whether for a research project, technical analysis or a
                 popularization intervention, let's discuss your needs.
             </p>
-            <a href="/en/contact" class="button">Contact me</a>
+            <a href={`${import.meta.env.BASE_URL}en/contact`} class="button"
+                >Contact me</a
+            >
         </div>
     </Section>
 </PageLayout>

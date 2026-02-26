@@ -4,7 +4,7 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
     site: 'https://vforiel.github.io',
-    base: '/New-Website',
+    base: '/Website',
     build: {
         assets: '_assets'
     },

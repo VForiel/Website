@@ -1,0 +1,27 @@
+﻿
+> build
+> astro build
+
+[2m16:55:22[22m [34m[content][39m Syncing content
+[2m16:55:22[22m [34m[content][39m Synced content
+[2m16:55:22[22m [34m[types][39m Generated [2m398ms[22m
+[2m16:55:22[22m [34m[build][39m output: [34m"static"[39m
+[2m16:55:22[22m [34m[build][39m mode: [34m"static"[39m
+[2m16:55:22[22m [34m[build][39m directory: [34mD:\New-Website\dist\[39m
+[2m16:55:22[22m [34m[build][39m Collecting build info...
+[2m16:55:22[22m [34m[build][39m [32mÔ£ô Completed in 412ms.[39m
+[2m16:55:22[22m [34m[build][39m Building static entrypoints...
+[2m16:55:23[22m [34m[vite][39m [32mÔ£ô built in 1.19s[39m
+[2m16:55:23[22m [34m[build][39m [32mÔ£ô Completed in 1.22s.[39m
+
+[42m[30m building client (vite) [39m[49m
+[2m16:55:23[22m [34m[vite][39m transforming...
+[2m16:55:23[22m [34m[vite][39m [32mÔ£ô[39m 3 modules transformed.
+[2m16:55:23[22m [34m[vite][39m rendering chunks...
+[2m16:55:23[22m [34m[vite][39m computing gzip size...
+[2m16:55:23[22m [34m[vite][39m [2mdist/[22m[36m_assets/ParticlesBackground.astro_astro_type_script_index_0_lang.CZIpyjY4.js  [39m[1m[2m7.33 kB[22m[1m[22m[2m Ôöé gzip: 2.35 kB[22m
+[2m16:55:23[22m [34m[vite][39m [32mÔ£ô built in 41ms[39m
+
+[42m[30m generating static routes [39m[49m
+[2m16:55:23[22m [32mÔûÂ[39m src/pages/en/about.astro
+[2m16:55:23[22m   [34mÔööÔöÇ[39m [2m/en/about/index.html[22m

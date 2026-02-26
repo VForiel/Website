@@ -11,7 +11,8 @@ export function detectLocaleFromPath(pathname: string): Locale {
 }
 
 export function withLocalePrefix(href: string, locale: Locale): string {
-    const prefix = `/${locale}`;
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+    const prefix = `${base}/${locale}`;
 
     if (href === '/') {
         return prefix;
@@ -26,10 +27,16 @@ export function withLocalePrefix(href: string, locale: Locale): string {
 
 export function toggleLocaleHref(currentPath: string, currentLocale: Locale): string {
     const targetLocale = currentLocale === 'fr' ? 'en' : 'fr';
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-    // Remove current locale prefix
-    const pathWithoutLocale = currentPath.replace(/^\/(fr|en)/, '') || '/';
+    // Remove current locale prefix and base URL
+    let pathWithoutLocale = currentPath;
+    if (base) {
+        pathWithoutLocale = pathWithoutLocale.replace(new RegExp(`^${base}`), '');
+    }
+    pathWithoutLocale = pathWithoutLocale.replace(/^\/(fr|en)/, '') || '/';
 
     // Add target locale prefix
-    return pathWithoutLocale === '/' ? `/${targetLocale}` : `/${targetLocale}${pathWithoutLocale}`;
+    const newPath = pathWithoutLocale === '/' ? `/${targetLocale}` : `/${targetLocale}${pathWithoutLocale}`;
+    return `${base}${newPath}`;
 }

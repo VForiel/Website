@@ -3,6 +3,7 @@ import Navigation from "./Navigation.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import LanguageToggle from "./LanguageToggle.astro";
 import { strings } from "../i18n/strings";
+import { withLocalePrefix } from "../i18n/config";
 
 interface Props {
     currentPath?: string;
@@ -16,9 +17,9 @@ const tagline = strings[lang].headerTagline;
 <header class="header">
     <div class="container">
         <div class="header__content">
-            <a href="/" class="header__logo">
+            <a href={withLocalePrefix("/", lang)} class="header__logo">
                 <img
-                    src="/profile-picture.jpg"
+                    src={`${import.meta.env.BASE_URL}profile-picture.jpg`}
                     alt="Vincent Foriel"
                     class="header__avatar"
                     id="profilePicture"
@@ -67,7 +68,7 @@ const tagline = strings[lang].headerTagline;
         >&times;</button
     >
     <img
-        src="/profile-picture.jpg"
+        src={`${import.meta.env.BASE_URL}profile-picture.jpg`}
         alt="Vincent Foriel"
         class="lightbox__image"
     />
