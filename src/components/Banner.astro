@@ -1,0 +1,323 @@
+---
+interface Props {
+    lang: string;
+}
+
+const { lang } = Astro.props;
+
+const content =
+    {
+        fr: {
+            badge: "À la recherche d'opportunités",
+            title: "Recherche de Post-Doc !",
+            description:
+                "Je suis activement à la recherche d'un post-doc ou d'un poste d'ingénieur de recherche en instrumentation optique et simulation numérique. Ouvert aux propositions !",
+            cta: "Me contacter",
+            contactUrl: "/fr/contact",
+        },
+        en: {
+            badge: "Looking for opportunities",
+            title: "Seeking a Post-Doc!",
+            description:
+                "I'm actively looking for a post-doc or research engineering position in optical instrumentation and numerical simulation. Open to offers!",
+            cta: "Contact me",
+            contactUrl: "/en/contact",
+        },
+    }[lang as "fr" | "en"] || content.en;
+---
+
+<!-- Icon to reopen banner -->
+<button
+    id="reopen-banner"
+    class="reopen-banner"
+    aria-label="Reopen notification"
+    title={content.badge}
+>
+    <div class="banner-indicator reopen-indicator">
+        <span class="pulse-dot"></span>
+    </div>
+    <span class="reopen-icon">💼</span>
+</button>
+
+<!-- Main Banner -->
+<div id="availability-banner" class="availability-banner" role="alert">
+    <div class="banner-content">
+        <div class="banner-indicator">
+            <span class="pulse-dot"></span>
+        </div>
+        <div class="banner-text">
+            <span class="banner-badge">{content.badge}</span>
+            <strong>{content.title}</strong>
+            <p>{content.description}</p>
+        </div>
+        <div class="banner-actions">
+            <a
+                href={`${import.meta.env.BASE_URL.replace(/\/?$/, "")}${content.contactUrl}`}
+                class="banner-cta"
+                id="banner-cta"
+            >
+                {content.cta}
+            </a>
+            <button
+                id="close-banner"
+                class="banner-close"
+                aria-label="Close notification"
+            >
+                ✕
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Handle banner dismiss state
+    document.addEventListener("DOMContentLoaded", () => {
+        const banner = document.getElementById("availability-banner");
+        const closeBtn = document.getElementById("close-banner");
+        const ctaBtn = document.getElementById("banner-cta");
+        const reopenBtn = document.getElementById("reopen-banner");
+
+        const isDismissed = localStorage.getItem("banner-dismissed") === "true";
+
+        if (!isDismissed) {
+            setTimeout(() => {
+                banner?.classList.add("show");
+            }, 1000);
+        } else {
+            // Give a little delay for smooth appearance if already dismissed
+            setTimeout(() => {
+                reopenBtn?.classList.add("show");
+            }, 500);
+        }
+
+        const closeBanner = () => {
+            banner?.classList.remove("show");
+            setTimeout(() => {
+                reopenBtn?.classList.add("show");
+            }, 400); // Wait for the fade out
+            localStorage.setItem("banner-dismissed", "true");
+        };
+
+        const openBanner = () => {
+            reopenBtn?.classList.remove("show");
+            setTimeout(() => {
+                banner?.classList.add("show");
+            }, 300); // Wait for reopen icon to hide
+            localStorage.setItem("banner-dismissed", "false");
+        };
+
+        // Click X or CTA will close the banner
+        closeBtn?.addEventListener("click", closeBanner);
+        ctaBtn?.addEventListener("click", closeBanner);
+
+        // Click notification icon to bring it back
+        reopenBtn?.addEventListener("click", openBanner);
+    });
+</script>
+
+<style>
+    .availability-banner {
+        position: fixed;
+        bottom: var(--space-6);
+        right: var(--space-6);
+        max-width: 450px;
+        background-color: var(--color-background);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-xl);
+        padding: var(--space-5);
+        z-index: 100;
+        transform: translateY(150%) scale(0.9);
+        opacity: 0;
+        transition:
+            transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+            opacity 0.6s ease;
+        pointer-events: none;
+    }
+
+    .availability-banner.show {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .reopen-banner {
+        position: fixed;
+        bottom: var(--space-6);
+        right: var(--space-6);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--color-background);
+        border: 2px solid var(--color-primary);
+        box-shadow: var(--shadow-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 99;
+        transform: scale(0);
+        opacity: 0;
+        transition:
+            transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+            opacity 0.4s ease,
+            background-color 0.2s,
+            box-shadow 0.2s;
+        pointer-events: none;
+    }
+
+    .reopen-banner.show {
+        transform: scale(1);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .reopen-banner:hover {
+        background-color: var(--color-background-secondary);
+        box-shadow: var(--shadow-lg);
+        transform: scale(1.05);
+    }
+
+    .reopen-icon {
+        font-size: 1.5rem;
+        line-height: 1;
+    }
+
+    .reopen-indicator {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        z-index: 10;
+        margin-block-start: 0;
+    }
+
+    .banner-content {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-4);
+    }
+
+    .banner-indicator {
+        margin-block-start: var(--space-1);
+    }
+
+    .pulse-dot {
+        display: block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: var(--color-primary);
+        box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0.7);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0.7);
+        }
+        70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 10px rgba(var(--color-primary-rgb), 0);
+        }
+        100% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0);
+        }
+    }
+
+    .banner-text {
+        flex: 1;
+    }
+
+    .banner-badge {
+        display: inline-block;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 700;
+        color: var(--color-primary);
+        margin-block-end: var(--space-1);
+    }
+
+    .banner-text strong {
+        display: block;
+        font-size: var(--text-lg);
+        margin-block-end: var(--space-2);
+        color: var(--color-text);
+    }
+
+    .banner-text p {
+        font-size: var(--text-sm);
+        color: var(--color-text-secondary);
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    .banner-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: var(--space-4);
+    }
+
+    .banner-close {
+        background: none;
+        border: none;
+        color: var(--color-text-secondary);
+        cursor: pointer;
+        padding: var(--space-1);
+        font-size: var(--text-lg);
+        transition: color var(--transition-fast);
+        line-height: 1;
+    }
+
+    .banner-close:hover {
+        color: var(--color-text);
+    }
+
+    .banner-cta {
+        display: inline-block;
+        background-color: var(--color-primary);
+        color: white;
+        padding: var(--space-2) var(--space-4);
+        border-radius: var(--radius-md);
+        font-size: var(--text-sm);
+        font-weight: 500;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: opacity var(--transition-fast);
+        margin-block-start: auto;
+    }
+
+    .banner-cta:hover {
+        opacity: 0.9;
+    }
+
+    @media (max-width: 640px) {
+        .availability-banner {
+            bottom: var(--space-4);
+            left: var(--space-4);
+            right: var(--space-4);
+            max-width: none;
+        }
+
+        .banner-content {
+            flex-direction: column;
+            position: relative;
+        }
+
+        .banner-actions {
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .banner-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+</style>
