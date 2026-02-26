@@ -79,8 +79,9 @@ const regularProjects = projects.filter((p) => !p.data.featured);
                 simplement échanger sur ces thématiques, n'hésitez pas à me
                 contacter.
             </p>
-            <a href={`${import.meta.env.BASE_URL}fr/contact`} class="button"
-                >Entrer en contact</a
+            <a
+                href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}fr/contact`}
+                class="button">Entrer en contact</a
             >
         </div>
     </Section>

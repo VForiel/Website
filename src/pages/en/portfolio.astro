@@ -78,8 +78,9 @@ const regularProjects = projects.filter((p) => !p.data.featured);
                 To discuss a collaboration, a research project or simply
                 exchange on these topics, feel free to contact me.
             </p>
-            <a href={`${import.meta.env.BASE_URL}en/contact`} class="button"
-                >Get in touch</a
+            <a
+                href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/contact`}
+                class="button">Get in touch</a
             >
         </div>
     </Section>

@@ -177,8 +177,9 @@ import Section from "../../components/Section.astro";
         </div>
 
         <div class="cv-footer">
-            <a href={`${import.meta.env.BASE_URL}fr/contact`} class="button"
-                >Me contacter</a
+            <a
+                href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}fr/contact`}
+                class="button">Me contacter</a
             >
             <button onclick="window.print()" class="button button--secondary"
                 >Imprimer le CV</button

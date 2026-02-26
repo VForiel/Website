@@ -106,7 +106,8 @@ import Section from "../../components/Section.astro";
                     </p>
                     <p>
                         That project gave birth to
-                        <a href={`${import.meta.env.BASE_URL}en/associations`}
+                        <a
+                            href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/associations`}
                             >Altearn</a
                         > and
                         <a

@@ -168,8 +168,9 @@ import Section from "../../components/Section.astro";
         </div>
 
         <div class="cv-footer">
-            <a href={`${import.meta.env.BASE_URL}en/contact`} class="button"
-                >Contact me</a
+            <a
+                href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/contact`}
+                class="button">Contact me</a
             >
             <button onclick="window.print()" class="button button--secondary"
                 >Print CV</button
