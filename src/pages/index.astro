@@ -2,73 +2,84 @@
 // Page de redirection automatique selon la langue du navigateur
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redirecting...</title>
-  
-  <!-- Fallback meta refresh pour les navigateurs sans JS -->
-  <meta http-equiv="refresh" content="0; url=/fr/">
-  
-  <script>
-    // Détection de la langue du navigateur
-    const userLang = navigator.language || navigator.userLanguage;
-    
-    // Liste des locales francophones
-    const frenchLocales = ['fr', 'fr-FR', 'fr-CA', 'fr-BE', 'fr-CH'];
-    
-    // Déterminer la langue cible
-    const isFrench = frenchLocales.some(locale => userLang.toLowerCase().startsWith(locale.toLowerCase()));
-    const targetPath = isFrench ? '/fr/' : '/en/';
-    
-    // Redirection immédiate
-    window.location.replace(targetPath);
-  </script>
-  
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      background-color: #f9fafb;
-    }
-    
-    .loader {
-      text-align: center;
-      color: #6b7280;
-    }
-    
-    .spinner {
-      border: 3px solid #e5e7eb;
-      border-top: 3px solid #3b82f6;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 16px;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
-</head>
-<body>
-  <div class="loader">
-    <div class="spinner"></div>
-    <p>Redirecting...</p>
-  </div>
-  
-  <!-- Lien de secours si la redirection échoue -->
-  <noscript>
-    <p>Please enable JavaScript or <a href="/fr/">click here</a> to continue.</p>
-  </noscript>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Redirecting...</title>
+
+        <!-- Fallback meta refresh pour les navigateurs sans JS -->
+        <meta http-equiv="refresh" content="0; url=fr/" />
+
+        <script>
+            // Détection de la langue du navigateur
+            const userLang = navigator.language || navigator.userLanguage;
+
+            // Liste des locales francophones
+            const frenchLocales = ["fr", "fr-FR", "fr-CA", "fr-BE", "fr-CH"];
+
+            // Déterminer la langue cible
+            const isFrench = frenchLocales.some((locale) =>
+                userLang.toLowerCase().startsWith(locale.toLowerCase()),
+            );
+            const targetPath = isFrench ? "fr/" : "en/";
+
+            // Redirection immédiate
+            window.location.replace(targetPath);
+        </script>
+
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                background-color: #f9fafb;
+            }
+
+            .loader {
+                text-align: center;
+                color: #6b7280;
+            }
+
+            .spinner {
+                border: 3px solid #e5e7eb;
+                border-top: 3px solid #3b82f6;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                animation: spin 1s linear infinite;
+                margin: 0 auto 16px;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="loader">
+            <div class="spinner"></div>
+            <p>Redirecting...</p>
+        </div>
+
+        <!-- Lien de secours si la redirection échoue -->
+        <noscript>
+            <p>
+                Please enable JavaScript or <a href="fr/">click here</a> to continue.
+            </p>
+        </noscript>
+    </body>
 </html>
