@@ -1,6 +1,7 @@
 ---
 import PageLayout from "../../layouts/PageLayout.astro";
 import Section from "../../components/Section.astro";
+import SpaceInvaders from "../../components/SpaceInvaders.astro";
 
 const birthDate = new Date("1997-09-28");
 const today = new Date();
@@ -31,10 +32,10 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             <div class="content-main">
                 <h2>My Journey</h2>
                 <p>
-                    Astrophysics has always fascinated me — black holes, neutron
-                    stars, the sheer scale of cosmic structures. This passion
-                    was fueled by Stephen Hawking's books as much as by works
-                    like <em>Star Trek</em> or
+                    <span class="easter-egg-trigger">Space</span> has always fascinated
+                    me — black holes, neutron stars, the sheer scale of cosmic structures.
+                    This passion was fueled by Stephen Hawking's books as much as
+                    by works like <em>Star Trek</em> or
                     <em>Interstellar</em>.
                 </p>
 
@@ -143,7 +144,19 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             </aside>
         </div>
     </Section>
+    <SpaceInvaders />
 </PageLayout>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const triggers = document.querySelectorAll(".easter-egg-trigger");
+        triggers.forEach((trigger) => {
+            trigger.addEventListener("click", () => {
+                document.dispatchEvent(new CustomEvent("open-easter-egg"));
+            });
+        });
+    });
+</script>
 
 <style>
     .about-header {
@@ -273,5 +286,10 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
         .content-sidebar {
             position: static;
         }
+    }
+
+    .easter-egg-trigger {
+        cursor: text;
+        user-select: none;
     }
 </style>

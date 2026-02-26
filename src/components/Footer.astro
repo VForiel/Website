@@ -1,7 +1,6 @@
 ---
 import { withLocalePrefix } from "../i18n/config";
 import type { Locale } from "../i18n/config";
-import SpaceInvaders from "./SpaceInvaders.astro";
 
 interface Props {
     lang?: Locale;
@@ -15,9 +14,7 @@ const currentYear = new Date().getFullYear();
     <div class="container">
         <div class="footer__content">
             <div class="footer__section">
-                <h3 class="footer__heading">
-                    Vincent F<span class="easter-egg-trigger">o</span>riel
-                </h3>
+                <h3 class="footer__heading">Vincent Foriel</h3>
                 <p class="footer__text">
                     Doctorant en instrumentation astronomique, imagerie à haut
                     contraste et simulation optique
@@ -103,26 +100,11 @@ const currentYear = new Date().getFullYear();
 
         <div class="footer__bottom">
             <p class="footer__copyright">
-                © {currentYear} Vincent F<span class="easter-egg-trigger"
-                    >o</span
-                >riel. Tous droits réservés.
+                © {currentYear} Vincent Foriel. Tous droits réservés.
             </p>
         </div>
     </div>
 </footer>
-
-<SpaceInvaders />
-
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const triggers = document.querySelectorAll(".easter-egg-trigger");
-        triggers.forEach((trigger) => {
-            trigger.addEventListener("click", () => {
-                document.dispatchEvent(new CustomEvent("open-easter-egg"));
-            });
-        });
-    });
-</script>
 
 <style>
     .footer {
@@ -191,10 +173,5 @@ const currentYear = new Date().getFullYear();
             grid-template-columns: 1fr;
             gap: var(--space-8);
         }
-    }
-
-    .easter-egg-trigger {
-        cursor: text;
-        user-select: none;
     }
 </style>

@@ -1,6 +1,7 @@
 ---
 import PageLayout from "../../layouts/PageLayout.astro";
 import Section from "../../components/Section.astro";
+import SpaceInvaders from "../../components/SpaceInvaders.astro";
 
 const birthDate = new Date("1997-09-28");
 const today = new Date();
@@ -31,10 +32,12 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             <div class="content-main">
                 <h2>Mon parcours</h2>
                 <p>
-                    L'astrophysique m'a toujours fasciné — les trous noirs, les
-                    étoiles à neutrons, le gigantisme des structures cosmiques.
-                    Cette passion a été nourrie par les livres de Stephen
-                    Hawking autant que par des œuvres comme <em>Star Trek</em> ou
+                    <span class="easter-egg-trigger">L'espace</span> m'a toujours
+                    fasciné — les trous noirs, les étoiles à neutrons, le gigantisme
+                    des structures cosmiques. Cette passion a été nourrie par les
+                    livres de Stephen Hawking autant que par des œuvres comme <em
+                        >Star Trek</em
+                    > ou
                     <em>Interstellar</em>.
                 </p>
 
@@ -145,7 +148,19 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             </aside>
         </div>
     </Section>
+    <SpaceInvaders />
 </PageLayout>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const triggers = document.querySelectorAll(".easter-egg-trigger");
+        triggers.forEach((trigger) => {
+            trigger.addEventListener("click", () => {
+                document.dispatchEvent(new CustomEvent("open-easter-egg"));
+            });
+        });
+    });
+</script>
 
 <style>
     .about-header {
@@ -275,5 +290,10 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
         .content-sidebar {
             position: static;
         }
+    }
+
+    .easter-egg-trigger {
+        cursor: text;
+        user-select: none;
     }
 </style>
