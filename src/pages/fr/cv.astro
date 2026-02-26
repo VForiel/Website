@@ -1,6 +1,14 @@
 ---
 import PageLayout from "../../layouts/PageLayout.astro";
 import Section from "../../components/Section.astro";
+
+const birthDate = new Date("1997-09-28");
+const today = new Date();
+let age = today.getFullYear() - birthDate.getFullYear();
+const m = today.getMonth() - birthDate.getMonth();
+if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+}
 ---
 
 <PageLayout
@@ -12,6 +20,8 @@ import Section from "../../components/Section.astro";
         <div class="cv-header">
             <h1>Curriculum Vitae</h1>
             <div class="cv-contact">
+                <span>{age} ans</span>
+                <span>•</span>
                 <span>vincent.foriel@gmail.com</span>
                 <span>•</span>
                 <span>Nice, France</span>
@@ -26,31 +36,60 @@ import Section from "../../components/Section.astro";
                 <div class="cv-item">
                     <div class="cv-item__header">
                         <h3 class="cv-item__title">
-                            Doctorat en Astrophotonique
+                            Doctorant en astrophotonique
                         </h3>
-                        <span class="cv-item__date">2021 - 2024</span>
+                        <span class="cv-item__date">Nov. 2023 - Présent</span>
                     </div>
                     <div class="cv-item__subtitle">
-                        Observatoire de la Côte d'Azur
+                        Observatoire de la Côte d'Azur (OCA), Nice
                     </div>
                     <p class="cv-item__description">
-                        Développement de méthodes de simulation end-to-end pour
-                        l'imagerie à haut contraste. Conception d'outils
-                        logiciels pour l'analyse de performance d'instruments
-                        coronagraphiques.
+                        Améliorer la technique d'interférométrie annulante via
+                        la mise au point d'un composant photonique ajustable en
+                        phase pour la détection d'exoplanète.
                     </p>
                 </div>
 
                 <div class="cv-item">
                     <div class="cv-item__header">
-                        <h3 class="cv-item__title">Master en Astrophysique</h3>
-                        <span class="cv-item__date">2019 - 2021</span>
+                        <h3 class="cv-item__title">
+                            Master en physique computationnelle
+                        </h3>
+                        <span class="cv-item__date"
+                            >Sept. 2021 - Juil. 2023</span
+                        >
                     </div>
-                    <div class="cv-item__subtitle">Université Côte d'Azur</div>
-                    <p class="cv-item__description">
-                        Spécialisation en instrumentation astronomique et
-                        techniques d'observation.
-                    </p>
+                    <div class="cv-item__subtitle">
+                        Université de Bourgogne Franche-Comté (UBFC), Besançon
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-item__header">
+                        <h3 class="cv-item__title">
+                            Licence de physique fondamentale
+                        </h3>
+                        <span class="cv-item__date"
+                            >Sept. 2017 - Juil. 2021</span
+                        >
+                    </div>
+                    <div class="cv-item__subtitle">
+                        Université Côte d'Azur (UniCA), Nice
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-item__header">
+                        <h3 class="cv-item__title">
+                            DUT Réseaux et Télécommunications
+                        </h3>
+                        <span class="cv-item__date"
+                            >Sept. 2015 - Juil. 2017</span
+                        >
+                    </div>
+                    <div class="cv-item__subtitle">
+                        Université Côte d'Azur (UniCA), Nice
+                    </div>
                 </div>
             </div>
 
@@ -61,53 +100,53 @@ import Section from "../../components/Section.astro";
                 <div class="cv-item">
                     <div class="cv-item__header">
                         <h3 class="cv-item__title">
-                            Chercheur en instrumentation optique
+                            Stage en entreprise : Dévoilement de la structure 3D
+                            des noyaux pré stellaires (ML)
                         </h3>
-                        <span class="cv-item__date">2021 - Présent</span>
+                        <span class="cv-item__date">Fév. 2023 - Mars 2022</span>
                     </div>
                     <div class="cv-item__subtitle">
-                        Observatoire de la Côte d'Azur
+                        Université de Bourgogne Franche-Comté (UBFC), Besançon
                     </div>
-                    <ul class="cv-item__list">
-                        <li>
-                            Développement de frameworks de simulation pour
-                            instruments à haut contraste
-                        </li>
-                        <li>
-                            Analyse de performance d'architectures
-                            coronagraphiques
-                        </li>
-                        <li>
-                            Collaboration internationale sur projets
-                            instrumentaux (ESO, NASA)
-                        </li>
-                        <li>Encadrement d'étudiants en master</li>
-                    </ul>
+                    <p class="cv-item__description">
+                        Etude de la capacité d'un réseau convolutif à inférer
+                        les propriétés d'un cœur pré stellaire à partir
+                        d'observations générées numériquement.
+                    </p>
                 </div>
 
                 <div class="cv-item">
                     <div class="cv-item__header">
                         <h3 class="cv-item__title">
-                            Développeur logiciel scientifique
+                            Projet en laboratoire : Détermination d'efficacité
+                            de détection des TNO (ML)
                         </h3>
-                        <span class="cv-item__date">2020 - 2021</span>
+                        <span class="cv-item__date">Nov. 2021 - Juin 2022</span>
                     </div>
                     <div class="cv-item__subtitle">
-                        Projet de recherche collaboratif
+                        Université de Bourgogne Franche-Comté (UBFC), Besançon
                     </div>
-                    <ul class="cv-item__list">
-                        <li>
-                            Développement d'outils Python pour l'analyse de
-                            données astronomiques
-                        </li>
-                        <li>
-                            Optimisation de pipelines de traitement d'images
-                        </li>
-                        <li>
-                            Documentation technique et formation des
-                            utilisateurs
-                        </li>
-                    </ul>
+                    <p class="cv-item__description">
+                        Etude du fonctionnement des réseaux neuronaux et de leur
+                        capacité à extrapoler des paramètres de modèle
+                        d'efficacité de détection.
+                    </p>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-item__header">
+                        <h3 class="cv-item__title">
+                            Projet tuteuré : Coronographie stellaire
+                        </h3>
+                        <span class="cv-item__date">Mars 2020 - Juin 2020</span>
+                    </div>
+                    <div class="cv-item__subtitle">
+                        Université Côte d'Azur (UCA), Nice
+                    </div>
+                    <p class="cv-item__description">
+                        Simulation du comportement de la lumière dans un
+                        télescope.
+                    </p>
                 </div>
             </div>
 
@@ -148,19 +187,53 @@ import Section from "../../components/Section.astro";
                 </div>
             </div>
 
-            <!-- Publications (placeholder) -->
+            <!-- Publications & Presentations -->
             <div class="cv-block">
                 <h2 class="cv-block__title">Publications & Présentations</h2>
 
                 <div class="cv-item">
-                    <p class="cv-item__description">
-                        Publications dans des revues à comité de lecture (A&A,
-                        SPIE Proceedings)
-                    </p>
-                    <p class="cv-item__description">
-                        Présentations orales et posters dans des conférences
-                        internationales
-                    </p>
+                    <div class="cv-item__header">
+                        <h3 class="cv-item__title">
+                            Présentations en conférences
+                        </h3>
+                    </div>
+                    <ul class="cv-item__list">
+                        <li>
+                            <strong
+                                >SPIE Astronomical Telescopes + Instrumentation</strong
+                            > (Copenhague) — <em>Juin 2026 (à venir)</em>
+                        </li>
+                        <li>
+                            <strong>LIFE Conference</strong> — <em
+                                >Novembre 2025</em
+                            >
+                        </li>
+                        <li>
+                            <strong>WITSO</strong> (Workshop ESA, Leiden) — <em
+                                >Octobre 2025</em
+                            >
+                        </li>
+                        <li>
+                            <strong
+                                >SPIE Astronomical Telescopes + Instrumentation</strong
+                            > (Yokohama) — <em>Juin 2023</em>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-item__header">
+                        <h3 class="cv-item__title">
+                            Publications scientifiques
+                        </h3>
+                    </div>
+                    <ul class="cv-item__list">
+                        <li>1 article en cours de finalisation</li>
+                        <li>
+                            2 articles partiellement rédigés, en attente de
+                            résultats expérimentaux
+                        </li>
+                    </ul>
                 </div>
             </div>
 
@@ -174,16 +247,6 @@ import Section from "../../components/Section.astro";
                     <span class="cv-quality">Altruiste</span>
                 </div>
             </div>
-        </div>
-
-        <div class="cv-footer">
-            <a
-                href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}fr/contact`}
-                class="button">Me contacter</a
-            >
-            <button onclick="window.print()" class="button button--secondary"
-                >Imprimer le CV</button
-            >
         </div>
     </Section>
 </PageLayout>

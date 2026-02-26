@@ -1,6 +1,14 @@
 ---
 import PageLayout from "../../layouts/PageLayout.astro";
 import Section from "../../components/Section.astro";
+
+const birthDate = new Date("1997-09-28");
+const today = new Date();
+let age = today.getFullYear() - birthDate.getFullYear();
+const m = today.getMonth() - birthDate.getMonth();
+if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+}
 ---
 
 <PageLayout
@@ -89,6 +97,20 @@ import Section from "../../components/Section.astro";
             </div>
 
             <aside class="content-sidebar">
+                <div class="sidebar-card">
+                    <h3>👤 À propos de moi</h3>
+                    <ul
+                        class="interests-list"
+                        style="margin-block-start: var(--space-2);"
+                    >
+                        <li><strong>Âge :</strong> {age} ans</li>
+                        <li><strong>Genre :</strong> Homme</li>
+                        <li><strong>Origine :</strong> Française</li>
+                        <li><strong>Naissance :</strong> Cagnes-sur-Mer</li>
+                        <li><strong>Localisation :</strong> Nice, France</li>
+                    </ul>
+                </div>
+
                 <div class="sidebar-card">
                     <h3>🎨 Touche-à-tout</h3>
                     <p class="interests-text">

@@ -1,6 +1,14 @@
 ---
 import PageLayout from "../../layouts/PageLayout.astro";
 import Section from "../../components/Section.astro";
+
+const birthDate = new Date("1997-09-28");
+const today = new Date();
+let age = today.getFullYear() - birthDate.getFullYear();
+const m = today.getMonth() - birthDate.getMonth();
+if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+}
 ---
 
 <PageLayout
@@ -12,6 +20,8 @@ import Section from "../../components/Section.astro";
         <div class="cv-header">
             <h1>Curriculum Vitae</h1>
             <div class="cv-contact">
+                <span>{age} years old</span>
+                <span>•</span>
                 <span>vincent.foriel@gmail.com</span>
                 <span>•</span>
                 <span>Nice, France</span>
@@ -25,29 +35,58 @@ import Section from "../../components/Section.astro";
 
                 <div class="cv-item">
                     <div class="cv-item__header">
-                        <h3 class="cv-item__title">PhD in Astrophotonics</h3>
-                        <span class="cv-item__date">2021 - 2024</span>
+                        <h3 class="cv-item__title">
+                            PhD Student in Astrophotonics
+                        </h3>
+                        <span class="cv-item__date">Nov. 2023 - Present</span>
                     </div>
                     <div class="cv-item__subtitle">
-                        Observatoire de la Côte d'Azur
+                        Observatoire de la Côte d'Azur (OCA), Nice
                     </div>
                     <p class="cv-item__description">
-                        Development of end-to-end simulation methods for
-                        high-contrast imaging. Design of software tools for
-                        analyzing coronagraphic instrument performance.
+                        Improving the nulling interferometry technique via the
+                        development of a phase-adjustable photonic component for
+                        exoplanet detection.
                     </p>
                 </div>
 
                 <div class="cv-item">
                     <div class="cv-item__header">
-                        <h3 class="cv-item__title">Master's in Astrophysics</h3>
-                        <span class="cv-item__date">2019 - 2021</span>
+                        <h3 class="cv-item__title">
+                            Master's in Computational Physics
+                        </h3>
+                        <span class="cv-item__date">Sept. 2021 - Jul. 2023</span
+                        >
                     </div>
-                    <div class="cv-item__subtitle">Université Côte d'Azur</div>
-                    <p class="cv-item__description">
-                        Specialization in astronomical instrumentation and
-                        observation techniques.
-                    </p>
+                    <div class="cv-item__subtitle">
+                        Université de Bourgogne Franche-Comté (UBFC), Besançon
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-item__header">
+                        <h3 class="cv-item__title">
+                            Bachelor's in Fundamental Physics
+                        </h3>
+                        <span class="cv-item__date">Sept. 2017 - Jul. 2021</span
+                        >
+                    </div>
+                    <div class="cv-item__subtitle">
+                        Université Côte d'Azur (UniCA), Nice
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-item__header">
+                        <h3 class="cv-item__title">
+                            DUT in Networks and Telecommunications
+                        </h3>
+                        <span class="cv-item__date">Sept. 2015 - Jul. 2017</span
+                        >
+                    </div>
+                    <div class="cv-item__subtitle">
+                        Université Côte d'Azur (UniCA), Nice
+                    </div>
                 </div>
             </div>
 
@@ -58,47 +97,51 @@ import Section from "../../components/Section.astro";
                 <div class="cv-item">
                     <div class="cv-item__header">
                         <h3 class="cv-item__title">
-                            Researcher in optical instrumentation
+                            Corporate Internship: Unveiling the 3D structure of
+                            pre-stellar cores (ML)
                         </h3>
-                        <span class="cv-item__date">2021 - Present</span>
+                        <span class="cv-item__date">Feb. 2023 - Mar. 2022</span>
                     </div>
                     <div class="cv-item__subtitle">
-                        Observatoire de la Côte d'Azur
+                        Université de Bourgogne Franche-Comté (UBFC), Besançon
                     </div>
-                    <ul class="cv-item__list">
-                        <li>
-                            Development of simulation frameworks for
-                            high-contrast instruments
-                        </li>
-                        <li>
-                            Performance analysis of coronagraphic architectures
-                        </li>
-                        <li>
-                            International collaboration on instrumental projects
-                            (ESO, NASA)
-                        </li>
-                        <li>Supervision of Master's students</li>
-                    </ul>
+                    <p class="cv-item__description">
+                        Study of a convolutional network's ability to infer the
+                        properties of a pre-stellar core from numerically
+                        generated observations.
+                    </p>
                 </div>
 
                 <div class="cv-item">
                     <div class="cv-item__header">
                         <h3 class="cv-item__title">
-                            Scientific software developer
+                            Laboratory Project: Determining TNO detection
+                            efficiency (ML)
                         </h3>
-                        <span class="cv-item__date">2020 - 2021</span>
+                        <span class="cv-item__date">Nov. 2021 - Jun. 2022</span>
                     </div>
                     <div class="cv-item__subtitle">
-                        Collaborative research project
+                        Université de Bourgogne Franche-Comté (UBFC), Besançon
                     </div>
-                    <ul class="cv-item__list">
-                        <li>
-                            Development of Python tools for astronomical data
-                            analysis
-                        </li>
-                        <li>Optimization of image processing pipelines</li>
-                        <li>Technical documentation and user training</li>
-                    </ul>
+                    <p class="cv-item__description">
+                        Study of neural networks' functioning and their ability
+                        to extrapolate detection efficiency model parameters.
+                    </p>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-item__header">
+                        <h3 class="cv-item__title">
+                            Tutored Project: Stellar Coronagraphy
+                        </h3>
+                        <span class="cv-item__date">Mar. 2020 - Jun. 2020</span>
+                    </div>
+                    <div class="cv-item__subtitle">
+                        Université Côte d'Azur (UCA), Nice
+                    </div>
+                    <p class="cv-item__description">
+                        Simulation of light behavior in a telescope.
+                    </p>
                 </div>
             </div>
 
@@ -139,19 +182,49 @@ import Section from "../../components/Section.astro";
                 </div>
             </div>
 
-            <!-- Publications -->
+            <!-- Publications & Presentations -->
             <div class="cv-block">
                 <h2 class="cv-block__title">Publications & Presentations</h2>
 
                 <div class="cv-item">
-                    <p class="cv-item__description">
-                        Publications in peer-reviewed journals (A&A, SPIE
-                        Proceedings)
-                    </p>
-                    <p class="cv-item__description">
-                        Oral presentations and posters at international
-                        conferences
-                    </p>
+                    <div class="cv-item__header">
+                        <h3 class="cv-item__title">Conference Presentations</h3>
+                    </div>
+                    <ul class="cv-item__list">
+                        <li>
+                            <strong
+                                >SPIE Astronomical Telescopes + Instrumentation</strong
+                            > (Copenhagen) — <em>June 2026 (Upcoming)</em>
+                        </li>
+                        <li>
+                            <strong>LIFE Conference</strong> — <em
+                                >November 2025</em
+                            >
+                        </li>
+                        <li>
+                            <strong>WITSO</strong> (ESA Workshop, Leiden) — <em
+                                >October 2025</em
+                            >
+                        </li>
+                        <li>
+                            <strong
+                                >SPIE Astronomical Telescopes + Instrumentation</strong
+                            > (Yokohama) — <em>June 2023</em>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-item__header">
+                        <h3 class="cv-item__title">Scientific Publications</h3>
+                    </div>
+                    <ul class="cv-item__list">
+                        <li>1 paper in finalization</li>
+                        <li>
+                            2 papers partially written, awaiting experimental
+                            results
+                        </li>
+                    </ul>
                 </div>
             </div>
 
@@ -165,16 +238,6 @@ import Section from "../../components/Section.astro";
                     <span class="cv-quality">Altruistic</span>
                 </div>
             </div>
-        </div>
-
-        <div class="cv-footer">
-            <a
-                href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/contact`}
-                class="button">Contact me</a
-            >
-            <button onclick="window.print()" class="button button--secondary"
-                >Print CV</button
-            >
         </div>
     </Section>
 </PageLayout>
