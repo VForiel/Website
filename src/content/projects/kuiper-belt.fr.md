@@ -2,7 +2,7 @@
 title: "Détection et analyse d'objets de la ceinture de Kuiper"
 description: "Projet de Master - Détection et analyse d'objets de la ceinture de Kuiper (2022)"
 end-date: 2022-12-01
-tags: ["Astronomie", "Analyse de données", "Master"]
+tags: ["Astrophysique", "Académique"]
 featured: false
 locale: fr
 ---

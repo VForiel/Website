@@ -2,7 +2,7 @@
 title: "Modlock Lasers"
 description: "Simulation of laser mode correlation in a cavity to create laser pulses"
 end-date: 2022-12-01
-tags: ["Simulation", "Physics", "Laser"]
+tags: ["Simulation", "Physics"]
 featured: false
 locale: en
 ---

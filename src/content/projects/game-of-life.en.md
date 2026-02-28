@@ -2,7 +2,7 @@
 title: "Game of Life Analysis"
 description: "Attempt to study a highly complex dynamical system through various approaches"
 end-date: 2022-12-01
-tags: ["Simulation", "Complexity", "Analysis"]
+tags: ["Simulation"]
 featured: false
 locale: en
 ---

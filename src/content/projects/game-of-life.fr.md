@@ -2,7 +2,7 @@
 title: "Analyse du jeu de la vie"
 description: "Tentative d'étudier un système dynamique hautement complexe à travers diverses approches"
 end-date: 2022-12-01
-tags: ["Simulation", "Complexité", "Analyse"]
+tags: ["Simulation"]
 featured: false
 locale: fr
 ---

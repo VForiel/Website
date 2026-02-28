@@ -2,7 +2,7 @@
 title: "Étude des lunes de Saturne"
 description: "Projet de Master - Étude des lunes de Saturne (2022)"
 end-date: 2022-12-01
-tags: ["Astrophysique", "Sciences planétaires", "Master"]
+tags: ["Astrophysique", "Académique"]
 featured: false
 locale: fr
 ---

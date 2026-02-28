@@ -2,7 +2,7 @@
 title: "HELIOS - Optical Simulation Framework"
 description: "Python framework for end-to-end simulation of astronomical observations"
 start-date: 2025-12-01
-tags: ["Python", "Simulation", "Optics", "Open Source"]
+tags: ["Computer Science", "Simulation", "Physics", "Open Source"]
 
 url: "https://github.com/VForiel/HELIOS"
 featured: true
