@@ -80,9 +80,9 @@
         // Initialiser le compteur d'Easter Egg (réinitialisé à chaque chargement de page)
         let toggleCount = 0;
 
-        // Précharger les sons (avec le baseUrl de GitHub Pages)
-        const audioJour = new Audio("/Website/sounds/Jour.m4a");
-        const audioNuit = new Audio("/Website/sounds/Nuit.m4a");
+        // Précharger les sons (relative to root)
+        const audioJour = new Audio("/sounds/Jour.m4a");
+        const audioNuit = new Audio("/sounds/Nuit.m4a");
 
         themeToggles.forEach((themeToggle) => {
             if (themeToggle) {
