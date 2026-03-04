@@ -157,6 +157,41 @@
 /* Global styles */
 html {
     /* scroll-behavior: smooth removed for better performance */
+
+    /* Standard scrollbar styling (Firefox) */
+    scrollbar-width: thin;
+    scrollbar-color: hsla(220, 10%, 40%, 0.4) transparent;
+}
+
+/* WebKit scrollbar styling (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsla(220, 10%, 40%, 0.4);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: hsla(220, 10%, 50%, 0.6);
+}
+
+/* Light theme scrollbar */
+.light-theme {
+    scrollbar-color: hsla(220, 10%, 60%, 0.35) transparent;
+}
+
+.light-theme ::-webkit-scrollbar-thumb {
+    background: hsla(220, 10%, 60%, 0.35);
+}
+
+.light-theme ::-webkit-scrollbar-thumb:hover {
+    background: hsla(220, 10%, 50%, 0.5);
 }
 
 body {
