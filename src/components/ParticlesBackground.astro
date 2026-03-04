@@ -9,42 +9,85 @@
 
 <div id="polaris-modal" class="polaris-modal hidden">
     <div class="modal-content">
-        <button id="close-polaris" class="close-btn" aria-label="Fermer"
+        <button id="close-polaris" class="close-btn" aria-label="Close"
             >✕</button
         >
-        <div class="modal-header">
-            <h3>L'Étoile Polaire</h3>
-            <div class="header-line"></div>
+
+        <!-- French -->
+        <div class="polaris-lang" data-lang="fr">
+            <div class="modal-header">
+                <h3>L'Étoile Polaire</h3>
+                <div class="header-line"></div>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Bravo, vous avez repéré l'étoile polaire ! Voici une petite
+                    anecdote personnelle :
+                </p>
+                <p>
+                    J'ai un jour utilisé cette étoile pour guider une amie hors
+                    d'une forêt, en pleine nuit de mars. Alors qu'elle s'était
+                    isolée pour profiter du calme nocturne, son téléphone est
+                    tombé et l'écran s'est brisé. Inquiet après 30 minutes sans
+                    nouvelles, je l'ai appelée ; elle a pu décrocher grâce au
+                    bouton physique du téléphone.
+                </p>
+                <p>
+                    Elle était hors des sentiers, totalement égarée. Par chance,
+                    le ciel était parfaitement dégagé. En consultant Google
+                    Maps, j'ai repéré des chemins résidentiels à l'est de sa
+                    dernière position connue. Je lui ai alors expliqué comment
+                    trouver l'étoile polaire (en repérant la Grande Ourse puis
+                    en prolongeant cinq fois son dernier segment), puis je lui
+                    ai demandé de marcher droit devant elle en gardant l'étoile
+                    sur sa gauche.
+                </p>
+                <p>
+                    Quinze minutes plus tard, elle débouchait sur une route et
+                    me donnait le nom d'une école, ce qui nous a permis de la
+                    localiser précisément. Ce soir-là, une simple connaissance
+                    d'astronomie lui a probablement évité une nuit glaciale en
+                    forêt. Comme quoi, il n'y a aucun savoir inutile.
+                </p>
+            </div>
         </div>
-        <div class="modal-body">
-            <p>
-                Bravo, vous avez repéré l'étoile polaire ! Voici une petite
-                anecdote personnelle :
-            </p>
-            <p>
-                J'ai un jour utilisé cette étoile pour guider une amie hors
-                d'une forêt, en pleine nuit de mars. Alors qu'elle s'était
-                isolée pour profiter du calme nocturne, son téléphone est tombé
-                et l'écran s'est brisé. Inquiet après 30 minutes sans nouvelles,
-                je l'ai appelée ; elle a pu décrocher grâce au bouton physique
-                du téléphone.
-            </p>
-            <p>
-                Elle était hors des sentiers, totalement égarée. Par chance, le
-                ciel était parfaitement dégagé. En consultant Google Maps, j'ai
-                repéré des chemins résidentiels à l'est de sa dernière position
-                connue. Je lui ai alors expliqué comment trouver l'étoile
-                polaire (en repérant la Grande Ourse puis en prolongeant cinq
-                fois son dernier segment), puis je lui ai demandé de marcher
-                droit devant elle en gardant l'étoile sur sa gauche.
-            </p>
-            <p>
-                Quinze minutes plus tard, elle débouchait sur une route et me
-                donnait le nom d'une école, ce qui nous a permis de la localiser
-                précisément. Ce soir-là, une simple connaissance d'astronomie
-                lui a probablement évité une nuit glaciale en forêt. Comme quoi,
-                il n'y a aucun savoir inutile.
-            </p>
+
+        <!-- English -->
+        <div class="polaris-lang" data-lang="en" style="display:none;">
+            <div class="modal-header">
+                <h3>The North Star</h3>
+                <div class="header-line"></div>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Well done, you've spotted the North Star! Here's a personal
+                    anecdote about it:
+                </p>
+                <p>
+                    I once used this star to guide a friend out of a forest on a
+                    cold March night. She had stayed behind to enjoy the quiet
+                    and the night sky, when her phone slipped and the screen
+                    shattered. Worried after 30 minutes with no news, I called
+                    her; she was able to answer using the physical button on the
+                    side of her phone.
+                </p>
+                <p>
+                    She was off-trail, completely lost. Luckily, the sky was
+                    perfectly clear. Using Google Maps, I found small
+                    residential paths east of her last known position. I then
+                    explained how to find the North Star (by spotting the Big
+                    Dipper and extending its last segment about five times), and
+                    asked her to walk straight ahead, keeping the star to her
+                    left.
+                </p>
+                <p>
+                    Fifteen minutes later, she reached a road and gave me the
+                    name of a school, which let us pinpoint her location. That
+                    night, a simple piece of astronomical knowledge probably
+                    saved her from spending a freezing night in the woods. No
+                    knowledge is ever truly useless.
+                </p>
+            </div>
         </div>
     </div>
 </div>
@@ -246,9 +289,15 @@
         openPolarisModal() {
             const modal = document.getElementById("polaris-modal");
             if (modal) {
+                // Detect locale from current URL
+                const lang = window.location.pathname.includes("/en")
+                    ? "en"
+                    : "fr";
+                modal.querySelectorAll(".polaris-lang").forEach((el) => {
+                    el.style.display = el.dataset.lang === lang ? "" : "none";
+                });
                 modal.classList.remove("hidden");
                 this.isModalOpen = true;
-                // Add a small delay etc if needed
             }
         }
 
