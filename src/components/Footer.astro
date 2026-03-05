@@ -16,9 +16,26 @@ const currentYear = new Date().getFullYear();
             <div class="footer__section">
                 <h3 class="footer__heading">Vincent Foriel</h3>
                 <p class="footer__text">
-                    Doctorant en instrumentation astronomique, imagerie à haut
-                    contraste et simulation optique
+                    {
+                        lang === "en"
+                            ? "PhD student in astronomical instrumentation, high-contrast imaging and optical simulation"
+                            : "Doctorant en instrumentation astronomique, imagerie à haut contraste et simulation optique"
+                    }
                 </p>
+                <div class="footer__hint">
+                    <button
+                        class="footer__hint-icon"
+                        aria-label="Secret"
+                        id="hint-toggle">✦</button
+                    >
+                    <p class="footer__hint-text" id="hint-text">
+                        {
+                            lang === "en"
+                                ? "This site hides 4 secrets. Space is not merely something to admire — between light and darkness, the constellations within are true compasses, for every traveler, of every origin."
+                                : "Ce site cache 4 secrets. L’espace ne demande pas seulement à être admiré — entre lumière et ténèbres, les constellations en son sein sont autant de boussoles, pour tout voyageur, de toute origine."
+                        }
+                    </p>
+                </div>
             </div>
 
             <div class="footer__section">
@@ -100,7 +117,11 @@ const currentYear = new Date().getFullYear();
 
         <div class="footer__bottom">
             <p class="footer__copyright">
-                © {currentYear} Vincent Foriel. Tous droits réservés.
+                © {currentYear} Vincent Foriel. {
+                    lang === "en"
+                        ? "All rights reserved."
+                        : "Tous droits réservés."
+                }
             </p>
         </div>
     </div>
@@ -168,6 +189,47 @@ const currentYear = new Date().getFullYear();
         text-align: center;
     }
 
+    .footer__hint {
+        margin-block-start: var(--space-2);
+    }
+
+    .footer__hint-icon {
+        background: none;
+        border: none;
+        color: var(--color-text-muted);
+        opacity: 0.3;
+        font-size: 0.7rem;
+        cursor: pointer;
+        padding: 0;
+        transition:
+            opacity var(--transition-fast),
+            color var(--transition-fast);
+    }
+
+    .footer__hint-icon:hover {
+        opacity: 0.6;
+        color: var(--color-accent);
+    }
+
+    .footer__hint-text {
+        font-size: 0.65rem;
+        color: var(--color-text-muted);
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        font-style: italic;
+        line-height: 1.6;
+        transition:
+            opacity var(--transition-slow),
+            max-height var(--transition-slow);
+    }
+
+    .footer__hint-text.visible {
+        opacity: 0.45;
+        max-height: 5em;
+        margin-block-start: var(--space-2);
+    }
+
     @media (max-width: 768px) {
         .footer__content {
             grid-template-columns: 1fr;
@@ -175,3 +237,9 @@ const currentYear = new Date().getFullYear();
         }
     }
 </style>
+
+<script>
+    document.getElementById("hint-toggle")?.addEventListener("click", () => {
+        document.getElementById("hint-text")?.classList.toggle("visible");
+    });
+</script>
