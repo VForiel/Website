@@ -1,0 +1,13 @@
+---
+title: "Scaffolding Rush"
+description: "Competitive Minecraft mini-game"
+end-date: 2020-05-01
+tags: ["Games", "Development"]
+url: "https://gunivers.net/blazing-scaffolding/"
+featured: false
+locale: en
+---
+
+A fast-paced mini-game project centered around Minecraft scaffolding mechanics.
+
+**No detailed information available yet.**
