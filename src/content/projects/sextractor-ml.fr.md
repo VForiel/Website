@@ -6,6 +6,7 @@ end-date: 2023-01-01
 tags: ["Machine Learning", "Astrophysique"]
 url: "https://github.com/Leirof/M2-Sextractor-driven-by-Machine-Learning"
 featured: false
+image: "/images/projects/sextractor-ml.png"
 locale: fr
 ---
 

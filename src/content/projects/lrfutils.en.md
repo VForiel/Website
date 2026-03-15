@@ -4,6 +4,7 @@ description: "A simple homemade python library to simplify and automatise common
 end-date: 2022-12-01
 tags: ["Computer Science"]
 featured: false
+image: "/images/projects/lrfutils.png"
 locale: en
 ---
 

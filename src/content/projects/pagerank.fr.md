@@ -4,6 +4,7 @@ description: "Projet de Master - Implémentation de l'algorithme PageRank (2021)
 end-date: 2021-12-01
 tags: ["Informatique", "Académique"]
 featured: false
+image: "/images/projects/pagerank.png"
 locale: fr
 ---
 

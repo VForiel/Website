@@ -4,6 +4,7 @@ description: "Exploration project to test the idea of using Machine Learning to 
 end-date: 2022-12-01
 tags: ["Machine Learning", "Astrophysics"]
 featured: false
+image: "/images/projects/tno-detection-ml.png"
 locale: en
 ---
 

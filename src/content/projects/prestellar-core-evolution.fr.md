@@ -4,6 +4,7 @@ description: "Création d'une bibliothèque Fortran pour faciliter la création 
 end-date: 2022-12-01
 tags: ["Informatique", "Simulation", "Astrophysique"]
 featured: false
+image: "/images/projects/prestellar-core-evolution.png"
 locale: fr
 ---
 

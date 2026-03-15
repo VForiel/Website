@@ -4,6 +4,7 @@ description: "Attempt to study a highly complex dynamical system through various
 end-date: 2022-12-01
 tags: ["Simulation"]
 featured: false
+image: "/images/projects/game-of-life.png"
 locale: en
 ---
 

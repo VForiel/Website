@@ -4,6 +4,7 @@ description: "Simulation de la corrélation des modes laser dans une cavité pou
 end-date: 2022-12-01
 tags: ["Simulation", "Physique"]
 featured: false
+image: "/images/projects/modlock-lasers.png"
 locale: fr
 ---
 
