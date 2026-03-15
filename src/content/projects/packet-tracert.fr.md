@@ -4,6 +4,7 @@ description: "Analyse et simulation réseau sous Packet Tracer durant l'IUT R&T"
 start-date: 2017-09-01
 end-date: 2019-06-01
 tags: ["Informatique", "Réseau", "Académique"]
+image: "/images/projects/packet-tracert.png"
 url: "https://github.com/VForiel/DUT-Packet_Tracert"
 featured: false
 locale: fr
