@@ -5,7 +5,7 @@ start-date: 2024-03-01
 tags: ["Informatique", "Instrumentation", "Physique", "Open Source"]
 image: "/images/projects/IA_PHOBos.png"
 url: "https://phob.readthedocs.io/"
-featured: true
+featured: false
 locale: fr
 ---
 

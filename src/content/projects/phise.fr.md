@@ -5,7 +5,7 @@ start-date: 2023-11-01
 tags: ["Informatique", "Simulation", "Physique", "Open Source"]
 image: "/images/projects/PHISE.png"
 url: "https://phise.readthedocs.io/"
-featured: true
+featured: false
 locale: fr
 ---
 
