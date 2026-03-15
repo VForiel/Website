@@ -64,7 +64,9 @@ const externalLinkLabel = lang === "fr" ? "Voir le projet" : "View project";
                     <h1 class="project-title">{title}</h1>
                     <p class="project-description">{description}</p>
 
-                    <div class="project-meta">
+                    <div class="project-details-row">
+                        <div class="project-meta-content">
+                            <div class="project-meta">
                         {
                             endDate && (
                                 <time
@@ -104,11 +106,32 @@ const externalLinkLabel = lang === "fr" ? "Voir le projet" : "View project";
                             </a>
                         )
                     }
+                        </div>
+                    {
+                        image && (
+                            <div class="project-header-image">
+                                <img
+                                    src={
+                                        image.startsWith("/")
+                                            ? `${import.meta.env.BASE_URL.replace(/\/$/, "")}${image}`
+                                            : image
+                                    }
+                                    alt={title}
+                                    class="thumbnail-image"
+                                    id="thumbnail-trigger"
+                                />
+                            </div>
+                        )
+                    }
+                    </div>
                 </header>
 
                 {
                     image && (
-                        <div class="project-image">
+                        <dialog id="image-lightbox" class="lightbox">
+                            <form method="dialog" class="lightbox-close-form">
+                                <button class="lightbox-close" aria-label="Close" formmethod="dialog">&times;</button>
+                            </form>
                             <img
                                 src={
                                     image.startsWith("/")
@@ -116,8 +139,9 @@ const externalLinkLabel = lang === "fr" ? "Voir le projet" : "View project";
                                         : image
                                 }
                                 alt={title}
+                                class="lightbox-image"
                             />
-                        </div>
+                        </dialog>
                     )
                 }
 
@@ -162,6 +186,86 @@ const externalLinkLabel = lang === "fr" ? "Voir le projet" : "View project";
 
     .project-header {
         margin-block-end: var(--space-12);
+    }
+
+    .project-details-row {
+        display: flex;
+        gap: var(--space-8);
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .project-meta-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .project-header-image {
+        flex-shrink: 0;
+        width: 180px;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        cursor: zoom-in;
+        transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        box-shadow: var(--shadow-sm);
+    }
+    
+    .thumbnail-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+    }
+
+    .project-header-image:hover {
+        transform: scale(1.05);
+        box-shadow: var(--shadow-md);
+    }
+
+    .lightbox {
+        border: none;
+        background: transparent;
+        padding: 0;
+        max-width: 95vw;
+        max-height: 95vh;
+        margin: auto;
+    }
+    
+    .lightbox::backdrop {
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(4px);
+    }
+
+    .lightbox-close-form {
+        position: fixed;
+        top: var(--space-6);
+        right: var(--space-6);
+        z-index: 10;
+    }
+
+    .lightbox-close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 3rem;
+        cursor: pointer;
+        line-height: 1;
+        padding: var(--space-2);
+        transition: transform 0.2s ease;
+        outline: none;
+    }
+    
+    .lightbox-close:hover {
+        transform: scale(1.2);
+    }
+
+    .lightbox-image {
+        display: block;
+        max-width: 100vw;
+        max-height: 90vh;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        object-fit: contain;
     }
 
     .project-title {
@@ -223,18 +327,6 @@ const externalLinkLabel = lang === "fr" ? "Voir le projet" : "View project";
         background-color: var(--color-primary-dark);
         transform: translateY(-2px);
         box-shadow: var(--shadow-md);
-    }
-
-    .project-image {
-        margin-block-end: var(--space-12);
-        border-radius: var(--radius-lg);
-        overflow: hidden;
-    }
-
-    .project-image img {
-        width: 100%;
-        height: auto;
-        display: block;
     }
 
     /* Prose styling for markdown content */
@@ -313,6 +405,16 @@ const externalLinkLabel = lang === "fr" ? "Voir le projet" : "View project";
     }
 
     @media (max-width: 768px) {
+        .project-details-row {
+            flex-direction: column-reverse;
+            gap: var(--space-6);
+        }
+
+        .project-header-image {
+            width: 100%;
+            max-width: 300px;
+        }
+
         .project {
             padding: var(--space-8);
         }
@@ -326,3 +428,35 @@ const externalLinkLabel = lang === "fr" ? "Voir le projet" : "View project";
         }
     }
 </style>
+
+<script>
+    function setupLightbox() {
+        const thumbnail = document.getElementById('thumbnail-trigger');
+        const lightbox = document.getElementById('image-lightbox') as HTMLDialogElement;
+        
+        if (thumbnail && lightbox) {
+            thumbnail.addEventListener('click', () => {
+                lightbox.showModal();
+            });
+            
+            // Close when clicking empty backdrop space
+            lightbox.addEventListener('click', (e) => {
+                const dialogDimensions = lightbox.getBoundingClientRect();
+                if (
+                    e.clientX < dialogDimensions.left ||
+                    e.clientX > dialogDimensions.right ||
+                    e.clientY < dialogDimensions.top ||
+                    e.clientY > dialogDimensions.bottom
+                ) {
+                    lightbox.close();
+                }
+            });
+        }
+    }
+
+    // Run on initial load
+    setupLightbox();
+
+    // Run on Astro view transitions
+    document.addEventListener('astro:page-load', setupLightbox);
+</script>
