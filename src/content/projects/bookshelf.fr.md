@@ -3,7 +3,7 @@ title: "Bookshelf"
 description: "Une bibliothèque modulaire pour simplifier la création de systèmes complexes sur Minecraft, le projet qui m'a fait m'orienter vers la physique"
 end-date: 2024-01-01
 tags: ["Informatique", "Open Source", "Jeux"]
-image: "/images/projects/bookshelf.png"
+image: "/images/projects/IA_bookshelf.png"
 url: "https://docs.mcbookshelf.dev/en/latest/"
 featured: false
 locale: fr

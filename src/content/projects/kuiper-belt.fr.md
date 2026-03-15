@@ -4,7 +4,7 @@ description: "Projet de Master - Détection et analyse d'objets de la ceinture d
 end-date: 2022-12-01
 tags: ["Astrophysique", "Académique"]
 featured: false
-image: "/images/projects/kuiper-belt.png"
+image: "/images/projects/IA_kuiper-belt.png"
 locale: fr
 ---
 

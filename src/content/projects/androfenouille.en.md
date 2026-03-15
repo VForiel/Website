@@ -4,7 +4,7 @@ description: "Android application developed during my technical degree in Networ
 start-date: 2017-09-01
 end-date: 2019-06-01
 tags: ["Computer Science", "Academic"]
-image: "/images/projects/androfenouille.png"
+image: "/images/projects/IA_androfenouille.png"
 url: "https://github.com/IUT-RT/AndroFenouille"
 featured: false
 locale: en

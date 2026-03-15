@@ -3,7 +3,7 @@ title: "Thèse — Kernel-Nulling Ajustable pour l'Imagerie d'Exoplanètes"
 description: "Recherche doctorale sur le développement théorique et expérimental du kernel-nulling ajustable pour la détection directe d'exoplanètes par interférométrie photonique"
 start-date: 2023-11-01
 tags: ["Recherche", "Physique", "Astrophottonique", "Instrumentation"]
-image: "/images/projects/PhD-Thesis.png"
+image: "/images/projects/IA_PhD-Thesis.png"
 featured: true
 locale: fr
 ---

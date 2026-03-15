@@ -4,7 +4,7 @@ description: "Rédaction d'une page Vikidia pour vulgariser les sujets d'astroph
 end-date: 2020-12-01
 tags: ["Astrophysique", "Physique", "Vulgarisation"]
 featured: false
-image: "/images/projects/vikidia-black-holes.png"
+image: "/images/projects/IA_vikidia-black-holes.png"
 locale: fr
 url: "https://fr.vikidia.org/wiki/Trou_noir"
 ---

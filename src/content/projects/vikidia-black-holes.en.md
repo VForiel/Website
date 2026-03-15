@@ -4,7 +4,7 @@ description: "Writing of a Vikidia page to popularize astrophysics topics relate
 end-date: 2020-12-01
 tags: ["Education", "Astrophysics", "Outreach"]
 featured: false
-image: "/images/projects/vikidia-black-holes.png"
+image: "/images/projects/IA_vikidia-black-holes.png"
 locale: en
 url: "https://fr.vikidia.org/wiki/Trou_noir"
 ---

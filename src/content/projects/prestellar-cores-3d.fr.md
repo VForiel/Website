@@ -6,7 +6,7 @@ end-date: 2023-06-01
 tags: ["Machine Learning", "Astrophysique", "Simulation"]
 url: "https://github.com/Leirof/M2-Unveiling-3D-structure-of-pre-stellar-cores"
 featured: false
-image: "/images/projects/prestellar-cores-3d.png"
+image: "/images/projects/IA_prestellar-cores-3d.png"
 locale: fr
 ---
 

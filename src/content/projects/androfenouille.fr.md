@@ -4,7 +4,7 @@ description: "Application Android développée durant le DUT Réseaux et Téléc
 start-date: 2017-09-01
 end-date: 2019-06-01
 tags: ["Informatique", "Académique"]
-image: "/images/projects/androfenouille.png"
+image: "/images/projects/IA_androfenouille.png"
 url: "https://github.com/IUT-RT/AndroFenouille"
 featured: false
 locale: fr

@@ -4,7 +4,7 @@ description: "Étude comparative de différentes architectures de coronagraphes 
 start-date: 2020-02-01
 end-date: 2020-06-01
 tags: ["Physique"]
-image: "/images/projects/coronagraph-analysis.png"
+image: "/images/projects/IA_coronagraph-analysis.png"
 featured: false
 locale: fr
 ---
