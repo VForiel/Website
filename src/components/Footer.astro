@@ -30,9 +30,34 @@ const currentYear = new Date().getFullYear();
                     >
                     <p class="footer__hint-text" id="hint-text">
                         {
-                            lang === "en"
-                                ? "This site hides 4 secrets. Space is not merely something to admire — between light and darkness, the constellations within are true compasses, for every traveler, of every origin."
-                                : "Ce site cache 4 secrets. L’espace ne demande pas seulement à être admiré — entre lumière et ténèbres, les constellations en son sein sont autant de boussoles, pour tout voyageur, de toute origine."
+                            lang === "en" ? (
+                                <>
+                                    <b>This site hides 4 secrets.</b>
+                                    <br />
+                                    Space is not merely something to admire.
+                                    <br />
+                                    Between light and darkness,
+                                    <br />
+                                    the constellations within are true
+                                    compasses,
+                                    <br />
+                                    for every traveler, of every origin.
+                                </>
+                            ) : (
+                                <>
+                                    <b>Ce site cache 4 secrets.</b>
+                                    <br />
+                                    L’espace ne demande pas seulement à être
+                                    admiré.
+                                    <br />
+                                    Entre lumière et ténèbres,
+                                    <br />
+                                    les constellations en son sein sont autant
+                                    de boussoles,
+                                    <br />
+                                    pour tout voyageur, de toute origine.
+                                </>
+                            )
                         }
                     </p>
                 </div>
@@ -226,7 +251,7 @@ const currentYear = new Date().getFullYear();
 
     .footer__hint-text.visible {
         opacity: 0.45;
-        max-height: 5em;
+        max-height: 12em;
         margin-block-start: var(--space-2);
     }
 
