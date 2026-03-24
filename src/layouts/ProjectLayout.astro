@@ -68,15 +68,13 @@ const isAI = image?.split('/').pop()?.startsWith('IA_') || false;
                             )
                         }
 
-                        {
-                            tags.length > 0 && (
                                 <div class="project-tags">
                                     {tags.map((tag) => (
-                                        <span class="tag">{tag}</span>
+                                        <a href={`${backHref}?tag=${encodeURIComponent(tag)}`} class="tag">
+                                            {tag}
+                                        </a>
                                     ))}
                                 </div>
-                            )
-                        }
                     </div>
 
                     {
@@ -406,6 +404,15 @@ const isAI = image?.split('/').pop()?.startsWith('IA_') || false;
         border: 1px solid var(--color-border);
         border-radius: var(--radius-sm);
         color: var(--color-text-secondary);
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .tag:hover {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+        transform: translateY(-1px);
+        background-color: var(--color-background-secondary);
     }
 
     .external-link {

@@ -172,7 +172,13 @@ const t = labels[lang];
                                         </p>
                                         <div class="project-tags">
                                             {project.data.tags.map((tag) => (
-                                                <span class="tag">{tag}</span>
+                                                <button 
+                                                    class="tag project-tag" 
+                                                    data-tag={tag}
+                                                    type="button"
+                                                >
+                                                    {tag}
+                                                </button>
                                             ))}
                                         </div>
                                     </div>
@@ -366,7 +372,82 @@ const t = labels[lang];
         }
     }
 
-    // Initial state: all visible
+    // Initial state: check URL parameters first, then fall back to all selected
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialTag = urlParams.get('tag');
+
+    if (initialTag && Array.from(tagButtons).some(btn => btn.getAttribute('data-tag') === initialTag)) {
+        selectedTags.clear();
+        selectedTags.add(initialTag);
+        tagButtons.forEach(btn => {
+            const isTarget = btn.getAttribute('data-tag') === initialTag;
+            btn.classList.toggle('active', isTarget);
+        });
+        toggleAllButton.textContent = labels.selectAll;
+        // Also open the filter to show what's happening
+        if (!isFilterOpen) {
+            isFilterOpen = true;
+            filterContent.classList.add("open");
+            filterToggleText.textContent = labels.hideFilters;
+        }
+    }
+
+    // Handle clicks on tags within project cards
+    document.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement;
+        const projectTag = target.closest(".project-tag") as HTMLElement;
+        
+        if (projectTag) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const tag = projectTag.getAttribute("data-tag");
+            if (!tag) return;
+
+            // Update state
+            selectedTags.clear();
+            selectedTags.add(tag);
+
+            // Update filter buttons
+            tagButtons.forEach((btn) => {
+                const isSelected = btn.getAttribute("data-tag") === tag;
+                btn.classList.toggle("active", isSelected);
+            });
+
+            // Update toggle all button text
+            toggleAllButton.textContent = labels.selectAll;
+
+            // Apply filter
+            filterProjects();
+            
+            // Scroll to filter or top of timeline for feedback
+            const filterElement = document.querySelector(".timeline-header");
+            if (filterElement) {
+                filterElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            // Push state to URL
+            const url = new URL(window.location.href);
+            url.searchParams.set('tag', tag);
+            window.history.pushState({}, '', url);
+        }
+    });
+
+    // Support for global filter activation (from other components)
+    window.addEventListener('activate-tag-filter', (e: any) => {
+        const tag = e.detail.tag;
+        if (!tag) return;
+        
+        selectedTags.clear();
+        selectedTags.add(tag);
+        tagButtons.forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-tag') === tag));
+        toggleAllButton.textContent = labels.selectAll;
+        filterProjects();
+        
+        const filterElement = document.querySelector(".timeline-header");
+        if (filterElement) filterElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
     filterProjects();
 
     // Intersection Observer for scroll animations
@@ -816,6 +897,15 @@ const t = labels[lang];
         border-radius: var(--radius-full);
         font-size: var(--text-xs);
         color: var(--color-text-secondary);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .project-tags .tag:hover {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+        background: var(--color-background-secondary);
+        transform: translateY(-1px);
     }
 
     .no-results {
