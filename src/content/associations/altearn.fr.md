@@ -1,6 +1,6 @@
 ---
 title: "Altearn"
-role: "Président"
+role: "Trésorier"
 description: "Altearn explore le potentiel pédagogique des nouvelles technologies (internet, jeux vidéo, réseaux sociaux) à travers divers projets et laboratoires créatifs. L'association fait de l'éducation populaire en démontrant que ces outils peuvent être d'excellents supports d'apprentissage."
 missions:
   - "Gunivers : Communauté de création sur Minecraft favorisant le partage de connaissances"
