@@ -1,7 +1,7 @@
 ---
 title: "Prestellar Core Evolution"
 description: "Creation of a Fortran library to facilitate the creation of prestellar core evolution simulations"
-end-date: 2022-12-01
+end-date: 2022
 tags: ["Computer Science", "Simulation", "Astrophysics"]
 featured: false
 image: "/images/projects/IA_prestellar-core-evolution.png"

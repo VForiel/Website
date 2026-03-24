@@ -1,7 +1,7 @@
 ---
 title: "Scuba Diving"
 description: "A sensibilization mini-game on oceanic biodiversity, made in collaboration with GreenPeace France"
-end-date: 2020-12-01
+end-date: 2020
 tags: ["Games", "Education"]
 image: "/images/projects/IA_scuba-diving.png"
 featured: false

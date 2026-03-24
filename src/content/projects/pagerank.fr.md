@@ -1,7 +1,7 @@
 ---
 title: "Algorithme PageRank"
 description: "Projet de Master - Implémentation de l'algorithme PageRank (2021)"
-end-date: 2021-12-01
+end-date: 2021
 tags: ["Informatique", "Académique"]
 featured: false
 image: "/images/projects/IA_pagerank.png"

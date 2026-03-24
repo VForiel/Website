@@ -1,7 +1,7 @@
 ---
 title: "Automatisation"
 description: "Projet de réflexion et d'automatisation"
-end-date: 2019-12-01
+end-date: 2019
 tags: ["Informatique", "Jeux"]
 image: "/images/projects/IA_automatisation.png"
 url: "https://altearn.xyz/automatisation/"

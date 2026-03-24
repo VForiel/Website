@@ -1,7 +1,7 @@
 ---
 title: "N-body Gravitation Simulation"
 description: "Master project - N-body gravitation simulation (2022)"
-end-date: 2022-12-01
+end-date: 2022
 tags: ["Simulation", "Physics", "Academic"]
 featured: false
 image: "/images/projects/IA_n-body-gravitation.png"

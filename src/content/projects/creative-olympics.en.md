@@ -1,7 +1,7 @@
 ---
 title: "Creative Olympics"
 description: "Creative competitive event in Minecraft"
-end-date: 2020-08-01
+end-date: 2020-08
 tags: ["Games", "Event"]
 image: "/images/projects/IA_creative-olympics.png"
 url: "https://altearn.xyz/creative-olympics-2020/"

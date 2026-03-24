@@ -1,12 +1,14 @@
 ---
+import { parsePartialDate, formatPartialDate, buildDateLabel } from "../utils/dates";
+
 interface Props {
     projects: Array<{
         slug: string;
         data: {
             title: string;
             description: string;
-            "start-date"?: Date;
-            "end-date"?: Date;
+            "start-date"?: string | Date;
+            "end-date"?: string | Date;
             tags: string[];
             image?: any;
         };
@@ -19,19 +21,16 @@ const { projects, lang } = Astro.props;
 // Extract all unique tags from all projects
 const allTags = [...new Set(projects.flatMap((p) => p.data.tags))].sort();
 
-// Format date based on language
-const formatDate = (date: Date | undefined, lang: "fr" | "en") => {
-    if (!date) {
-        return lang === "fr" ? "En cours" : "Ongoing";
-    }
-    const options: Intl.DateTimeFormatOptions = {
-        year: "numeric",
-        month: lang === "fr" ? "long" : "long",
-    };
-    return new Intl.DateTimeFormat(
-        lang === "fr" ? "fr-FR" : "en-US",
-        options,
-    ).format(date);
+// Format date based on language (uses partial date support)
+const formatDate = (date: string | Date | undefined, lang: "fr" | "en") => {
+    const parsed = parsePartialDate(date);
+    return formatPartialDate(parsed, lang);
+};
+
+// Get only the year for the timeline sidebar
+const getYear = (date: string | Date | undefined) => {
+    const parsed = parsePartialDate(date);
+    return parsed ? parsed.date.getFullYear() : "";
 };
 
 const labels = {
@@ -140,21 +139,18 @@ const t = labels[lang];
 
     <div class="timeline" id="timeline">
         {
-            projects.map((project) => {
+            projects.map((project, index) => {
+                const isFirst = index === 0;
+                const isLast = index === projects.length - 1;
                 const cleanSlug = project.slug.replace(
                     new RegExp(`${lang}$`),
                     "",
                 );
                 return (
                     <div
-                        class="timeline-item"
+                        class={`timeline-item ${isFirst ? "is-first" : ""} ${isLast ? "is-last" : ""}`}
                         data-tags={JSON.stringify(project.data.tags)}
                     >
-                        <div class="timeline-date">
-                            <span>
-                                {formatDate(project.data["end-date"], lang)}
-                            </span>
-                        </div>
                         <div class="timeline-marker" />
                         <div class="timeline-content">
                             <a
@@ -163,8 +159,9 @@ const t = labels[lang];
                             >
                                 <div class="timeline-card__inner">
                                     <div class="timeline-card__content">
-                                        <div class="mobile-date">
-                                            {formatDate(
+                                        <div class="project-date-range">
+                                            {buildDateLabel(
+                                                project.data["start-date"],
                                                 project.data["end-date"],
                                                 lang,
                                             )}
@@ -570,13 +567,14 @@ const t = labels[lang];
 
     .timeline-item {
         display: grid;
-        grid-template-columns: 180px 40px 1fr;
+        grid-template-columns: 40px 1fr;
         gap: var(--space-6);
-        margin-block-end: var(--space-10);
+        margin-block-end: var(--space-12);
         opacity: 0;
         transform: translateY(20px);
         transition: all 0.5s ease;
         position: relative;
+        align-items: stretch;
     }
 
     .timeline-item.visible {
@@ -588,16 +586,14 @@ const t = labels[lang];
         transform: translateY(0);
     }
 
-    .timeline-date {
-        text-align: right;
-        padding-top: 4px;
-    }
 
-    .timeline-date span {
+
+    .project-date-range {
+        display: block;
         font-size: var(--text-sm);
+        color: var(--color-text-muted);
+        margin-block-end: var(--space-2);
         font-weight: 500;
-        color: var(--color-text-secondary);
-        display: inline-block;
     }
 
     .timeline-marker {
@@ -605,7 +601,8 @@ const t = labels[lang];
         width: 40px;
         display: flex;
         justify-content: center;
-        align-items: flex-start;
+        align-items: center;
+        height: 100%;
     }
 
     /* Vertical line segment */
@@ -615,7 +612,7 @@ const t = labels[lang];
         left: 50%;
         transform: translateX(-50%);
         top: 0;
-        height: calc(100% + var(--space-10) + 40px);
+        height: calc(100% + var(--space-12)); /* Connect to next item's gap */
         width: 2px;
         background: var(--color-primary);
         z-index: 0;
@@ -623,20 +620,32 @@ const t = labels[lang];
 
     /* Gradient for first item */
     .timeline-item.is-first .timeline-marker::before {
+        top: 50%;
+        height: 50%;
+        background: linear-gradient(
+            to bottom,
+            var(--color-primary),
+            var(--color-primary)
+        );
+    }
+    
+    .timeline-item.is-first .timeline-marker::before {
+        top: 0;
+        height: calc(100% + var(--space-12));
         background: linear-gradient(
             to bottom,
             transparent,
-            var(--color-primary) 10%
+            var(--color-primary) 50%
         );
     }
 
     /* Gradient for last item */
     .timeline-item.is-last .timeline-marker::before {
+        top: 0;
         height: 100%;
         background: linear-gradient(
             to bottom,
-            var(--color-primary),
-            var(--color-primary) 80%,
+            var(--color-primary) 50%,
             transparent
         );
     }
@@ -663,14 +672,11 @@ const t = labels[lang];
         border: 3px solid var(--color-background);
         box-shadow: 0 0 0 2px var(--color-primary);
         transition: all 0.3s ease;
-        margin-top: 4px;
         position: relative;
         z-index: 1;
     }
 
-    .mobile-date {
-        display: none;
-    }
+
 
     .timeline-item:hover .timeline-marker::after {
         transform: scale(1.3);
@@ -831,14 +837,6 @@ const t = labels[lang];
 
         .timeline-date {
             display: none;
-        }
-
-        .mobile-date {
-            display: block;
-            font-size: var(--text-xs);
-            color: var(--color-text-secondary);
-            margin-block-end: var(--space-2);
-            font-weight: 500;
         }
 
         .timeline-marker {

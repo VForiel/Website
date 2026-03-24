@@ -1,7 +1,8 @@
 ---
 title: "Hierarchy"
 description: "A MOBA-inspired Minecraft PvP map with 5 game modes, 4 maps, and 24 heroes"
-end-date: 2021-01-01
+start-date: 2015
+end-date: 2021
 tags: ["Games", "Development"]
 image: "/images/projects/IA_hierarchy.png"
 url: "https://gunivers.net/hierarchy/"

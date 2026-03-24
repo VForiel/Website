@@ -1,8 +1,8 @@
 ---
 title: "Unveiling 3D structure of pre stellar cores"
 description: "Determination of prestellar cores characteristics from numerical simulation and mock observations using Machine Learning"
-start-date: 2023-02-01
-end-date: 2023-06-01
+start-date: 2023-02
+end-date: 2023-06
 tags: ["Machine Learning", "Astrophysics", "Simulation"]
 url: "https://github.com/Leirof/M2-Unveiling-3D-structure-of-pre-stellar-cores"
 featured: false

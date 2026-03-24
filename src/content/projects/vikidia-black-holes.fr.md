@@ -1,7 +1,7 @@
 ---
 title: "Vikidia - Trous noirs"
 description: "Rédaction d'une page Vikidia pour vulgariser les sujets d'astrophysique liés aux trous noirs pour les enfants de 8 à 13 ans"
-end-date: 2020-12-01
+end-date: 2020
 tags: ["Astrophysique", "Physique", "Vulgarisation"]
 featured: false
 image: "/images/projects/IA_vikidia-black-holes.png"

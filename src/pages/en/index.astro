@@ -3,6 +3,7 @@ import PageLayout from "../../layouts/PageLayout.astro";
 import Section from "../../components/Section.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import { getCollection } from "astro:content";
+import { dateToTimestamp } from "../../utils/dates";
 
 // Get top 4 services sorted by order
 const allServices = await getCollection("services", ({ data }) => {
@@ -20,8 +21,8 @@ const featuredProjects = allProjects
     .filter((project) => project.data.featured)
     .sort(
         (a, b) =>
-            (b.data["end-date"]?.valueOf() ?? Infinity) -
-            (a.data["end-date"]?.valueOf() ?? Infinity),
+            dateToTimestamp(b.data["end-date"]) -
+            dateToTimestamp(a.data["end-date"]),
     );
 ---
 

@@ -4,20 +4,15 @@ import Section from "../../components/Section.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import ProjectTimeline from "../../components/ProjectTimeline.astro";
 import { getCollection } from "astro:content";
+import { dateToTimestamp } from "../../utils/dates";
 
 // Get all projects sorted by end_date (most recent first, ongoing projects first)
 const allProjects = await getCollection("projects", ({ data }) => {
     return data.locale === "fr";
 });
 const projects = allProjects.sort((a, b) => {
-    // Projects without end-date (ongoing) come first
-    if (!a.data["end-date"] && !b.data["end-date"]) return 0;
-    if (!a.data["end-date"]) return -1;
-    if (!b.data["end-date"]) return 1;
-    return (
-        (b.data["end-date"]?.valueOf() ?? Infinity) -
-        (a.data["end-date"]?.valueOf() ?? Infinity)
-    );
+    // Projects without end-date (ongoing) come first, then most recent
+    return dateToTimestamp(b.data["end-date"]) - dateToTimestamp(a.data["end-date"]);
 });
 
 // Group by featured/not featured

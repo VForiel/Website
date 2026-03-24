@@ -1,9 +1,11 @@
 ---
+import { parsePartialDate, buildDateLabel } from "../utils/dates";
+
 interface Props {
     title: string;
     description: string;
-    startDate?: Date;
-    endDate?: Date;
+    startDate?: string | Date;
+    endDate?: string | Date;
     tags?: string[];
     image?: string;
     projectSlug?: string; // Internal project page link
@@ -25,19 +27,8 @@ const {
     showFallback = true,
 } = Astro.props;
 
-const dateFormat = { year: "numeric" as const, month: "long" as const };
-const locale = lang === "fr" ? "fr-FR" : "en-US";
-const formattedStart = startDate
-    ? new Intl.DateTimeFormat(locale, dateFormat).format(startDate)
-    : null;
-const formattedEnd = endDate
-    ? new Intl.DateTimeFormat(locale, dateFormat).format(endDate)
-    : lang === "fr"
-      ? "En cours"
-      : "Ongoing";
-const dateLabel = formattedStart
-    ? `${formattedStart} — ${formattedEnd}`
-    : formattedEnd;
+const parsedEnd = parsePartialDate(endDate);
+const dateLabel = buildDateLabel(startDate, endDate, lang);
 const projectLink = projectSlug
     ? `${import.meta.env.BASE_URL.replace(/\/$/, "")}/${lang}/projects/${projectSlug}`
     : null;
@@ -85,10 +76,10 @@ const isAI = image?.split('/').pop()?.startsWith('IA_') || false;
         <h3 class="project-card__title">{title}</h3>
 
         {
-            endDate ? (
+            parsedEnd ? (
                 <time
                     class="project-card__date"
-                    datetime={endDate.toISOString()}
+                    datetime={parsedEnd.date.toISOString()}
                 >
                     {dateLabel}
                 </time>

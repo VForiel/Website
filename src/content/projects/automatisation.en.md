@@ -1,7 +1,7 @@
 ---
 title: "Automation"
 description: "Process automation and reflection project"
-end-date: 2019-12-01
+end-date: 2019
 tags: ["Computer Science", "Games"]
 image: "/images/projects/IA_automatisation.png"
 url: "https://altearn.xyz/automatisation/"
