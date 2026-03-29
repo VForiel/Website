@@ -3,7 +3,7 @@ title: "Stellar Coronagraph Analysis"
 description: "Comparative study of different coronagraph architectures for exoplanet imaging"
 start-date: 2020-02
 end-date: 2020-06
-tags: ["Physics", "Astro", "Academic"]
+tags: ["Physics", "Astro", "Academic", "Instrumentation", "Simulation"]
 image: "/images/projects/IA_coronagraph-analysis.png"
 featured: false
 locale: en

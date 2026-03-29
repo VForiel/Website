@@ -2,7 +2,7 @@
 title: "Automatisation"
 description: "Projet de réflexion et d'automatisation"
 end-date: 2019
-tags: ["Informatique", "Jeux", "Associatif", "Éducation", "Software"]
+tags: ["Informatique", "Jeux", "Associatif", "Enseignement", "Software"]
 image: "/images/projects/IA_automatisation.png"
 url: "https://altearn.xyz/automatisation/"
 featured: false
