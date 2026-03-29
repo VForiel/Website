@@ -2,7 +2,7 @@
 title: "Packet Tracert"
 description: "Network simulation and analysis with Packet Tracer during my tech degree"
 end-date: 2017
-tags: ["Computer Science", "Network", "Academic"]
+tags: ["Computer Science", "Academic", "Software"]
 image: "/images/projects/IA_packet-tracert.png"
 url: "https://github.com/VForiel/DUT-Packet_Tracert"
 featured: false

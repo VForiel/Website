@@ -2,7 +2,7 @@
 title: "Allay Core"
 description: "The shared development core for the Allay Discord bot network, developed in Python"
 end-date: 2023-01
-tags: ["Computer Science", "Open Source"]
+tags: ["Computer Science", "Software", "Associative"]
 image: "/images/projects/IA_allay-core.png"
 url: "https://github.com/Allay-bots/Core"
 featured: false

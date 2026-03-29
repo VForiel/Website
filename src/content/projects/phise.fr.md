@@ -2,7 +2,7 @@
 title: "PHISE - Simulation interférométrique photonique"
 description: "Librairie Python pour la simulation d'instruments interférométriques photoniques appliqués à la détection d'exoplanètes"
 start-date: 2023-11
-tags: ["Informatique", "Simulation", "Physique", "Open Source"]
+tags: ["Recherche", "Astro", "Simulation", "Physique", "Software", "Académique"]
 image: "/images/projects/PHISE.png"
 url: "https://phise.readthedocs.io/"
 featured: false

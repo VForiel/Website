@@ -3,7 +3,7 @@ title: "Dévoiler la structure 3D des cœurs pré-stellaires"
 description: "Détermination des caractéristiques des cœurs pré-stellaires à partir de simulations numériques et d'observations simulées par apprentissage automatique"
 start-date: 2023-02
 end-date: 2023-06
-tags: ["Machine Learning", "Astrophysique", "Simulation"]
+tags: ["Machine Learning", "Astro", "Simulation", "Académique"]
 url: "https://github.com/Leirof/M2-Unveiling-3D-structure-of-pre-stellar-cores"
 featured: false
 image: "/images/projects/IA_prestellar-cores-3d.png"

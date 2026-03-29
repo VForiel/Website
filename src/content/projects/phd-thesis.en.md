@@ -2,7 +2,7 @@
 title: "PhD — Tunable Kernel-Nulling for Exoplanet Imaging"
 description: "Doctoral research on the theoretical and experimental development of tunable kernel-nulling for direct exoplanet detection via photonic interferometry"
 start-date: 2023-11-01
-tags: ["Research", "Physics", "Astrophotonics", "Instrumentation"]
+tags: ["Research", "Physics", "Astro", "Instrumentation", "Academic"]
 image: "/images/projects/IA_PhD-Thesis.png"
 featured: true
 locale: en

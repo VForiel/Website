@@ -2,7 +2,7 @@
 title: "Game of Life Analysis"
 description: "Attempt to study a highly complex dynamical system through various approaches"
 end-date: 2022
-tags: ["Simulation"]
+tags: ["Simulation", "Academic"]
 featured: false
 image: "/images/projects/IA_game-of-life.png"
 locale: en

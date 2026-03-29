@@ -3,7 +3,7 @@ title: "Analyse de coronagraphes stellaires"
 description: "Étude comparative de différentes architectures de coronagraphes pour l'imagerie d'exoplanètes"
 start-date: 2020-02
 end-date: 2020-06
-tags: ["Physique"]
+tags: ["Physique", "Astro", "Académique"]
 image: "/images/projects/IA_coronagraph-analysis.png"
 featured: false
 locale: fr

@@ -2,7 +2,7 @@
 title: "PHOBos - Contrôle du banc optique"
 description: "Système Python complet pour le pilotage et l'automatisation du banc de test kernel-nulling en photonique intégrée"
 start-date: 2024-03
-tags: ["Informatique", "Instrumentation", "Physique", "Open Source"]
+tags: ["Recherche", "Instrumentation", "Physique", "Software", "Académique"]
 image: "/images/projects/IA_PHOBos.png"
 url: "https://phob.readthedocs.io/"
 featured: false

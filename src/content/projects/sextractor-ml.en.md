@@ -3,7 +3,7 @@ title: "SExtractor driven by Machine Learning"
 description: "Attempt to design an object detection machine learning model to detect light sources in astronomical images"
 start-date: 2022-10
 end-date: 2023-01
-tags: ["Machine Learning", "Astrophysics"]
+tags: ["Machine Learning", "Astro", "Academic"]
 url: "https://github.com/Leirof/M2-Sextractor-driven-by-Machine-Learning"
 featured: false
 image: "/images/projects/IA_sextractor-ml.png"

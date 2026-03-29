@@ -3,7 +3,7 @@ title: "SExtractor piloté par apprentissage automatique"
 description: "Tentative de conception d'un modèle d'apprentissage automatique pour la détection d'objets afin de détecter des sources lumineuses dans des images astronomiques"
 start-date: 2022-10
 end-date: 2023-01
-tags: ["Machine Learning", "Astrophysique"]
+tags: ["Machine Learning", "Astro", "Académique"]
 url: "https://github.com/Leirof/M2-Sextractor-driven-by-Machine-Learning"
 featured: false
 image: "/images/projects/IA_sextractor-ml.png"

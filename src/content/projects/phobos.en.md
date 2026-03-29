@@ -2,7 +2,7 @@
 title: "PHOBos - Optical Bench Control"
 description: "Complete Python system for the control and automation of a kernel-nulling test bench in integrated photonics"
 start-date: 2024-03
-tags: ["Computer Science", "Instrumentation", "Physics", "Open Source"]
+tags: ["Research", "Instrumentation", "Physics", "Software", "Academic"]
 image: "/images/projects/IA_PHOBos.png"
 url: "https://phob.readthedocs.io/"
 featured: false

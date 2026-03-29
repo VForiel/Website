@@ -2,7 +2,7 @@
 title: "Scaffolding Rush"
 description: "Mini-jeu compétitif sur Minecraft"
 end-date: 2020-05
-tags: ["Jeux", "Développement"]
+tags: ["Jeux", "Software", "Associatif"]
 image: "/images/projects/IA_scaffolding-rush.png"
 url: "https://gunivers.net/blazing-scaffolding/"
 featured: false
