@@ -1,0 +1,11 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import NullingLab from "../components/NullingLab.astro";
+
+const title = "Nulling & Kernel Nulling — Guide interactif";
+const description = "Une expérience interactive pour comprendre le nulling interférométrique et le kernel nulling.";
+---
+
+<PageLayout title={title} description={description} currentPath={Astro.url.pathname}>
+    <NullingLab lang="fr" />
+</PageLayout>

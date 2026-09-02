@@ -1,0 +1,600 @@
+---
+interface Props {
+  lang: 'fr' | 'en';
+}
+
+const { lang } = Astro.props;
+
+const copy = lang === 'fr'
+  ? {
+      eyebrow: 'LABORATOIRE INTERACTIF',
+      title: 'Éteindre une étoile<br />pour voir sa planète',
+      lead: 'Pilotez un interféromètre, observez les ondes et découvrez pourquoi les <button class="term" data-concept="kernel">kernels</button> sont précieux lorsque le monde réel perturbe la mesure.',
+      simplified: 'Modèle pédagogique simplifié',
+      tabs: ['Mission', 'Ondes', 'Carte du ciel', 'Kernel nulling'],
+      missionTitle: 'Mission : révéler la planète',
+      missionText: 'Une planète faible est noyée dans la lumière de son étoile. Réglez d’abord le <button class="term" data-concept="phase">déphasage</button>, choisissez ensuite une bonne <button class="term" data-concept="baseline">ligne de base</button>, puis vérifiez la mesure avec un kernel.',
+      steps: ['1. Stabiliser le null', '2. Orienter la ligne de base', '3. Vérifier le kernel'],
+      phase: 'Réglage de phase', baseline: 'Longueur de baseline', orientation: 'Orientation de la baseline',
+      phaseHelp: 'La cible est π rad : une crête rencontre un creux.',
+      lock: 'Verrouiller le null', scan: 'Scanner cette orientation', verify: 'Tester la robustesse kernel',
+      locked: 'Null stabilisé', scanDone: 'Signal candidat mesuré', verified: 'Signal vérifié',
+      phaseHint: 'Approchez-vous de π pour verrouiller.',
+      scanHint: 'Un bon réglage fait passer la planète, pas l’étoile.',
+      kernelHint: 'Le kernel sépare mieux le signal astrophysique des défauts instrumentaux.',
+      waveTitle: 'Deux ondes, une sortie sombre',
+      waveText: 'Les deux télescopes reçoivent la lumière de l’étoile avec la même phase. Un déphaseur impose ensuite π radians dans un bras : les amplitudes s’additionnent à zéro dans la sortie nulle.',
+      received: 'Ondes reçues', combined: 'Combinaison', bright: 'sortie brillante', dark: 'sortie nulle',
+      skyTitle: 'La carte de transmission',
+      skyText: 'Le centre est l’étoile. Les bandes représentent les zones qui passent (bleu) ou sont rejetées (sombre) par la sortie nulle. La planète ne se trouve pas au même endroit que l’étoile : elle ne suit donc pas exactement le même déphasage.',
+      kernelTitle: 'Le kernel ne rend pas la lumière magique',
+      kernelText: 'Les sorties nulles individuelles restent sensibles au <button class="term" data-concept="piston">piston</button>. Un observable kernel est une combinaison particulière de sorties, choisie pour rejeter — à un certain ordre — des erreurs instrumentales tout en gardant une signature du ciel.',
+      turbulence: 'Activer la turbulence', simpleNull: 'Null classique', kernelObservable: 'Observable kernel',
+      rawOutput: 'Variation des sorties nulles', kernelOutput: 'Variation du kernel',
+      kernelNote: 'Dans cette visualisation, le kernel est un observable calibré : ce n’est ni une sortie noire parfaite, ni une promesse que toute erreur disparaît.',
+      readout: 'Lecture instrumentale', starLeak: 'Fuite stellaire', planetSignal: 'Signal planète', contrast: 'Contraste apparent',
+      progress: 'Progression de la mission',
+      conclusion: 'Planète révélée',
+      conclusionText: 'Vous avez combiné trois idées : annuler l’étoile, choisir la géométrie qui laisse passer la planète, puis exploiter un observable plus robuste aux perturbations.',
+      reset: 'Recommencer la mission',
+      concepts: {
+        phase: { title: 'Phase et différence de marche', intuition: 'La phase indique où se trouve une onde dans son cycle : crête, passage à zéro ou creux. Décaler une onde de 180° revient à faire coïncider chaque crête avec un creux.', simulation: 'Le curseur représente le déphasage appliqué à un bras de l’interféromètre. Pour l’étoile placée sur l’axe, la sortie nulle est idéale à $\Delta\phi=\pi$.', detail: 'Pour deux champs de même amplitude, l’intensité de la sortie nulle varie comme $I_\mathrm{nul}/I_\mathrm{brillant}=\sin^2[(\Delta\phi-\pi)/2]$. Près du null, la fuite est quadratique en petite erreur de phase. En pratique, les erreurs d’amplitude, de polarisation et le chromatisme comptent aussi.' },
+        baseline: { title: 'Ligne de base', intuition: 'La baseline est le segment qui relie deux télescopes. Sa longueur et son orientation transforment une direction dans le ciel en différence de phase.', simulation: 'Tournez ou allongez la baseline : les franges sur la carte du ciel bougent et se resserrent. Une planète peut se retrouver dans une zone transmise ou rejetée.', detail: 'Pour une source à petit angle $\boldsymbol{\theta}$, la phase géométrique sur une baseline $\mathbf B$ est $2\pi\,\mathbf B\!\cdot\!\boldsymbol{\theta}/\lambda$. Le produit scalaire explique pourquoi l’orientation projetée est essentielle.' },
+        piston: { title: 'Piston atmosphérique', intuition: 'Le piston est un décalage global de front d’onde entre deux ouvertures. Il ne déforme pas nécessairement l’image de chaque télescope, mais il casse directement l’interférence entre eux.', simulation: 'La turbulence fait osciller les signaux instrumentaux. Cette perturbation est volontairement amplifiée afin d’être visible.', detail: 'Le piston change la différence de marche optique, donc la phase de manière aléatoire. Le suivi de frange et l’étalonnage sont nécessaires ; une précision pertinente se mesure souvent en une fraction de longueur d’onde.' },
+        kernel: { title: 'Kernel nulling', intuition: 'Plutôt que de croire une seule mesure fragile, on combine plusieurs sorties d’un interféromètre à plusieurs télescopes afin de construire une mesure plus fiable.', simulation: 'Activez la turbulence : les courbes des sorties nulles bougent fortement. La courbe kernel varie moins dans ce modèle, car les modes d’erreurs dominants ont été rejetés.', detail: 'Un kernel est une combinaison linéaire définie à partir de la matrice de réponse de l’instrument. Il est construit dans le noyau de la réponse aux petites erreurs considérées. Sa robustesse dépend de l’architecture, du schéma de mesure et de l’ordre de développement ; il ne remplace pas le contrôle de phase.' }
+      }
+    }
+  : {
+      eyebrow: 'INTERACTIVE LAB',
+      title: 'Turn off a star<br />to see its planet',
+      lead: 'Operate an interferometer, inspect the waves, and discover why <button class="term" data-concept="kernel">kernels</button> matter when the real world perturbs a measurement.',
+      simplified: 'Simplified teaching model',
+      tabs: ['Mission', 'Waves', 'Sky map', 'Kernel nulling'],
+      missionTitle: 'Mission: reveal the planet',
+      missionText: 'A faint planet is buried in its star’s light. First tune the <button class="term" data-concept="phase">phase shift</button>, then choose a useful <button class="term" data-concept="baseline">baseline</button>, and finally test the measurement with a kernel.',
+      steps: ['1. Stabilise the null', '2. Aim the baseline', '3. Check the kernel'],
+      phase: 'Phase setting', baseline: 'Baseline length', orientation: 'Baseline orientation',
+      phaseHelp: 'The target is π rad: a crest meets a trough.',
+      lock: 'Lock the null', scan: 'Scan this orientation', verify: 'Test kernel robustness',
+      locked: 'Null stabilised', scanDone: 'Candidate signal measured', verified: 'Signal verified',
+      phaseHint: 'Move close to π to lock it.',
+      scanHint: 'A good setting transmits the planet, not the star.',
+      kernelHint: 'The kernel better separates an astrophysical signal from instrumental defects.',
+      waveTitle: 'Two waves, one dark output',
+      waveText: 'The telescopes receive the on-axis starlight with the same phase. A phase shifter then applies π radians to one arm: the field amplitudes add to zero at the null output.',
+      received: 'Received waves', combined: 'Combination', bright: 'bright output', dark: 'null output',
+      skyTitle: 'The transmission map',
+      skyText: 'The star sits at the centre. Bands indicate locations passed (blue) or rejected (dark) by the null output. A planet is off axis, so it does not acquire the star’s exact phase shift.',
+      kernelTitle: 'A kernel does not make light magical',
+      kernelText: 'Individual null outputs remain sensitive to <button class="term" data-concept="piston">piston</button>. A kernel observable is a specific combination of outputs, designed to reject — to a given order — instrumental errors while retaining a sky signature.',
+      turbulence: 'Enable turbulence', simpleNull: 'Classical null', kernelObservable: 'Kernel observable',
+      rawOutput: 'Null-output variation', kernelOutput: 'Kernel variation',
+      kernelNote: 'In this visualisation, the kernel is a calibrated observable: it is neither a perfectly dark output nor a promise that every error vanishes.',
+      readout: 'Instrument readout', starLeak: 'Stellar leakage', planetSignal: 'Planet signal', contrast: 'Apparent contrast',
+      progress: 'Mission progress',
+      conclusion: 'Planet revealed',
+      conclusionText: 'You combined three ideas: cancel the star, select a geometry that transmits the planet, then use an observable more robust to perturbations.',
+      reset: 'Restart the mission',
+      concepts: {
+        phase: { title: 'Phase and optical path difference', intuition: 'Phase states where a wave lies in its cycle: crest, zero crossing, or trough. Shifting a wave by 180° makes every crest meet a trough.', simulation: 'The slider represents the phase shift applied to one interferometer arm. For the on-axis star, the null output is ideal at $\Delta\phi=\pi$.', detail: 'For equal-amplitude fields, the null-output intensity follows $I_\mathrm{null}/I_\mathrm{bright}=\sin^2[(\Delta\phi-\pi)/2]$. Close to the null, leakage is quadratic in a small phase error. Amplitude, polarisation and chromatic errors also matter in practice.' },
+        baseline: { title: 'Baseline', intuition: 'The baseline is the segment joining two telescopes. Its length and orientation turn a direction in the sky into a phase difference.', simulation: 'Rotate or lengthen the baseline: fringes move and tighten on the sky map. A planet may lie in a transmitted or rejected region.', detail: 'For a source at a small angle $\boldsymbol{\theta}$, the geometric phase over a baseline $\mathbf B$ is $2\pi\,\mathbf B\!\cdot\!\boldsymbol{\theta}/\lambda$. The dot product is why projected orientation matters.' },
+        piston: { title: 'Atmospheric piston', intuition: 'Piston is an overall wavefront offset between two apertures. It does not necessarily distort each telescope’s image, but it directly disrupts their interference.', simulation: 'Turbulence makes the instrumental signals oscillate. It is deliberately amplified here to remain visible.', detail: 'Piston changes the optical path difference and therefore the phase at random. Fringe tracking and calibration are required; relevant precision is often a fraction of a wavelength.' },
+        kernel: { title: 'Kernel nulling', intuition: 'Rather than trusting a single fragile reading, combine several outputs from a multi-telescope interferometer to construct a more reliable quantity.', simulation: 'Enable turbulence: the individual null-output curves move strongly. The kernel curve moves less in this model because dominant error modes have been rejected.', detail: 'A kernel is a linear combination defined from the instrument response matrix. It belongs to the null space of the response to the small errors being considered. Its robustness depends on the architecture, measurement scheme and expansion order; it does not replace phase control.' }
+      }
+    };
+---
+
+<div class="nulling-lab" data-lab data-lang={lang} data-copy={JSON.stringify(copy)} tabindex="0">
+  <header class="lab-hero">
+    <p class="eyebrow">{copy.eyebrow} <span>{copy.simplified}</span></p>
+    <h1 set:html={copy.title}></h1>
+    <p class="lead" set:html={copy.lead}></p>
+  </header>
+
+  <div class="lab-tabs" role="tablist" aria-label="Nulling laboratory sections">
+    {copy.tabs.map((label, index) => (
+      <button class:list={["lab-tab", { active: index === 0 }]} data-tab={index} role="tab" aria-selected={index === 0 ? 'true' : 'false'}>{label}</button>
+    ))}
+  </div>
+
+  <section class="lab-panel" data-panel="0" role="tabpanel">
+    <div class="panel-heading"><p class="section-kicker">01 / EXPERIMENT</p><h2>{copy.missionTitle}</h2><p set:html={copy.missionText}></p></div>
+    <div class="mission-layout">
+      <div class="scene-card celestial-card">
+        <div class="scene-caption"><span class="live-dot"></span><span>{copy.readout}</span><span class="scene-mode">2T NULLER</span></div>
+        <div class="scene-toolbar">
+          <span data-selection>{lang === 'fr' ? 'Cliquez sur un télescope pour régler sa phase' : 'Click a telescope to tune its phase'}</span>
+          <div class="object-actions">
+            <button class="object-button" data-add="planet" title={lang === 'fr' ? 'Ajouter une planète' : 'Add a planet'}>＋ <span>{lang === 'fr' ? 'Planète' : 'Planet'}</span></button>
+            <button class="object-button" data-add="star" title={lang === 'fr' ? 'Ajouter une étoile' : 'Add a star'}>＋ <span>{lang === 'fr' ? 'Étoile' : 'Star'}</span></button>
+            <button class="object-button" data-add="telescope" title={lang === 'fr' ? 'Ajouter un télescope' : 'Add a telescope'}>＋ <span>{lang === 'fr' ? 'Télescope' : 'Telescope'}</span></button>
+            <button class="object-button delete-button" data-delete title={lang === 'fr' ? 'Supprimer l’objet sélectionné' : 'Delete selected object'} disabled>⌫</button>
+          </div>
+        </div>
+        <canvas class="sky-canvas" data-canvas="mission" width="720" height="500" aria-label="Interactive sky scene showing a star, planets, telescopes and transmission fringes"></canvas>
+        <div class="scale-editor" data-scale-editor hidden>
+          <label><span data-scale-editor-label>{lang === 'fr' ? 'Échelle de la scène' : 'Scene scale'}</span><input data-scale-input type="number" min="1" step="1" /><output data-scale-unit></output></label>
+          <button type="button" data-scale-apply>{lang === 'fr' ? 'Appliquer' : 'Apply'}</button>
+        </div>
+        <div class="scene-legend"><span><i class="legend-star"></i>{copy.starLeak}</span><span><i class="legend-planet"></i>{copy.planetSignal}</span><span><i class="legend-baseline"></i>{lang === 'fr' ? 'lignes pointillées : lignes de base' : 'dashed lines: baselines'}</span></div>
+      </div>
+      <aside class="control-deck">
+        <div class="mission-progress"><span>{copy.progress}</span><strong data-progress>0 / 3</strong></div>
+        <ol class="mission-steps">
+          {copy.steps.map((step, index) => <li data-step={index}><span>{index + 1}</span>{step}<b>✓</b></li>)}
+        </ol>
+        <div class="selected-object-panel" data-selected-panel hidden>
+          <label class="control" data-phase-control><span>{lang === 'fr' ? 'Phase du télescope' : 'Telescope phase'} <output data-phase-label>0.00π</output></span><input data-phase type="range" min="0" max="6.283" step="0.01" value="0" /><small>{copy.phaseHelp}</small></label>
+          <label class="control" data-contrast-control><span>{lang === 'fr' ? 'Contraste de l’objet' : 'Object contrast'} <output data-contrast-label>—</output></span><input data-object-contrast type="range" min="-8" max="-4" step="0.1" value="-6" /><small data-contrast-help>{lang === 'fr' ? 'Sélectionnez une étoile ou une planète.' : 'Select a star or planet.'}</small></label>
+          <div class="position-controls" data-position-controls hidden>
+            <div class="position-title"><span>{lang === 'fr' ? 'Position' : 'Position'}</span><output data-position-unit>—</output></div>
+            <label><span>X</span><input data-position-x type="number" step="1" /><output data-position-x-label>—</output></label>
+            <label><span>Y</span><input data-position-y type="number" step="1" /><output data-position-y-label>—</output></label>
+            <small data-position-help>{lang === 'fr' ? 'Flèches : déplacer de 1 unité. Molette : zoomer.' : 'Arrows: move by 1 unit. Wheel: zoom.'}</small>
+          </div>
+          <p class="selection-help" data-selection-help>{lang === 'fr' ? 'Sélectionnez un télescope dans la scène.' : 'Select a telescope in the scene.'}</p>
+        </div>
+        <div class="baseline-panel" data-baseline-panel hidden><div class="baseline-panel-title"><span>{lang === 'fr' ? 'Lignes de base visibles' : 'Visible baselines'}</span><small>{lang === 'fr' ? 'Chaque paire contribue aux franges.' : 'Each pair contributes fringes.'}</small></div><div class="baseline-list" data-baseline-list></div></div>
+        <div class="mission-actions">
+          <button class="action-button" data-action="lock">{copy.lock}</button>
+          <button class="action-button" data-action="scan" disabled>{copy.scan}</button>
+          <button class="action-button" data-action="verify" disabled>{copy.verify}</button>
+        </div>
+        <p class="coach" data-coach>{copy.phaseHint}</p>
+      </aside>
+    </div>
+    <div class="readout-grid">
+      <div><span>{copy.starLeak}</span><strong data-leak>1.00</strong><small>relative flux</small></div>
+      <div><span>{copy.planetSignal}</span><strong data-planet>0.00</strong><small>relative throughput</small></div>
+      <div><span>{copy.contrast}</span><strong data-contrast>—</strong><small>planet / leakage</small></div>
+    </div>
+    <div class="mission-complete" data-complete hidden><div>✦</div><h3>{copy.conclusion}</h3><p>{copy.conclusionText}</p><button data-reset>{copy.reset}</button></div>
+  </section>
+
+  <section class="lab-panel" data-panel="1" role="tabpanel" hidden>
+    <div class="panel-heading"><p class="section-kicker">02 / FIELD</p><h2>{copy.waveTitle}</h2><p>{copy.waveText}</p></div>
+    <div class="wave-layout">
+      <div class="wave-card"><div class="wave-head"><span>{copy.received}</span><span data-wave-phase>Δφ = 0.00π</span></div><canvas class="wave-canvas" data-canvas="waves" width="900" height="360" aria-label="Animated waves from two telescope arms combining at a null output"></canvas><div class="wave-key"><span class="key-a"></span> Telescope A <span class="key-b"></span> Telescope B <span class="key-sum"></span> {copy.combined}</div></div>
+      <aside class="formula-card"><p class="formula-label">NULL DEPTH</p><p class="formula">N = sin² <span>(Δφ − π)</span> / 2</p><div class="formula-result"><span>N</span><strong data-null-depth>1.00</strong></div><p>{lang === 'fr' ? 'Ne retenez pas nécessairement la formule : le graphique raconte la même histoire. Lorsque les deux courbes colorées sont opposées, leur somme (blanc) devient plate.' : 'You do not need to memorise the equation: the graph tells the same story. When the coloured curves are opposite, their sum (white) becomes flat.'}</p></aside>
+    </div>
+  </section>
+
+  <section class="lab-panel" data-panel="2" role="tabpanel" hidden>
+    <div class="panel-heading"><p class="section-kicker">03 / GEOMETRY</p><h2>{copy.skyTitle}</h2><p>{copy.skyText}</p></div>
+    <div class="map-layout"><div class="scene-card celestial-card"><div class="scene-caption"><span>{copy.orientation}</span><strong data-map-angle>0°</strong></div><canvas class="sky-canvas" data-canvas="map" width="720" height="500" aria-label="Transmission map for the selected interferometer baseline"></canvas></div><aside class="geometry-note"><div class="formula-label">PHASE GÉOMÉTRIQUE</div><p class="geometry-formula">φ = 2π <span>B · θ</span> / λ</p><p>{lang === 'fr' ? 'La baseline agit comme une règle placée sur le ciel. Tournez-la : seul le déplacement de la planète mesuré dans sa direction change la phase géométrique.' : 'The baseline acts as a ruler laid over the sky. Rotate it: only the planet displacement measured along its direction changes the geometric phase.'}</p><button class="term wide-term" data-concept="baseline">{lang === 'fr' ? 'Comprendre la géométrie' : 'Understand the geometry'}</button></aside></div>
+  </section>
+
+  <section class="lab-panel" data-panel="3" role="tabpanel" hidden>
+    <div class="panel-heading"><p class="section-kicker">04 / ROBUSTNESS</p><h2>{copy.kernelTitle}</h2><p set:html={copy.kernelText}></p></div>
+    <div class="kernel-layout"><div class="chip-card"><div class="chip-flow"><div class="tel-group"><span>T1</span><span>T2</span><span>T3</span><span>T4</span></div><div class="chip"><i></i><i></i><i></i><i></i><b>MMI</b></div><div class="outputs"><span>N₁</span><span>N₂</span><span>N₃</span><span>N₄</span><strong>K</strong></div></div><p>{lang === 'fr' ? 'Quatre entrées, plusieurs sorties nulles, puis une combinaison kernel K.' : 'Four inputs, several null outputs, then one kernel combination K.'}</p></div><div class="kernel-controls"><label class="toggle"><input type="checkbox" data-turbulence /><span></span>{copy.turbulence}</label><div class="kernel-stats"><div><span>{copy.simpleNull}</span><strong data-raw-rms>0.00</strong></div><div><span>{copy.kernelObservable}</span><strong data-kernel-rms>0.00</strong></div></div><p>{copy.kernelNote}</p></div></div>
+    <div class="trace-card"><div class="trace-head"><span>{copy.rawOutput}</span><span>{copy.kernelOutput}</span></div><canvas class="trace-canvas" data-canvas="kernel" width="1100" height="300" aria-label="Live comparison of classical null and kernel sensitivity to turbulence"></canvas></div>
+  </section>
+
+  <div class="concept-modal" data-modal hidden role="dialog" aria-modal="true" aria-labelledby="concept-title"><div class="modal-backdrop" data-close></div><div class="modal-card"><button class="modal-close" data-close aria-label="Close">×</button><p class="section-kicker" data-modal-section>CONCEPT</p><h2 id="concept-title" data-modal-title></h2><div class="concept-columns"><div><h3>{lang === 'fr' ? 'Intuition' : 'Intuition'}</h3><p data-modal-intuition></p><h3>{lang === 'fr' ? 'Dans cette expérience' : 'In this experiment'}</h3><p data-modal-simulation></p></div><div class="technical"><h3>{lang === 'fr' ? 'Pour aller plus loin' : 'Go further'}</h3><p data-modal-detail></p></div></div></div></div>
+</div>
+
+<script is:inline>
+  const labs = document.querySelectorAll('[data-lab]');
+  labs.forEach((root) => {
+    const copy = JSON.parse(root.dataset.copy || '{}');
+    const lang = root.dataset.lang || 'en';
+    const $ = (selector) => root.querySelector(selector);
+    const $$ = (selector) => [...root.querySelectorAll(selector)];
+    const state = { stars: [{ id: 'S0', x: 0, y: 0, contrast: 1, primary: true }], telescopes: [{ id: 'T1', x: -17.22, y: 0, phase: 0 }, { id: 'T2', x: 17.22, y: 0, phase: 0 }], planets: [{ id: 'P1', x: .27, y: .21, contrast: 1e-6 }], selected: 'T1', dragging: null, visiblePairs: null, skyScale: 20, arrayScale: 42, turbulence: false, locked: false, scanned: false, verified: false, time: 0, samples: [] };
+    const phaseInput = $('[data-phase]');
+    const missionCanvas = $('[data-canvas="mission"]');
+    const mapCanvas = $('[data-canvas="map"]');
+    const waveCanvas = $('[data-canvas="waves"]');
+    const kernelCanvas = $('[data-canvas="kernel"]');
+    const missionCtx = missionCanvas.getContext('2d');
+    const mapCtx = mapCanvas.getContext('2d');
+    const waveCtx = waveCanvas.getContext('2d');
+    const kernelCtx = kernelCanvas.getContext('2d');
+
+    const referenceBaseline = 1.64;
+    const selectedTelescope = () => state.telescopes.find((telescope) => telescope.id === state.selected);
+    const selectedStar = () => state.stars.find((star) => star.id === state.selected);
+    const selectedPlanet = () => state.planets.find((planet) => planet.id === state.selected);
+    const selectedObject = () => selectedTelescope() || selectedStar() || selectedPlanet();
+    const isTelescope = (object) => Boolean(object && 'phase' in object);
+    const objectDisplayPosition = (object) => isTelescope(object) ? { x: object.x / (state.arrayScale / 2), y: object.y / (state.arrayScale / 2) } : object;
+    const objectPositionUnit = (object) => isTelescope(object) ? 'm' : 'mas';
+    const objectPositionValue = (object, axis) => isTelescope(object) ? object[axis] : object[axis] * state.skyScale / 2;
+    const setObjectPositionValue = (object, axis, value) => { object[axis] = isTelescope(object) ? value : value / (state.skyScale / 2); };
+    const clampTelescopeToView = (telescope) => {
+      const limit = state.arrayScale / 2 * .96;
+      telescope.x = Math.max(-limit, Math.min(limit, telescope.x));
+      telescope.y = Math.max(-limit, Math.min(limit, telescope.y));
+    };
+    const fitScaleToTelescope = (telescope) => {
+      const requiredScale = Math.max(Math.abs(telescope.x), Math.abs(telescope.y)) * 2 / .96;
+      if (requiredScale > state.arrayScale) state.arrayScale = Math.min(500, requiredScale);
+    };
+    // The interferometric centre is the canvas centre. In this teaching model,
+    // B is the telescope distance from that centre and theta its polar angle.
+    const geometricPhase = (telescope) => {
+      const B = Math.hypot(telescope.x, telescope.y);
+      const theta = Math.atan2(telescope.y, telescope.x);
+      return B * Math.cos(theta);
+    };
+    const totalPhase = (telescope) => telescope.phase + geometricPhase(telescope);
+    const relativePhase = () => state.telescopes.length > 1 ? totalPhase(state.telescopes[1]) - totalPhase(state.telescopes[0]) : totalPhase(state.telescopes[0] || { x: 0, y: 0, phase: 0 });
+    const baselineGeometry = () => {
+      const first = state.telescopes[0], second = state.telescopes[1] || first;
+      const dx = second.x - first.x, dy = second.y - first.y;
+      return { length: Math.max(.1, Math.hypot(dx, dy)), angle: Math.atan2(dy, dx) };
+    };
+    const phaseError = () => {
+      return Math.abs(((relativePhase() - Math.PI + Math.PI) % (2 * Math.PI)) - Math.PI);
+    };
+    const stellarLeak = () => Math.pow(Math.sin(phaseError() / 2), 2);
+    const getPairs = () => {
+      const pairs = [];
+      for (let first = 0; first < state.telescopes.length; first += 1) {
+        for (let second = first + 1; second < state.telescopes.length; second += 1) {
+          const telescopeA = state.telescopes[first];
+          const telescopeB = state.telescopes[second];
+          pairs.push({
+            key: `${telescopeA.id}-${telescopeB.id}`,
+            colour: ['#f5b546', '#62b8ff', '#5ee6b1', '#df8fff', '#ff8e72', '#b9d8ff'][(pairs.length) % 6],
+            first: telescopeA,
+            second: telescopeB,
+            length: Math.hypot(telescopeB.x - telescopeA.x, telescopeB.y - telescopeA.y),
+            angle: Math.atan2(telescopeB.y - telescopeA.y, telescopeB.x - telescopeA.x),
+          });
+        }
+      }
+      return pairs;
+    };
+    const pairIsVisible = (pair) => state.visiblePairs === null || state.visiblePairs.has(pair.key);
+    const sourceTransmission = (source, pair) => {
+      const relative = Math.atan2(source.y, source.x) - pair.angle;
+      const geometricPhase = Math.hypot(source.x, source.y) * (pair.length / referenceBaseline) * Math.cos(relative) * Math.PI;
+      const pairPhase = totalPhase(pair.second) - totalPhase(pair.first);
+      return Math.pow(Math.sin((geometricPhase + pairPhase) / 2), 2);
+    };
+    const planetTransmission = () => {
+      const pairs = getPairs().filter(pairIsVisible);
+      if (!pairs.length) return 0;
+      return state.planets.reduce((planetTotal, planet) => {
+        const planetPhase = pairs.reduce((pairTotal, pair) => {
+          return pairTotal + sourceTransmission(planet, pair) / pairs.length;
+        }, 0);
+        return planetTotal + planetPhase / state.planets.length;
+      }, 0);
+    };
+    const formatNumber = (value) => value < 0.001 ? value.toExponential(1) : value.toFixed(3);
+
+    function resizeCanvas(canvas, ctx) {
+      const rect = canvas.getBoundingClientRect();
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      const width = Math.max(1, Math.round(rect.width * ratio));
+      const height = Math.max(1, Math.round(rect.height * ratio));
+      if (canvas.width !== width || canvas.height !== height) { canvas.width = width; canvas.height = height; }
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      return { width: rect.width, height: rect.height };
+    }
+
+    function drawSky(canvas, ctx, isMission) {
+      const { width: w, height: h } = resizeCanvas(canvas, ctx);
+      ctx.clearRect(0, 0, w, h);
+      const cx = w * 0.5, cy = h * 0.5;
+      const radius = Math.min(w, h) * 0.36;
+      const pairs = getPairs();
+      ctx.save();
+      ctx.beginPath(); ctx.rect(0, 0, w, h); ctx.clip();
+      const diagonal = Math.hypot(w, h);
+      // Every pair contributes one transmission pattern; adding them gives
+      // the multi-baseline response when more telescopes are present.
+      pairs.filter(pairIsVisible).forEach((pair) => {
+        ctx.save(); ctx.translate(cx, cy); ctx.rotate(pair.angle);
+        for (let x = -diagonal; x <= diagonal; x += 3) {
+          const angularCoordinate = x / diagonal * state.skyScale;
+          const phase = angularCoordinate * (pair.length / referenceBaseline) * Math.PI + totalPhase(pair.second) - totalPhase(pair.first) - Math.PI;
+          const pass = Math.pow(Math.sin(phase / 2), 2);
+          ctx.fillStyle = `rgba(63, 169, 245, ${0.025 + pass * 0.12 / Math.max(1, pairs.filter(pairIsVisible).length)})`;
+          ctx.fillRect(x, -diagonal, 4, diagonal * 2);
+        }
+        ctx.restore();
+      });
+      ctx.restore();
+      // baseline and array
+      pairs.filter(pairIsVisible).forEach((pair, index) => {
+        const firstPosition = objectDisplayPosition(pair.first);
+        const secondPosition = objectDisplayPosition(pair.second);
+        const firstX = cx + firstPosition.x * radius, firstY = cy + firstPosition.y * radius;
+        const secondX = cx + secondPosition.x * radius, secondY = cy + secondPosition.y * radius;
+        ctx.setLineDash([6, 6]); ctx.strokeStyle = pair.colour; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(firstX, firstY); ctx.lineTo(secondX, secondY); ctx.stroke(); ctx.setLineDash([]);
+      });
+      state.telescopes.forEach((telescope) => {
+        const position = objectDisplayPosition(telescope);
+        const x = cx + position.x * radius, y = cy + position.y * radius;
+        ctx.fillStyle = 'rgba(13, 37, 59, .96)'; ctx.strokeStyle = '#f5b546'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(x, y, 15, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        if (telescope.id === state.selected) { ctx.strokeStyle = '#62b8ff'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(x, y, 20, 0, Math.PI * 2); ctx.stroke(); }
+        // The marker shows the user-controlled delay only. The geometric
+        // contribution is intentionally kept visible only in the sky map.
+        const markerAngle = -Math.PI / 2 + telescope.phase;
+        ctx.fillStyle = telescope.id === state.selected ? '#62b8ff' : '#f5b546';
+        ctx.beginPath(); ctx.arc(x + Math.cos(markerAngle) * 23, y + Math.sin(markerAngle) * 23, 3.5, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#dbeafe'; ctx.font = '10px Inter, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(telescope.id, x, y + 3);
+      });
+      // star, fixed at orbit centre
+      const leak = stellarLeak();
+      const glow = 18 + Math.max(0.08, leak) * 48;
+      const starGradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, glow);
+      starGradient.addColorStop(0, 'rgba(255, 249, 207, 1)'); starGradient.addColorStop(.25, 'rgba(245, 181, 70, .95)'); starGradient.addColorStop(1, 'rgba(245, 181, 70, 0)');
+      ctx.fillStyle = starGradient; ctx.beginPath(); ctx.arc(cx, cy, glow, 0, 2 * Math.PI); ctx.fill();
+      ctx.fillStyle = '#fff6cc'; ctx.beginPath(); ctx.arc(cx, cy, 7 + leak * 9, 0, 2 * Math.PI); ctx.fill();
+      state.stars.filter((star) => !star.primary).forEach((star) => {
+        const sx = cx + star.x * radius, sy = cy + star.y * radius;
+        if (star.id === state.selected) { ctx.strokeStyle = '#62b8ff'; ctx.lineWidth = 2; ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.arc(sx, sy, 24, 0, 2 * Math.PI); ctx.stroke(); ctx.setLineDash([]); }
+        const starSignal = getPairs().filter(pairIsVisible).reduce((sum, pair) => sum + sourceTransmission(star, pair), 0) / Math.max(1, getPairs().filter(pairIsVisible).length);
+        const starSize = 3 + Math.min(10, Math.max(0, Math.log10(star.contrast) + 2) * 2.2);
+        const starGlow = ctx.createRadialGradient(sx, sy, 0, sx, sy, 16 + starSignal * 14);
+        starGlow.addColorStop(0, `rgba(255, 207, 119, ${Math.min(1, .25 + star.contrast * 0.12 + starSignal)})`); starGlow.addColorStop(1, 'rgba(245, 181, 70, 0)');
+        ctx.fillStyle = starGlow; ctx.beginPath(); ctx.arc(sx, sy, 18, 0, 2 * Math.PI); ctx.fill();
+        ctx.fillStyle = `rgba(255, 226, 153, ${Math.min(1, .35 + star.contrast * .06 + starSignal)})`; ctx.beginPath(); ctx.arc(sx, sy, starSize, 0, 2 * Math.PI); ctx.fill();
+        ctx.fillStyle = 'rgba(218,241,255,.9)'; ctx.font = '11px Inter, sans-serif'; ctx.textAlign = 'left'; ctx.fillText(star.id, sx + 13, sy - 10);
+      });
+      // The orbit is centred on the star, so every planet remains on the same reference orbit.
+      ctx.strokeStyle = 'rgba(148, 180, 220, .24)'; ctx.lineWidth = 1; ctx.setLineDash([3, 5]); ctx.beginPath(); ctx.arc(cx, cy, radius * .52, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+      state.planets.forEach((planet) => {
+        const px = cx + planet.x * radius;
+        const py = cy + planet.y * radius;
+      if (planet.id === state.selected) { ctx.strokeStyle = '#62b8ff'; ctx.lineWidth = 2; ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.arc(px, py, 18, 0, 2 * Math.PI); ctx.stroke(); ctx.setLineDash([]); }
+      const activePairs = getPairs().filter(pairIsVisible);
+      const transmission = activePairs.length ? activePairs.reduce((sum, pair) => sum + sourceTransmission(planet, pair), 0) / activePairs.length : 0;
+      const visibility = Math.min(1, transmission / (leak + .06));
+      const planetGlow = ctx.createRadialGradient(px, py, 1, px, py, 22);
+      planetGlow.addColorStop(0, `rgba(115, 220, 255, ${0.3 + visibility * .65})`); planetGlow.addColorStop(1, 'rgba(115, 220, 255, 0)');
+      ctx.fillStyle = planetGlow; ctx.beginPath(); ctx.arc(px, py, 22, 0, Math.PI * 2); ctx.fill();
+      const planetSize = 2.5 + Math.max(0, Math.log10(planet.contrast) + 8) * .7;
+      ctx.fillStyle = `rgba(155, 233, 255, ${Math.min(1, .12 + planet.contrast * 1e5 + visibility * .78)})`; ctx.beginPath(); ctx.arc(px, py, planetSize + visibility * 3, 0, 2 * Math.PI); ctx.fill();
+      if (visibility > .45 || !isMission) { ctx.fillStyle = 'rgba(218, 241, 255, .9)'; ctx.font = '11px Inter, sans-serif'; ctx.textAlign = 'left'; ctx.fillText(planet.id, px + 13, py - 10); }
+      });
+      // On-axis null marker
+      ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cx - 10, cy); ctx.lineTo(cx + 10, cy); ctx.moveTo(cx, cy - 10); ctx.lineTo(cx, cy + 10); ctx.stroke();
+      if (!isMission) { ctx.fillStyle = 'rgba(219, 234, 254, .8)'; ctx.font = '12px Inter, sans-serif'; ctx.textAlign = 'center'; ctx.fillText('star', cx, cy + 28); }
+      // The two rulers make the different scales explicit: sky angle above, array distance below.
+      ctx.strokeStyle = 'rgba(219,234,254,.7)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(w * .36, 24); ctx.lineTo(w * .64, 24); ctx.moveTo(w * .36, h - 25); ctx.lineTo(w * .64, h - 25); ctx.stroke();
+      ctx.fillStyle = 'rgba(219,234,254,.75)'; ctx.font = '11px Inter, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(`${state.skyScale} mas`, w * .5, 17); ctx.fillText(`${state.arrayScale} m`, w * .5, h - 9);
+    }
+
+    function drawWave() {
+      const { width: w, height: h } = resizeCanvas(waveCanvas, waveCtx);
+      waveCtx.clearRect(0, 0, w, h);
+      const left = 28, right = w - 28, half = h * .29, gap = h * .3, amp = Math.min(42, h * .12);
+      const bases = [half, half + gap, h * .82];
+      const labels = ['Telescope A', 'Telescope B', copy.combined];
+      const colours = ['#62b8ff', '#f5b546', '#e8f4ff'];
+      const shifts = [0, relativePhase(), 0];
+      for (let row = 0; row < 3; row++) {
+        const y0 = bases[row]; waveCtx.strokeStyle = 'rgba(156, 183, 220, .16)'; waveCtx.lineWidth = 1; waveCtx.beginPath(); waveCtx.moveTo(left, y0); waveCtx.lineTo(right, y0); waveCtx.stroke();
+        waveCtx.strokeStyle = colours[row]; waveCtx.lineWidth = row === 2 ? 2.6 : 2; waveCtx.beginPath();
+        for (let x = left; x <= right; x += 2) {
+          const k = ((x - left) / (right - left)) * Math.PI * 7 + state.time * .005;
+          const y = row === 2 ? y0 - (Math.sin(k) + Math.sin(k + relativePhase())) * amp * .5 : y0 - Math.sin(k + shifts[row]) * amp;
+          x === left ? waveCtx.moveTo(x, y) : waveCtx.lineTo(x, y);
+        }
+        waveCtx.stroke(); waveCtx.fillStyle = 'rgba(219,234,254,.7)'; waveCtx.font = '11px Inter, sans-serif'; waveCtx.textAlign = 'left'; waveCtx.fillText(labels[row], left, y0 - amp - 12);
+      }
+      waveCtx.fillStyle = 'rgba(219,234,254,.65)'; waveCtx.font = '11px Inter, sans-serif'; waveCtx.textAlign = 'right'; waveCtx.fillText(copy.dark, right, 20);
+    }
+
+    function drawKernel() {
+      const { width: w, height: h } = resizeCanvas(kernelCanvas, kernelCtx);
+      kernelCtx.clearRect(0, 0, w, h);
+      const mid = h / 2, left = 34, right = w - 24;
+      kernelCtx.strokeStyle = 'rgba(156, 183, 220, .2)'; kernelCtx.setLineDash([4, 6]); kernelCtx.beginPath(); kernelCtx.moveTo(left, mid); kernelCtx.lineTo(right, mid); kernelCtx.stroke(); kernelCtx.setLineDash([]);
+      const rawAmp = state.turbulence ? 42 : 8, kernelAmp = state.turbulence ? 13 : 4;
+      [['#f5b546', rawAmp, 0], ['#62b8ff', kernelAmp, .9]].forEach(([colour, amplitude, offset]) => {
+        kernelCtx.strokeStyle = colour; kernelCtx.lineWidth = 2.3; kernelCtx.beginPath();
+        for (let x = left; x <= right; x += 2) {
+          const u = (x - left) / (right - left);
+          const noise = Math.sin(u * 41 + state.time * .014 + offset) + .45 * Math.sin(u * 94 + state.time * .007);
+          const y = mid - noise * amplitude;
+          x === left ? kernelCtx.moveTo(x, y) : kernelCtx.lineTo(x, y);
+        } kernelCtx.stroke();
+      });
+      $('[data-raw-rms]').textContent = (state.turbulence ? '0.31' : '0.06');
+      $('[data-kernel-rms]').textContent = (state.turbulence ? '0.08' : '0.03');
+    }
+
+    function updateReadout() {
+      const leak = stellarLeak(), planet = planetTransmission(), contrast = planet / (leak + 0.006);
+      const selected = selectedObject();
+      const telescope = selectedTelescope();
+      $('[data-selected-panel]').hidden = !selected;
+      $('[data-phase-label]').textContent = `${((telescope?.phase || 0) / Math.PI).toFixed(2)}π`;
+      const geometry = baselineGeometry();
+      $('[data-map-angle]').textContent = `${Math.round(geometry.angle * 180 / Math.PI)}°`;
+      $('[data-wave-phase]').textContent = `Δφ = ${(phaseError() / Math.PI).toFixed(2)}π`;
+      $('[data-leak]').textContent = formatNumber(leak);
+      $('[data-planet]').textContent = formatNumber(planet);
+      $('[data-contrast]').textContent = contrast > 10 ? 'excellent' : contrast.toFixed(1);
+      $('[data-null-depth]').textContent = formatNumber(leak);
+      const lock = $('[data-action="lock"]');
+      if (!state.locked) lock.disabled = phaseError() > .16;
+      $('[data-selection]').textContent = selected ? `${selected.id}${telescope ? ` · ${lang === 'fr' ? 'phase' : 'phase'} ${(telescope.phase / Math.PI).toFixed(2)}π` : ''}` : (lang === 'fr' ? 'Aucun objet sélectionné' : 'No object selected');
+      $('[data-delete]').disabled = !state.selected;
+      phaseInput.disabled = !telescope;
+      const contrastInput = $('[data-object-contrast]');
+      const contrastLabel = $('[data-contrast-label]');
+      const contrastHelp = $('[data-contrast-help]');
+      $('[data-phase-control]').hidden = !telescope;
+      $('[data-contrast-control]').hidden = !selected || telescope;
+      const positionControls = $('[data-position-controls]');
+      positionControls.hidden = !selected;
+      if (selected) {
+        const unit = objectPositionUnit(selected);
+        $('[data-position-unit]').textContent = unit;
+        $('[data-position-x]').value = objectPositionValue(selected, 'x').toFixed(2);
+        $('[data-position-y]').value = objectPositionValue(selected, 'y').toFixed(2);
+        $('[data-position-x-label]').textContent = unit;
+        $('[data-position-y-label]').textContent = unit;
+      }
+      contrastInput.disabled = !selected || telescope;
+      if (selected && !telescope && selected.contrast) {
+        const exponent = Math.log10(selected.contrast);
+        contrastInput.min = selected.id.startsWith('S') ? '-2' : '-8';
+        contrastInput.max = selected.id.startsWith('S') ? '1' : '-4';
+        contrastInput.value = String(exponent);
+        contrastLabel.textContent = `10^${exponent.toFixed(1)}`;
+        contrastHelp.textContent = selected.id.startsWith('S') ? (lang === 'fr' ? 'Étoile secondaire : 10⁻² à 10¹.' : 'Secondary star: 10⁻² to 10¹.') : (lang === 'fr' ? 'Planète : 10⁻⁴ à 10⁻⁸.' : 'Planet: 10⁻⁴ to 10⁻⁸.');
+      } else { contrastLabel.textContent = '—'; contrastHelp.textContent = lang === 'fr' ? 'Sélectionnez une étoile ou une planète.' : 'Select a star or planet.'; }
+      $('[data-selection-help]').textContent = selected ? (telescope ? (lang === 'fr' ? `Déplacez ${selected.id} ou ajustez son délai en phase.` : `Drag ${selected.id} or adjust its phase delay.`) : (lang === 'fr' ? `Déplacez ${selected.id} sur la carte.` : `Drag ${selected.id} on the map.`)) : (lang === 'fr' ? 'Sélectionnez un télescope dans la scène.' : 'Select a telescope in the scene.');
+      updateBaselineList();
+    }
+
+    function updateBaselineList() {
+      const pairs = getPairs();
+      const panel = $('[data-baseline-panel]');
+      panel.hidden = pairs.length <= 1;
+      const list = $('[data-baseline-list]');
+      list.innerHTML = '';
+      pairs.forEach((pair) => {
+        const label = document.createElement('label'); label.className = 'baseline-option';
+        const input = document.createElement('input'); input.type = 'checkbox'; input.checked = pairIsVisible(pair); input.dataset.pair = pair.key;
+        input.addEventListener('change', () => { if (state.visiblePairs === null) state.visiblePairs = new Set(pairs.map((item) => item.key)); if (input.checked) state.visiblePairs.add(pair.key); else state.visiblePairs.delete(pair.key); updateReadout(); });
+        const swatch = document.createElement('i'); swatch.style.background = pair.colour;
+        const text = document.createElement('span'); text.textContent = `${pair.key} · ${pair.length.toFixed(2)} B`;
+        label.append(input, swatch, text); list.append(label);
+      });
+    }
+
+    function updateMission() {
+      const candidate = planetTransmission() > .78 && stellarLeak() < .02;
+      $('[data-action="scan"]').disabled = !state.locked;
+      $('[data-action="verify"]').disabled = !state.scanned;
+      const coach = $('[data-coach]');
+      if (!state.locked) coach.textContent = copy.phaseHint;
+      else if (!state.scanned) coach.textContent = candidate ? copy.scanHint : copy.scanHint;
+      else if (!state.verified) coach.textContent = copy.kernelHint;
+      else coach.textContent = copy.conclusion;
+      [state.locked, state.scanned, state.verified].forEach((done, index) => { const step = $(`[data-step="${index}"]`); step.classList.toggle('done', done); });
+      $('[data-progress]').textContent = `${[state.locked, state.scanned, state.verified].filter(Boolean).length} / 3`;
+      $('[data-complete]').hidden = !state.verified;
+    }
+
+    function animate(timestamp) { state.time = timestamp; drawSky(missionCanvas, missionCtx, true); drawSky(mapCanvas, mapCtx, false); drawWave(); drawKernel(); requestAnimationFrame(animate); }
+    phaseInput.addEventListener('input', (event) => { const selected = selectedTelescope(); if (selected) selected.phase = Number(event.target.value); updateReadout(); updateMission(); });
+    $('[data-action="lock"]').addEventListener('click', () => { if (phaseError() <= .16) { state.locked = true; updateMission(); } });
+    $('[data-action="scan"]').addEventListener('click', () => { if (planetTransmission() > .78 && stellarLeak() < .02) { state.scanned = true; updateMission(); } else { $('[data-coach]').textContent = copy.scanHint; } });
+    $('[data-action="verify"]').addEventListener('click', () => { if (state.scanned) { state.verified = true; updateMission(); } });
+    $('[data-reset]').addEventListener('click', () => { state.telescopes = [{ id: 'T1', x: -17.22, y: 0, phase: 0 }, { id: 'T2', x: 17.22, y: 0, phase: 0 }]; state.planets = [{ id: 'P1', x: .27, y: .21, contrast: 1e-6 }]; state.stars = [{ id: 'S0', x: 0, y: 0, contrast: 1, primary: true }]; Object.assign(state, { selected: 'T1', dragging: null, visiblePairs: null, skyScale: 20, arrayScale: 42, locked: false, scanned: false, verified: false }); updateReadout(); updateMission(); });
+    $('[data-turbulence]').addEventListener('change', (event) => { state.turbulence = event.target.checked; });
+
+    function scenePoint(event) {
+      const rect = missionCanvas.getBoundingClientRect();
+      const radius = Math.min(rect.width, rect.height) * .36;
+      return { x: (event.clientX - rect.left - rect.width / 2) / radius, y: (event.clientY - rect.top - rect.height / 2) / radius };
+    }
+    function hitObject(point) {
+      const radius = Math.min(missionCanvas.clientWidth, missionCanvas.clientHeight) * .36;
+      const objects = [...state.telescopes, ...state.planets, ...state.stars.filter((star) => !star.primary)];
+      return objects.find((object) => {
+        const position = objectDisplayPosition(object);
+        return Math.hypot(point.x - position.x, point.y - position.y) < 24 / radius;
+      });
+    }
+    missionCanvas.addEventListener('pointerdown', (event) => {
+      root.focus({ preventScroll: true });
+      const rect = missionCanvas.getBoundingClientRect();
+      const localY = event.clientY - rect.top;
+      if (localY < 46 || localY > rect.height - 46) {
+        const isSkyScale = localY < 46;
+        const current = isSkyScale ? state.skyScale : state.arrayScale;
+        const unit = isSkyScale ? 'mas' : 'm';
+        const editor = $('[data-scale-editor]');
+        $('[data-scale-editor-label]').textContent = isSkyScale ? (lang === 'fr' ? 'Échelle angulaire du ciel' : 'Sky angular scale') : (lang === 'fr' ? 'Échelle de la baseline' : 'Baseline scale');
+        $('[data-scale-input]').value = String(current);
+        $('[data-scale-unit]').textContent = unit;
+        editor.dataset.scaleKind = isSkyScale ? 'sky' : 'array';
+        editor.hidden = false;
+        return;
+      }
+      const object = hitObject(scenePoint(event)); state.selected = object?.id || null; state.dragging = object || null; if (object) missionCanvas.setPointerCapture(event.pointerId); if (object && 'phase' in object) phaseInput.value = String(object.phase); updateReadout();
+    });
+    $('[data-scale-apply]').addEventListener('click', () => {
+      const editor = $('[data-scale-editor]');
+      const value = Number($('[data-scale-input]').value);
+      if (Number.isFinite(value) && value > 0) { if (editor.dataset.scaleKind === 'sky') state.skyScale = value; else state.arrayScale = value; updateReadout(); }
+      editor.hidden = true;
+    });
+    $('[data-scale-input]').addEventListener('keydown', (event) => { if (event.key === 'Enter') $('[data-scale-apply]').click(); if (event.key === 'Escape') $('[data-scale-editor]').hidden = true; });
+    missionCanvas.addEventListener('pointermove', (event) => {
+      if (state.dragging) return;
+      const rect = missionCanvas.getBoundingClientRect();
+      const localY = event.clientY - rect.top;
+      if (localY < 46 || localY > rect.height - 46) { missionCanvas.style.cursor = 'pointer'; return; }
+      missionCanvas.style.cursor = hitObject(scenePoint(event)) ? 'grab' : 'default';
+    });
+    missionCanvas.addEventListener('pointermove', (event) => { if (!state.dragging) return; const point = scenePoint(event); if (isTelescope(state.dragging)) { state.dragging.x = point.x * state.arrayScale / 2; state.dragging.y = point.y * state.arrayScale / 2; clampTelescopeToView(state.dragging); } else { state.dragging.x = Math.max(-1.35, Math.min(1.35, point.x)); state.dragging.y = Math.max(-1.05, Math.min(1.05, point.y)); } updateReadout(); updateMission(); });
+    missionCanvas.addEventListener('pointerup', () => { state.dragging = null; });
+    missionCanvas.addEventListener('pointercancel', () => { state.dragging = null; });
+    $('[data-add="planet"]').addEventListener('click', () => { const id = `P${state.planets.length + 1}`; state.planets.push({ id, x: -.34, y: -.23, contrast: 1e-6 }); state.selected = id; updateReadout(); });
+    $('[data-add="star"]').addEventListener('click', () => { const id = `S${state.stars.length}`; state.stars.push({ id, x: -.34, y: -.23, contrast: 1e-2 }); state.selected = id; updateReadout(); });
+    $('[data-add="telescope"]').addEventListener('click', () => { const id = `T${state.telescopes.length + 1}`; state.telescopes.push({ id, x: 0, y: -state.arrayScale * .41, phase: 0 }); state.selected = id; phaseInput.value = '0'; updateReadout(); });
+    $('[data-object-contrast]').addEventListener('input', (event) => { const selected = selectedObject(); if (selected && !selectedTelescope()) selected.contrast = Math.pow(10, Number(event.target.value)); updateReadout(); });
+    const updatePosition = (axis, value) => { const selected = selectedObject(); if (!selected || !Number.isFinite(value)) return; setObjectPositionValue(selected, axis, value); if (isTelescope(selected)) fitScaleToTelescope(selected); updateReadout(); updateMission(); };
+    $('[data-position-x]').addEventListener('change', (event) => updatePosition('x', Number(event.target.value)));
+    $('[data-position-y]').addEventListener('change', (event) => updatePosition('y', Number(event.target.value)));
+    $('[data-delete]').addEventListener('click', () => { if (state.telescopes.length + state.planets.length + state.stars.length <= 1) return; state.telescopes = state.telescopes.filter((object) => object.id !== state.selected); state.planets = state.planets.filter((object) => object.id !== state.selected); state.stars = state.stars.filter((object) => object.primary || object.id !== state.selected); state.selected = state.telescopes[0]?.id || state.planets[0]?.id || state.stars.find((star) => !star.primary)?.id; updateReadout(); updateMission(); });
+    missionCanvas.addEventListener('wheel', (event) => { event.preventDefault(); state.arrayScale = Math.max(4, Math.min(500, state.arrayScale * (event.deltaY < 0 ? .85 : 1.18))); updateReadout(); }, { passive: false });
+    root.addEventListener('keydown', (event) => {
+      const target = event.target;
+      if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) return;
+      const selected = selectedObject();
+      if ((event.key === 'Delete' || event.key === 'Backspace') && selected && !selected.primary) { event.preventDefault(); $('[data-delete]').click(); return; }
+      if (!selected) return;
+      const step = isTelescope(selected) ? 1 : state.skyScale / 20;
+      if (event.key === 'ArrowLeft') { event.preventDefault(); updatePosition('x', objectPositionValue(selected, 'x') - step); }
+      if (event.key === 'ArrowRight') { event.preventDefault(); updatePosition('x', objectPositionValue(selected, 'x') + step); }
+      if (event.key === 'ArrowUp') { event.preventDefault(); updatePosition('y', objectPositionValue(selected, 'y') - step); }
+      if (event.key === 'ArrowDown') { event.preventDefault(); updatePosition('y', objectPositionValue(selected, 'y') + step); }
+      if (event.key === '+' || event.key === '=') { event.preventDefault(); state.arrayScale = Math.max(4, state.arrayScale * .85); updateReadout(); }
+      if (event.key === '-' || event.key === '_') { event.preventDefault(); state.arrayScale = Math.min(500, state.arrayScale * 1.18); updateReadout(); }
+    });
+
+    $$('.lab-tab').forEach((tab) => tab.addEventListener('click', () => { const index = tab.dataset.tab; $$('.lab-tab').forEach((item) => { const isSelected = item === tab; item.classList.toggle('active', isSelected); item.setAttribute('aria-selected', String(isSelected)); }); $$('[data-panel]').forEach((panel) => panel.hidden = panel.dataset.panel !== index); }));
+    const modal = $('[data-modal]');
+    const closeModal = () => { modal.hidden = true; document.body.classList.remove('concept-open'); };
+    $$('[data-concept]').forEach((button) => button.addEventListener('click', () => { const concept = copy.concepts[button.dataset.concept]; if (!concept) return; $('[data-modal-title]').textContent = concept.title; $('[data-modal-intuition]').textContent = concept.intuition; $('[data-modal-simulation]').textContent = concept.simulation; $('[data-modal-detail]').textContent = concept.detail; modal.hidden = false; document.body.classList.add('concept-open'); }));
+    $$('[data-close]').forEach((button) => button.addEventListener('click', closeModal));
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeModal(); });
+    updateReadout(); updateMission(); requestAnimationFrame(animate);
+  });
+</script>
+
+<style is:global>
+  .nulling-lab { --lab-ink: #eaf3ff; --lab-muted: #9bb0ca; --lab-blue: #62b8ff; --lab-amber: #f5b546; --lab-panel: rgba(13, 29, 48, .76); --lab-line: rgba(127, 169, 211, .2); max-width: 82rem; margin: 0 auto; color: var(--lab-ink); }
+  .lab-hero { padding: clamp(2rem, 6vw, 5.5rem) clamp(1rem, 4vw, 3rem) 2.5rem; background: radial-gradient(ellipse at 76% 15%, rgba(56, 137, 220, .2), transparent 31%), radial-gradient(ellipse at 12% 85%, rgba(245, 181, 70, .09), transparent 27%); border: 1px solid var(--lab-line); border-radius: 1.25rem 1.25rem 0 0; }
+  .eyebrow, .section-kicker, .formula-label { margin: 0 0 .7rem; color: var(--lab-blue); font-size: .72rem; font-weight: 700; letter-spacing: .14em; }
+  .eyebrow span { margin-left: .75rem; color: var(--lab-muted); font-weight: 500; letter-spacing: .06em; }
+  .lab-hero h1 { max-width: 12ch; margin: 0; font-size: clamp(2.5rem, 6vw, 5.5rem); line-height: .98; letter-spacing: -.055em; }
+  .lead { max-width: 57ch; margin: 1.6rem 0 0; color: var(--lab-muted); font-size: clamp(1.03rem, 2vw, 1.22rem); line-height: 1.7; }
+  .term { display: inline; padding: 0; border: 0; border-bottom: 1px dashed var(--lab-blue); background: none; color: var(--lab-blue); font: inherit; cursor: pointer; }
+  .term:hover { color: #c7e9ff; border-bottom-style: solid; }
+  .lab-tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-inline: 1px solid var(--lab-line); border-bottom: 1px solid var(--lab-line); background: rgba(6, 17, 30, .7); }
+  .lab-tab { padding: 1rem .75rem; border: 0; border-right: 1px solid var(--lab-line); background: none; color: var(--lab-muted); font: inherit; font-size: .88rem; cursor: pointer; }
+  .lab-tab:last-child { border-right: 0; }.lab-tab:hover, .lab-tab.active { background: rgba(98,184,255,.08); color: var(--lab-ink); }.lab-tab.active { box-shadow: inset 0 -2px var(--lab-blue); }
+  .lab-panel { padding: clamp(1.2rem, 4vw, 3.4rem); border: 1px solid var(--lab-line); border-top: 0; background: var(--lab-panel); }.panel-heading { max-width: 67ch; margin-bottom: 2rem; }.panel-heading h2 { margin: 0 0 .75rem; font-size: clamp(1.8rem, 3vw, 2.7rem); letter-spacing: -.035em; }.panel-heading p:last-child { margin: 0; color: var(--lab-muted); line-height: 1.72; }
+  .mission-layout, .wave-layout, .map-layout, .kernel-layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(17rem, .75fr); gap: 1.25rem; align-items: stretch; }.scene-card, .control-deck, .wave-card, .formula-card, .geometry-note, .chip-card, .kernel-controls, .trace-card { border: 1px solid var(--lab-line); border-radius: .9rem; background: linear-gradient(145deg, rgba(18,43,69,.82), rgba(7,20,36,.86)); overflow: hidden; }.scene-caption, .wave-head, .trace-head { display: flex; justify-content: space-between; gap: .8rem; padding: .75rem 1rem; border-bottom: 1px solid var(--lab-line); color: var(--lab-muted); font-size: .76rem; font-weight: 600; letter-spacing: .08em; }.scene-mode { color: var(--lab-amber); }.live-dot { display: inline-block; width: .5rem; height: .5rem; margin-right: .4rem; border-radius: 50%; background: #5ee6b1; box-shadow: 0 0 10px #5ee6b1; }.sky-canvas, .wave-canvas, .trace-canvas { display: block; width: 100%; }.sky-canvas { height: clamp(19rem, 43vw, 31rem); background: radial-gradient(circle at center, rgba(74, 130, 182, .1), transparent 50%), #081524; }.wave-canvas { height: 22rem; }.scene-legend { display: flex; gap: 1rem; padding: .7rem 1rem; border-top: 1px solid var(--lab-line); color: var(--lab-muted); font-size: .75rem; }.scene-legend i { display: inline-block; width: .55rem; height: .55rem; margin-right: .3rem; border-radius: 50%; }.legend-star { background: var(--lab-amber); }.legend-planet { background: var(--lab-blue); }
+  .control-deck { padding: 1.15rem; }.mission-progress { display: flex; justify-content: space-between; color: var(--lab-muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; }.mission-progress strong { color: var(--lab-ink); }.mission-steps { display: grid; gap: .55rem; padding: 1rem 0; margin: 0 0 .6rem; list-style: none; border-bottom: 1px solid var(--lab-line); }.mission-steps li { display: grid; grid-template-columns: 1.5rem 1fr 1rem; align-items: center; gap: .45rem; color: var(--lab-muted); font-size: .86rem; }.mission-steps li > span { display: grid; width: 1.35rem; height: 1.35rem; place-items: center; border: 1px solid var(--lab-line); border-radius: 50%; font-size: .7rem; }.mission-steps b { color: #5ee6b1; opacity: 0; }.mission-steps li.done { color: var(--lab-ink); }.mission-steps li.done > span { border-color: #5ee6b1; color: #5ee6b1; }.mission-steps li.done b { opacity: 1; }.control { display: block; margin: 1.1rem 0; }.control > span { display: flex; justify-content: space-between; color: var(--lab-ink); font-size: .85rem; }.control output { color: var(--lab-amber); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }.control input { width: 100%; margin: .65rem 0 .35rem; accent-color: var(--lab-blue); }.control small { color: var(--lab-muted); font-size: .72rem; line-height: 1.35; }.mission-actions { display: grid; gap: .6rem; margin-top: 1.25rem; }.action-button, .mission-complete button { padding: .74rem 1rem; border: 1px solid rgba(98,184,255,.55); border-radius: .45rem; background: rgba(98,184,255,.12); color: var(--lab-ink); font: inherit; font-size: .84rem; font-weight: 600; cursor: pointer; transition: .2s ease; }.action-button:hover:not(:disabled), .mission-complete button:hover { background: var(--lab-blue); color: #06111e; }.action-button:disabled { cursor: not-allowed; opacity: .35; }.coach { min-height: 2.8em; margin: 1rem 0 0; color: var(--lab-amber); font-size: .79rem; line-height: 1.45; }.readout-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; margin-top: 1rem; }.readout-grid > div { padding: 1rem; border: 1px solid var(--lab-line); border-radius: .7rem; background: rgba(9,23,40,.55); }.readout-grid span, .readout-grid small { display: block; color: var(--lab-muted); font-size: .72rem; }.readout-grid strong { display: block; margin: .3rem 0; color: var(--lab-blue); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.25rem; }.mission-complete { margin-top: 1rem; padding: 1.6rem; border: 1px solid rgba(94,230,177,.45); border-radius: .8rem; background: rgba(36, 159, 124, .1); text-align: center; }.mission-complete div { color: #5ee6b1; font-size: 2rem; }.mission-complete h3 { margin: .25rem 0; }.mission-complete p { max-width: 57ch; margin: .5rem auto 1rem; color: var(--lab-muted); line-height: 1.55; }
+  .wave-card { min-width: 0; }.wave-key { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; padding: .8rem 1rem; color: var(--lab-muted); font-size: .73rem; }.wave-key span { display: inline-block; width: 1.2rem; height: 2px; margin-left: .6rem; }.key-a { background: #62b8ff; }.key-b { background: #f5b546; }.key-sum { background: #e8f4ff; }.formula-card, .geometry-note { padding: 1.45rem; }.formula { margin: .8rem 0 1.4rem; color: var(--lab-ink); font-family: Georgia, serif; font-size: 1.55rem; }.formula span, .geometry-formula span { color: var(--lab-blue); }.formula-result { display: flex; align-items: baseline; justify-content: space-between; padding: 1rem; border-left: 3px solid var(--lab-amber); background: rgba(245,181,70,.06); }.formula-result strong { color: var(--lab-amber); font-family: ui-monospace, monospace; font-size: 1.4rem; }.formula-card > p:last-child, .geometry-note > p { color: var(--lab-muted); line-height: 1.65; font-size: .9rem; }.geometry-formula { margin: .8rem 0 1.4rem; font-family: Georgia,serif; font-size: 1.55rem; }.wide-term { margin-top: 1rem; font-size: .88rem; }
+  .kernel-layout { grid-template-columns: 1.2fr .8fr; }.chip-card { padding: 1.3rem; }.chip-flow { display: grid; grid-template-columns: .55fr 1fr .55fr; align-items: center; gap: .5rem; min-height: 12rem; }.tel-group, .outputs { display: grid; gap: .55rem; }.tel-group span, .outputs span, .outputs strong { padding: .32rem; border: 1px solid var(--lab-line); border-radius: .25rem; color: var(--lab-muted); text-align: center; font-family: ui-monospace, monospace; font-size: .74rem; }.outputs strong { color: #5ee6b1; border-color: rgba(94,230,177,.5); }.chip { position: relative; display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; padding: 2rem; border: 1px solid rgba(98,184,255,.55); border-radius: .55rem; background: repeating-linear-gradient(135deg, rgba(98,184,255,.08) 0 5px, transparent 5px 11px); }.chip i { height: 2px; background: linear-gradient(to right, var(--lab-blue), var(--lab-amber)); }.chip b { position: absolute; inset: auto 0 .35rem; color: var(--lab-blue); text-align: center; font: 700 .68rem ui-monospace, monospace; letter-spacing: .1em; }.chip-card p, .kernel-controls p { margin: 1rem 0 0; color: var(--lab-muted); font-size: .82rem; line-height: 1.55; }.kernel-controls { padding: 1.25rem; }.toggle { display: flex; align-items: center; gap: .65rem; color: var(--lab-ink); font-size: .9rem; cursor: pointer; }.toggle input { position: absolute; opacity: 0; }.toggle span { width: 2.2rem; height: 1.2rem; border-radius: 99px; background: var(--lab-line); transition: .2s; }.toggle span::after { content: ''; display: block; width: .82rem; height: .82rem; margin: .19rem; border-radius: 50%; background: var(--lab-muted); transition: .2s; }.toggle input:checked + span { background: var(--lab-blue); }.toggle input:checked + span::after { transform: translateX(1rem); background: #fff; }.kernel-stats { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin-top: 1.3rem; }.kernel-stats div { padding: .85rem; border: 1px solid var(--lab-line); border-radius: .5rem; }.kernel-stats span { display: block; color: var(--lab-muted); font-size: .68rem; }.kernel-stats strong { display: block; margin-top: .35rem; color: var(--lab-amber); font-family: ui-monospace,monospace; }.kernel-stats div:last-child strong { color: var(--lab-blue); }.trace-card { margin-top: 1.25rem; }.trace-head span:first-child { color: var(--lab-amber); }.trace-head span:last-child { color: var(--lab-blue); }.trace-canvas { height: 18rem; }
+  .scene-toolbar { display: flex; align-items: center; justify-content: space-between; gap: .8rem; padding: .65rem 1rem; border-bottom: 1px solid var(--lab-line); color: var(--lab-muted); font-size: .72rem; }.object-actions { display: flex; gap: .4rem; }.object-button { padding: .4rem .55rem; border: 1px solid var(--lab-line); border-radius: .3rem; background: rgba(98,184,255,.08); color: var(--lab-ink); font: inherit; font-size: .72rem; cursor: pointer; }.object-button:hover:not(:disabled) { border-color: var(--lab-blue); background: rgba(98,184,255,.2); }.object-button:disabled { opacity: .35; cursor: not-allowed; }.delete-button { color: #ff9c8c; }.sky-canvas { cursor: grab; touch-action: none; }.sky-canvas:active { cursor: grabbing; }.selected-object-panel { padding: .7rem; margin: 1rem 0; border: 1px solid rgba(98,184,255,.24); border-radius: .55rem; background: rgba(98,184,255,.05); }.selection-help { margin: 0; color: var(--lab-muted); font-size: .72rem; line-height: 1.4; }
+  .concept-modal[hidden] { display: none; }.concept-modal { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 1rem; }.modal-backdrop { position: absolute; inset: 0; background: rgba(1, 8, 16, .8); backdrop-filter: blur(5px); }.modal-card { position: relative; width: min(50rem, 100%); max-height: min(48rem, 90vh); overflow: auto; padding: clamp(1.5rem, 5vw, 3rem); border: 1px solid rgba(98,184,255,.4); border-radius: 1rem; background: #0b1c2e; box-shadow: 0 30px 90px rgba(0,0,0,.6); }.modal-close { position: absolute; top: .8rem; right: 1rem; border: 0; background: none; color: var(--lab-muted); font-size: 1.8rem; cursor: pointer; }.modal-card h2 { margin: 0 2rem 1.7rem 0; font-size: clamp(1.8rem, 4vw, 2.8rem); }.concept-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }.concept-columns > div { padding: 1.15rem; border-radius: .6rem; background: rgba(98,184,255,.06); }.concept-columns .technical { border-left: 2px solid var(--lab-amber); background: rgba(245,181,70,.05); }.concept-columns h3 { margin: 0 0 .45rem; color: var(--lab-blue); font-size: .88rem; }.concept-columns h3:not(:first-child) { margin-top: 1.25rem; }.concept-columns p { margin: 0; color: var(--lab-muted); line-height: 1.65; font-size: .9rem; } body.concept-open { overflow: hidden; }
+  .scene-toolbar { display: flex; align-items: center; justify-content: space-between; gap: .8rem; padding: .65rem 1rem; border-bottom: 1px solid var(--lab-line); color: var(--lab-muted); font-size: .72rem; }
+  .scale-editor { display: flex; align-items: end; gap: .55rem; padding: .7rem 1rem; border-bottom: 1px solid var(--lab-line); background: rgba(98,184,255,.07); }.scale-editor[hidden] { display: none; }.scale-editor label { display: grid; grid-template-columns: 1fr auto; gap: .25rem .45rem; align-items: center; flex: 1; color: var(--lab-ink); font-size: .75rem; }.scale-editor label span { grid-column: 1 / -1; color: var(--lab-muted); }.scale-editor input { width: 100%; min-width: 0; padding: .42rem .5rem; border: 1px solid rgba(98,184,255,.4); border-radius: .35rem; outline: none; background: #081524; color: var(--lab-ink); font: inherit; }.scale-editor input:focus { border-color: var(--lab-blue); box-shadow: 0 0 0 2px rgba(98,184,255,.15); }.scale-editor output { color: var(--lab-amber); font-family: ui-monospace, monospace; }.scale-editor button { padding: .43rem .7rem; border: 1px solid rgba(98,184,255,.5); border-radius: .35rem; background: var(--lab-blue); color: #06111e; font: inherit; font-size: .75rem; font-weight: 700; cursor: pointer; }
+  .object-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .4rem; }
+  .object-button { padding: .4rem .55rem; border: 1px solid var(--lab-line); border-radius: .3rem; background: rgba(98,184,255,.08); color: var(--lab-ink); font: inherit; font-size: .72rem; cursor: pointer; }.object-button:hover:not(:disabled) { border-color: var(--lab-blue); background: rgba(98,184,255,.2); }.object-button:disabled { opacity: .35; cursor: not-allowed; }.delete-button { color: #ff9c8c; }
+  .sky-canvas { cursor: grab; touch-action: none; }.sky-canvas:active { cursor: grabbing; }.selected-object-panel { padding: .7rem; margin: 1rem 0; border: 1px solid rgba(98,184,255,.24); border-radius: .55rem; background: rgba(98,184,255,.05); }.selection-help { margin: 0; color: var(--lab-muted); font-size: .72rem; line-height: 1.4; }
+  .position-controls { margin-top: .9rem; padding-top: .8rem; border-top: 1px solid var(--lab-line); }.position-title { display: flex; justify-content: space-between; color: var(--lab-ink); font-size: .78rem; }.position-title output { color: var(--lab-amber); font-family: ui-monospace, monospace; }.position-controls label { display: grid; grid-template-columns: 1rem 1fr 2rem; align-items: center; gap: .45rem; margin-top: .55rem; color: var(--lab-muted); font-size: .78rem; }.position-controls input { min-width: 0; width: 100%; padding: .35rem; border: 1px solid var(--lab-line); border-radius: .28rem; background: rgba(4,14,25,.8); color: var(--lab-ink); font: inherit; }.position-controls label output { color: var(--lab-muted); font-size: .7rem; }.position-controls small { display: block; margin-top: .6rem; color: var(--lab-muted); font-size: .68rem; line-height: 1.4; }
+  .baseline-panel { padding: .8rem; margin-top: 1rem; border-top: 1px solid var(--lab-line); }.baseline-panel-title { display: flex; justify-content: space-between; gap: .5rem; color: var(--lab-ink); font-size: .78rem; }.baseline-panel-title small { color: var(--lab-muted); font-size: .68rem; }.baseline-list { display: grid; gap: .45rem; margin-top: .7rem; }.baseline-option { display: grid; grid-template-columns: 1rem .8rem 1fr; align-items: center; gap: .45rem; color: var(--lab-muted); font-size: .75rem; cursor: pointer; }.baseline-option input { accent-color: var(--lab-blue); }.baseline-option i { height: .15rem; }
+  .scene-legend { display: flex; flex-wrap: wrap; gap: .8rem 1rem; }.scene-legend i { display: inline-block; width: .8rem; height: .15rem; margin-right: .3rem; vertical-align: middle; }.legend-star, .legend-planet { width: .55rem !important; height: .55rem !important; border-radius: 50%; }.legend-star { background: var(--lab-amber); }.legend-planet { background: var(--lab-blue); }.legend-baseline { border-top: 2px dashed var(--lab-amber); }
+  .baseline-option { min-height: 2.15rem; padding: .35rem .45rem; border: 1px solid transparent; border-radius: .45rem; transition: .2s ease; }.baseline-option:hover { border-color: var(--lab-line); background: rgba(98,184,255,.08); }.baseline-option:has(input:checked) { border-color: rgba(98,184,255,.38); background: rgba(98,184,255,.12); color: var(--lab-ink); }.baseline-option input { appearance: none; width: 1rem; height: 1rem; margin: 0; border: 1px solid var(--lab-muted); border-radius: .28rem; background: transparent; cursor: pointer; }.baseline-option input:checked { border-color: var(--lab-blue); background: var(--lab-blue); box-shadow: inset 0 0 0 3px #0b1c2e; }.baseline-option i { border-radius: 99px; }
+  @media (max-width: 760px) { .nulling-lab { margin-inline: calc(-1 * var(--space-4)); }.lab-hero { border-radius: 0; }.lab-tabs { overflow-x: auto; grid-template-columns: repeat(4, max-content); }.lab-tab { min-width: 8.7rem; }.mission-layout, .wave-layout, .map-layout, .kernel-layout { grid-template-columns: 1fr; }.readout-grid { grid-template-columns: 1fr; }.sky-canvas { height: 20rem; }.wave-canvas { height: 18rem; }.concept-columns { grid-template-columns: 1fr; }.chip-flow { min-height: 10rem; }.trace-canvas { height: 13rem; }.scene-toolbar { align-items: flex-start; flex-direction: column; }.object-actions { justify-content: flex-start; } }
+</style>

@@ -1,0 +1,15 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import NullingLab from "../../components/NullingLab.astro";
+
+const title = "Nulling & Kernel Nulling - Guide Interactif";
+const description = "Un guide éducatif interactif pour comprendre l'interférométrie par nulling et les techniques de kernel nulling pour la détection d'exoplanètes.";
+---
+
+<PageLayout
+    title={title}
+    description={description}
+    currentPath={Astro.url.pathname}
+>
+    <NullingLab lang="fr" />
+</PageLayout>
