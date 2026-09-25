@@ -11,6 +11,7 @@ const {
     lang = "fr",
 } = Astro.props;
 import "../styles/global.css";
+import PoppyEasterEgg from "../components/PoppyEasterEgg.astro";
 ---
 
 <!doctype html>
@@ -62,5 +63,6 @@ import "../styles/global.css";
     </head>
     <body>
         <slot />
+        <PoppyEasterEgg lang={lang} />
     </body>
 </html>
