@@ -12,7 +12,19 @@ const currentYear = new Date().getFullYear();
 
 <footer class="footer">
     <div class="spectrum" aria-hidden="true">
-        <div class="spectrum__band"></div>
+        <div class="spectrum__band">
+            <span class="spectrum__line" tabindex="0" data-label={lang === "en" ? "K · 393.4 nm · ionised calcium" : "K · 393,4 nm · calcium ionisé"}></span>
+            <span class="spectrum__line" tabindex="0" data-label={lang === "en" ? "H · 396.8 nm · ionised calcium" : "H · 396,8 nm · calcium ionisé"}></span>
+            <span class="spectrum__line" tabindex="0" data-label={lang === "en" ? "Hδ · 410.2 nm · hydrogen" : "Hδ · 410,2 nm · hydrogène"}></span>
+            <span class="spectrum__line" tabindex="0" data-label={lang === "en" ? "G · 430.8 nm · iron and CH molecule" : "G · 430,8 nm · fer et molécule CH"}></span>
+            <span class="spectrum__line" tabindex="0" data-label={lang === "en" ? "Hγ · 434.0 nm · hydrogen" : "Hγ · 434,0 nm · hydrogène"}></span>
+            <span class="spectrum__line" tabindex="0" data-label={lang === "en" ? "F · Hβ · 486.1 nm · hydrogen" : "F · Hβ · 486,1 nm · hydrogène"}></span>
+            <span class="spectrum__line" tabindex="0" data-label={lang === "en" ? "b · 517.7 nm · magnesium" : "b · 517,7 nm · magnésium"}></span>
+            <span class="spectrum__line" tabindex="0" data-label={lang === "en" ? "E · 527.0 nm · iron" : "E · 527,0 nm · fer"}></span>
+            <span class="spectrum__line" tabindex="0" data-label={lang === "en" ? "D · 589.3 nm · sodium" : "D · 589,3 nm · sodium"}></span>
+            <span class="spectrum__line" tabindex="0" data-label={lang === "en" ? "C · Hα · 656.3 nm · hydrogen" : "C · Hα · 656,3 nm · hydrogène"}></span>
+            <span class="spectrum__line" tabindex="0" data-label={lang === "en" ? "B · 686.7 nm · oxygen in Earth's atmosphere" : "B · 686,7 nm · oxygène de l'atmosphère terrestre"}></span>
+        </div>
         <div class="container spectrum__scale">
             <span>400 nm</span>
             <span>500</span>
@@ -73,6 +85,14 @@ const currentYear = new Date().getFullYear();
                                 </>
                             )
                         }
+                    
+                    <span
+                        class="footer__secrets"
+                        data-secrets
+                        data-template={lang === "en" ? "{n} of {total} secrets found" : "{n} secret{s} sur {total} trouvé{s}"}
+                        data-complete={lang === "en" ? "All {total} secrets found. Well travelled." : "Les {total} secrets sont trouvés. Bon voyage."}
+                        hidden
+                    ></span>
                     </p>
                 </div>
             </div>
@@ -187,6 +207,13 @@ const currentYear = new Date().getFullYear();
 
     .spectrum__band {
         height: 10px;
+    }
+
+    /* Dégradé et raies dessinés sur un pseudo-élément : le filtre ne touche pas les étiquettes */
+    .spectrum__band::before {
+        content: "";
+        position: absolute;
+        inset: 0;
         --line: hsl(226, 30%, 4%);
         background:
             linear-gradient(var(--line), var(--line)) 3.62% 0 / 2px 100% no-repeat,  /* K  393.4 */
@@ -218,7 +245,106 @@ const currentYear = new Date().getFullYear();
         filter: saturate(0.7) brightness(0.85);
     }
 
-    :global(.light-theme) .spectrum__band {
+    /* Raies survolables : un trait doré monte et l'étiquette donne la raie et son origine */
+    .spectrum__band {
+        position: relative;
+    }
+
+    .spectrum__line {
+        position: absolute;
+        top: -10px;
+        bottom: 0;
+        width: 12px;
+        transform: translateX(-50%);
+        cursor: help;
+        outline: none;
+    }
+
+    .spectrum__line::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 1px;
+        height: 10px;
+        background: var(--color-primary);
+        transform: scaleY(0);
+        transform-origin: bottom;
+        transition: transform 0.2s ease, height 0.2s ease;
+    }
+
+    .spectrum__line::after {
+        content: attr(data-label);
+        position: absolute;
+        bottom: calc(100% + 6px);
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0.2rem 0.5rem;
+        white-space: nowrap;
+        font-family: var(--font-mono);
+        font-size: 0.6875rem;
+        letter-spacing: 0.03em;
+        color: var(--color-text);
+        background: var(--color-background);
+        border: 1px solid var(--color-border);
+        /* Hors de la mise en page tant qu'elle est cachée : elle déborderait de l'écran sur mobile */
+        display: none;
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    .spectrum__line:hover::before,
+    .spectrum__line:focus-visible::before {
+        transform: scaleY(1);
+        height: 20px;
+    }
+
+    .spectrum__line:hover::after,
+    .spectrum__line:focus-visible::after {
+        display: block;
+    }
+
+    /* Étiquettes des raies extrêmes : ancrées pour rester dans l'écran */
+    .spectrum__line:nth-child(-n + 2)::after {
+        left: 0;
+        transform: none;
+    }
+
+    .spectrum__line:nth-child(n + 11)::after {
+        left: auto;
+        right: 0;
+        transform: none;
+    }
+
+    .spectrum__line:nth-child(1) { left: 3.62%; }
+    .spectrum__line:nth-child(2) { left: 4.54%; }
+    .spectrum__line:nth-child(3) { left: 8.16%; }
+    .spectrum__line:nth-child(4) { left: 13.73%; }
+    .spectrum__line:nth-child(5) { left: 14.59%; }
+    .spectrum__line:nth-child(6) { left: 28.68%; }
+    .spectrum__line:nth-child(7) { left: 37.22%; }
+    .spectrum__line:nth-child(8) { left: 39.73%; }
+    .spectrum__line:nth-child(9) { left: 56.57%; }
+    .spectrum__line:nth-child(10) { left: 74.68%; }
+    .spectrum__line:nth-child(11) { left: 82.89%; }
+
+    /* Petit écran : l'étiquette devient une bulle fixée en bas, sur toute la largeur */
+    @media (max-width: 640px) {
+        .spectrum__line::after,
+        .spectrum__line:nth-child(-n + 2)::after,
+        .spectrum__line:nth-child(n + 11)::after {
+            position: fixed;
+            left: var(--space-4);
+            right: var(--space-4);
+            bottom: var(--space-4);
+            transform: none;
+            white-space: normal;
+            text-align: center;
+            z-index: 200;
+        }
+    }
+
+    :global(.light-theme) .spectrum__band::before {
         filter: saturate(0.75);
     }
 
@@ -331,6 +457,8 @@ const currentYear = new Date().getFullYear();
         opacity: 0.3;
         font-size: 0.7rem;
         cursor: pointer;
+        min-width: 24px;
+        min-height: 24px;
         padding: 0;
         transition:
             opacity var(--transition-fast),
@@ -340,6 +468,17 @@ const currentYear = new Date().getFullYear();
     .footer__hint-icon:hover {
         opacity: 0.6;
         color: var(--color-accent);
+    }
+
+    .footer__secrets {
+        display: block;
+        margin-block-start: var(--space-3);
+        font-style: normal;
+        font-family: var(--font-mono);
+        font-size: 0.6875rem;
+        letter-spacing: 0.04em;
+        color: var(--color-primary);
+        opacity: 0.8;
     }
 
     .footer__hint-text {
@@ -357,7 +496,7 @@ const currentYear = new Date().getFullYear();
 
     .footer__hint-text.visible {
         opacity: 0.45;
-        max-height: 12em;
+        max-height: 16em;
         margin-block-start: var(--space-2);
     }
 
@@ -370,7 +509,26 @@ const currentYear = new Date().getFullYear();
 </style>
 
 <script>
+    import { foundSecrets, TOTAL_SECRETS } from "../scripts/secrets";
+
     document.getElementById("hint-toggle")?.addEventListener("click", () => {
         document.getElementById("hint-text")?.classList.toggle("visible");
     });
+
+    // Compte des secrets découverts, affiché dès le premier
+    const counter = document.querySelector<HTMLElement>("[data-secrets]");
+    function showSecrets() {
+        if (!counter) return;
+        const n = foundSecrets().length;
+        counter.hidden = n === 0;
+        const template = n >= TOTAL_SECRETS ? counter.dataset.complete! : counter.dataset.template!;
+        counter.textContent =
+            "✦ " +
+            template
+                .replaceAll("{n}", String(n))
+                .replaceAll("{total}", String(TOTAL_SECRETS))
+                .replaceAll("{s}", n > 1 ? "s" : "");
+    }
+    showSecrets();
+    document.addEventListener("secrets-updated", showSecrets);
 </script>

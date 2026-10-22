@@ -297,6 +297,7 @@
 
         // Custom event from Footer
         document.addEventListener("open-easter-egg", () => {
+            document.dispatchEvent(new CustomEvent("secret-found", { detail: "invaders" }));
             container.classList.remove("hidden");
             // Give time for display:block to apply before calculating canvas dimensions if needed
             setTimeout(() => initGame(), 50);

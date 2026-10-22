@@ -1,0 +1,56 @@
+---
+// Bouton qui copie un texte dans le presse-papiers et le confirme brièvement
+
+interface Props {
+    text: string;
+    lang?: "fr" | "en";
+}
+
+const { text, lang = "fr" } = Astro.props;
+const copy = lang === "fr" ? { idle: "Copier", done: "Copié" } : { idle: "Copy", done: "Copied" };
+---
+
+<button class="copy-button" type="button" data-copy={text} data-done={copy.done} hidden>
+    {copy.idle}
+</button>
+
+<style>
+    .copy-button {
+        margin-inline-start: var(--space-3);
+        padding: 0.1rem 0.5rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
+        background: none;
+        color: var(--color-text-muted);
+        font-family: var(--font-mono);
+        font-size: 0.6875rem;
+        letter-spacing: 0.04em;
+        vertical-align: middle;
+        cursor: pointer;
+        transition: color var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .copy-button:hover,
+    .copy-button.is-done {
+        color: var(--color-primary);
+        border-color: var(--color-primary);
+    }
+</style>
+
+<script>
+    document.querySelectorAll<HTMLButtonElement>("[data-copy]").forEach((button) => {
+        // Sans API presse-papiers (contexte non sécurisé), le bouton reste caché
+        if (!navigator.clipboard) return;
+        button.hidden = false;
+        const idle = button.textContent;
+        button.addEventListener("click", async () => {
+            await navigator.clipboard.writeText(button.dataset.copy ?? "");
+            button.textContent = button.dataset.done ?? "";
+            button.classList.add("is-done");
+            setTimeout(() => {
+                button.textContent = idle;
+                button.classList.remove("is-done");
+            }, 1800);
+        });
+    });
+</script>

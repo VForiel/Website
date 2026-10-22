@@ -215,7 +215,10 @@ const t = labels[lang];
                                                             ? `${import.meta.env.BASE_URL.replace(/\/$/, "")}${project.data.image}`
                                                             : project.data.image
                                                     }
-                                                    alt={project.data.title}
+                                                    alt=""
+                                                    width="640"
+                                                    height="640"
+                                                    decoding="async"
                                                     loading="lazy"
                                                 />
                                             </div>
@@ -884,7 +887,8 @@ const t = labels[lang];
     }
 
     .project-tags .tag {
-        padding: 0;
+        min-height: 24px;
+        padding: 0.25rem 0;
         background: none;
         border: none;
         font-family: var(--font-mono);

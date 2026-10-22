@@ -897,6 +897,7 @@ const isEn = lang === "en";
         }
 
         public open() {
+            document.dispatchEvent(new CustomEvent("secret-found", { detail: "poppy" }));
             if (this.isOpen) return;
             this.isOpen = true;
             this.bgClickTimestamps = [];

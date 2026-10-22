@@ -12,6 +12,7 @@ interface Props {
     externalUrl?: string; // External URL (GitHub, etc.)
     lang?: "fr" | "en";
     showFallback?: boolean; // Show default image when no image provided (default: true)
+    priority?: boolean; // Image visible dès l'arrivée sur la page : chargée tout de suite, en priorité
 }
 
 const {
@@ -25,6 +26,7 @@ const {
     externalUrl,
     lang = "fr",
     showFallback = true,
+    priority = false,
 } = Astro.props;
 
 const parsedEnd = parsePartialDate(endDate);
@@ -60,7 +62,15 @@ const isAI = image?.split('/').pop()?.startsWith('IA_') || false;
                     </div>
                 )}
                 <div class="project-card__image">
-                    <img src={finalImage} alt={title} loading="lazy" />
+                    <img
+                        src={finalImage}
+                        alt=""
+                        width="640"
+                        height="640"
+                        loading={priority ? "eager" : "lazy"}
+                        fetchpriority={priority ? "high" : "auto"}
+                        decoding="async"
+                    />
                 </div>
             </>
         ) : showFallback ? (
@@ -119,7 +129,6 @@ const isAI = image?.split('/').pop()?.startsWith('IA_') || false;
                         class="project-card__external"
                         target="_blank"
                         rel="noopener noreferrer"
-                        onclick="event.stopPropagation()"
                     >
                         {externalLinkLabel}
                     </a>
@@ -412,7 +421,8 @@ const isAI = image?.split('/').pop()?.startsWith('IA_') || false;
     .project-tag {
         font-family: var(--font-mono);
         font-size: var(--text-xs);
-        padding: 0;
+        min-height: 24px;
+        padding: 0.25rem 0;
         background: none;
         color: var(--color-text-muted);
         border: none;
@@ -455,6 +465,8 @@ const isAI = image?.split('/').pop()?.startsWith('IA_') || false;
     .project-card__external {
         position: relative;
         z-index: 2;
+        display: inline-block;
+        padding-block: 0.3rem;
         transition: text-decoration-color var(--transition-fast);
     }
 

@@ -31,11 +31,21 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
         <div class="content-grid">
             <div class="content-main">
                 <h2>My Journey</h2>
+                <aside class="sidenote sidenote--sheet">
+                    <h3>👤 About me</h3>
+                    <dl class="datasheet">
+                        <div class="datasheet__row"><dt>Age</dt><dd>{age} years old</dd></div>
+                        <div class="datasheet__row"><dt>Gender</dt><dd>Male</dd></div>
+                        <div class="datasheet__row"><dt>Origin</dt><dd>French</dd></div>
+                        <div class="datasheet__row"><dt>Birthplace</dt><dd>Cagnes-sur-Mer</dd></div>
+                        <div class="datasheet__row"><dt>Location</dt><dd>Nice, France</dd></div>
+                    </dl>
+                </aside>
                 <p>
                     <span class="easter-egg-trigger">Space</span> has always fascinated
                     me — black holes, neutron stars, the sheer scale of cosmic structures.
                     This passion was fueled by Stephen Hawking's books as much as
-                    by works like <em>Star Trek</em> or
+                    by works like <em>Star Trek</em> or{" "}
                     <em>Interstellar</em>.
                 </p>
 
@@ -44,8 +54,29 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
                     had natural aptitude. But it was through following science
                     communicators and experimenting with physics modeling
                     through gaming that I made peace with math and decided to
-                    pivot toward physics.
+                    pivot toward physics.<sup class="sidenote-ref"><a href="#note-1">1</a></sup>
                 </p>
+                <aside class="sidenote" id="note-1">
+                    <h3><span class="sidenote__number">1</span>🎮 Fun fact</h3>
+                    <p>
+                        It was while building a projectile system in Minecraft —
+                        point physics, trigonometry — that I decided to pursue
+                        physics studies.
+                    </p>
+                    <p>
+                        That project gave birth to{" "}
+                        <a
+                            href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/associations`}
+                            >Altearn</a
+                        > and{" "}
+                        <a
+                            href="https://docs.mcbookshelf.dev/en/latest/"
+                            target="_blank"
+                            rel="noopener">Bookshelf</a
+                        >, a real Minecraft development library featuring math
+                        and physics tools.
+                    </p>
+                </aside>
 
                 <p>
                     Today, as a PhD candidate in astrophotonics, I design and
@@ -59,7 +90,16 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
                 </p>
 
                 <h2>My Work Philosophy</h2>
-                <p>Four principles guide my daily work:</p>
+                <p>Four principles guide my daily work:<sup class="sidenote-ref"><a href="#note-2">2</a></sup></p>
+
+                <aside class="sidenote" id="note-2">
+                    <h3><span class="sidenote__number">2</span>🎨 Jack of all trades</h3>
+                    <p class="interests-text">
+                        I love learning and exploring new fields. Piano today,
+                        Japanese tomorrow, 3D printing next week — the subject
+                        doesn't matter, curiosity is what drives me.
+                    </p>
+                </aside>
 
                 <ul class="values-list">
                     <li>
@@ -90,57 +130,11 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
                     I rely on project forges — GitHub, GitLab, Redmine,
                     OpenProject — to structure my work: issue management, code
                     reviews, integrated documentation. This approach lets me
-                    work effectively with
+                    work effectively with{" "}
                     <strong>autonomy</strong> while making collaboration seamless
                     when opportunities arise.
                 </p>
             </div>
-
-            <aside class="content-sidebar">
-                <div class="sidebar-card">
-                    <h3>👤 About me</h3>
-                    <ul
-                        class="interests-list interests-list--about"
-                    >
-                        <li><strong>Age:</strong> {age} years old</li>
-                        <li><strong>Gender:</strong> Male</li>
-                        <li><strong>Origin:</strong> French</li>
-                        <li><strong>Birthplace:</strong> Cagnes-sur-Mer</li>
-                        <li><strong>Location:</strong> Nice, France</li>
-                    </ul>
-                </div>
-
-                <div class="sidebar-card">
-                    <h3>🎨 Jack of all trades</h3>
-                    <p class="interests-text">
-                        I love learning and exploring new fields. Piano today,
-                        Japanese tomorrow, 3D printing next week — the subject
-                        doesn't matter, curiosity is what drives me.
-                    </p>
-                </div>
-
-                <div class="sidebar-card">
-                    <h3>🎮 Fun fact</h3>
-                    <p>
-                        It was while building a projectile system in Minecraft —
-                        point physics, trigonometry — that I decided to pursue
-                        physics studies.
-                    </p>
-                    <p>
-                        That project gave birth to
-                        <a
-                            href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/associations`}
-                            >Altearn</a
-                        > and
-                        <a
-                            href="https://docs.mcbookshelf.dev/en/latest/"
-                            target="_blank"
-                            rel="noopener">Bookshelf</a
-                        >, a real Minecraft development library featuring math
-                        and physics tools.
-                    </p>
-                </div>
-            </aside>
         </div>
     </Section>
     <SpaceInvaders />
@@ -158,10 +152,6 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
 </script>
 
 <style>
-    .interests-list--about {
-        margin-block-start: var(--space-2);
-    }
-
     .about-header {
         padding-block: var(--space-4) var(--space-10);
         border-bottom: 1px solid var(--color-border);
@@ -179,14 +169,12 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
     }
 
     .content-grid {
-        display: grid;
-        grid-template-columns: 1fr 300px;
-        gap: var(--space-12);
-        align-items: start;
+        display: block;
     }
 
     .content-main {
-        padding: 0;
+        position: relative;
+        max-width: 40rem;
     }
 
     .content-main h2 {
@@ -227,61 +215,95 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
         color: var(--color-text-muted);
     }
 
-    .content-sidebar {
-        position: sticky;
-        top: calc(var(--space-16) + 60px);
-        align-self: start;
-    }
-
-    .sidebar-card {
-        padding-block: var(--space-5) var(--space-8);
+    /* Notes en marge (à la Tufte) : flottantes dans la marge droite, en ligne sur écran étroit */
+    .sidenote {
+        float: right;
+        clear: right;
+        width: 18rem;
+        margin-right: -22rem;
+        margin-block: 0.4rem var(--space-8);
+        padding-block-start: var(--space-3);
         border-top: 1px solid var(--color-border);
-    }
-
-    .sidebar-card h3 {
-        font-size: var(--text-xl);
-        margin-block-end: var(--space-3);
-    }
-
-    .sidebar-intro {
         font-size: var(--text-sm);
-        color: var(--color-text-secondary);
-        margin-block-end: var(--space-3);
-        font-style: italic;
     }
 
-    .interests-list {
-        list-style: none;
+    .sidenote h3 {
         display: flex;
-        flex-direction: column;
+        align-items: baseline;
         gap: var(--space-2);
-        font-size: var(--text-sm);
-        color: var(--color-text-secondary);
+        font-size: var(--text-lg);
+        margin-block-end: var(--space-3);
     }
 
-    .interests-list li {
-        padding-inline-start: 0;
+    .content-main .sidenote p {
+        font-size: var(--text-sm);
+        margin-block-end: var(--space-2);
     }
 
-    .inspirations-text {
-        font-size: var(--text-sm);
-        color: var(--color-text-secondary);
+    .sidenote a {
+        color: var(--color-text);
+        text-decoration: underline;
+        text-decoration-color: var(--color-primary);
+        text-underline-offset: 0.2em;
+    }
+
+    .sidenote__number,
+    .sidenote-ref {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        font-weight: 400;
+        color: var(--color-primary);
+    }
+
+    .sidenote-ref {
+        margin-inline-start: 0.15em;
+        line-height: 0;
+    }
+
+    .sidenote-ref a {
+        color: inherit;
+    }
+
+    /* Fiche signalétique, comme sur les pages projet */
+    .datasheet {
         margin: 0;
     }
 
-    .sidebar-card p {
-        font-size: var(--text-sm);
-        color: var(--color-text-secondary);
-        margin: 0;
+    .datasheet__row {
+        display: grid;
+        grid-template-columns: 6.5rem minmax(0, 1fr);
+        gap: var(--space-3);
+        align-items: baseline;
+        padding-block: var(--space-2);
+        border-bottom: 1px solid var(--color-border-subtle);
     }
 
-    @media (max-width: 1024px) {
-        .content-grid {
-            grid-template-columns: 1fr;
+    .datasheet dt {
+        font-family: var(--font-mono);
+        font-size: 0.6875rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+    }
+
+    .datasheet dd {
+        margin: 0;
+        color: var(--color-text);
+    }
+
+    @media (max-width: 1100px) {
+        .content-main {
+            max-width: 46rem;
         }
 
-        .content-sidebar {
-            position: static;
+        .sidenote {
+            float: none;
+            width: auto;
+            margin: var(--space-6) 0;
+            padding: var(--space-4) var(--space-5);
+            border-top: none;
+            border-left: 1px solid var(--color-primary);
+            background: rgba(var(--color-primary-rgb), 0.04);
         }
     }
 

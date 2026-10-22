@@ -1,0 +1,14 @@
+---
+// Page accessible uniquement par son adresse : absente du menu et de la recherche, exclue des moteurs (noindex)
+import PageLayout from "../../layouts/PageLayout.astro";
+import Publications from "../../components/Publications.astro";
+---
+
+<PageLayout
+    title="Publications - Vincent Foriel"
+    description="Articles, conference proceedings and talks by Vincent Foriel"
+    currentPath={Astro.url.pathname}
+    noindex
+>
+    <Publications lang="en" />
+</PageLayout>

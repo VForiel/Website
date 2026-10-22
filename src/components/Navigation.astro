@@ -51,16 +51,18 @@ const isActiveLink = (href: string) => {
     align-items: center;
     gap: var(--space-6);
     flex-wrap: wrap;
+    counter-reset: nav;
   }
 
   .nav__link {
+    position: relative;
     display: inline-block;
     padding-block: var(--space-2);
     font-size: var(--text-sm);
     color: var(--color-text-secondary);
-    border-bottom: 1px solid transparent;
-    transition: color var(--transition-fast), border-color var(--transition-fast);
+    transition: color var(--transition-fast);
     white-space: nowrap;
+    counter-increment: nav;
   }
 
   .nav__link:hover {
@@ -69,7 +71,58 @@ const isActiveLink = (href: string) => {
 
   .nav__link--active {
     color: var(--color-text);
-    border-bottom-color: var(--color-primary);
+  }
+
+  /* Survol : une petite règle graduée se trace sous le lien… */
+  .nav__link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background:
+      linear-gradient(var(--color-primary), var(--color-primary)) bottom / 100% 1px no-repeat,
+      repeating-linear-gradient(90deg, var(--color-primary) 0 1px, transparent 1px 5px) bottom left / 100% 4px no-repeat;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .nav__link:hover::after,
+  .nav__link--active::after {
+    transform: scaleX(1);
+  }
+
+  .nav__link--active::after {
+    background: linear-gradient(var(--color-primary), var(--color-primary)) bottom / 100% 1px no-repeat;
+  }
+
+  /* … et son numéro apparaît au-dessus */
+  .nav__link::before {
+    content: counter(nav, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: -0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    letter-spacing: 0.06em;
+    color: var(--color-primary);
+    opacity: 0;
+    transform: translateY(3px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .nav__link:hover::before {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav__link::after,
+    .nav__link::before {
+      transition: none;
+    }
   }
 
   /* Navigation dans le menu mobile plein écran : liens numérotés en grande serif */
@@ -93,7 +146,14 @@ const isActiveLink = (href: string) => {
     border-bottom: 1px solid var(--color-border-subtle);
   }
 
+  :global(.mobile-menu) .nav__link::after {
+    display: none;
+  }
+
   :global(.mobile-menu) .nav__link::before {
+    position: static;
+    opacity: 1;
+    transform: none;
     content: counter(nav, decimal-leading-zero);
     font-family: var(--font-mono);
     font-size: var(--text-xs);

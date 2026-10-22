@@ -1,6 +1,8 @@
 ---
 import PageLayout from "../../layouts/PageLayout.astro";
 import Section from "../../components/Section.astro";
+import LocalTime from "../../components/LocalTime.astro";
+import CopyButton from "../../components/CopyButton.astro";
 ---
 
 <PageLayout
@@ -35,6 +37,7 @@ import Section from "../../components/Section.astro";
                             >
                                 vincent.foriel@gmail.com
                             </a>
+                            <CopyButton text="vincent.foriel@gmail.com" lang="en" />
                         </div>
                     </div>
 
@@ -43,6 +46,7 @@ import Section from "../../components/Section.astro";
                         <div>
                             <h3 class="contact-method__title">Location</h3>
                             <p class="contact-method__text">Nice, France</p>
+                            <LocalTime lang="en" />
                         </div>
                     </div>
                 </div>

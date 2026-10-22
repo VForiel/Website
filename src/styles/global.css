@@ -32,7 +32,7 @@
     --color-text-muted: hsl(225, 6%, 52%);
     --color-background: hsl(226, 30%, 6%);
     --color-background-secondary: hsl(226, 22%, 9%);
-    --color-surface: hsla(226, 30%, 6%, 0.92);
+    --color-surface: hsla(226, 30%, 6%, 0.97);
     --color-border: hsl(226, 12%, 20%);
     --color-border-subtle: hsl(226, 14%, 14%);
 
@@ -106,7 +106,7 @@
     --color-text-muted: hsl(222, 6%, 48%);
     --color-background: hsl(44, 28%, 96%);
     --color-background-secondary: hsl(42, 22%, 92%);
-    --color-surface: hsla(44, 28%, 96%, 0.94);
+    --color-surface: hsla(44, 28%, 96%, 0.97);
     --color-border: hsl(40, 10%, 80%);
     --color-border-subtle: hsl(40, 12%, 88%);
 
@@ -426,5 +426,53 @@ body::after {
 @media (max-width: 640px) {
     main .lead.lead {
         font-size: var(--text-lg);
+    }
+}
+
+/* ---------- Transitions entre pages (View Transitions entre documents) ---------- */
+
+@view-transition {
+    navigation: auto;
+}
+
+/* Le bandeau et le header ne bougent pas : seul le contenu fond enchaîné */
+.ephemeris {
+    view-transition-name: ephemeris;
+}
+
+.header {
+    view-transition-name: site-header;
+}
+
+::view-transition-old(root) {
+    animation: 180ms ease both page-out;
+}
+
+::view-transition-new(root) {
+    animation: 280ms ease 60ms both page-in;
+}
+
+::view-transition-group(project-image),
+::view-transition-group(project-title) {
+    animation-duration: 420ms;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes page-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes page-in {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    @view-transition {
+        navigation: none;
     }
 }

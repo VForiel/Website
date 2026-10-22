@@ -6,6 +6,7 @@ export const strings: Record<Locale, {
         about: string;
         expertise: string;
         portfolio: string;
+        associations: string;
         cv: string;
         contact: string;
     };

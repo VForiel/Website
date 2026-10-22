@@ -5,14 +5,21 @@
 
 interface Props {
     lang?: "fr" | "en";
+    /** « empty » : plaque sans objet, seulement le bruit du détecteur (page 404) */
+    variant?: "nulling" | "empty";
+    /** Remplace le numéro et la légende de la figure */
+    fig?: string;
+    caption?: string;
 }
 
-const { lang = "fr" } = Astro.props;
+const { lang = "fr", variant = "nulling", fig, caption } = Astro.props;
 
 const copy = {
     fr: {
         fig: "Fig. 1",
         caption: "Mon projet de thèse : annuler la lumière d'une étoile pour voir les planètes situées à côté.",
+        waves: "Combinaison des ondes de deux télescopes, A et B",
+        sum: "A + B",
         star: "étoile",
         planet: "planète",
         on: "nulling",
@@ -21,6 +28,8 @@ const copy = {
     en: {
         fig: "Fig. 1",
         caption: "My PhD project: cancelling the light of a star to see the planets right next to it.",
+        waves: "Combining the waves of two telescopes, A and B",
+        sum: "A + B",
         star: "star",
         planet: "planet",
         on: "nulling",
@@ -29,20 +38,33 @@ const copy = {
 }[lang];
 ---
 
-<figure class="plate" data-plate>
+<figure class="plate" data-plate data-variant={variant}>
+    <div class="plate__body">
     <div class="plate__frame">
         <canvas class="plate__canvas" width="360" height="360" role="img" aria-label={copy.aria}></canvas>
-        <span class="plate__label plate__label--fig">{copy.fig}</span>
+        <span class="plate__label plate__label--fig">{fig ?? copy.fig}</span>
         <span class="plate__label plate__label--state" data-plate-state>
             <span class="plate__dot"></span>{copy.on}
         </span>
-        <span class="plate__label plate__label--star">{copy.star}</span>
+        {variant === "nulling" && <span class="plate__label plate__label--star">{copy.star}</span>}
         <span class="plate__label plate__label--planet" data-plate-planet>{copy.planet}</span>
         <span class="plate__scale" aria-hidden="true">5 λ/D</span>
         <span class="plate__reticle" aria-hidden="true" data-plate-reticle></span>
         <span class="plate__label plate__label--readout" aria-hidden="true" data-plate-readout></span>
     </div>
-    <figcaption class="plate__caption">{copy.caption}</figcaption>
+    {
+        variant === "nulling" && (
+            <div class="plate__waves" aria-label={copy.waves} role="img">
+                <canvas class="plate__waves-canvas" data-plate-waves></canvas>
+                <span class="plate__label plate__label--fig">Fig. 1b</span>
+                <span class="plate__label plate__label--phase" data-plate-phase>Δφ = 0.00π</span>
+                <span class="plate__label plate__label--lane-ab"><i class="plate__key plate__key--a"></i>A <i class="plate__key plate__key--b"></i>B</span>
+                <span class="plate__label plate__label--lane-sum"><i class="plate__key plate__key--sum"></i>{copy.sum}</span>
+            </div>
+        )
+    }
+    </div>
+    <figcaption class="plate__caption">{caption ?? copy.caption}</figcaption>
 </figure>
 
 <style>
@@ -62,12 +84,27 @@ const copy = {
         background: #000;
     }
 
+    /* Avec les ondes, l'ensemble plaque + ondes est carré : la plaque fait 360 × 260 */
+    .plate[data-variant="nulling"] .plate__body {
+        aspect-ratio: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .plate[data-variant="nulling"] .plate__frame {
+        aspect-ratio: 36 / 26;
+    }
+
     :global(.light-theme) .plate__frame {
         background: hsl(44, 28%, 96%);
     }
 
-    /* Repères de cadrage aux quatre coins */
-    .plate__frame::after {
+    /* Repères de cadrage aux quatre coins de la plaque et de ses ondes */
+    .plate__body {
+        position: relative;
+    }
+
+    .plate__body::after {
         content: "";
         position: absolute;
         inset: -9px;
@@ -137,9 +174,8 @@ const copy = {
         transform: translate(1.6rem, 1.4rem);
     }
 
+    /* Position fixée par le script, selon les dimensions de la plaque */
     .plate__label--planet {
-        left: 70%;
-        top: 32%;
         transform: translate(0.9rem, -1.6rem);
         opacity: 0;
         transition: opacity 0.8s ease;
@@ -211,6 +247,82 @@ const copy = {
         }
     }
 
+    /* Fig. 1b : ondes des deux télescopes et leur somme, sous la plaque */
+    .plate__waves {
+        position: relative;
+        flex: 1;
+        min-height: 0;
+        border: 1px solid var(--color-border);
+        border-top: none;
+        background: #000;
+    }
+
+    :global(.light-theme) .plate__waves {
+        background: hsl(44, 28%, 96%);
+    }
+
+    .plate__waves-canvas {
+        width: 100%;
+        height: 100%;
+    }
+
+    .plate__label--phase {
+        top: var(--space-3);
+        right: var(--space-3);
+        text-transform: none;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .plate__label--lane-ab,
+    .plate__label--lane-sum {
+        left: var(--space-3);
+        display: flex;
+        align-items: center;
+        gap: 0.4em;
+        text-transform: none;
+    }
+
+    .plate__label--lane-ab {
+        top: calc(44% - 0.45rem);
+    }
+
+    .plate__label--lane-sum {
+        top: calc(78% - 0.45rem);
+    }
+
+    .plate__label--lane-ab,
+    .plate__label--lane-sum,
+    .plate__waves .plate__label--fig {
+        font-size: 0.625rem;
+    }
+
+    .plate__waves .plate__label--fig {
+        top: var(--space-3);
+    }
+
+    .plate__key {
+        display: inline-block;
+        width: 10px;
+        height: 2px;
+    }
+
+    .plate__key--a {
+        background: var(--color-accent);
+    }
+
+    .plate__key--b {
+        background: hsl(330, 45%, 68%);
+    }
+
+    .plate__key--sum {
+        background: var(--color-primary);
+        height: 3px;
+    }
+
+    :global(.light-theme) .plate__key--b {
+        background: hsl(205, 55%, 38%);
+    }
+
     .plate__caption {
         margin-block-start: var(--space-4);
         font-family: var(--font-mono);
@@ -242,26 +354,48 @@ const copy = {
         return v * v;
     }
 
-    const SIZE = 360;
+    const W = 360;
     const SCALE = 0.2; // rayon (en unités de la fonction d'Airy) par pixel
-    const PLANET = { x: 0.7 * SIZE, y: 0.32 * SIZE, flux: 1e-3 };
+    // Planète à (+72, −64,8) pixels de l'étoile, soit environ (+4,6 ; +4,1) λ/D
+    const PLANET = { dx: 72, dy: -64.8, flux: 1e-3 };
     const LOG_FLOOR = 3e-6;
 
     // Lumière à large bande : moyenne de taches d'Airy sur ±20 % en longueur d'onde,
     // ce qui adoucit les anneaux externes comme sur une vraie image
     const BAND = [0.8, 0.9, 1, 1.1, 1.2];
 
-    function buildField(cx: number, cy: number): Float32Array {
-        const field = new Float32Array(SIZE * SIZE);
-        for (let j = 0; j < SIZE; j++) {
-            for (let i = 0; i < SIZE; i++) {
-                const r = Math.hypot(i - cx, j - cy) * SCALE;
-                let sum = 0;
-                for (const w of BAND) sum += airy(r / w);
-                field[j * SIZE + i] = sum / BAND.length;
+    // Le profil ne dépend que de la distance au centre : il est tabulé une fois au quart de pixel,
+    // ce qui évite de recalculer des fonctions de Bessel pour chaque pixel
+    const RADIAL_STEP = 4; // échantillons par pixel
+    const radialProfile = (() => {
+        const length = Math.ceil(Math.hypot(W, W) * RADIAL_STEP) + 1;
+        const table = new Float32Array(length);
+        for (let k = 0; k < length; k++) {
+            const r = (k / RADIAL_STEP) * SCALE;
+            let sum = 0;
+            for (const w of BAND) sum += airy(r / w);
+            table[k] = sum / BAND.length;
+        }
+        return table;
+    })();
+
+    function buildField(cx: number, cy: number, H: number): Float32Array {
+        const field = new Float32Array(W * H);
+        for (let j = 0; j < H; j++) {
+            for (let i = 0; i < W; i++) {
+                field[j * W + i] = radialProfile[Math.round(Math.hypot(i - cx, j - cy) * RADIAL_STEP)];
             }
         }
         return field;
+    }
+
+    // log2 approché par lecture de l'exposant et de la mantisse d'un flottant (erreur < 0,09),
+    // bien en dessous d'un niveau de la palette de 256 couleurs sur une échelle de 18 octaves
+    const floatView = new Float32Array(1);
+    const intView = new Int32Array(floatView.buffer);
+    function fastLog2(x: number): number {
+        floatView[0] = x;
+        return intView[0] * 1.1920928955078125e-7 - 126.94269504;
     }
 
     // Palettes : sombre = nuit -> or pâle -> blanc ; clair = négatif encre sur papier
@@ -298,6 +432,10 @@ const copy = {
         const canvas = root.querySelector("canvas") as HTMLCanvasElement;
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
+        // Plaque 360 × 260 quand les ondes occupent le bas de la figure carrée, 360 × 360 sinon
+        const H = root.dataset.variant === "nulling" ? 260 : W;
+        canvas.width = W;
+        canvas.height = H;
         const stateLabel = root.querySelector("[data-plate-state]") as HTMLElement;
         const frame = root.querySelector(".plate__frame") as HTMLElement;
         const reticle = root.querySelector("[data-plate-reticle]") as HTMLElement;
@@ -311,27 +449,33 @@ const copy = {
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
             reticle.style.transform = `translate(${x}px, ${y}px)`;
-            const px = (x / rect.width) * SIZE - SIZE / 2;
-            const py = (y / rect.height) * SIZE - SIZE / 2;
+            const px = (x / rect.width) * W - W / 2;
+            const py = (y / rect.height) * H - H / 2;
             readout.textContent = `Δx ${signed(px / PIXELS_PER_LD)}  Δy ${signed(-py / PIXELS_PER_LD)} λ/D`;
         });
         const planetLabel = root.querySelector("[data-plate-planet]") as HTMLElement;
+        const planetX = W / 2 + PLANET.dx;
+        const planetY = H / 2 + PLANET.dy;
+        planetLabel.style.left = `${(planetX / W) * 100}%`;
+        planetLabel.style.top = `${(planetY / H) * 100}%`;
 
-        const star = buildField(SIZE / 2, SIZE / 2);
-        const planet = buildField(PLANET.x, PLANET.y);
+        const star = buildField(W / 2, H / 2, H);
+        const planet = buildField(planetX, planetY, H);
         // Bruit de fond fixe (lecture du détecteur)
-        const noise = new Float32Array(SIZE * SIZE);
+        const noise = new Float32Array(W * H);
         for (let k = 0; k < noise.length; k++) noise[k] = Math.random() * 6e-6;
 
-        const image = ctx.createImageData(SIZE, SIZE);
-        const logMin = Math.log10(LOG_FLOOR);
+        const image = ctx.createImageData(W, H);
+        const logMin = Math.log2(LOG_FLOOR);
         let lut = buildLut(document.documentElement.classList.contains("light-theme"));
 
+        let lastFlux = -1;
         function render(starFlux: number) {
+            lastFlux = starFlux;
             const d = image.data;
             for (let k = 0; k < star.length; k++) {
                 const v = starFlux * star[k] + PLANET.flux * planet[k] + noise[k];
-                const t = (Math.log10(Math.max(v, LOG_FLOOR)) - logMin) / -logMin;
+                const t = (fastLog2(Math.max(v, LOG_FLOOR)) - logMin) / -logMin;
                 const idx = Math.min(255, Math.max(0, (t * 255) | 0)) * 3;
                 const p = k * 4;
                 d[p] = lut[idx];
@@ -345,18 +489,99 @@ const copy = {
             planetLabel.classList.toggle("is-visible", nulled);
         }
 
-        // Cycle : étoile allumée, extinction, null tenu, rallumage
+        // Cycle du déphasage : 0 (interférence constructive), montée vers π, null tenu, retour
         const CYCLE = 9000;
-        const MIN_FLUX = 2e-4;
-        function fluxAt(time: number): number {
+        const MIN_FLUX = 2e-4; // fuite résiduelle : un null n'est jamais parfait
+        function phaseAt(time: number): number {
             const u = (time % CYCLE) / CYCLE;
             const ease = (x: number) => 0.5 - 0.5 * Math.cos(Math.PI * x);
-            let level; // 0 = allumée, 1 = éteinte
+            let level;
             if (u < 0.25) level = 0;
             else if (u < 0.45) level = ease((u - 0.25) / 0.2);
             else if (u < 0.85) level = 1;
             else level = 1 - ease((u - 0.85) / 0.15);
-            return Math.pow(10, Math.log10(MIN_FLUX) * level);
+            return level * Math.PI;
+        }
+
+        // Intensité de l'étoile sur l'axe dans la sortie combinée : cos²(Δφ/2)
+        const starFlux = (phase: number) => Math.max(MIN_FLUX, Math.cos(phase / 2) ** 2);
+
+        // Fig. 1b : ondes A et B (B déphasée de Δφ) et leur somme
+        const wavesCanvas = root.querySelector<HTMLCanvasElement>("[data-plate-waves]");
+        const wavesCtx = wavesCanvas?.getContext("2d");
+        const phaseLabel = root.querySelector<HTMLElement>("[data-plate-phase]");
+        let palette = { a: "", b: "", sum: "", axis: "" };
+        function readPalette() {
+            const light = document.documentElement.classList.contains("light-theme");
+            const css = getComputedStyle(document.documentElement);
+            palette = {
+                a: css.getPropertyValue("--color-accent").trim(),
+                b: light ? "hsl(205, 55%, 38%)" : "hsl(330, 45%, 68%)",
+                sum: css.getPropertyValue("--color-primary").trim(),
+                axis: light ? "rgba(30, 40, 70, 0.18)" : "rgba(220, 225, 240, 0.14)",
+            };
+        }
+        readPalette();
+
+        function drawWaves(phase: number, time: number) {
+            if (!wavesCanvas || !wavesCtx) return;
+            const ratio = window.devicePixelRatio || 1;
+            const w = wavesCanvas.clientWidth;
+            const h = wavesCanvas.clientHeight;
+            if (wavesCanvas.width !== Math.round(w * ratio)) {
+                wavesCanvas.width = Math.round(w * ratio);
+                wavesCanvas.height = Math.round(h * ratio);
+            }
+            const ctx = wavesCtx;
+            ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+            ctx.clearRect(0, 0, w, h);
+
+            const left = 72;
+            const k = (2 * Math.PI) / ((w - left) / 2.5); // deux périodes et demie
+            const omega = (2 * Math.PI) / 1400;
+            const amplitude = h * 0.085;
+            const laneAB = h * 0.44;
+            const laneSum = h * 0.78;
+
+            const trace = (y0: number, f: (x: number) => number, colour: string, width: number) => {
+                ctx.beginPath();
+                for (let x = left; x <= w; x += 2) {
+                    const y = y0 - f(x) * amplitude;
+                    if (x === left) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.strokeStyle = colour;
+                ctx.lineWidth = width;
+                ctx.stroke();
+            };
+
+            ctx.fillStyle = palette.axis;
+            ctx.fillRect(left, laneAB, w - left, 1);
+            ctx.fillRect(left, laneSum, w - left, 1);
+
+            const a = (x: number) => Math.sin(k * x - omega * time);
+            const b = (x: number) => Math.sin(k * x - omega * time + phase);
+            trace(laneAB, a, palette.a, 1.25);
+            trace(laneAB, b, palette.b, 1.25);
+            trace(laneSum, (x) => a(x) + b(x), palette.sum, 2);
+
+            if (phaseLabel) phaseLabel.textContent = `Δφ = ${(phase / Math.PI).toFixed(2)}π`;
+        }
+
+        // Plaque vide : rien au-dessus du bruit, image fixe
+        if (root.dataset.variant === "empty") {
+            star.fill(0);
+            planet.fill(0);
+            // Bruit renforcé pour que le grain du détecteur soit visible
+            for (let k = 0; k < noise.length; k++) noise[k] *= 12;
+            render(0);
+            planetLabel.classList.remove("is-visible");
+            new MutationObserver(() => {
+                lut = buildLut(document.documentElement.classList.contains("light-theme"));
+                render(0);
+                planetLabel.classList.remove("is-visible");
+            }).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+            return;
         }
 
         const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -364,12 +589,19 @@ const copy = {
         const start = performance.now();
 
         function loop(now: number) {
-            if (visible) render(fluxAt(now - start));
+            if (visible) {
+                const phase = phaseAt(now - start);
+                const flux = starFlux(phase);
+                // L'image n'est recalculée que si le flux de l'étoile a changé (pas pendant les paliers)
+                if (Math.abs(flux - lastFlux) > lastFlux * 0.01) render(flux);
+                drawWaves(phase, now - start);
+            }
             requestAnimationFrame(loop);
         }
 
         if (reduced) {
             render(MIN_FLUX);
+            drawWaves(Math.PI, 0);
         } else {
             new IntersectionObserver(([entry]) => (visible = entry.isIntersecting)).observe(canvas);
             requestAnimationFrame(loop);
@@ -378,7 +610,12 @@ const copy = {
         // Changement de thème : nouvelle palette
         new MutationObserver(() => {
             lut = buildLut(document.documentElement.classList.contains("light-theme"));
-            if (reduced) render(MIN_FLUX);
+            readPalette();
+            lastFlux = -1;
+            if (reduced) {
+                render(MIN_FLUX);
+                drawWaves(Math.PI, 0);
+            }
         }).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
     }
 

@@ -38,7 +38,7 @@ const regularProjects = projects.filter((p) => !p.data.featured);
             <Section>
                 <h2 class="section-title">Projets principaux</h2>
                 <div class="projects-grid">
-                    {featuredProjects.map((project) => {
+                    {featuredProjects.map((project, index) => {
                         // Remove .fr suffix from slug (e.g., "heliosfr" -> "helios")
                         const cleanSlug = project.id.replace(/fr$/, "");
                         return (
@@ -52,6 +52,7 @@ const regularProjects = projects.filter((p) => !p.data.featured);
                                 projectSlug={cleanSlug}
                                 externalUrl={project.data.url}
                                 lang="fr"
+                                priority={index < 2}
                             />
                         );
                     })}

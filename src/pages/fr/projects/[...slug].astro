@@ -10,17 +10,33 @@ export async function getStaticPaths() {
 
     const catalogue = sortProjects(projects);
 
+    // Voisins dans le catalogue : « précédent » = plus ancien, « suivant » = plus récent
+    const neighbour = (index: number) => {
+        const other = catalogue[index];
+        if (!other) return undefined;
+        return {
+            title: other.data.title,
+            slug: other.id.replace(/fr$/, ""),
+            designation: designation(index, catalogue.length),
+        };
+    };
+
     return catalogue.map((project, index) => {
         // Remove .fr suffix from slug (e.g., "heliosfr" -> "helios")
         const cleanSlug = project.id.replace(/fr$/, "");
         return {
             params: { slug: cleanSlug },
-            props: { project, designation: designation(index, catalogue.length) },
+            props: {
+                project,
+                designation: designation(index, catalogue.length),
+                previous: neighbour(index + 1),
+                next: neighbour(index - 1),
+            },
         };
     });
 }
 
-const { project, designation: catalogueId } = Astro.props;
+const { project, designation: catalogueId, previous, next } = Astro.props;
 const { Content } = await render(project);
 const {
     title,
@@ -43,6 +59,8 @@ const {
     url={url}
     lang="fr"
     designation={catalogueId}
+    previous={previous}
+    next={next}
 >
     <Content />
 </ProjectLayout>

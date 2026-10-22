@@ -2,6 +2,7 @@
 import BaseLayout from "./BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Ephemeris from "../components/Ephemeris.astro";
+import CatalogueSearch from "../components/CatalogueSearch.astro";
 import Footer from "../components/Footer.astro";
 import Banner from "../components/Banner.astro";
 import ParticlesBackground from "../components/ParticlesBackground.astro";
@@ -11,14 +12,16 @@ interface Props {
     title: string;
     description?: string;
     currentPath?: string;
+    noindex?: boolean;
 }
 
-const { title, description, currentPath } = Astro.props;
+const { title, description, currentPath, noindex } = Astro.props;
 const path = currentPath ?? Astro.url.pathname;
 const lang = detectLocaleFromPath(path);
 ---
 
-<BaseLayout title={title} description={description} lang={lang}>
+<BaseLayout title={title} description={description} lang={lang} noindex={noindex}>
+    <div class="reading-progress" aria-hidden="true"></div>
     <ParticlesBackground />
     <Ephemeris lang={lang} />
     <Header currentPath={path} lang={lang} />
@@ -27,9 +30,47 @@ const lang = detectLocaleFromPath(path);
     </main>
     <Banner lang={lang} />
     <Footer lang={lang} />
+    <CatalogueSearch lang={lang} />
 </BaseLayout>
 
 <style>
+    /* Progression de lecture, sur toutes les pages : une règle graduée qui se remplit d'or (animation liée au défilement) */
+    .reading-progress {
+        display: none;
+    }
+
+    @supports (animation-timeline: scroll()) {
+        .reading-progress {
+            display: block;
+            position: fixed;
+            inset: 0 0 auto 0;
+            height: 4px;
+            z-index: 200;
+            pointer-events: none;
+            background: repeating-linear-gradient(90deg, var(--color-text-muted) 0 1px, transparent 1px 10px);
+            opacity: 0.6;
+        }
+
+        .reading-progress::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--color-primary);
+            transform-origin: 0 50%;
+            animation: reading-progress linear both;
+            animation-timeline: scroll(root);
+        }
+
+        @keyframes reading-progress {
+            from {
+                transform: scaleX(0);
+            }
+            to {
+                transform: scaleX(1);
+            }
+        }
+    }
+
     main {
         min-height: calc(100vh - 200px);
         padding-block-start: var(--space-8);

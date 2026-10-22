@@ -1,0 +1,99 @@
+---
+// Heure qu'il est à Nice, avec une indication sur le délai de réponse probable
+
+interface Props {
+    lang?: "fr" | "en";
+}
+
+const { lang = "fr" } = Astro.props;
+const copy = {
+    fr: {
+        prefix: "Il est",
+        suffix: "à Nice",
+        working: "En pleine journée de travail.",
+        evening: "Fin de journée : réponse probable demain matin.",
+        night: "C'est la nuit ici : réponse probable dans la matinée.",
+        weekend: "C'est le week-end : réponse probable lundi.",
+    },
+    en: {
+        prefix: "It is",
+        suffix: "in Nice",
+        working: "Right in the middle of the working day.",
+        evening: "End of the day: likely reply tomorrow morning.",
+        night: "It is night here: likely reply in the morning.",
+        weekend: "It is the weekend: likely reply on Monday.",
+    },
+}[lang];
+---
+
+<p class="local-time" data-local-time data-lang={lang} hidden>
+    <span class="local-time__clock">{copy.prefix} <b data-local-time-clock></b> {copy.suffix}</span>
+    <span class="local-time__status" data-local-time-status></span>
+    <template data-status-working>{copy.working}</template>
+    <template data-status-evening>{copy.evening}</template>
+    <template data-status-night>{copy.night}</template>
+    <template data-status-weekend>{copy.weekend}</template>
+</p>
+
+<style>
+    .local-time {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+        margin-block-start: var(--space-2);
+        font-size: var(--text-sm);
+        color: var(--color-text-secondary);
+    }
+
+    .local-time b {
+        font-family: var(--font-mono);
+        font-weight: 400;
+        color: var(--color-primary);
+        font-variant-numeric: tabular-nums;
+    }
+
+    .local-time__status {
+        font-family: var(--font-serif);
+        font-style: italic;
+        color: var(--color-text-muted);
+    }
+</style>
+
+<script>
+    const root = document.querySelector<HTMLElement>("[data-local-time]");
+
+    if (root) {
+        const clock = root.querySelector<HTMLElement>("[data-local-time-clock]")!;
+        const status = root.querySelector<HTMLElement>("[data-local-time-status]")!;
+        const locale = root.dataset.lang === "en" ? "en-GB" : "fr-FR";
+        const parts = new Intl.DateTimeFormat("en-GB", {
+            timeZone: "Europe/Paris",
+            weekday: "short",
+            hour: "numeric",
+            hourCycle: "h23",
+        });
+        const display = new Intl.DateTimeFormat(locale, {
+            timeZone: "Europe/Paris",
+            hour: "2-digit",
+            minute: "2-digit",
+        });
+
+        const message = (name: string) =>
+            root.querySelector<HTMLTemplateElement>(`[data-status-${name}]`)!.content.textContent ?? "";
+
+        function tick() {
+            const now = new Date();
+            const fields = Object.fromEntries(parts.formatToParts(now).map((part) => [part.type, part.value]));
+            const hour = Number(fields.hour);
+            const weekend = fields.weekday === "Sat" || fields.weekday === "Sun";
+            clock.textContent = display.format(now);
+            status.textContent = message(
+                weekend ? "weekend" : hour >= 8 && hour < 19 ? "working" : hour >= 19 ? "evening" : "night",
+            );
+        }
+
+        tick();
+        root.hidden = false;
+        setInterval(tick, 30000);
+    }
+</script>

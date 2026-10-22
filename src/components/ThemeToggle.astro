@@ -105,6 +105,7 @@
                     toggleCount++;
 
                     if (toggleCount > 10) {
+                        document.dispatchEvent(new CustomEvent("secret-found", { detail: "day-night" }));
                         if (newTheme === "light") {
                             audioJour.currentTime = 0;
                             audioJour

@@ -59,9 +59,30 @@ const associationsCollection = defineCollection({
     }),
 });
 
+// Publications : une entrée par fichier YAML, commune aux deux langues.
+// Les présentations n'ont pas forcément de titre ; le BibTeX, s'il est fourni, peut être copié depuis la page.
+const publicationsCollection = defineCollection({
+    loader: glob({ pattern: '**/*.yaml', base: './src/content/publications' }),
+    schema: z.object({
+        type: z.enum(['article', 'proceedings', 'talk', 'poster', 'thesis']),
+        title: z.string().optional(),
+        authors: z.array(z.string()).default([]),
+        venue: z.string(),
+        location: z.string().optional(),
+        date: partialDate,
+        status: z.enum(['published', 'accepted', 'submitted', 'in-prep', 'upcoming']).optional(),
+        doi: z.string().optional(),
+        arxiv: z.string().optional(),
+        ads: z.string().url().optional(),
+        url: z.string().url().optional(),
+        bibtex: z.string().optional(),
+    }),
+});
+
 // Export a single `collections` object to register your collection(s)
 export const collections = {
     'projects': projectsCollection,
     'services': servicesCollection,
     'associations': associationsCollection,
+    'publications': publicationsCollection,
 };

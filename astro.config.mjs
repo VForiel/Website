@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import { createHash } from 'node:crypto';
 import { readdirSync, readFileSync } from 'node:fs';
+import ogImages from './integrations/og-images.mjs';
 
 // Astro n'ajoute pas à la CSP les scripts `is:inline` (recopiés tels quels dans les pages) :
 // on calcule leurs empreintes à partir des sources.
@@ -25,6 +26,8 @@ export default defineConfig({
     build: {
         assets: '_assets'
     },
+    // Images de partage (Open Graph) générées pour chaque page à la fin du build
+    integrations: [ogImages()],
     // Content Security Policy en balise <meta> (GitHub Pages ne permet pas d'en-têtes) :
     // Astro y ajoute l'empreinte de chaque script et style inline. Seul tiers autorisé : Umami (statistiques).
     security: {

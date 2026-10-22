@@ -1,8 +1,8 @@
 /* Typographie - polices auto-hébergées (Fontsource, importées dans BaseLayout) :
-   Newsreader pour les titres, IBM Plex Sans pour le texte, IBM Plex Mono pour les métadonnées */
+   Newsreader (statique 400, 400 italique, 500) pour les titres, IBM Plex Sans pour le texte, IBM Plex Mono pour les métadonnées */
 
 :root {
-    --font-serif: 'Newsreader Variable', 'Newsreader', Georgia, 'Times New Roman', serif;
+    --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
     --font-sans: 'IBM Plex Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 }
@@ -24,7 +24,6 @@ h6 {
     font-weight: 500;
     line-height: 1.15;
     letter-spacing: -0.01em;
-    font-optical-sizing: auto;
     text-wrap: balance;
 }
 
