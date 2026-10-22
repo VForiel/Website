@@ -21,15 +21,16 @@ export function withLocalePrefix(href: string, locale: Locale): string {
     const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     const prefix = `${base}/${locale}`;
 
+    // Barre oblique finale : GitHub Pages sert /fr/portfolio/ directement, /fr/portfolio passe par une redirection
     if (href === '/') {
-        return prefix;
+        return `${prefix}/`;
     }
 
     // Remove any existing locale prefix first
     const cleanHref = href.replace(/^\/(fr|en)/, '') || '/';
 
     // Add the new locale prefix
-    return cleanHref === '/' ? prefix : `${prefix}${cleanHref}`;
+    return cleanHref === '/' ? `${prefix}/` : `${prefix}${cleanHref.replace(/\/?$/, '/')}`;
 }
 
 export function toggleLocaleHref(currentPath: string, currentLocale: Locale): string {
@@ -43,7 +44,10 @@ export function toggleLocaleHref(currentPath: string, currentLocale: Locale): st
     }
     pathWithoutLocale = pathWithoutLocale.replace(/^\/(fr|en)/, '') || '/';
 
-    // Add target locale prefix
-    const newPath = pathWithoutLocale === '/' ? `/${targetLocale}` : `/${targetLocale}${pathWithoutLocale}`;
+    // La page 404 n'existe qu'en un exemplaire : la version de l'autre langue renvoie à son accueil
+    if (pathWithoutLocale.replace(/\/$/, '') === '/404') pathWithoutLocale = '/';
+
+    // Add target locale prefix (avec barre oblique finale, servie sans redirection)
+    const newPath = pathWithoutLocale === '/' ? `/${targetLocale}/` : `/${targetLocale}${pathWithoutLocale.replace(/\/?$/, '/')}`;
     return `${base}${newPath}`;
 }

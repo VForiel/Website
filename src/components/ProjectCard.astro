@@ -32,7 +32,7 @@ const {
 const parsedEnd = parsePartialDate(endDate);
 const dateLabel = buildDateLabel(startDate, endDate, lang);
 const projectLink = projectSlug
-    ? `${import.meta.env.BASE_URL.replace(/\/$/, "")}/${lang}/projects/${projectSlug}`
+    ? `${import.meta.env.BASE_URL.replace(/\/$/, "")}/${lang}/projects/${projectSlug}/`
     : null;
 const readMoreLabel = lang === "fr" ? "Lire la suite →" : "Read more →";
 const externalLinkLabel = lang === "fr" ? "Voir le projet →" : "View project →";

@@ -108,7 +108,7 @@ const ogImage = new URL(`/og/${lang === "fa" || pagePath === "" ? "fr" : pagePat
                     if (document.querySelector(".project-page")) {
                         return { img: document.querySelector(".thumbnail-image"), title: document.querySelector(".project-title") };
                     }
-                    var link = document.querySelector('a[href$="/projects/' + slug + '"]');
+                    var link = document.querySelector('a[href$="/projects/' + slug + '/"], a[href$="/projects/' + slug + '"]');
                     var card = link && link.closest(".project-card, .timeline-item");
                     if (!card) return {};
                     return { img: card.querySelector("img"), title: card.querySelector("h3") };
