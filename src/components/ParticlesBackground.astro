@@ -54,7 +54,7 @@
         </div>
 
         <!-- English -->
-        <div class="polaris-lang" data-lang="en" style="display:none;">
+        <div class="polaris-lang" data-lang="en">
             <div class="modal-header">
                 <h3>The North Star</h3>
                 <div class="header-line"></div>
@@ -296,7 +296,7 @@
                     ? "en"
                     : "fr";
                 modal.querySelectorAll(".polaris-lang").forEach((el) => {
-                    el.style.display = el.dataset.lang === lang ? "" : "none";
+                    el.style.display = el.dataset.lang === lang ? "block" : "none";
                 });
                 modal.classList.remove("hidden");
                 this.isModalOpen = true;
@@ -791,6 +791,10 @@
 </script>
 
 <style>
+    .polaris-lang[data-lang="en"] {
+        display: none;
+    }
+
     .particles-bg {
         position: fixed;
         top: 0;

@@ -86,10 +86,9 @@ import Section from "../../components/Section.astro";
             <!-- Sidebar with availability -->
             <aside class="contact-sidebar">
                 <div
-                    class="info-card"
-                    style="border: 1px solid var(--color-primary); background-color: rgba(var(--color-primary-rgb), 0.05);"
+                    class="info-card info-card--highlight"
                 >
-                    <h3 style="color: var(--color-primary);">
+                    <h3>
                         🚀 Seeking Opportunities
                     </h3>
                     <p>
@@ -123,6 +122,15 @@ import Section from "../../components/Section.astro";
 </PageLayout>
 
 <style>
+    .info-card.info-card--highlight {
+        border: 1px solid var(--color-primary);
+        background-color: rgba(var(--color-primary-rgb), 0.05);
+    }
+
+    .info-card.info-card--highlight h3 {
+        color: var(--color-primary);
+    }
+
     .contact-header {
         max-width: 65ch;
         margin-inline: auto;

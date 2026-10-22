@@ -6,7 +6,7 @@ missions:
   - "Gunivers: Minecraft creation community fostering knowledge sharing"
   - "Curiosity: Discord space bringing together curious people for discussions on various topics"
 quote: "\"The internet offers us the best educational tools we could dream of\""
-logo: "/images/associations/altearn-logo.png"
+logo: "/images/associations/altearn-logo.webp"
 url: "https://altearn.xyz"
 socialLinks:
   - name: "Gunivers"

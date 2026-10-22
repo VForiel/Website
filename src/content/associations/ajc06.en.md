@@ -7,7 +7,7 @@ missions:
   - "Disseminate information on academic and professional opportunities"
   - "Facilitate the integration of PhD students in the research ecosystem"
   - "Participate in science outreach events (Science Festival, DECLICS program)"
-logo: "/images/associations/ajc06-logo.png"
+logo: "/images/associations/ajc06-logo.webp"
 url: "https://ajc06.com"
 socialLinks:
   - name: "Discord"

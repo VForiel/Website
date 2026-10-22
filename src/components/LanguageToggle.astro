@@ -57,7 +57,6 @@ const frHref = toggleLocaleHref(currentPath, "en");
             role="menuitem"
             href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}fa/`}
             class="lang__item lang__item--fa"
-            style="display:none;"
             data-fa-link>فارسی</a
         >
     </div>
@@ -213,6 +212,7 @@ const frHref = toggleLocaleHref(currentPath, "en");
 
     /* Farsi easter egg link - hidden by default */
     .lang__item--fa {
+        display: none;
         opacity: 0;
         border-top: 1px solid var(--color-border);
         margin-top: var(--space-2);

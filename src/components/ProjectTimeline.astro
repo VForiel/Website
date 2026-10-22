@@ -214,7 +214,7 @@ const t = labels[lang];
         }
     </div>
 
-    <div class="no-results" id="no-results" style="display: none;">
+    <div class="no-results" id="no-results">
         <p>{t.noProjects}</p>
     </div>
 </div>
@@ -909,6 +909,7 @@ const t = labels[lang];
     }
 
     .no-results {
+        display: none;
         text-align: center;
         padding: var(--space-12);
         color: var(--color-text-secondary);

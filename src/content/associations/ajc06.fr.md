@@ -7,7 +7,7 @@ missions:
   - "Diffuser des informations sur les opportunités académiques et professionnelles"
   - "Faciliter l'intégration des doctorants dans l'écosystème de recherche"
   - "Participer à des événements de médiation scientifique (Festival des Sciences, programme DECLICS)"
-logo: "/images/associations/ajc06-logo.png"
+logo: "/images/associations/ajc06-logo.webp"
 url: "https://ajc06.com"
 socialLinks:
   - name: "Discord"

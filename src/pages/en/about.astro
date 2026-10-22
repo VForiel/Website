@@ -100,8 +100,7 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
                 <div class="sidebar-card">
                     <h3>👤 About me</h3>
                     <ul
-                        class="interests-list"
-                        style="margin-block-start: var(--space-2);"
+                        class="interests-list interests-list--about"
                     >
                         <li><strong>Age:</strong> {age} years old</li>
                         <li><strong>Gender:</strong> Male</li>
@@ -159,6 +158,10 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
 </script>
 
 <style>
+    .interests-list--about {
+        margin-block-start: var(--space-2);
+    }
+
     .about-header {
         max-width: 65ch;
         margin-inline: auto;
