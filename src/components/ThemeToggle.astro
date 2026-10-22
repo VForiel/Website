@@ -45,6 +45,10 @@
 </button>
 
 <script is:inline>
+    // Le composant est inclus deux fois (navigation desktop et mobile) : le script ne doit agir qu'une fois
+    if (!window.__themeToggleReady) {
+    window.__themeToggleReady = true;
+
     // Fonction pour obtenir le thème initial
     function getInitialTheme() {
         // Vérifier localStorage d'abord
@@ -121,6 +125,7 @@
             }
         });
     });
+    }
 </script>
 
 <style>

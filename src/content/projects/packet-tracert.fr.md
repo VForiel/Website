@@ -3,7 +3,7 @@ title: "Packet Tracert"
 description: "Analyse et simulation réseau sous Packet Tracer durant l'IUT R&T"
 end-date: 2017
 tags: ["Informatique", "Académique", "Software"]
-image: "/images/projects/IA_packet-tracert.png"
+image: "/images/projects/IA_packet-tracert.webp"
 url: "https://github.com/VForiel/DUT-Packet_Tracert"
 featured: false
 locale: fr

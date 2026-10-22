@@ -4,7 +4,7 @@ description: "Étude comparative de différentes architectures de coronagraphes 
 start-date: 2020-02
 end-date: 2020-06
 tags: ["Physique", "Astro", "Académique", "Instrumentation", "Simulation"]
-image: "/images/projects/IA_coronagraph-analysis.png"
+image: "/images/projects/IA_coronagraph-analysis.webp"
 featured: false
 locale: fr
 ---

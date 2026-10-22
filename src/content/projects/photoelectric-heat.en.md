@@ -4,7 +4,7 @@ description: "A 2 weeks project to simulate how interstellar grains get ionised 
 end-date: 2021
 tags: ["Simulation", "Astro", "Physics", "Academic"]
 featured: false
-image: "/images/projects/IA_photoelectric-heat.png"
+image: "/images/projects/IA_photoelectric-heat.webp"
 locale: en
 ---
 

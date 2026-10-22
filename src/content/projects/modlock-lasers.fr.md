@@ -3,7 +3,7 @@ title: "Lasers à verrouillage de modes"
 description: "Simulation de la corrélation des modes laser dans une cavité pour créer des impulsions laser"
 end-date: 2022
 tags: ["Simulation", "Physique", "Académique"]
-image: "/images/projects/IA_modlock-lasers.png"
+image: "/images/projects/IA_modlock-lasers.webp"
 featured: false
 locale: fr
 ---

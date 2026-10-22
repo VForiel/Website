@@ -4,7 +4,7 @@ description: "Comparative study of different coronagraph architectures for exopl
 start-date: 2020-02
 end-date: 2020-06
 tags: ["Physics", "Astro", "Academic", "Instrumentation", "Simulation"]
-image: "/images/projects/IA_coronagraph-analysis.png"
+image: "/images/projects/IA_coronagraph-analysis.webp"
 featured: false
 locale: en
 ---

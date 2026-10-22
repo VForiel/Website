@@ -4,7 +4,7 @@ description: "Création d'une bibliothèque Fortran pour faciliter la création 
 end-date: 2022
 tags: ["Simulation", "Astro", "Académique"]
 featured: false
-image: "/images/projects/IA_prestellar-core-evolution.png"
+image: "/images/projects/IA_prestellar-core-evolution.webp"
 locale: fr
 ---
 

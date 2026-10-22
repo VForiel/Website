@@ -4,7 +4,7 @@ description: "Master project - Kuiper Belt object detection and analysis (2022)"
 end-date: 2022
 tags: ["Astro", "Academic"]
 featured: false
-image: "/images/projects/IA_kuiper-belt.png"
+image: "/images/projects/IA_kuiper-belt.webp"
 locale: en
 ---
 

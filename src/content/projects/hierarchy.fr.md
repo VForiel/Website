@@ -4,7 +4,7 @@ description: "Une map Minecraft PvP inspirée des MOBA avec 5 modes de jeu, 4 ca
 start-date: 2015
 end-date: 2021
 tags: ["Jeux", "Software", "Personnel"]
-image: "/images/projects/IA_hierarchy.png"
+image: "/images/projects/IA_hierarchy.webp"
 url: "https://gunivers.net/hierarchy/"
 featured: false
 locale: fr

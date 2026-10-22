@@ -4,7 +4,7 @@ description: "Une bibliothèque modulaire pour simplifier la création de systè
 start-date: 2016
 end-date: 2022
 tags: ["Informatique", "Jeux", "Associatif", "Physique", "Software"]
-image: "/images/projects/IA_bookshelf.png"
+image: "/images/projects/IA_bookshelf.webp"
 url: "https://docs.mcbookshelf.dev/en/latest/"
 featured: false
 locale: fr

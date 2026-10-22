@@ -3,7 +3,7 @@ title: "Usine 4.0"
 description: "Une courte aventure basée sur Minecraft utilisée comme support pédagogique par l'université de Poitiers pour expliquer le fonctionnement des usines 4.0"
 end-date: 2020
 tags: ["Enseignement", "Jeux", "Associatif"]
-image: "/images/projects/IA_factory-4-0.png"
+image: "/images/projects/IA_factory-4-0.webp"
 featured: false
 locale: fr
 ---

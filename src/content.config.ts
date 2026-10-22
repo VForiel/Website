@@ -1,5 +1,7 @@
 // Import utilities from `astro:content`
-import { z, defineCollection } from "astro:content";
+import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
 
 // Define a schema for each collection
 // Partial date: accepts "YYYY", "YYYY-MM", "YYYY-MM-DD", or a YAML-auto-parsed Date/Number
@@ -10,7 +12,7 @@ const partialDate = z.preprocess((val) => {
 }, z.string());
 
 const projectsCollection = defineCollection({
-    type: 'content',
+    loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
     schema: z.object({
         locale: z.enum(['fr', 'en']).default('fr'),
         title: z.string(),
@@ -25,7 +27,7 @@ const projectsCollection = defineCollection({
 });
 
 const servicesCollection = defineCollection({
-    type: 'content',
+    loader: glob({ pattern: '**/*.md', base: './src/content/services' }),
     schema: z.object({
         locale: z.enum(['fr', 'en']).default('fr'),
         title: z.string(),
@@ -38,7 +40,7 @@ const servicesCollection = defineCollection({
 });
 
 const associationsCollection = defineCollection({
-    type: 'content',
+    loader: glob({ pattern: '**/*.md', base: './src/content/associations' }),
     schema: z.object({
         locale: z.enum(['fr', 'en']).default('fr'),
         title: z.string(),

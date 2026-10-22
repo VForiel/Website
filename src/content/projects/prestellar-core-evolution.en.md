@@ -4,7 +4,7 @@ description: "Creation of a Fortran library to facilitate the creation of preste
 end-date: 2022
 tags: ["Simulation", "Astro", "Academic"]
 featured: false
-image: "/images/projects/IA_prestellar-core-evolution.png"
+image: "/images/projects/IA_prestellar-core-evolution.webp"
 locale: en
 ---
 

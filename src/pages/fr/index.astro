@@ -95,7 +95,7 @@ const featuredProjects = allProjects
 
                 <div class="projects-grid">
                     {featuredProjects.map((project) => {
-                        const cleanSlug = project.slug.replace(/fr$/, "");
+                        const cleanSlug = project.id.replace(/fr$/, "");
                         return (
                             <ProjectCard
                                 title={project.data.title}

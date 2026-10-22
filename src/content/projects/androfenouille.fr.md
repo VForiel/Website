@@ -3,7 +3,7 @@ title: "AndroFenouille"
 description: "Application Android développée durant le DUT Réseaux et Télécommunications"
 end-date: 2017
 tags: ["Informatique", "Académique", "Software"]
-image: "/images/projects/IA_androfenouille.png"
+image: "/images/projects/IA_androfenouille.webp"
 url: "https://github.com/IUT-RT/AndroFenouille"
 featured: false
 locale: fr

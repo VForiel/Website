@@ -43,7 +43,7 @@ const regularProjects = projects.filter((p) => !p.data.featured);
                 <div class="projects-grid">
                     {featuredProjects.map((project) => {
                         // Remove .fr suffix from slug (e.g., "heliosfr" -> "helios")
-                        const cleanSlug = project.slug.replace(/fr$/, "");
+                        const cleanSlug = project.id.replace(/fr$/, "");
                         return (
                             <ProjectCard
                                 title={project.data.title}

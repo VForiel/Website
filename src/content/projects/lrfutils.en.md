@@ -3,7 +3,7 @@ title: "LRFutils Python Library"
 description: "A simple homemade python library to simplify and automatise common processes in most of my projects"
 end-date: 2022
 tags: ["Computer Science", "Software", "Personal"]
-image: "/images/projects/IA_lrfutils.png"
+image: "/images/projects/IA_lrfutils.webp"
 featured: false
 locale: en
 ---

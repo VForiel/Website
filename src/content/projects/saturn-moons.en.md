@@ -4,7 +4,7 @@ description: "Master project - Study of Saturn's moons (2022)"
 end-date: 2022
 tags: ["Astro", "Academic", "Simulation"]
 featured: false
-image: "/images/projects/IA_saturn-moons.png"
+image: "/images/projects/IA_saturn-moons.webp"
 locale: en
 ---
 

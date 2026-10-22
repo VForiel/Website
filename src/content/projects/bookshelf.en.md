@@ -4,7 +4,7 @@ description: "A modular library to simplify the creation of complex systems in M
 start-date: 2016
 end-date: 2022
 tags: ["Computer Science", "Games", "Associative", "Physics", "Software"]
-image: "/images/projects/IA_bookshelf.png"
+image: "/images/projects/IA_bookshelf.webp"
 url: "https://docs.mcbookshelf.dev/en/latest/"
 featured: false
 locale: en

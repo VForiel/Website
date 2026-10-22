@@ -4,7 +4,7 @@ description: "Projet d'exploration pour tester l'idée d'utiliser l'apprentissag
 end-date: 2022
 tags: ["Machine Learning", "Astro", "Académique"]
 featured: false
-image: "/images/projects/IA_tno-detection-ml.png"
+image: "/images/projects/IA_tno-detection-ml.webp"
 locale: fr
 ---
 

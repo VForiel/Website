@@ -142,7 +142,7 @@ const t = labels[lang];
             projects.map((project, index) => {
                 const isFirst = index === 0;
                 const isLast = index === projects.length - 1;
-                const cleanSlug = project.slug.replace(
+                const cleanSlug = project.id.replace(
                     new RegExp(`${lang}$`),
                     "",
                 );

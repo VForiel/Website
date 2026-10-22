@@ -4,7 +4,7 @@ description: "Un projet de 2 semaines pour simuler comment les grains interstell
 end-date: 2021
 tags: ["Simulation", "Astro", "Physique", "Académique"]
 featured: false
-image: "/images/projects/IA_photoelectric-heat.png"
+image: "/images/projects/IA_photoelectric-heat.webp"
 locale: fr
 ---
 

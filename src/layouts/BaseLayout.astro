@@ -27,6 +27,9 @@ import PoppyEasterEgg from "../components/PoppyEasterEgg.astro";
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
+        <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+        <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
+        <meta property="og:image" content={new URL("/profile-picture.jpg", Astro.site)} />
 
         <!-- Twitter Card -->
         <meta name="twitter:card" content="summary" />

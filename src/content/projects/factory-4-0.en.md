@@ -3,7 +3,7 @@ title: "Factory 4.0"
 description: "A short adventure based on Minecraft used as pedagogical support by the university of Poitiers to explain how factories 4.0 work"
 end-date: 2020
 tags: ["Teaching", "Games", "Associative"]
-image: "/images/projects/IA_factory-4-0.png"
+image: "/images/projects/IA_factory-4-0.webp"
 featured: false
 locale: en
 ---

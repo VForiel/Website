@@ -3,7 +3,7 @@ title: "Creative Olympics"
 description: "Creative competitive event in Minecraft"
 end-date: 2020-08
 tags: ["Games", "Event", "Associative", "Sensibilization", "Environment"]
-image: "/images/projects/IA_creative-olympics.png"
+image: "/images/projects/IA_creative-olympics.webp"
 url: "https://altearn.xyz/creative-olympics-2020/"
 featured: false
 locale: en

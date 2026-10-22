@@ -4,7 +4,7 @@ description: "Tentative d'étudier un système dynamique hautement complexe à t
 end-date: 2022
 tags: ["Simulation", "Académique"]
 featured: false
-image: "/images/projects/IA_game-of-life.png"
+image: "/images/projects/IA_game-of-life.webp"
 locale: fr
 ---
 

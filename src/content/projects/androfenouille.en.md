@@ -3,7 +3,7 @@ title: "AndroFenouille"
 description: "Android application developed during my technical degree in Networks & Telecommunications"
 end-date: 2017
 tags: ["Computer Science", "Academic", "Software"]
-image: "/images/projects/IA_androfenouille.png"
+image: "/images/projects/IA_androfenouille.webp"
 url: "https://github.com/IUT-RT/AndroFenouille"
 featured: false
 locale: en

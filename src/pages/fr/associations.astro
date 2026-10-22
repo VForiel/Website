@@ -1,7 +1,7 @@
 ---
 import PageLayout from "../../layouts/PageLayout.astro";
 import Section from "../../components/Section.astro";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 // Get all French associations
 const associations = await getCollection("associations", ({ data }) => {
@@ -34,7 +34,7 @@ const sortedAssociations = associations.sort(
         <div class="associations-grid">
             {
                 sortedAssociations.map(async (association) => {
-                    const { Content } = await association.render();
+                    const { Content } = await render(association);
                     const {
                         title,
                         role,

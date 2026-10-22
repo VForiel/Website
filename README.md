@@ -2,7 +2,7 @@
 
 Un site web professionnel moderne et élégant pour présenter mon expertise en instrumentation astrophotonique, simulation optique et développement logiciel scientifique.
 
-🌐 **Site en ligne** : [vincent.foriel.xyz](https://vincent.foriel.xyz)
+🌐 **Site en ligne** : [vincent.foriel.pro](https://vincent.foriel.pro)
 
 ## 📋 Table des matières
 
