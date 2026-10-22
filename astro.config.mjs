@@ -32,7 +32,7 @@ export default defineConfig({
             directives: [
                 "default-src 'self'",
                 "img-src 'self' data:",
-                "font-src 'self'",
+                "font-src 'self' data:",
                 "connect-src 'self' https://cloud.umami.is https://gateway.umami.is",
                 "object-src 'none'",
                 "base-uri 'self'",
