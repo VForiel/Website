@@ -167,20 +167,19 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
     }
 
     .about-header {
-        max-width: 65ch;
-        margin-inline: auto;
-        text-align: center;
-        margin-block-end: var(--space-12);
+        padding-block: var(--space-4) var(--space-10);
+        border-bottom: 1px solid var(--color-border);
     }
 
     .about-header h1 {
-        font-size: var(--text-4xl);
+        font-size: clamp(2.5rem, 6vw, 4.25rem);
         margin-block-end: var(--space-4);
     }
 
     .lead {
         font-size: var(--text-xl);
         color: var(--color-text-secondary);
+        max-width: 52ch;
     }
 
     .content-grid {
@@ -191,14 +190,12 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
     }
 
     .content-main {
-        padding: var(--space-8);
-        background-color: var(--color-background-secondary);
-        border-radius: var(--radius-lg);
+        padding: 0;
     }
 
     .content-main h2 {
-        font-size: var(--text-2xl);
-        margin-block: var(--space-8) var(--space-4);
+        font-size: var(--text-3xl);
+        margin-block: var(--space-12) var(--space-4);
     }
 
     .content-main h2:first-of-type {
@@ -228,11 +225,10 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
 
     .expertise-list li::before,
     .values-list li::before {
-        content: "→";
+        content: "—";
         position: absolute;
         left: 0;
-        color: var(--color-primary);
-        font-weight: 600;
+        color: var(--color-text-muted);
     }
 
     .content-sidebar {
@@ -242,15 +238,13 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
     }
 
     .sidebar-card {
-        padding: var(--space-6);
-        background-color: var(--color-background-secondary);
-        border-radius: var(--radius-lg);
-        margin-block-end: var(--space-6);
+        padding-block: var(--space-5) var(--space-8);
+        border-top: 1px solid var(--color-border);
     }
 
     .sidebar-card h3 {
-        font-size: var(--text-lg);
-        margin-block-end: var(--space-4);
+        font-size: var(--text-xl);
+        margin-block-end: var(--space-3);
     }
 
     .sidebar-intro {

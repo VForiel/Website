@@ -34,9 +34,13 @@ const featuredProjects = allProjects
     <!-- Hero Section -->
     <Section class="hero">
         <div class="hero__content">
+            <p class="eyebrow hero__eyebrow">
+                Astronomical instrumentation · High-contrast imaging ·
+                Optical simulation
+            </p>
+
             <h1 class="hero__title">
-                PhD Candidate in<br />
-                <span class="hero__highlight">Astrophotonics</span>
+                PhD candidate in <em class="hero__highlight">astrophotonics</em>
             </h1>
 
             <p class="hero__description">
@@ -51,7 +55,7 @@ const featuredProjects = allProjects
                 >
                 <a
                     href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/contact`}
-                    class="button button--secondary">Contact me</a
+                    class="link-underline">Contact me</a
                 >
             </div>
         </div>
@@ -59,39 +63,49 @@ const featuredProjects = allProjects
 
     <!-- Expertise Overview -->
     <Section class="expertise-overview">
-        <h2 class="section-title">Areas of Expertise</h2>
-
-        <div class="expertise-grid">
-            {
-                topServices.map((service) => (
-                    <div class="expertise-card">
-                        <div class="expertise-card__icon">
-                            {service.data.icon}
-                        </div>
-                        <h3 class="expertise-card__title">
-                            {service.data.title}
-                        </h3>
-                        <p class="expertise-card__description">
-                            {service.data.description}
-                        </p>
-                    </div>
-                ))
-            }
-        </div>
-
-        <div class="cta-center">
+        <div class="section-head">
+            <h2 class="section-head__title">
+                <span class="section-head__index">01</span>
+                Areas of Expertise
+            </h2>
             <a
                 href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/expertise`}
-                class="link-arrow">View all services →</a
+                class="section-head__link link-underline">All services</a
             >
         </div>
+
+        <ol class="expertise-list">
+            {
+                topServices.map((service) => (
+                    <li class="expertise-item">
+                        <h3 class="expertise-item__title">
+                            {service.data.title}
+                        </h3>
+                        <p class="expertise-item__description">
+                            {service.data.description}
+                        </p>
+                    </li>
+                ))
+            }
+        </ol>
     </Section>
 
     <!-- Featured Projects -->
     {
         featuredProjects.length > 0 && (
             <Section class="featured-projects">
-                <h2 class="section-title">Featured Projects</h2>
+                <div class="section-head">
+                    <h2 class="section-head__title">
+                        <span class="section-head__index">02</span>
+                        Featured Projects
+                    </h2>
+                    <a
+                        href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/portfolio`}
+                        class="section-head__link link-underline"
+                    >
+                        All projects
+                    </a>
+                </div>
 
                 <div class="projects-grid">
                     {featuredProjects.map((project) => {
@@ -111,15 +125,6 @@ const featuredProjects = allProjects
                         );
                     })}
                 </div>
-
-                <div class="cta-center">
-                    <a
-                        href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/portfolio`}
-                        class="link-arrow"
-                    >
-                        View all projects →
-                    </a>
-                </div>
             </Section>
         )
     }
@@ -128,197 +133,167 @@ const featuredProjects = allProjects
     <Section class="cta-section">
         <div class="cta-box">
             <h2 class="cta-box__title">Have a project?</h2>
-            <p class="cta-box__description">
-                I am available for research collaborations, technical
-                consulting, or science communication interventions.
-            </p>
-            <a
-                href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/contact`}
-                class="button button--primary">Let's discuss</a
-            >
+            <div class="cta-box__body">
+                <p class="cta-box__description">
+                    I am available for research collaborations, technical
+                    consulting, or science communication interventions.
+                </p>
+                <a
+                    href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/contact`}
+                    class="button button--primary">Let's discuss</a
+                >
+            </div>
         </div>
     </Section>
 </PageLayout>
 
 <style>
-    /* Hero Section */
+    /* Hero */
     .hero {
-        padding-block: var(--space-32) var(--space-24);
+        padding-block: var(--space-24) var(--space-12);
     }
 
     .hero__content {
-        max-width: 800px;
-        margin-inline: auto;
-        text-align: center;
+        max-width: 52rem;
+    }
+
+    .hero__eyebrow {
+        margin-block-end: var(--space-6);
     }
 
     .hero__title {
-        font-size: var(--text-5xl);
-        font-weight: 700;
-        margin-block-end: var(--space-6);
-        line-height: 1.1;
+        font-size: clamp(2.75rem, 7vw, 5.5rem);
+        line-height: 1.02;
+        margin-block-end: var(--space-8);
     }
 
     .hero__highlight {
+        font-style: italic;
         color: var(--color-primary);
     }
 
     .hero__description {
         font-size: var(--text-xl);
         color: var(--color-text-secondary);
-        margin-block-end: var(--space-8);
-        max-width: 65ch;
-        margin-inline: auto;
+        margin-block-end: var(--space-10);
+        max-width: 38ch;
     }
 
     .hero__cta {
         display: flex;
-        gap: var(--space-4);
-        justify-content: center;
+        align-items: center;
+        gap: var(--space-8);
         flex-wrap: wrap;
     }
 
-    /* Buttons */
-    .button {
-        display: inline-block;
-        padding: var(--space-4) var(--space-8);
-        font-size: var(--text-base);
-        font-weight: 500;
-        border-radius: var(--radius-md);
-        transition: all var(--transition-base);
-        border: 2px solid transparent;
-    }
-
-    .button--primary {
-        background-color: var(--color-primary);
-        color: white;
-    }
-
-    .button--primary:hover {
-        background-color: var(--color-primary-dark);
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-md);
-    }
-
-    .button--secondary {
-        border-color: var(--color-border);
-        color: var(--color-text);
-    }
-
-    .button--secondary:hover {
-        border-color: var(--color-primary);
-        color: var(--color-primary);
-    }
-
-    /* Section Title */
-    .section-title {
-        font-size: var(--text-3xl);
-        text-align: center;
-        margin-block-end: var(--space-12);
-    }
-
-    /* Expertise Grid */
-    .expertise-grid {
+    /* Domaines d'expertise : colonnes séparées par des filets */
+    .expertise-list {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: var(--space-6);
-        margin-block-end: var(--space-8);
+        counter-reset: expertise;
     }
 
-    .expertise-card {
-        padding: var(--space-8);
-        background-color: var(--color-background);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-lg);
-        transition: all var(--transition-base);
+    .expertise-item {
+        counter-increment: expertise;
+        padding: var(--space-2) var(--space-6) var(--space-4);
+        border-left: 1px solid var(--color-border);
     }
 
-    .expertise-card:hover {
-        border-color: var(--color-primary);
-        box-shadow: var(--shadow-md);
-        transform: translateY(-4px);
+    .expertise-item:first-child {
+        padding-left: 0;
+        border-left: none;
     }
 
-    .expertise-card__icon {
-        font-size: 3rem;
+    .expertise-item::before {
+        content: counter(expertise, lower-alpha) ".";
+        display: block;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--color-text-muted);
         margin-block-end: var(--space-4);
     }
 
-    .expertise-card__title {
+    .expertise-item__title {
         font-size: var(--text-xl);
         margin-block-end: var(--space-3);
     }
 
-    .expertise-card__description {
+    .expertise-item__description {
         color: var(--color-text-secondary);
-        font-size: var(--text-base);
+        font-size: var(--text-sm);
     }
 
-    /* Projects Grid */
+    /* Projets */
     .projects-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: var(--space-8);
-        margin-block-end: var(--space-8);
+        gap: var(--space-10);
     }
 
-    /* CTA Section */
-    .cta-section {
-        background-color: var(--color-background-secondary);
-    }
-
+    /* Appel à contact */
     .cta-box {
-        max-width: 600px;
-        margin-inline: auto;
-        text-align: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-12);
+        align-items: start;
+        padding-block-start: var(--space-10);
+        border-top: 1px solid var(--color-border);
     }
 
     .cta-box__title {
-        font-size: var(--text-3xl);
-        margin-block-end: var(--space-4);
+        font-size: var(--text-4xl);
+        font-style: italic;
     }
 
     .cta-box__description {
         font-size: var(--text-lg);
         color: var(--color-text-secondary);
-        margin-block-end: var(--space-8);
+        margin-block-end: var(--space-6);
     }
 
-    /* Link Arrow */
-    .cta-center {
-        text-align: center;
-    }
-
-    .link-arrow {
-        font-size: var(--text-lg);
-        font-weight: 500;
-        color: var(--color-primary);
-        transition: transform var(--transition-base);
-        display: inline-block;
-    }
-
-    .link-arrow:hover {
-        transform: translateX(4px);
-    }
-
-    /* Responsive */
     @media (max-width: 900px) {
-        .hero__title {
-            font-size: var(--text-4xl);
+        .hero {
+            padding-block: var(--space-16) var(--space-8);
         }
 
         .hero__description {
             font-size: var(--text-lg);
         }
 
-        .expertise-grid {
+        .expertise-list {
             grid-template-columns: repeat(2, 1fr);
+            row-gap: var(--space-8);
+        }
+
+        .expertise-item:nth-child(odd) {
+            padding-left: 0;
+            border-left: none;
+        }
+
+        .cta-box {
+            grid-template-columns: 1fr;
+            gap: var(--space-6);
+        }
+
+        .cta-box__title {
+            font-size: var(--text-3xl);
         }
     }
 
     @media (max-width: 480px) {
-        .expertise-grid {
+        .expertise-list {
             grid-template-columns: 1fr;
+        }
+
+        .expertise-item {
+            padding-left: 0;
+            border-left: none;
+            padding-block-start: var(--space-4);
+            border-top: 1px solid var(--color-border-subtle);
+        }
+
+        .expertise-item:first-child {
+            border-top: none;
         }
     }
 </style>
