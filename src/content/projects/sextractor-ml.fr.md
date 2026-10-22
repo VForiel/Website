@@ -4,7 +4,7 @@ description: "Tentative de conception d'un modèle d'apprentissage automatique p
 start-date: 2022-10
 end-date: 2023-01
 tags: ["Machine Learning", "Astro", "Académique"]
-url: "https://github.com/Leirof/M2-Sextractor-driven-by-Machine-Learning"
+url: "https://github.com/VForiel/M2-Sextractor-driven-by-Machine-Learning"
 featured: false
 image: "/images/projects/IA_sextractor-ml.webp"
 locale: fr
@@ -24,5 +24,5 @@ UBFC, Besançon, France
 
 ## Liens
 
-- [Dépôt du projet](https://github.com/Leirof/M2-Sextractor-driven-by-Machine-Learning)
-- [Documentation](https://sextractor-driven-by-machine-learning.docs.foriel.xyz/en/latest/)
+- [Dépôt du projet](https://github.com/VForiel/M2-Sextractor-driven-by-Machine-Learning)
+- [Documentation](https://sextractor-driven-by-machine-learning.readthedocs.io/en/latest/)

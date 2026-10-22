@@ -4,7 +4,7 @@ description: "Détermination des caractéristiques des cœurs pré-stellaires à
 start-date: 2023-02
 end-date: 2023-06
 tags: ["Machine Learning", "Astro", "Simulation", "Académique"]
-url: "https://github.com/Leirof/M2-Unveiling-3D-structure-of-pre-stellar-cores"
+url: "https://github.com/VForiel/M2-Unveiling-3D-structure-of-pre-stellar-cores"
 featured: false
 image: "/images/projects/IA_prestellar-cores-3d.webp"
 locale: fr
@@ -22,5 +22,4 @@ OSU THETA, Besançon, France
 
 ## Liens
 
-- [Dépôt du projet](https://github.com/Leirof/M2-Unveiling-3D-structure-of-pre-stellar-cores)
-- [Documentation](https://unveiling-3d-structure-of-prestellar-cores.docs.foriel.xyz/en/latest/)
+- [Dépôt du projet](https://github.com/VForiel/M2-Unveiling-3D-structure-of-pre-stellar-cores)

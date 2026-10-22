@@ -4,7 +4,7 @@ description: "Attempt to design an object detection machine learning model to de
 start-date: 2022-10
 end-date: 2023-01
 tags: ["Machine Learning", "Astro", "Academic"]
-url: "https://github.com/Leirof/M2-Sextractor-driven-by-Machine-Learning"
+url: "https://github.com/VForiel/M2-Sextractor-driven-by-Machine-Learning"
 featured: false
 image: "/images/projects/IA_sextractor-ml.webp"
 locale: en
@@ -24,5 +24,5 @@ UBFC, Besançon, France
 
 ## Links
 
-- [Project Repository](https://github.com/Leirof/M2-Sextractor-driven-by-Machine-Learning)
-- [Documentation](https://sextractor-driven-by-machine-learning.docs.foriel.xyz/en/latest/)
+- [Project Repository](https://github.com/VForiel/M2-Sextractor-driven-by-Machine-Learning)
+- [Documentation](https://sextractor-driven-by-machine-learning.readthedocs.io/en/latest/)
