@@ -1,23 +1,26 @@
 ---
 import { getCollection, render } from "astro:content";
 import ProjectLayout from "../../../layouts/ProjectLayout.astro";
+import { sortProjects, designation } from "../../../utils/catalogue";
 
 export async function getStaticPaths() {
     const projects = await getCollection("projects", ({ data }) => {
         return data.locale === "fr";
     });
 
-    return projects.map((project) => {
+    const catalogue = sortProjects(projects);
+
+    return catalogue.map((project, index) => {
         // Remove .fr suffix from slug (e.g., "heliosfr" -> "helios")
         const cleanSlug = project.id.replace(/fr$/, "");
         return {
             params: { slug: cleanSlug },
-            props: { project },
+            props: { project, designation: designation(index, catalogue.length) },
         };
     });
 }
 
-const { project } = Astro.props;
+const { project, designation: catalogueId } = Astro.props;
 const { Content } = await render(project);
 const {
     title,
@@ -39,6 +42,7 @@ const {
     image={image}
     url={url}
     lang="fr"
+    designation={catalogueId}
 >
     <Content />
 </ProjectLayout>

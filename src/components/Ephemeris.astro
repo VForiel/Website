@@ -1,0 +1,92 @@
+---
+// Bandeau d'éphémérides : position de Nice, temps universel, temps sidéral local et date julienne, en direct
+
+interface Props {
+    lang?: "fr" | "en";
+}
+
+const { lang = "fr" } = Astro.props;
+const lst = lang === "fr" ? "TSL" : "LST";
+const jd = lang === "fr" ? "JJ" : "JD";
+---
+
+<div class="ephemeris" aria-hidden="true">
+    <div class="container ephemeris__row">
+        <span>Nice · 43°43′ N · 7°18′ E</span>
+        <span class="ephemeris__clocks">
+            <span>UTC <b data-eph="utc">--:--:--</b></span>
+            <span>{lst} <b data-eph="lst">--:--:--</b></span>
+            <span class="ephemeris__jd">{jd} <b data-eph="jd">-------.-----</b></span>
+        </span>
+    </div>
+</div>
+
+<style>
+    .ephemeris {
+        border-bottom: 1px solid var(--color-border-subtle);
+        font-family: var(--font-mono);
+        font-size: 0.6875rem;
+        letter-spacing: 0.06em;
+        color: var(--color-text-muted);
+        background: var(--color-background);
+    }
+
+    .ephemeris__row {
+        display: flex;
+        justify-content: space-between;
+        gap: var(--space-6);
+        padding-block: var(--space-1);
+    }
+
+    .ephemeris__clocks {
+        display: flex;
+        gap: var(--space-6);
+    }
+
+    .ephemeris b {
+        font-weight: 400;
+        color: var(--color-text-secondary);
+        font-variant-numeric: tabular-nums;
+    }
+
+    @media (max-width: 640px) {
+        .ephemeris__row > span:first-child,
+        .ephemeris__jd {
+            display: none;
+        }
+
+        .ephemeris__row {
+            justify-content: center;
+        }
+    }
+</style>
+
+<script>
+    const LONGITUDE = 7.3003; // degrés est, Mont Gros (Nice)
+
+    const pad = (n: number) => String(Math.floor(n)).padStart(2, "0");
+    const hms = (hours: number) => {
+        const h = ((hours % 24) + 24) % 24;
+        return `${pad(h)}:${pad((h * 60) % 60)}:${pad((h * 3600) % 60)}`;
+    };
+
+    const fields = {
+        utc: document.querySelector<HTMLElement>('[data-eph="utc"]'),
+        lst: document.querySelector<HTMLElement>('[data-eph="lst"]'),
+        jd: document.querySelector<HTMLElement>('[data-eph="jd"]'),
+    };
+
+    function tick() {
+        const now = Date.now();
+        const julianDate = now / 86400000 + 2440587.5;
+        // Temps sidéral moyen de Greenwich (heures), puis décalage en longitude
+        const gmst = 18.697374558 + 24.06570982441908 * (julianDate - 2451545.0);
+        const utcHours = (now / 3600000) % 24;
+        if (fields.utc) fields.utc.textContent = hms(utcHours);
+        if (fields.lst) fields.lst.textContent = hms(gmst + LONGITUDE / 15);
+        if (fields.jd) fields.jd.textContent = julianDate.toFixed(5);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+</script>

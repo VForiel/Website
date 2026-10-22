@@ -11,6 +11,15 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer class="footer">
+    <div class="spectrum" aria-hidden="true">
+        <div class="spectrum__band"></div>
+        <div class="container spectrum__scale">
+            <span>400 nm</span>
+            <span>500</span>
+            <span>600</span>
+            <span>700</span>
+        </div>
+    </div>
     <div class="container">
         <div class="footer__content">
             <div class="footer__section">
@@ -153,6 +162,13 @@ const currentYear = new Date().getFullYear();
                         : "Tous droits réservés."
                 }
             </p>
+            <p class="footer__colophon">
+                {
+                    lang === "en"
+                        ? "Set in Newsreader, IBM Plex Sans & IBM Plex Mono. Above: the solar spectrum and its Fraunhofer lines."
+                        : "Composé en Newsreader, IBM Plex Sans et IBM Plex Mono. En haut : le spectre solaire et ses raies de Fraunhofer."
+                }
+            </p>
         </div>
     </div>
 </footer>
@@ -160,10 +176,74 @@ const currentYear = new Date().getFullYear();
 <style>
     .footer {
         margin-block-start: var(--space-24);
-        padding-block: var(--space-16) var(--space-8);
+        padding-block: 0 var(--space-8);
         background-color: var(--color-surface);
-        border-top: 1px solid var(--color-border);
     }
+
+    /* Spectre visible 380-750 nm ; raies de Fraunhofer placées à (λ - 380) / 370 */
+    .spectrum {
+        margin-block-end: var(--space-16);
+    }
+
+    .spectrum__band {
+        height: 10px;
+        --line: hsl(226, 30%, 4%);
+        background:
+            linear-gradient(var(--line), var(--line)) 3.62% 0 / 2px 100% no-repeat,  /* K  393.4 */
+            linear-gradient(var(--line), var(--line)) 4.54% 0 / 2px 100% no-repeat,  /* H  396.8 */
+            linear-gradient(var(--line), var(--line)) 8.16% 0 / 1px 100% no-repeat,  /* Hδ 410.2 */
+            linear-gradient(var(--line), var(--line)) 13.73% 0 / 2px 100% no-repeat, /* G  430.8 */
+            linear-gradient(var(--line), var(--line)) 14.59% 0 / 1px 100% no-repeat, /* Hγ 434.0 */
+            linear-gradient(var(--line), var(--line)) 28.68% 0 / 2px 100% no-repeat, /* F  486.1 */
+            linear-gradient(var(--line), var(--line)) 37.22% 0 / 1px 100% no-repeat, /* b  517.7 */
+            linear-gradient(var(--line), var(--line)) 39.73% 0 / 1px 100% no-repeat, /* E  527.0 */
+            linear-gradient(var(--line), var(--line)) 56.57% 0 / 3px 100% no-repeat, /* D  589.3 */
+            linear-gradient(var(--line), var(--line)) 74.68% 0 / 2px 100% no-repeat, /* C  656.3 */
+            linear-gradient(var(--line), var(--line)) 82.89% 0 / 2px 100% no-repeat, /* B  686.7 */
+            linear-gradient(
+                90deg,
+                rgb(70, 0, 80) 0%,
+                rgb(106, 0, 255) 10.8%,
+                rgb(0, 70, 255) 18.9%,
+                rgb(0, 213, 255) 27%,
+                rgb(0, 255, 146) 32.4%,
+                rgb(94, 255, 0) 40.5%,
+                rgb(225, 255, 0) 51.4%,
+                rgb(255, 223, 0) 56.8%,
+                rgb(255, 119, 0) 64.9%,
+                rgb(255, 0, 0) 73%,
+                rgb(190, 0, 0) 83.8%,
+                rgb(60, 0, 0) 100%
+            );
+        filter: saturate(0.7) brightness(0.85);
+    }
+
+    :global(.light-theme) .spectrum__band {
+        filter: saturate(0.75);
+    }
+
+    /* Graduations à 400, 500, 600 et 700 nm */
+    .spectrum__scale {
+        position: relative;
+        height: 1.5rem;
+        max-width: none;
+        padding: 0;
+        font-family: var(--font-mono);
+        font-size: 0.625rem;
+        color: var(--color-text-muted);
+    }
+
+    .spectrum__scale span {
+        position: absolute;
+        top: var(--space-1);
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+
+    .spectrum__scale span:nth-child(1) { left: 5.41%; }
+    .spectrum__scale span:nth-child(2) { left: 32.43%; }
+    .spectrum__scale span:nth-child(3) { left: 59.46%; }
+    .spectrum__scale span:nth-child(4) { left: 86.49%; }
 
     .footer__content {
         display: grid;
@@ -218,8 +298,19 @@ const currentYear = new Date().getFullYear();
     }
 
     .footer__bottom {
+        display: flex;
+        justify-content: space-between;
+        gap: var(--space-4) var(--space-8);
+        flex-wrap: wrap;
         padding-block-start: var(--space-8);
         border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .footer__colophon {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--color-text-muted);
+        max-width: 60ch;
     }
 
     .footer__copyright {

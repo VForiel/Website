@@ -104,10 +104,10 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
                 <div class="cv-item">
                     <div class="cv-item__header">
                         <h3 class="cv-item__title">
-                            Corporate Internship: Unveiling the 3D structure of
+                            Master's Thesis Internship: Unveiling the 3D structure of
                             pre-stellar cores (ML)
                         </h3>
-                        <span class="cv-item__date">Feb. 2023 - Mar. 2022</span>
+                        <span class="cv-item__date">Feb. 2023 - Jun. 2023</span>
                     </div>
                     <div class="cv-item__subtitle">
                         Université de Bourgogne Franche-Comté (UBFC), Besançon
@@ -251,31 +251,50 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
 
 <style>
     .cv-objective {
+        max-width: 58ch;
+        margin: var(--space-6) auto;
+        font-size: var(--text-sm);
+        line-height: 1.7;
+        text-align: justify;
+        hyphens: auto;
         color: var(--color-text-secondary);
-        max-width: 52ch;
-        margin-block: var(--space-4);
-        font-size: var(--text-lg);
     }
 
-    .cv-section {
-        max-width: 900px;
-        margin-inline: auto;
+    /* Le CV est mis en page comme un article : une feuille, des sections numérotées en petites capitales */
+    :global(.section.cv-section > .container) {
+        max-width: 54rem;
+        padding: var(--space-16) clamp(var(--space-6), 6vw, var(--space-16));
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border-subtle);
+        box-shadow: var(--shadow-xl);
+    }
+
+    :global(.light-theme .section.cv-section > .container) {
+        background-color: hsl(45, 40%, 99%);
+    }
+
+    .cv-block__title::before {
+        content: counter(cv-section) ".";
+        margin-inline-end: var(--space-3);
+        font-variant: normal;
+        color: var(--color-primary);
     }
 
     .cv-header {
+        text-align: center;
         margin-block-end: var(--space-12);
-        padding-block: var(--space-12) var(--space-8);
-        border-bottom: 1px solid var(--color-border);
+        padding-block: 0 var(--space-8);
     }
 
     .cv-header h1 {
-        font-size: clamp(2.5rem, 6vw, 4.25rem);
+        font-size: clamp(2.25rem, 5vw, 3.5rem);
         margin-block-end: var(--space-4);
     }
 
     .cv-contact {
         display: flex;
         align-items: center;
+        justify-content: center;
         flex-wrap: wrap;
         gap: var(--space-3);
         font-family: var(--font-mono);
@@ -286,13 +305,19 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
     .cv-content {
         display: flex;
         flex-direction: column;
-        gap: var(--space-16);
+        gap: var(--space-12);
+        counter-reset: cv-section;
     }
 
     .cv-block__title {
-        font-size: var(--text-3xl);
-        margin-block-end: var(--space-8);
-        padding-block-end: var(--space-3);
+        counter-increment: cv-section;
+        font-size: var(--text-xl);
+        font-weight: 500;
+        font-variant: small-caps;
+        letter-spacing: 0.06em;
+        text-transform: lowercase;
+        margin-block-end: var(--space-6);
+        padding-block-end: var(--space-2);
         border-bottom: 1px solid var(--color-border);
     }
 
@@ -334,8 +359,11 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
 
     .cv-item__description {
         color: var(--color-text-secondary);
-        line-height: 1.6;
+        line-height: 1.65;
         margin-block-end: var(--space-2);
+        max-width: none;
+        text-align: justify;
+        hyphens: auto;
     }
 
     .cv-item__list {
@@ -397,8 +425,22 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             display: none;
         }
 
+        :global(.section.cv-section > .container) {
+            border: none;
+            box-shadow: none;
+            padding: 0;
+        }
+
         @page {
             margin: 2cm;
+        }
+    }
+
+    @media (max-width: 640px) {
+        :global(.section.cv-section > .container) {
+            padding: var(--space-8) var(--space-5);
+            border-inline: none;
+            box-shadow: none;
         }
     }
 

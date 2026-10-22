@@ -120,6 +120,10 @@ const renderedServices = await Promise.all(
         margin-block-end: var(--space-6);
     }
 
+    .service__header > div {
+        min-width: 0;
+    }
+
     .service__icon {
         font-size: 2rem;
         line-height: 1;
@@ -263,6 +267,13 @@ const renderedServices = await Promise.all(
         font-size: var(--text-lg);
         color: var(--color-text-secondary);
         margin-block-end: var(--space-6);
+    }
+
+    @media (max-width: 480px) {
+        .service__title {
+            font-size: var(--text-2xl);
+            hyphens: auto;
+        }
     }
 
     @media (max-width: 768px) {

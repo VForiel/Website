@@ -331,10 +331,43 @@ body::after {
     white-space: nowrap;
 }
 
+/* Règle graduée, comme l'axe d'un instrument : traits mineurs, traits majeurs, segment d'accent */
+:is(.section-head, .page-header, .about-header, .contact-header, .cv-header) {
+    position: relative;
+    border-bottom-color: transparent !important;
+}
+
+:is(.section-head, .page-header, .about-header, .contact-header, .cv-header)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 9px;
+    pointer-events: none;
+    background:
+        linear-gradient(var(--color-primary), var(--color-primary)) bottom left / 3rem 1px no-repeat,
+        linear-gradient(var(--color-border), var(--color-border)) bottom / 100% 1px no-repeat,
+        repeating-linear-gradient(90deg, var(--color-text-muted) 0 1px, transparent 1px 80px) bottom left / 100% 9px no-repeat,
+        repeating-linear-gradient(90deg, var(--color-border) 0 1px, transparent 1px 10px) bottom left / 100% 5px no-repeat;
+    opacity: 0.9;
+}
+
 @media (max-width: 640px) {
     .section-head__title {
         font-size: var(--text-2xl);
     }
+}
+
+/* Projets mis en avant numérotés comme des planches : « Pl. I », « Pl. II »… */
+.projects-grid {
+    counter-reset: plate;
+}
+
+.projects-grid .project-card__date::before {
+    counter-increment: plate;
+    content: "Pl. " counter(plate, upper-roman) " · ";
+    color: var(--color-primary);
 }
 
 /* Boutons */
@@ -387,4 +420,11 @@ body::after {
 .link-underline:hover {
     color: var(--color-text);
     text-decoration-color: var(--color-primary);
+}
+
+/* Chapeau des pages intérieures plus compact sur mobile (spécificité au-dessus des styles scopés) */
+@media (max-width: 640px) {
+    main .lead.lead {
+        font-size: var(--text-lg);
+    }
 }

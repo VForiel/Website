@@ -1,0 +1,386 @@
+---
+// Figure du hero : tache d'Airy d'une étoile et de sa planète, calculée en direct.
+// Le nulling éteint périodiquement l'étoile et révèle la planète.
+// En thème clair, la plaque est rendue en négatif (comme une plaque photographique).
+
+interface Props {
+    lang?: "fr" | "en";
+}
+
+const { lang = "fr" } = Astro.props;
+
+const copy = {
+    fr: {
+        fig: "Fig. 1",
+        caption: "Mon projet de thèse : annuler la lumière d'une étoile pour voir les planètes situées à côté.",
+        star: "étoile",
+        planet: "planète",
+        on: "nulling",
+        aria: "Animation : la lumière d'une étoile est éteinte par interférométrie, révélant une planète voisine.",
+    },
+    en: {
+        fig: "Fig. 1",
+        caption: "My PhD project: cancelling the light of a star to see the planets right next to it.",
+        star: "star",
+        planet: "planet",
+        on: "nulling",
+        aria: "Animation: a star's light is cancelled by interferometry, revealing a nearby planet.",
+    },
+}[lang];
+---
+
+<figure class="plate" data-plate>
+    <div class="plate__frame">
+        <canvas class="plate__canvas" width="360" height="360" role="img" aria-label={copy.aria}></canvas>
+        <span class="plate__label plate__label--fig">{copy.fig}</span>
+        <span class="plate__label plate__label--state" data-plate-state>
+            <span class="plate__dot"></span>{copy.on}
+        </span>
+        <span class="plate__label plate__label--star">{copy.star}</span>
+        <span class="plate__label plate__label--planet" data-plate-planet>{copy.planet}</span>
+        <span class="plate__scale" aria-hidden="true">5 λ/D</span>
+        <span class="plate__reticle" aria-hidden="true" data-plate-reticle></span>
+        <span class="plate__label plate__label--readout" aria-hidden="true" data-plate-readout></span>
+    </div>
+    <figcaption class="plate__caption">{copy.caption}</figcaption>
+</figure>
+
+<style>
+    .plate {
+        --plate-ink: var(--color-text-muted);
+        position: relative;
+        margin: 0;
+        width: 100%;
+        max-width: 26rem;
+        justify-self: end;
+    }
+
+    .plate__frame {
+        position: relative;
+        aspect-ratio: 1;
+        border: 1px solid var(--color-border);
+        background: #000;
+    }
+
+    :global(.light-theme) .plate__frame {
+        background: hsl(44, 28%, 96%);
+    }
+
+    /* Repères de cadrage aux quatre coins */
+    .plate__frame::after {
+        content: "";
+        position: absolute;
+        inset: -9px;
+        pointer-events: none;
+        --c: var(--color-text-muted);
+        background:
+            linear-gradient(var(--c), var(--c)) top left / 1px 14px no-repeat,
+            linear-gradient(var(--c), var(--c)) top left / 14px 1px no-repeat,
+            linear-gradient(var(--c), var(--c)) top right / 1px 14px no-repeat,
+            linear-gradient(var(--c), var(--c)) top right / 14px 1px no-repeat,
+            linear-gradient(var(--c), var(--c)) bottom left / 1px 14px no-repeat,
+            linear-gradient(var(--c), var(--c)) bottom left / 14px 1px no-repeat,
+            linear-gradient(var(--c), var(--c)) bottom right / 1px 14px no-repeat,
+            linear-gradient(var(--c), var(--c)) bottom right / 14px 1px no-repeat;
+    }
+
+    .plate__canvas {
+        width: 100%;
+        height: 100%;
+        image-rendering: auto;
+    }
+
+    .plate__label {
+        position: absolute;
+        font-family: var(--font-mono);
+        font-size: 0.6875rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: hsla(40, 15%, 85%, 0.75);
+        pointer-events: none;
+    }
+
+    :global(.light-theme) .plate__label {
+        color: hsla(222, 28%, 13%, 0.7);
+    }
+
+    .plate__label--fig {
+        top: var(--space-3);
+        left: var(--space-3);
+    }
+
+    .plate__label--state {
+        top: var(--space-3);
+        right: var(--space-3);
+        display: flex;
+        align-items: center;
+        gap: 0.4em;
+        opacity: 0.35;
+        transition: opacity 0.6s ease;
+    }
+
+    .plate__label--state.is-on {
+        opacity: 1;
+    }
+
+    .plate__dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--color-primary);
+    }
+
+    /* Étiquettes reliées à leur cible par un trait */
+    .plate__label--star {
+        left: 50%;
+        top: 50%;
+        transform: translate(1.6rem, 1.4rem);
+    }
+
+    .plate__label--planet {
+        left: 70%;
+        top: 32%;
+        transform: translate(0.9rem, -1.6rem);
+        opacity: 0;
+        transition: opacity 0.8s ease;
+    }
+
+    .plate__label--planet.is-visible {
+        opacity: 1;
+    }
+
+    .plate__scale {
+        position: absolute;
+        right: var(--space-3);
+        bottom: var(--space-3);
+        /* 5 λ/D = 5 × (3,8317 / 1,22) / SCALE ≈ 78,5 px sur 360 */
+        width: 21.8%;
+        padding-top: 0.35rem;
+        border-top: 1px solid hsla(40, 15%, 85%, 0.6);
+        font-family: var(--font-mono);
+        font-size: 0.6875rem;
+        text-align: center;
+        color: hsla(40, 15%, 85%, 0.75);
+    }
+
+    :global(.light-theme) .plate__scale {
+        border-top-color: hsla(222, 28%, 13%, 0.5);
+        color: hsla(222, 28%, 13%, 0.7);
+    }
+
+    /* Réticule de mesure qui suit le pointeur */
+    .plate__frame {
+        cursor: crosshair;
+    }
+
+    .plate__reticle {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 34px;
+        height: 34px;
+        margin: -17px 0 0 -17px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        --c: var(--color-primary);
+        background:
+            linear-gradient(var(--c), var(--c)) center top / 1px 11px no-repeat,
+            linear-gradient(var(--c), var(--c)) center bottom / 1px 11px no-repeat,
+            linear-gradient(var(--c), var(--c)) left center / 11px 1px no-repeat,
+            linear-gradient(var(--c), var(--c)) right center / 11px 1px no-repeat;
+    }
+
+    .plate__frame:hover .plate__reticle,
+    .plate__frame:hover .plate__label--readout {
+        opacity: 1;
+    }
+
+    .plate__label--readout {
+        left: var(--space-3);
+        bottom: var(--space-3);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        text-transform: none;
+        font-variant-numeric: tabular-nums;
+    }
+
+    @media (hover: none) {
+        .plate__frame {
+            cursor: auto;
+        }
+    }
+
+    .plate__caption {
+        margin-block-start: var(--space-4);
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        line-height: 1.6;
+        color: var(--color-text-muted);
+        max-width: 40ch;
+    }
+</style>
+
+<script>
+    // Fonction de Bessel J1 (approximation d'Abramowitz & Stegun 9.4.4 et 9.4.6)
+    function besselJ1(x: number): number {
+        const ax = Math.abs(x);
+        if (ax < 3) {
+            const y = (x / 3) ** 2;
+            return x * (0.5 + y * (-0.56249985 + y * (0.21093573 + y * (-0.03954289 + y * (0.00443319 + y * (-0.00031761 + y * 0.00001109))))));
+        }
+        const y = 3 / ax;
+        const f = 0.79788456 + y * (0.00000156 + y * (0.01659667 + y * (0.00017105 + y * (-0.00249511 + y * (0.00113653 - y * 0.00020033)))));
+        const t = ax - 2.35619449 + y * (0.12499612 + y * (0.0000565 + y * (-0.00637879 + y * (0.00074348 + y * (0.00079824 - y * 0.00029166)))));
+        const r = (f * Math.cos(t)) / Math.sqrt(ax);
+        return x < 0 ? -r : r;
+    }
+
+    function airy(r: number): number {
+        if (r < 1e-6) return 1;
+        const v = (2 * besselJ1(r)) / r;
+        return v * v;
+    }
+
+    const SIZE = 360;
+    const SCALE = 0.2; // rayon (en unités de la fonction d'Airy) par pixel
+    const PLANET = { x: 0.7 * SIZE, y: 0.32 * SIZE, flux: 1e-3 };
+    const LOG_FLOOR = 3e-6;
+
+    // Lumière à large bande : moyenne de taches d'Airy sur ±20 % en longueur d'onde,
+    // ce qui adoucit les anneaux externes comme sur une vraie image
+    const BAND = [0.8, 0.9, 1, 1.1, 1.2];
+
+    function buildField(cx: number, cy: number): Float32Array {
+        const field = new Float32Array(SIZE * SIZE);
+        for (let j = 0; j < SIZE; j++) {
+            for (let i = 0; i < SIZE; i++) {
+                const r = Math.hypot(i - cx, j - cy) * SCALE;
+                let sum = 0;
+                for (const w of BAND) sum += airy(r / w);
+                field[j * SIZE + i] = sum / BAND.length;
+            }
+        }
+        return field;
+    }
+
+    // Palettes : sombre = nuit -> or pâle -> blanc ; clair = négatif encre sur papier
+    function buildLut(light: boolean): Uint8ClampedArray {
+        const lut = new Uint8ClampedArray(256 * 3);
+        const stops = light
+            ? [
+                  [0, [246, 243, 236]],
+                  [0.3, [222, 220, 214]],
+                  [0.6, [110, 124, 160]],
+                  [0.85, [33, 52, 100]],
+                  [1, [12, 18, 36]],
+              ]
+            : [
+                  [0, [2, 4, 10]],
+                  [0.3, [18, 22, 44]],
+                  [0.6, [150, 112, 60]],
+                  [0.85, [240, 214, 150]],
+                  [1, [255, 252, 240]],
+              ];
+        for (let k = 0; k < 256; k++) {
+            const t = k / 255;
+            let a = 0;
+            while (a < stops.length - 2 && t > (stops[a + 1][0] as number)) a++;
+            const [t0, c0] = stops[a] as [number, number[]];
+            const [t1, c1] = stops[a + 1] as [number, number[]];
+            const u = Math.min(1, Math.max(0, (t - t0) / (t1 - t0)));
+            for (let c = 0; c < 3; c++) lut[k * 3 + c] = c0[c] + (c1[c] - c0[c]) * u;
+        }
+        return lut;
+    }
+
+    function setup(root: HTMLElement) {
+        const canvas = root.querySelector("canvas") as HTMLCanvasElement;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+        const stateLabel = root.querySelector("[data-plate-state]") as HTMLElement;
+        const frame = root.querySelector(".plate__frame") as HTMLElement;
+        const reticle = root.querySelector("[data-plate-reticle]") as HTMLElement;
+        const readout = root.querySelector("[data-plate-readout]") as HTMLElement;
+
+        // Position du pointeur en λ/D par rapport à l'étoile (premier zéro d'Airy à 1,22 λ/D)
+        const PIXELS_PER_LD = (3.8317 / 1.22) / SCALE;
+        const signed = (v: number) => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(2);
+        frame.addEventListener("pointermove", (event) => {
+            const rect = frame.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            reticle.style.transform = `translate(${x}px, ${y}px)`;
+            const px = (x / rect.width) * SIZE - SIZE / 2;
+            const py = (y / rect.height) * SIZE - SIZE / 2;
+            readout.textContent = `Δx ${signed(px / PIXELS_PER_LD)}  Δy ${signed(-py / PIXELS_PER_LD)} λ/D`;
+        });
+        const planetLabel = root.querySelector("[data-plate-planet]") as HTMLElement;
+
+        const star = buildField(SIZE / 2, SIZE / 2);
+        const planet = buildField(PLANET.x, PLANET.y);
+        // Bruit de fond fixe (lecture du détecteur)
+        const noise = new Float32Array(SIZE * SIZE);
+        for (let k = 0; k < noise.length; k++) noise[k] = Math.random() * 6e-6;
+
+        const image = ctx.createImageData(SIZE, SIZE);
+        const logMin = Math.log10(LOG_FLOOR);
+        let lut = buildLut(document.documentElement.classList.contains("light-theme"));
+
+        function render(starFlux: number) {
+            const d = image.data;
+            for (let k = 0; k < star.length; k++) {
+                const v = starFlux * star[k] + PLANET.flux * planet[k] + noise[k];
+                const t = (Math.log10(Math.max(v, LOG_FLOOR)) - logMin) / -logMin;
+                const idx = Math.min(255, Math.max(0, (t * 255) | 0)) * 3;
+                const p = k * 4;
+                d[p] = lut[idx];
+                d[p + 1] = lut[idx + 1];
+                d[p + 2] = lut[idx + 2];
+                d[p + 3] = 255;
+            }
+            ctx!.putImageData(image, 0, 0);
+            const nulled = starFlux < 0.05;
+            stateLabel.classList.toggle("is-on", nulled);
+            planetLabel.classList.toggle("is-visible", nulled);
+        }
+
+        // Cycle : étoile allumée, extinction, null tenu, rallumage
+        const CYCLE = 9000;
+        const MIN_FLUX = 2e-4;
+        function fluxAt(time: number): number {
+            const u = (time % CYCLE) / CYCLE;
+            const ease = (x: number) => 0.5 - 0.5 * Math.cos(Math.PI * x);
+            let level; // 0 = allumée, 1 = éteinte
+            if (u < 0.25) level = 0;
+            else if (u < 0.45) level = ease((u - 0.25) / 0.2);
+            else if (u < 0.85) level = 1;
+            else level = 1 - ease((u - 0.85) / 0.15);
+            return Math.pow(10, Math.log10(MIN_FLUX) * level);
+        }
+
+        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let visible = true;
+        const start = performance.now();
+
+        function loop(now: number) {
+            if (visible) render(fluxAt(now - start));
+            requestAnimationFrame(loop);
+        }
+
+        if (reduced) {
+            render(MIN_FLUX);
+        } else {
+            new IntersectionObserver(([entry]) => (visible = entry.isIntersecting)).observe(canvas);
+            requestAnimationFrame(loop);
+        }
+
+        // Changement de thème : nouvelle palette
+        new MutationObserver(() => {
+            lut = buildLut(document.documentElement.classList.contains("light-theme"));
+            if (reduced) render(MIN_FLUX);
+        }).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    }
+
+    document.querySelectorAll<HTMLElement>("[data-plate]").forEach(setup);
+</script>

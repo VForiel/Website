@@ -11,6 +11,7 @@ interface Props {
     image?: string;
     url?: string;
     lang?: "fr" | "en";
+    designation?: string;
 }
 
 const {
@@ -22,6 +23,7 @@ const {
     image,
     url,
     lang = "fr",
+    designation,
 } = Astro.props;
 
 const parsedEnd = parsePartialDate(endDate);
@@ -32,6 +34,10 @@ const backLabel =
 const backHref = `${import.meta.env.BASE_URL.replace(/\/?$/, "")}/${lang}/portfolio`;
 const externalLinkLabel = lang === "fr" ? "Voir le projet" : "View project";
 const isAI = image?.split('/').pop()?.startsWith('IA_') || false;
+const sheet =
+    lang === "fr"
+        ? { catalogue: "Catalogue des projets", id: "Désignation", period: "Période", domains: "Domaines", link: "Lien" }
+        : { catalogue: "Project catalogue", id: "Designation", period: "Period", domains: "Fields", link: "Link" };
 ---
 
 <PageLayout
@@ -46,50 +52,69 @@ const isAI = image?.split('/').pop()?.startsWith('IA_') || false;
 
             <article class="project">
                 <header class="project-header">
+                    {designation && <p class="eyebrow project-eyebrow">{designation} · {sheet.catalogue}</p>}
                     <h1 class="project-title">{title}</h1>
                     <p class="project-description">{description}</p>
 
                     <div class="project-details-row">
-                        <div class="project-meta-content">
-                            <div class="project-meta">
-                        {
-                            parsedEnd && (
-                                <time
-                                    class="project-date"
-                                    datetime={parsedEnd.date.toISOString()}
-                                >
-                                    {dateLabel}
-                                </time>
-                            )
-                        }
-                        {
-                            !parsedEnd && (
-                                <span class="project-date">{dateLabel}</span>
-                            )
-                        }
-
-                                <div class="project-tags">
-                                    {tags.map((tag) => (
-                                        <a href={`${backHref}?tag=${encodeURIComponent(tag)}`} class="tag">
-                                            {tag}
-                                        </a>
-                                    ))}
-                                </div>
-                    </div>
-
-                    {
-                        url && (
-                            <a
-                                href={url}
-                                class="external-link"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {externalLinkLabel} →
-                            </a>
-                        )
-                    }
-                        </div>
+                        <dl class="datasheet">
+                            {
+                                designation && (
+                                    <div class="datasheet__row">
+                                        <dt>{sheet.id}</dt>
+                                        <dd class="datasheet__id">{designation}</dd>
+                                    </div>
+                                )
+                            }
+                            <div class="datasheet__row">
+                                <dt>{sheet.period}</dt>
+                                <dd>
+                                    {
+                                        parsedEnd ? (
+                                            <time
+                                                class="project-date"
+                                                datetime={parsedEnd.date.toISOString()}
+                                            >
+                                                {dateLabel}
+                                            </time>
+                                        ) : (
+                                            <span class="project-date">{dateLabel}</span>
+                                        )
+                                    }
+                                </dd>
+                            </div>
+                            {
+                                tags.length > 0 && (
+                                    <div class="datasheet__row">
+                                        <dt>{sheet.domains}</dt>
+                                        <dd class="project-tags">
+                                            {tags.map((tag) => (
+                                                <a href={`${backHref}?tag=${encodeURIComponent(tag)}`} class="tag">
+                                                    {tag}
+                                                </a>
+                                            ))}
+                                        </dd>
+                                    </div>
+                                )
+                            }
+                            {
+                                url && (
+                                    <div class="datasheet__row">
+                                        <dt>{sheet.link}</dt>
+                                        <dd>
+                                            <a
+                                                href={url}
+                                                class="external-link"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {externalLinkLabel} →
+                                            </a>
+                                        </dd>
+                                    </div>
+                                )
+                            }
+                        </dl>
                     {
                         image && (
                             <div class="project-header-image-wrapper">
@@ -193,14 +218,49 @@ const isAI = image?.split('/').pop()?.startsWith('IA_') || false;
 
     .project-details-row {
         display: flex;
-        gap: var(--space-8);
-        align-items: center;
+        gap: var(--space-10);
+        align-items: flex-start;
         justify-content: space-between;
     }
 
-    .project-meta-content {
+    .project-eyebrow {
+        margin-block-end: var(--space-4);
+        color: var(--color-primary);
+    }
+
+    /* Fiche signalétique : intitulés en chasse fixe, valeurs alignées sur une colonne */
+    .datasheet {
         flex: 1;
         min-width: 0;
+        margin: 0;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .datasheet__row {
+        display: grid;
+        grid-template-columns: 8.5rem minmax(0, 1fr);
+        gap: var(--space-4);
+        align-items: baseline;
+        padding-block: var(--space-3);
+        border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .datasheet dt {
+        font-family: var(--font-mono);
+        font-size: 0.6875rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+    }
+
+    .datasheet dd {
+        margin: 0;
+        font-size: var(--text-sm);
+    }
+
+    .datasheet__id {
+        font-family: var(--font-mono);
+        color: var(--color-primary);
     }
 
     .project-header-image-wrapper {
@@ -377,14 +437,6 @@ const isAI = image?.split('/').pop()?.startsWith('IA_') || false;
         line-height: 1.6;
     }
 
-    .project-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--space-6);
-        align-items: center;
-        margin-block-end: var(--space-6);
-    }
-
     .project-date {
         font-family: var(--font-mono);
         font-size: var(--text-xs);
@@ -412,21 +464,16 @@ const isAI = image?.split('/').pop()?.startsWith('IA_') || false;
     }
 
     .external-link {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--space-2);
-        padding: var(--space-3) var(--space-5);
-        background-color: var(--color-primary);
-        color: var(--color-on-primary);
-        border-radius: var(--radius-sm);
-        font-weight: 500;
+        color: var(--color-text);
         font-size: var(--text-sm);
-        transition: background-color var(--transition-fast);
+        font-weight: 500;
+        text-decoration: underline;
+        text-decoration-color: var(--color-primary);
+        text-underline-offset: 0.25em;
     }
 
     .external-link:hover {
-        background-color: var(--color-primary-light);
-        color: var(--color-on-primary);
+        color: var(--color-primary);
     }
 
     /* Prose styling for markdown content */
@@ -523,8 +570,8 @@ const isAI = image?.split('/').pop()?.startsWith('IA_') || false;
             width: 100%;
         }
 
-        .project {
-            padding: var(--space-8);
+        .datasheet__row {
+            grid-template-columns: 6.5rem minmax(0, 1fr);
         }
 
         .project-title {

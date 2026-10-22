@@ -1,5 +1,6 @@
 ---
 import { parsePartialDate, formatPartialDate, buildDateLabel } from "../utils/dates";
+import { designation } from "../utils/catalogue";
 
 interface Props {
     projects: Array<{
@@ -44,6 +45,9 @@ const labels = {
         hideFilters: "Masquer les filtres",
         selectAll: "Tout sélectionner",
         deselectAll: "Tout désélectionner",
+        colNumber: "N°",
+        colObject: "Objet",
+        colPlate: "Planche",
     },
     en: {
         filterLabel: "Filter by tags",
@@ -55,6 +59,9 @@ const labels = {
         hideFilters: "Hide filters",
         selectAll: "Select all",
         deselectAll: "Deselect all",
+        colNumber: "No.",
+        colObject: "Object",
+        colPlate: "Plate",
     },
 };
 
@@ -137,6 +144,12 @@ const t = labels[lang];
         </div>
     </div>
 
+    <div class="catalogue-head" aria-hidden="true">
+        <span>{t.colNumber}</span>
+        <span>{t.colObject}</span>
+        <span>{t.colPlate}</span>
+    </div>
+
     <div class="timeline" id="timeline">
         {
             projects.map((project, index) => {
@@ -158,6 +171,9 @@ const t = labels[lang];
                                 class="timeline-card"
                             >
                                 <div class="timeline-card__inner">
+                                    <span class="catalogue-id">
+                                        {designation(index, projects.length)}
+                                    </span>
                                     <div class="timeline-card__content">
                                         <div class="project-date-range">
                                             {buildDateLabel(
@@ -475,19 +491,19 @@ const t = labels[lang];
     }
 
     .timeline-header {
-        margin-block-end: var(--space-12);
+        margin-block-end: 0;
     }
 
     .title-with-filter {
         display: flex;
-        align-items: center;
-        gap: var(--space-4);
+        align-items: baseline;
+        gap: var(--space-6);
         flex-wrap: wrap;
         margin-block-end: var(--space-6);
     }
 
     .section-title {
-        font-size: var(--text-2xl);
+        font-size: var(--text-3xl);
         margin: 0;
     }
 
@@ -498,11 +514,12 @@ const t = labels[lang];
         padding: 0;
         background: none;
         border: none;
-        color: var(--color-primary);
-        font-size: var(--text-sm);
-        font-weight: 500;
+        color: var(--color-text-secondary);
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        letter-spacing: 0.04em;
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition: color 0.15s ease;
     }
 
     .filter-toggle-link:hover {
@@ -633,19 +650,15 @@ const t = labels[lang];
 
     .timeline {
         position: relative;
-        padding-block: var(--space-8);
+        padding-block: 0 var(--space-8);
     }
 
     .timeline-item {
-        display: grid;
-        grid-template-columns: 24px 1fr;
-        gap: var(--space-6);
-        margin-block-end: 0;
+        display: block;
         opacity: 0;
         transform: translateY(8px);
         transition: opacity 0.4s ease, transform 0.4s ease;
         position: relative;
-        align-items: stretch;
     }
 
     .timeline-item.visible {
@@ -670,13 +683,7 @@ const t = labels[lang];
     }
 
     .timeline-marker {
-        position: relative;
-        width: 24px;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        padding-block-start: calc(var(--space-6) + 0.35rem);
-        height: 100%;
+        display: none;
     }
 
     /* Vertical line segment */
@@ -722,20 +729,51 @@ const t = labels[lang];
 
     .timeline-card {
         display: block;
-        padding-block: var(--space-6);
+        padding-block: var(--space-5);
         border-bottom: 1px solid var(--color-border-subtle);
         text-decoration: none;
         color: inherit;
+        transition: background-color 0.2s ease;
     }
 
     .timeline-card:hover {
         color: inherit;
+        background-color: rgba(var(--color-primary-rgb), 0.04);
     }
 
     .timeline-card__inner {
-        display: flex;
+        display: grid;
+        grid-template-columns: 5rem minmax(0, 1fr) 168px;
         gap: var(--space-6);
-        align-items: center;
+        align-items: start;
+    }
+
+    .catalogue-id {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        letter-spacing: 0.04em;
+        color: var(--color-text-muted);
+        padding-block-start: 0.2rem;
+        white-space: nowrap;
+        transition: color 0.15s ease;
+    }
+
+    .timeline-card:hover .catalogue-id {
+        color: var(--color-primary);
+    }
+
+    .catalogue-head {
+        display: grid;
+        grid-template-columns: 5rem minmax(0, 1fr) 168px;
+        gap: var(--space-6);
+        margin-block-start: var(--space-6);
+        padding-block: var(--space-2);
+        border-bottom: 1px solid var(--color-border);
+        font-family: var(--font-mono);
+        font-size: 0.6875rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
     }
 
     .timeline-card__content {
@@ -743,8 +781,8 @@ const t = labels[lang];
     }
 
     .timeline-card__image-wrapper {
-        width: 180px;
-        flex-shrink: 0;
+        width: 168px;
+        grid-column: 3;
         position: relative;
     }
 
@@ -810,17 +848,19 @@ const t = labels[lang];
         width: 100%;
         height: 100%;
         object-fit: cover;
-        filter: saturate(0.85);
-        transition: filter var(--transition-slow);
+        filter: grayscale(1) contrast(1.05);
+        opacity: 0.75;
+        transition: filter var(--transition-slow), opacity var(--transition-slow);
     }
 
     .timeline-card:hover .timeline-card__image img {
-        filter: saturate(1);
+        filter: none;
+        opacity: 1;
     }
 
     .timeline-card h3 {
-        font-size: var(--text-2xl);
-        font-weight: 400;
+        font-size: var(--text-xl);
+        font-weight: 500;
         margin-block-end: var(--space-2);
         color: var(--color-text);
         transition: color 0.15s ease;
@@ -831,9 +871,9 @@ const t = labels[lang];
     }
 
     .timeline-card .description {
-        font-size: var(--text-base);
+        font-size: var(--text-sm);
         color: var(--color-text-secondary);
-        margin-block-end: var(--space-4);
+        margin-block-end: var(--space-3);
         line-height: 1.6;
     }
 
@@ -884,14 +924,20 @@ const t = labels[lang];
             width: 16px;
         }
 
-        .timeline-card__inner {
-            flex-direction: column-reverse;
+        .timeline-card__inner,
+        .catalogue-head {
+            grid-template-columns: 3.5rem minmax(0, 1fr);
             gap: var(--space-4);
-            align-items: stretch;
         }
 
-        .timeline-card__image {
+        .catalogue-head span:last-child {
+            display: none;
+        }
+
+        .timeline-card__image-wrapper {
+            grid-column: 2;
             width: 100%;
+            max-width: 280px;
         }
 
         .tag-filter {
