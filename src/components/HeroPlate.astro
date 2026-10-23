@@ -1,6 +1,7 @@
 ---
 // Figure du hero : tache d'Airy d'une étoile et de sa planète, calculée en direct.
-// Le nulling éteint périodiquement l'étoile et révèle la planète.
+// Le nulling éteint périodiquement l'étoile et révèle la planète : quatre télescopes recombinés
+// en quadrature de phase (0, π/2, π, 3π/2), dont la somme s'annule sur l'axe.
 // En thème clair, la plaque est rendue en négatif (comme une plaque photographique).
 
 interface Props {
@@ -17,9 +18,9 @@ const { lang = "fr", variant = "nulling", fig, caption } = Astro.props;
 const copy = {
     fr: {
         fig: "Fig. 1",
-        caption: "Mon projet de thèse : annuler la lumière d'une étoile pour voir les planètes situées à côté.",
-        waves: "Combinaison des ondes de deux télescopes, A et B",
-        sum: "A + B",
+        caption: "Mon projet de thèse : annuler la lumière d'une étoile par interférométrie annulante, à l'aide de puces photoniques actives, pour voir les planètes situées à côté.",
+        waves: "Combinaison des ondes de quatre télescopes, A, B, C et D, en quadrature de phase",
+        sum: "Σ",
         star: "étoile",
         planet: "planète",
         on: "nulling",
@@ -27,9 +28,9 @@ const copy = {
     },
     en: {
         fig: "Fig. 1",
-        caption: "My PhD project: cancelling the light of a star to see the planets right next to it.",
-        waves: "Combining the waves of two telescopes, A and B",
-        sum: "A + B",
+        caption: "My PhD project: cancelling the light of a star with nulling interferometry, using active photonic chips, to see the planets right next to it.",
+        waves: "Combining the waves of four telescopes, A, B, C and D, in phase quadrature",
+        sum: "Σ",
         star: "star",
         planet: "planet",
         on: "nulling",
@@ -58,8 +59,8 @@ const copy = {
                 <canvas class="plate__waves-canvas" data-plate-waves></canvas>
                 <span class="plate__label plate__label--fig">Fig. 1b</span>
                 <span class="plate__label plate__label--phase" data-plate-phase>Δφ = 0.00π</span>
-                <span class="plate__label plate__label--lane-ab"><i class="plate__key plate__key--a"></i>A <i class="plate__key plate__key--b"></i>B</span>
-                <span class="plate__label plate__label--lane-sum"><i class="plate__key plate__key--sum"></i>{copy.sum}</span>
+                <span class="plate__label plate__label--lane-ab" data-plate-legend><span><i class="plate__key plate__key--a"></i>A</span><span><i class="plate__key plate__key--b"></i>B</span><span><i class="plate__key plate__key--c"></i>C</span><span><i class="plate__key plate__key--d"></i>D</span></span>
+                <span class="plate__label plate__label--lane-sum" data-plate-legend><i class="plate__key plate__key--sum"></i>{copy.sum}</span>
             </div>
         )
     }
@@ -282,8 +283,19 @@ const copy = {
         text-transform: none;
     }
 
+    /* A, B, C, D sur deux lignes, centrées sur l'axe des ondes */
     .plate__label--lane-ab {
-        top: calc(44% - 0.45rem);
+        top: 44%;
+        transform: translateY(-50%);
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 0.2rem 0.6rem;
+    }
+
+    .plate__label--lane-ab > span {
+        display: flex;
+        align-items: center;
+        gap: 0.4em;
     }
 
     .plate__label--lane-sum {
@@ -319,8 +331,24 @@ const copy = {
         height: 3px;
     }
 
+    .plate__key--c {
+        background: hsl(150, 35%, 62%);
+    }
+
+    .plate__key--d {
+        background: hsl(265, 40%, 74%);
+    }
+
     :global(.light-theme) .plate__key--b {
         background: hsl(205, 55%, 38%);
+    }
+
+    :global(.light-theme) .plate__key--c {
+        background: hsl(150, 40%, 30%);
+    }
+
+    :global(.light-theme) .plate__key--d {
+        background: hsl(275, 35%, 42%);
     }
 
     .plate__caption {
@@ -329,7 +357,6 @@ const copy = {
         font-size: var(--text-xs);
         line-height: 1.6;
         color: var(--color-text-muted);
-        max-width: 40ch;
     }
 </style>
 
@@ -489,7 +516,8 @@ const copy = {
             planetLabel.classList.toggle("is-visible", nulled);
         }
 
-        // Cycle du déphasage : 0 (interférence constructive), montée vers π, null tenu, retour
+        // Cycle du déphasage entre télescopes voisins : 0 (interférence constructive),
+        // montée vers π/2 (quadrature), null tenu, retour
         const CYCLE = 9000;
         const MIN_FLUX = 2e-4; // fuite résiduelle : un null n'est jamais parfait
         function phaseAt(time: number): number {
@@ -500,23 +528,28 @@ const copy = {
             else if (u < 0.45) level = ease((u - 0.25) / 0.2);
             else if (u < 0.85) level = 1;
             else level = 1 - ease((u - 0.85) / 0.15);
-            return level * Math.PI;
+            return (level * Math.PI) / 2;
         }
 
-        // Intensité de l'étoile sur l'axe dans la sortie combinée : cos²(Δφ/2)
-        const starFlux = (phase: number) => Math.max(MIN_FLUX, Math.cos(phase / 2) ** 2);
+        // Intensité de l'étoile sur l'axe dans la sortie combinée, le télescope n étant déphasé de n·Δφ :
+        // |Σ exp(i n Δφ)|² / 16 = (sin(2Δφ) / (4 sin(Δφ/2)))², nulle en quadrature (Δφ = π/2)
+        const starFlux = (phase: number) =>
+            phase < 1e-6 ? 1 : Math.max(MIN_FLUX, (Math.sin(2 * phase) / (4 * Math.sin(phase / 2))) ** 2);
 
-        // Fig. 1b : ondes A et B (B déphasée de Δφ) et leur somme
+        // Fig. 1b : ondes A, B, C et D (déphasées de 0, Δφ, 2Δφ, 3Δφ) et leur somme
         const wavesCanvas = root.querySelector<HTMLCanvasElement>("[data-plate-waves]");
         const wavesCtx = wavesCanvas?.getContext("2d");
         const phaseLabel = root.querySelector<HTMLElement>("[data-plate-phase]");
-        let palette = { a: "", b: "", sum: "", axis: "" };
+        const legends = root.querySelectorAll<HTMLElement>("[data-plate-legend]");
+        let palette = { a: "", b: "", c: "", d: "", sum: "", axis: "" };
         function readPalette() {
             const light = document.documentElement.classList.contains("light-theme");
             const css = getComputedStyle(document.documentElement);
             palette = {
                 a: css.getPropertyValue("--color-accent").trim(),
                 b: light ? "hsl(205, 55%, 38%)" : "hsl(330, 45%, 68%)",
+                c: light ? "hsl(150, 40%, 30%)" : "hsl(150, 35%, 62%)",
+                d: light ? "hsl(275, 35%, 42%)" : "hsl(265, 40%, 74%)",
                 sum: css.getPropertyValue("--color-primary").trim(),
                 axis: light ? "rgba(30, 40, 70, 0.18)" : "rgba(220, 225, 240, 0.14)",
             };
@@ -536,7 +569,10 @@ const copy = {
             ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
             ctx.clearRect(0, 0, w, h);
 
-            const left = 72;
+            // Les ondes commencent après la plus large des légendes
+            let left = 0;
+            legends.forEach((legend) => (left = Math.max(left, legend.offsetLeft + legend.offsetWidth)));
+            left = Math.max(56, left + 12);
             const k = (2 * Math.PI) / ((w - left) / 2.5); // deux périodes et demie
             const omega = (2 * Math.PI) / 1400;
             const amplitude = h * 0.085;
@@ -559,11 +595,11 @@ const copy = {
             ctx.fillRect(left, laneAB, w - left, 1);
             ctx.fillRect(left, laneSum, w - left, 1);
 
-            const a = (x: number) => Math.sin(k * x - omega * time);
-            const b = (x: number) => Math.sin(k * x - omega * time + phase);
-            trace(laneAB, a, palette.a, 1.25);
-            trace(laneAB, b, palette.b, 1.25);
-            trace(laneSum, (x) => a(x) + b(x), palette.sum, 2);
+            const colours = [palette.a, palette.b, palette.c, palette.d];
+            const wave = (n: number) => (x: number) => Math.sin(k * x - omega * time + n * phase);
+            colours.forEach((colour, n) => trace(laneAB, wave(n), colour, 1.25));
+            // Somme ramenée à la même échelle que deux ondes (amplitude maximale 4 → 2)
+            trace(laneSum, (x) => (wave(0)(x) + wave(1)(x) + wave(2)(x) + wave(3)(x)) / 2, palette.sum, 2);
 
             if (phaseLabel) phaseLabel.textContent = `Δφ = ${(phase / Math.PI).toFixed(2)}π`;
         }
@@ -601,7 +637,7 @@ const copy = {
 
         if (reduced) {
             render(MIN_FLUX);
-            drawWaves(Math.PI, 0);
+            drawWaves(Math.PI / 2, 0);
         } else {
             new IntersectionObserver(([entry]) => (visible = entry.isIntersecting)).observe(canvas);
             requestAnimationFrame(loop);
@@ -614,7 +650,7 @@ const copy = {
             lastFlux = -1;
             if (reduced) {
                 render(MIN_FLUX);
-                drawWaves(Math.PI, 0);
+                drawWaves(Math.PI / 2, 0);
             }
         }).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
     }
