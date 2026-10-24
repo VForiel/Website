@@ -556,12 +556,25 @@ const copy = {
         }
         readPalette();
 
+        // Dimensions lues une fois puis à chaque redimensionnement : les lire à chaque image
+        // forcerait un recalcul de la mise en page 60 fois par seconde
+        let wavesBox = { w: 0, h: 0, left: 56 };
+        function measureWaves() {
+            if (!wavesCanvas) return;
+            // Les ondes commencent après la plus large des légendes
+            let left = 0;
+            legends.forEach((legend) => (left = Math.max(left, legend.offsetLeft + legend.offsetWidth)));
+            wavesBox = { w: wavesCanvas.clientWidth, h: wavesCanvas.clientHeight, left: Math.max(56, left + 12) };
+        }
+        measureWaves();
+        if (wavesCanvas) new ResizeObserver(measureWaves).observe(wavesCanvas);
+        let phaseText = "";
+
         function drawWaves(phase: number, time: number) {
             if (!wavesCanvas || !wavesCtx) return;
             const ratio = window.devicePixelRatio || 1;
-            const w = wavesCanvas.clientWidth;
-            const h = wavesCanvas.clientHeight;
-            if (wavesCanvas.width !== Math.round(w * ratio)) {
+            const { w, h, left } = wavesBox;
+            if (wavesCanvas.width !== Math.round(w * ratio) || wavesCanvas.height !== Math.round(h * ratio)) {
                 wavesCanvas.width = Math.round(w * ratio);
                 wavesCanvas.height = Math.round(h * ratio);
             }
@@ -569,10 +582,6 @@ const copy = {
             ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
             ctx.clearRect(0, 0, w, h);
 
-            // Les ondes commencent après la plus large des légendes
-            let left = 0;
-            legends.forEach((legend) => (left = Math.max(left, legend.offsetLeft + legend.offsetWidth)));
-            left = Math.max(56, left + 12);
             const k = (2 * Math.PI) / ((w - left) / 2.5); // deux périodes et demie
             const omega = (2 * Math.PI) / 1400;
             const amplitude = h * 0.085;
@@ -601,7 +610,8 @@ const copy = {
             // Somme ramenée à la même échelle que deux ondes (amplitude maximale 4 → 2)
             trace(laneSum, (x) => (wave(0)(x) + wave(1)(x) + wave(2)(x) + wave(3)(x)) / 2, palette.sum, 2);
 
-            if (phaseLabel) phaseLabel.textContent = `Δφ = ${(phase / Math.PI).toFixed(2)}π`;
+            const text = `Δφ = ${(phase / Math.PI).toFixed(2)}π`;
+            if (phaseLabel && text !== phaseText) phaseLabel.textContent = phaseText = text;
         }
 
         // Plaque vide : rien au-dessus du bruit, image fixe
@@ -624,8 +634,12 @@ const copy = {
         let visible = true;
         const start = performance.now();
 
+        // Mode allégé (data-perf="low", voir BaseLayout) : 30 images/s suffisent à ces ondes lentes
+        let lastDraw = 0;
         function loop(now: number) {
-            if (visible) {
+            const low = document.documentElement.dataset.perf === "low";
+            if (visible && (!low || now - lastDraw > 30)) {
+                lastDraw = now;
                 const phase = phaseAt(now - start);
                 const flux = starFlux(phase);
                 // L'image n'est recalculée que si le flux de l'étoile a changé (pas pendant les paliers)

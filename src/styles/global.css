@@ -185,29 +185,16 @@ body::before {
         radial-gradient(1px 1px at 33% 80%, var(--color-star-3), transparent);
     background-size: 200% 200%, 180% 180%, 220% 220%, 250% 250%, 190% 190%, 210% 210%;
     background-position: 0% 0%, 40% 60%, 80% 20%, 20% 80%, 60% 40%, 10% 30%;
-    opacity: 0.3;
-    will-change: opacity;
-    animation: twinkle 120s ease-in-out infinite;
+    /* Fixe : l'ancien scintillement (opacité 0.3 → 0.5 sur 120 s) était imperceptible mais
+       recomposait ce calque plein écran à chaque image, coûteux sur un GPU intégré en haute densité */
+    opacity: 0.4;
     transition: opacity var(--transition-slow);
     pointer-events: none;
 }
 
-/* Disable stars animation in light mode */
+/* No stars in light mode */
 .light-theme body::before {
     opacity: 0;
-    animation: none;
-}
-
-@keyframes twinkle {
-
-    0%,
-    100% {
-        opacity: 0.3;
-    }
-
-    50% {
-        opacity: 0.5;
-    }
 }
 
 /* Subtle gradient overlay for depth */

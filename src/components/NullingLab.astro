@@ -398,8 +398,11 @@ const copy = lang === 'fr'
           x === left ? kernelCtx.moveTo(x, y) : kernelCtx.lineTo(x, y);
         } kernelCtx.stroke();
       });
-      $('[data-raw-rms]').textContent = (state.turbulence ? '0.31' : '0.06');
-      $('[data-kernel-rms]').textContent = (state.turbulence ? '0.08' : '0.03');
+      // Texte réécrit seulement s'il change : sinon la mise en page est recalculée à chaque image
+      const rawRms = $('[data-raw-rms]'), kernelRms = $('[data-kernel-rms]');
+      const rawText = state.turbulence ? '0.31' : '0.06', kernelText = state.turbulence ? '0.08' : '0.03';
+      if (rawRms.textContent !== rawText) rawRms.textContent = rawText;
+      if (kernelRms.textContent !== kernelText) kernelRms.textContent = kernelText;
     }
 
     function updateReadout() {
@@ -478,7 +481,18 @@ const copy = lang === 'fr'
       $('[data-complete]').hidden = !state.verified;
     }
 
-    function animate(timestamp) { state.time = timestamp; drawSky(missionCanvas, missionCtx, true); drawSky(mapCanvas, mapCtx, false); drawWave(); drawKernel(); requestAnimationFrame(animate); }
+    // Seuls les canvas visibles (à l'écran et dans l'onglet affiché) sont redessinés
+    const onScreen = new Set();
+    const visibility = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting ? onScreen.add(entry.target) : onScreen.delete(entry.target)));
+    [missionCanvas, mapCanvas, waveCanvas, kernelCanvas].forEach((canvas) => visibility.observe(canvas));
+    function animate(timestamp) {
+      state.time = timestamp;
+      if (onScreen.has(missionCanvas)) drawSky(missionCanvas, missionCtx, true);
+      if (onScreen.has(mapCanvas)) drawSky(mapCanvas, mapCtx, false);
+      if (onScreen.has(waveCanvas)) drawWave();
+      if (onScreen.has(kernelCanvas)) drawKernel();
+      requestAnimationFrame(animate);
+    }
     phaseInput.addEventListener('input', (event) => { const selected = selectedTelescope(); if (selected) selected.phase = Number(event.target.value); updateReadout(); updateMission(); });
     $('[data-action="lock"]').addEventListener('click', () => { if (phaseError() <= .16) { state.locked = true; updateMission(); } });
     $('[data-action="scan"]').addEventListener('click', () => { if (planetTransmission() > .78 && stellarLeak() < .02) { state.scanned = true; updateMission(); } else { $('[data-coach]').textContent = copy.scanHint; } });
