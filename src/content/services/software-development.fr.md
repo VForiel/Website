@@ -2,7 +2,7 @@
 title: "Calcul haute performance"
 description: "Accélération de simulations et traitements massifs sur CPU et GPU"
 icon: "⚡"
-order: 3
+order: 4
 locale: fr
 available: false
 reason: "Actuellement occupé à terminer mon doctorat"

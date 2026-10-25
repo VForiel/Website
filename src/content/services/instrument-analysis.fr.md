@@ -2,7 +2,7 @@
 title: "IA pour la physique"
 description: "Application raisonnée de l'apprentissage automatique aux données et modèles physiques"
 icon: "🧠"
-order: 4
+order: 5
 locale: fr
 available: false
 reason: "Actuellement occupé à terminer mon doctorat"

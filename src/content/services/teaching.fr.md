@@ -2,7 +2,7 @@
 title: "Cours de math, physique & informatique"
 description: "Cours particuliers et soutien scolaire en mathématiques, physique et informatique, du collège à la L1"
 icon: "📚"
-order: 2
+order: 3
 locale: fr
 available: true
 reason: "Actuellement occupé à terminer mon doctorat"

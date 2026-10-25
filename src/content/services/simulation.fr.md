@@ -2,7 +2,7 @@
 title: "Science des données"
 description: "Analyse statistique et modélisation de données scientifiques pour dégager des tendances fiables"
 icon: "📈"
-order: 5
+order: 6
 locale: fr
 available: false
 reason: "Actuellement occupé à terminer mon doctorat"

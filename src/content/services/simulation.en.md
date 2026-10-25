@@ -2,7 +2,7 @@
 title: "Data Science"
 description: "Statistical analysis and modeling of scientific data to extract reliable trends"
 icon: "📈"
-order: 5
+order: 6
 locale: en
 available: false
 reason: "Currently focused on finishing my PhD"

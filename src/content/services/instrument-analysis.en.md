@@ -2,7 +2,7 @@
 title: "AI for Physics"
 description: "Principled application of machine learning to physical data and models"
 icon: "🧠"
-order: 4
+order: 5
 locale: en
 available: false
 reason: "Currently focused on finishing my PhD"

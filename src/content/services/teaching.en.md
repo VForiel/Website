@@ -2,7 +2,7 @@
 title: "Math, Physics & CS Tutoring"
 description: "Private lessons and academic support in mathematics, physics and computer science, from middle school to first-year university"
 icon: "📚"
-order: 2
+order: 3
 locale: en
 available: true
 reason: "Currently focused on finishing my PhD"

@@ -2,7 +2,7 @@
 title: "High Performance Computing"
 description: "Speeding up simulations and heavy processing on CPU and GPU"
 icon: "⚡"
-order: 3
+order: 4
 locale: en
 available: false
 reason: "Currently focused on finishing my PhD"
