@@ -118,6 +118,19 @@ const renderedServices = await Promise.all(
 
                         <div class="service__content prose">
                             <Content />
+                            {slug === "web-development" && (
+                                <div class="service__action-bar">
+                                    <button
+                                        type="button"
+                                        class="button button--secondary"
+                                        data-open-modal="modal-web-development"
+                                        aria-haspopup="dialog"
+                                    >
+                                        <span>Learn more about the turnkey package</span>
+                                        <span aria-hidden="true">&rarr;</span>
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </Section>
@@ -138,6 +151,131 @@ const renderedServices = await Promise.all(
             >
         </div>
     </Section>
+
+    <!-- Popup Modal Details: Turnkey Web Development -->
+    <dialog id="modal-web-development" class="expertise-modal" aria-labelledby="modal-web-dev-title">
+        <div class="expertise-modal__panel">
+            <div class="expertise-modal__header">
+                <div class="expertise-modal__header-left">
+                    <span class="expertise-modal__channel">Channel 02</span>
+                    <span class="expertise-modal__badge">Available</span>
+                </div>
+                <button
+                    type="button"
+                    class="expertise-modal__close"
+                    data-close-modal="modal-web-development"
+                    aria-label="Close modal"
+                >
+                    &times;
+                </button>
+            </div>
+
+            <div class="expertise-modal__content">
+                <div class="expertise-modal__title-group">
+                    <span class="expertise-modal__icon">🌐</span>
+                    <div>
+                        <h2 id="modal-web-dev-title" class="expertise-modal__title">Turnkey Web Development</h2>
+                        <p class="expertise-modal__subtitle">Tailored solutions for freelancers, private practices, non-profits, and researchers</p>
+                    </div>
+                </div>
+
+                <div class="expertise-modal__prose">
+                    <div class="modal-block">
+                        <h3 class="modal-block__title">Concrete portfolio examples</h3>
+                        <ul class="modal-examples-list">
+                            <li>
+                                <strong>Showcase websites and professional portfolios</strong>
+                                <p class="modal-example-desc">Showcasing an activity or private practice with clean, responsive design optimized for organic search (SEO).</p>
+                                <ul class="modal-links-list">
+                                    <li>
+                                        <a href="https://vincent.foriel.pro" target="_blank" rel="noopener noreferrer">vincent.foriel.pro</a> — Bilingual personal and academic portfolio, fast, responsive, and minimalist.
+                                    </li>
+                                    <li>
+                                        <a href="https://philippine.villard.pro" target="_blank" rel="noopener noreferrer">philippine.villard.pro</a> — Private practice showcase website for Philippine Villard (clinical psychologist), highlighting her specialties and streamlining patient contact and booking.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Non-profit management & community platforms</strong>
+                                <p class="modal-example-desc">Resource centralization, member directories, and event coordination.</p>
+                                <ul class="modal-links-list">
+                                    <li>
+                                        <a href="https://beta.ajc06.com" target="_blank" rel="noopener noreferrer">beta.ajc06.com</a> — Full web platform for the AJC06 association combining internal management and social network capabilities.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Interactive user interfaces & simulation tools</strong>
+                                <p class="modal-example-desc">Interactive data visualization and scientific computation directly in the browser.</p>
+                                <ul class="modal-links-list">
+                                    <li>
+                                        <a href="https://lumos.vincent.foriel.pro" target="_blank" rel="noopener noreferrer">lumos.vincent.foriel.pro</a> — Interactive web user interface for an optical simulator.
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="modal-block">
+                        <h3 class="modal-block__title">All-inclusive turnkey package</h3>
+                        <div class="modal-features-grid">
+                            <div class="modal-feature-card">
+                                <div class="modal-feature-card__header">
+                                    <span class="modal-feature-card__icon">🖥️</span>
+                                    <h4>Hosting & Domain Included</h4>
+                                </div>
+                                <p>1 year of high-performance server hosting and domain name registration included, along with SSL certificate (HTTPS) and DNS setup.</p>
+                            </div>
+                            <div class="modal-feature-card">
+                                <div class="modal-feature-card__header">
+                                    <span class="modal-feature-card__icon">⏱️</span>
+                                    <h4>Guaranteed 48h Support</h4>
+                                </div>
+                                <p>Prompt technical assistance with resolution within 48 business hours for any critical issue or service interruption.</p>
+                            </div>
+                            <div class="modal-feature-card">
+                                <div class="modal-feature-card__header">
+                                    <span class="modal-feature-card__icon">📱</span>
+                                    <h4>Tailored & Responsive Design</h4>
+                                </div>
+                                <p>Clean, lightweight, and accessible code, optimized across smartphones, tablets, and desktops with no heavy bloat.</p>
+                            </div>
+                            <div class="modal-feature-card">
+                                <div class="modal-feature-card__header">
+                                    <span class="modal-feature-card__icon">🤝</span>
+                                    <h4>Autonomy or Ongoing Guidance</h4>
+                                </div>
+                                <p>Clear handover allowing you to easily update your content, or ongoing maintenance packages according to your preferences.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-block modal-block--pricing">
+                        <h3 class="modal-block__title">Pricing and turnaround</h3>
+                        <p>
+                            Pricing is determined <strong>on a custom basis</strong> depending on specific requirements, functional scope, and desired delivery timelines.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expertise-modal__footer">
+                <button
+                    type="button"
+                    class="button button--secondary"
+                    data-close-modal="modal-web-development"
+                >
+                    Close
+                </button>
+                <a
+                    href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/contact/`}
+                    class="button button--primary"
+                >
+                    Request a quote / Contact me
+                </a>
+            </div>
+        </div>
+    </dialog>
 </PageLayout>
 
 <script>
@@ -158,10 +296,56 @@ const renderedServices = await Promise.all(
         });
     }
 
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initSummaryScroll);
-    } else {
+    function initExpertiseModals() {
+        document.querySelectorAll<HTMLElement>("[data-open-modal]").forEach((trigger) => {
+            trigger.addEventListener("click", () => {
+                const modalId = trigger.getAttribute("data-open-modal");
+                const modal = modalId ? document.getElementById(modalId) : null;
+                if (modal && modal instanceof HTMLDialogElement) {
+                    modal.showModal();
+                    document.body.style.overflow = "hidden";
+                }
+            });
+        });
+
+        document.querySelectorAll<HTMLElement>("[data-close-modal]").forEach((closeBtn) => {
+            closeBtn.addEventListener("click", () => {
+                const modalId = closeBtn.getAttribute("data-close-modal");
+                const modal = modalId ? document.getElementById(modalId) : null;
+                if (modal && modal instanceof HTMLDialogElement) {
+                    modal.close();
+                }
+            });
+        });
+
+        document.querySelectorAll<HTMLDialogElement>(".expertise-modal").forEach((dialog) => {
+            dialog.addEventListener("close", () => {
+                document.body.style.overflow = "";
+            });
+            dialog.addEventListener("click", (event) => {
+                const rect = dialog.getBoundingClientRect();
+                const isInDialog = (
+                    rect.top <= event.clientY &&
+                    event.clientY <= rect.top + rect.height &&
+                    rect.left <= event.clientX &&
+                    event.clientX <= rect.left + rect.width
+                );
+                if (!isInDialog) {
+                    dialog.close();
+                }
+            });
+        });
+    }
+
+    const initAll = () => {
         initSummaryScroll();
+        initExpertiseModals();
+    };
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initAll);
+    } else {
+        initAll();
     }
 </script>
 
@@ -653,6 +837,281 @@ const renderedServices = await Promise.all(
 
         .cta-box > :not(h2) {
             grid-column: 1;
+        }
+    }
+
+    /* Expertise Action Button */
+    .service__action-bar {
+        margin-block-start: var(--space-6);
+        padding-block-start: var(--space-4);
+        border-top: 1px dashed var(--color-border);
+    }
+
+    .service__action-bar .button {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        cursor: pointer;
+    }
+
+    /* Modal Popup */
+    .expertise-modal {
+        width: min(48rem, calc(100vw - 2rem));
+        max-height: min(42rem, calc(100dvh - 4rem));
+        margin: auto;
+        padding: 0;
+        color: var(--color-text);
+        background: var(--color-background);
+        border: 1px solid var(--color-border);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .expertise-modal::backdrop {
+        background: hsla(226, 40%, 3%, 0.7);
+        backdrop-filter: blur(4px);
+    }
+
+    :global(.light-theme) .expertise-modal::backdrop {
+        background: hsla(40, 20%, 30%, 0.35);
+    }
+
+    .expertise-modal__panel {
+        display: flex;
+        flex-direction: column;
+        max-height: inherit;
+        overflow: hidden;
+    }
+
+    .expertise-modal__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--space-4) var(--space-6);
+        border-bottom: 1px solid var(--color-border);
+        background: var(--color-surface);
+    }
+
+    .expertise-modal__header-left {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+    }
+
+    .expertise-modal__channel {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--color-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    .expertise-modal__badge {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        padding: 0.2rem 0.5rem;
+        background: hsla(142, 60%, 45%, 0.15);
+        color: hsl(142, 70%, 45%);
+        border: 1px solid hsla(142, 60%, 45%, 0.3);
+        border-radius: 9999px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .expertise-modal__close {
+        background: none;
+        border: none;
+        color: var(--color-text-muted);
+        font-size: var(--text-2xl);
+        line-height: 1;
+        cursor: pointer;
+        padding: var(--space-1) var(--space-2);
+        transition: color var(--transition-fast);
+    }
+
+    .expertise-modal__close:hover {
+        color: var(--color-text);
+    }
+
+    .expertise-modal__content {
+        padding: var(--space-6);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    .expertise-modal__title-group {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-4);
+        margin-block-end: var(--space-6);
+        padding-block-end: var(--space-4);
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .expertise-modal__icon {
+        font-size: 2.25rem;
+        line-height: 1;
+        padding: var(--space-3);
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm, 6px);
+    }
+
+    .expertise-modal__title {
+        font-size: var(--text-2xl);
+        font-style: italic;
+        margin-block-end: var(--space-1);
+    }
+
+    .expertise-modal__subtitle {
+        color: var(--color-text-secondary);
+        font-size: var(--text-sm);
+        margin: 0;
+    }
+
+    .expertise-modal__prose {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-6);
+    }
+
+    .modal-block__title {
+        font-size: var(--text-lg);
+        font-family: var(--font-mono);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-block-end: var(--space-3);
+        color: var(--color-text);
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+    }
+
+    .modal-block__title::before {
+        content: "//";
+        color: var(--color-primary);
+    }
+
+    .modal-examples-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-4);
+    }
+
+    .modal-examples-list > li {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        padding: var(--space-4);
+        border-radius: var(--radius-sm, 6px);
+    }
+
+    .modal-example-desc {
+        font-size: var(--text-sm);
+        color: var(--color-text-secondary);
+        margin-block: var(--space-1) var(--space-2);
+    }
+
+    .modal-links-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+
+    .modal-links-list li {
+        font-size: var(--text-sm);
+        color: var(--color-text-secondary);
+        padding-inline-start: var(--space-3);
+        border-inline-start: 2px solid var(--color-primary);
+    }
+
+    .modal-links-list a {
+        color: var(--color-primary);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+    }
+
+    .modal-links-list a:hover {
+        color: var(--color-text);
+    }
+
+    .modal-features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-3);
+    }
+
+    .modal-feature-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        padding: var(--space-3) var(--space-4);
+        border-radius: var(--radius-sm, 6px);
+    }
+
+    .modal-feature-card__header {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        margin-block-end: var(--space-2);
+    }
+
+    .modal-feature-card__header h4 {
+        font-size: var(--text-sm);
+        font-weight: 600;
+        margin: 0;
+        color: var(--color-text);
+    }
+
+    .modal-feature-card p {
+        font-size: var(--text-xs);
+        color: var(--color-text-secondary);
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .modal-block--pricing {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-inline-start: 3px solid var(--color-primary);
+        padding: var(--space-4);
+        border-radius: var(--radius-sm, 6px);
+    }
+
+    .modal-block--pricing p {
+        font-size: var(--text-sm);
+        color: var(--color-text-secondary);
+        margin: 0;
+    }
+
+    .expertise-modal__footer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: var(--space-3);
+        padding: var(--space-4) var(--space-6);
+        border-top: 1px solid var(--color-border);
+        background: var(--color-surface);
+    }
+
+    @media (max-width: 640px) {
+        .modal-features-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .expertise-modal__footer {
+            flex-direction: column-reverse;
+            align-items: stretch;
+        }
+
+        .expertise-modal__footer .button {
+            text-align: center;
+            justify-content: center;
         }
     }
 </style>

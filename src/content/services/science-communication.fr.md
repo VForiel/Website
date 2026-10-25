@@ -1,12 +1,12 @@
 ---
-title: "Communication scientifique"
+title: "Médiation scientifique"
 description: "Vulgarisation et diffusion des connaissances scientifiques auprès de publics variés"
 icon: "🎤"
 order: 1
 locale: fr
 ---
 
-## Vulgarisation scientifique
+## Médiation et vulgarisation scientifique
 
 Transmission des connaissances scientifiques complexes à un public large, des enfants aux passionnés d'astronomie, à travers des présentations vivantes conçues pour rendre les concepts accessibles sans sacrifier la rigueur.
 
