@@ -107,9 +107,13 @@ const featuredProjects = allProjects
         <div class="expertise-cta">
             <a
                 href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/expertise/`}
-                class="button button--secondary"
+                class="expertise-cta__link"
             >
-                Discover all my expertise →
+                <span class="expertise-cta__label"
+                    >Full index · {String(allServices.length).padStart(2, "0")} domains</span
+                >
+                <span class="expertise-cta__text">Discover all my expertise</span>
+                <span class="expertise-cta__arrow" aria-hidden="true">→</span>
             </a>
         </div>
     </Section>
@@ -225,10 +229,69 @@ const featuredProjects = allProjects
         counter-reset: expertise;
     }
 
+    /* Lien vers toutes les expertises, cadré comme dans un viseur : les coins se resserrent au survol */
     .expertise-cta {
-        margin-block-start: var(--space-8);
-        display: flex;
-        justify-content: flex-start;
+        margin-block-start: var(--space-10);
+    }
+
+    .expertise-cta__link {
+        --bracket: var(--color-text-muted);
+        --arm: 0.75rem;
+        display: inline-grid;
+        grid-template-columns: auto auto;
+        align-items: baseline;
+        column-gap: var(--space-6);
+        row-gap: var(--space-1);
+        padding: var(--space-4) var(--space-6);
+        color: var(--color-text);
+        text-decoration: none;
+        background:
+            linear-gradient(var(--bracket), var(--bracket)) top left / var(--arm) 1px,
+            linear-gradient(var(--bracket), var(--bracket)) top left / 1px var(--arm),
+            linear-gradient(var(--bracket), var(--bracket)) top right / var(--arm) 1px,
+            linear-gradient(var(--bracket), var(--bracket)) top right / 1px var(--arm),
+            linear-gradient(var(--bracket), var(--bracket)) bottom left / var(--arm) 1px,
+            linear-gradient(var(--bracket), var(--bracket)) bottom left / 1px var(--arm),
+            linear-gradient(var(--bracket), var(--bracket)) bottom right / var(--arm) 1px,
+            linear-gradient(var(--bracket), var(--bracket)) bottom right / 1px var(--arm);
+        background-repeat: no-repeat;
+        transition:
+            background-size var(--transition-base),
+            background-color var(--transition-base);
+    }
+
+    .expertise-cta__link:hover,
+    .expertise-cta__link:focus-visible {
+        --bracket: var(--color-primary);
+        --arm: 1.25rem;
+        background-color: rgba(var(--color-primary-rgb), 0.06);
+    }
+
+    .expertise-cta__label {
+        grid-column: 1 / -1;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+    }
+
+    .expertise-cta__text {
+        font-family: var(--font-serif);
+        font-size: var(--text-2xl);
+        font-style: italic;
+    }
+
+    .expertise-cta__arrow {
+        font-family: var(--font-mono);
+        font-size: var(--text-xl);
+        color: var(--color-primary);
+        transition: transform var(--transition-base);
+    }
+
+    .expertise-cta__link:hover .expertise-cta__arrow,
+    .expertise-cta__link:focus-visible .expertise-cta__arrow {
+        transform: translateX(0.4rem);
     }
 
     .expertise-item {
