@@ -6,7 +6,8 @@ import HeroPlate from "../../components/HeroPlate.astro";
 import { getCollection } from "astro:content";
 import { dateToTimestamp } from "../../utils/dates";
 
-// Obtenir uniquement les 3 expertises demandées sur l'accueil
+// L'accueil montre ce qui me représente (pas forcément ce qui est disponible) ;
+// la liste complète est sur la page expertise
 const targetServiceSlugs = [
     "science-communication",
     "software-development",
@@ -84,9 +85,8 @@ const featuredProjects = allProjects
             <a
                 href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}fr/expertise/`}
                 class="section-head__link link-underline"
+                >Toutes les expertises</a
             >
-                Découvrir toutes mes expertises →
-            </a>
         </div>
 
         <ol class="expertise-list">

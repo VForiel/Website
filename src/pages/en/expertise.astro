@@ -23,6 +23,9 @@ const renderedServices = await Promise.all(
         };
     }),
 );
+const webChannel = String(
+    renderedServices.findIndex(({ slug }) => slug === "web-development") + 1,
+).padStart(2, "0");
 ---
 
 <PageLayout
@@ -43,7 +46,7 @@ const renderedServices = await Promise.all(
         <nav class="summary-nav" aria-label="Expertise domains overview">
             <div class="summary-nav__header">
                 <span class="summary-nav__eyebrow">Channel index</span>
-                <span class="summary-nav__count">{renderedServices.length} channels available</span>
+                <span class="summary-nav__count">{renderedServices.length} domains</span>
             </div>
             <div class="summary-grid">
                 {
@@ -142,7 +145,7 @@ const renderedServices = await Promise.all(
         <div class="cta-box">
             <h2>Need an expert?</h2>
             <p>
-                Whether for a research project, technical analysis or a
+                Whether for a website, a research project, technical analysis or a
                 popularization intervention, let's discuss your needs.
             </p>
             <a
@@ -157,7 +160,7 @@ const renderedServices = await Promise.all(
         <div class="expertise-modal__panel">
             <div class="expertise-modal__header">
                 <div class="expertise-modal__header-left">
-                    <span class="expertise-modal__channel">Channel 02</span>
+                    <span class="expertise-modal__channel">Channel {webChannel}</span>
                     <span class="expertise-modal__badge">Available</span>
                 </div>
                 <button
@@ -201,6 +204,9 @@ const renderedServices = await Promise.all(
                                 <ul class="modal-links-list">
                                     <li>
                                         <a href="https://beta.ajc06.com" target="_blank" rel="noopener noreferrer">beta.ajc06.com</a> — Full web platform for the AJC06 association combining internal management and social network capabilities.
+                                    </li>
+                                    <li>
+                                        <a href="https://nice-event.fr" target="_blank" rel="noopener noreferrer">nice-event.fr</a> — Participatory events calendar for Nice, the Alpes-Maritimes and Monaco: interactive map, member area, automatic collection of events from dozens of sources and social media publishing.
                                     </li>
                                 </ul>
                             </li>
@@ -269,7 +275,7 @@ const renderedServices = await Promise.all(
                 </button>
                 <a
                     href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}en/contact/`}
-                    class="button button--primary"
+                    class="button"
                 >
                     Request a quote / Contact me
                 </a>
@@ -279,23 +285,6 @@ const renderedServices = await Promise.all(
 </PageLayout>
 
 <script>
-    function initSummaryScroll() {
-        const cards = document.querySelectorAll<HTMLAnchorElement>("a.summary-card");
-        cards.forEach((card) => {
-            card.addEventListener("click", (e) => {
-                const targetId = card.getAttribute("href");
-                if (targetId && targetId.startsWith("#")) {
-                    const target = document.querySelector(targetId);
-                    if (target) {
-                        e.preventDefault();
-                        target.scrollIntoView({ behavior: "smooth", block: "start" });
-                        history.pushState(null, "", targetId);
-                    }
-                }
-            });
-        });
-    }
-
     function initExpertiseModals() {
         document.querySelectorAll<HTMLElement>("[data-open-modal]").forEach((trigger) => {
             trigger.addEventListener("click", () => {
@@ -303,7 +292,6 @@ const renderedServices = await Promise.all(
                 const modal = modalId ? document.getElementById(modalId) : null;
                 if (modal && modal instanceof HTMLDialogElement) {
                     modal.showModal();
-                    document.body.style.overflow = "hidden";
                 }
             });
         });
@@ -319,34 +307,13 @@ const renderedServices = await Promise.all(
         });
 
         document.querySelectorAll<HTMLDialogElement>(".expertise-modal").forEach((dialog) => {
-            dialog.addEventListener("close", () => {
-                document.body.style.overflow = "";
-            });
             dialog.addEventListener("click", (event) => {
-                const rect = dialog.getBoundingClientRect();
-                const isInDialog = (
-                    rect.top <= event.clientY &&
-                    event.clientY <= rect.top + rect.height &&
-                    rect.left <= event.clientX &&
-                    event.clientX <= rect.left + rect.width
-                );
-                if (!isInDialog) {
-                    dialog.close();
-                }
+                if (event.target === dialog) dialog.close();
             });
         });
     }
 
-    const initAll = () => {
-        initSummaryScroll();
-        initExpertiseModals();
-    };
-
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initAll);
-    } else {
-        initAll();
-    }
+    initExpertiseModals();
 </script>
 
 <style>
@@ -852,6 +819,16 @@ const renderedServices = await Promise.all(
         align-items: center;
         gap: var(--space-2);
         cursor: pointer;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        :global(html) {
+            scroll-behavior: smooth;
+        }
+    }
+
+    :global(html:has(dialog[open])) {
+        overflow: hidden;
     }
 
     /* Modal Popup */

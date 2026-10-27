@@ -23,6 +23,9 @@ const renderedServices = await Promise.all(
         };
     }),
 );
+const webChannel = String(
+    renderedServices.findIndex(({ slug }) => slug === "web-development") + 1,
+).padStart(2, "0");
 ---
 
 <PageLayout
@@ -43,7 +46,7 @@ const renderedServices = await Promise.all(
         <nav class="summary-nav" aria-label="Sommaire des domaines d'expertise">
             <div class="summary-nav__header">
                 <span class="summary-nav__eyebrow">Index des domaines</span>
-                <span class="summary-nav__count">{renderedServices.length} canaux disponibles</span>
+                <span class="summary-nav__count">{renderedServices.length} domaines</span>
             </div>
             <div class="summary-grid">
                 {
@@ -141,8 +144,8 @@ const renderedServices = await Promise.all(
         <div class="cta-box">
             <h2>Besoin d'un expert ?</h2>
             <p>
-                Que ce soit pour un projet de recherche, une analyse technique
-                ou une intervention de vulgarisation, discutons de votre besoin.
+                Que ce soit pour un site web, un projet de recherche, une analyse
+                technique ou une intervention de vulgarisation, discutons de votre besoin.
             </p>
             <a
                 href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}fr/contact/`}
@@ -156,7 +159,7 @@ const renderedServices = await Promise.all(
         <div class="expertise-modal__panel">
             <div class="expertise-modal__header">
                 <div class="expertise-modal__header-left">
-                    <span class="expertise-modal__channel">Canal 02</span>
+                    <span class="expertise-modal__channel">Canal {webChannel}</span>
                     <span class="expertise-modal__badge">Disponible</span>
                 </div>
                 <button
@@ -195,11 +198,14 @@ const renderedServices = await Promise.all(
                                 </ul>
                             </li>
                             <li>
-                                <strong>Gestion associative et plateformes communautaires</strong>
+                                <strong>Plateformes associatives et communautaires</strong>
                                 <p class="modal-example-desc">Centralisation des ressources et animation de réseaux avec espace membres et gestion des événements.</p>
                                 <ul class="modal-links-list">
                                     <li>
                                         <a href="https://beta.ajc06.com" target="_blank" rel="noopener noreferrer">beta.ajc06.com</a> — Plateforme complète pour l'association AJC06 combinant gestion interne et fonctionnalités de réseau social.
+                                    </li>
+                                    <li>
+                                        <a href="https://nice-event.fr" target="_blank" rel="noopener noreferrer">nice-event.fr</a> — Agenda participatif de Nice, des Alpes-Maritimes et de Monaco : carte interactive, espace membres, collecte automatique des événements de dizaines de sources et diffusion sur les réseaux sociaux.
                                     </li>
                                 </ul>
                             </li>
@@ -268,7 +274,7 @@ const renderedServices = await Promise.all(
                 </button>
                 <a
                     href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}fr/contact/`}
-                    class="button button--primary"
+                    class="button"
                 >
                     Demander un devis / Me contacter
                 </a>
@@ -278,23 +284,6 @@ const renderedServices = await Promise.all(
 </PageLayout>
 
 <script>
-    function initSummaryScroll() {
-        const cards = document.querySelectorAll<HTMLAnchorElement>("a.summary-card");
-        cards.forEach((card) => {
-            card.addEventListener("click", (e) => {
-                const targetId = card.getAttribute("href");
-                if (targetId && targetId.startsWith("#")) {
-                    const target = document.querySelector(targetId);
-                    if (target) {
-                        e.preventDefault();
-                        target.scrollIntoView({ behavior: "smooth", block: "start" });
-                        history.pushState(null, "", targetId);
-                    }
-                }
-            });
-        });
-    }
-
     function initExpertiseModals() {
         document.querySelectorAll<HTMLElement>("[data-open-modal]").forEach((trigger) => {
             trigger.addEventListener("click", () => {
@@ -302,7 +291,6 @@ const renderedServices = await Promise.all(
                 const modal = modalId ? document.getElementById(modalId) : null;
                 if (modal && modal instanceof HTMLDialogElement) {
                     modal.showModal();
-                    document.body.style.overflow = "hidden";
                 }
             });
         });
@@ -318,34 +306,13 @@ const renderedServices = await Promise.all(
         });
 
         document.querySelectorAll<HTMLDialogElement>(".expertise-modal").forEach((dialog) => {
-            dialog.addEventListener("close", () => {
-                document.body.style.overflow = "";
-            });
             dialog.addEventListener("click", (event) => {
-                const rect = dialog.getBoundingClientRect();
-                const isInDialog = (
-                    rect.top <= event.clientY &&
-                    event.clientY <= rect.top + rect.height &&
-                    rect.left <= event.clientX &&
-                    event.clientX <= rect.left + rect.width
-                );
-                if (!isInDialog) {
-                    dialog.close();
-                }
+                if (event.target === dialog) dialog.close();
             });
         });
     }
 
-    const initAll = () => {
-        initSummaryScroll();
-        initExpertiseModals();
-    };
-
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initAll);
-    } else {
-        initAll();
-    }
+    initExpertiseModals();
 </script>
 
 <style>
@@ -851,6 +818,16 @@ const renderedServices = await Promise.all(
         align-items: center;
         gap: var(--space-2);
         cursor: pointer;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        :global(html) {
+            scroll-behavior: smooth;
+        }
+    }
+
+    :global(html:has(dialog[open])) {
+        overflow: hidden;
     }
 
     /* Modal Popup */
