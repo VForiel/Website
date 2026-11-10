@@ -18,31 +18,62 @@ const { lang = "fr", variant = "nulling", fig, caption } = Astro.props;
 const copy = {
     fr: {
         fig: "Fig. 1",
-        caption: "Mon projet de thèse : annuler la lumière d'une étoile par interférométrie annulante, à l'aide de puces photoniques actives, pour voir les planètes situées à côté.",
-        waves: "Combinaison des ondes de quatre télescopes, A, B, C et D, en quadrature de phase",
+        caption: "Mon projet de thèse : annuler la lumière d'une étoile par interférométrie annulante (= opposer les signaux de plusieurs télescopes), à l'aide de puces photoniques actives, pour détecter les planètes situées à proximité, déterminer leur luminosité, leur position en étudiant leur signal en fonction de la rotation de la Terre, et même leur spectre (= leur composition atmosphérique) !",
+        tips: {
+            starSingle: "Étoile vue par un seul télescope : sa lumière, des milliards de fois plus forte que celle de la planète, écrase tout autour.",
+            star: "Étoile : les signaux des télescopes, mis en opposition, s'annulent sur l'axe. Sa lumière est éteinte.",
+            planet: "Planète : décalée par rapport à l'étoile, elle n'est pas annulée. Elle ressort une fois l'étoile éteinte.",
+            map: "Carte de transmission du kernel : selon sa position, un objet donne un signal positif ou négatif. L'étoile, au centre, donne toujours zéro.",
+            sky: "Image du ciel au foyer du télescope, en échelle logarithmique.",
+            telescopes: "Télescopes vus depuis l'étoile (disposition des 4 télescopes de 8 m du VLTI). Leurs signaux sont recombinés dans une puce photonique.",
+            earth: "Rotation de la Terre : vus depuis l'étoile, les télescopes tournent, et la carte de transmission avec eux.",
+            wavesSingle: "Onde reçue par un seul télescope : sans autre signal, aucune interférence possible.",
+            waves: "Ondes reçues par chaque télescope et leur somme Σ. Décalées d'un quart de période les unes des autres, elles s'annulent : c'est le nulling.",
+            curve: "Signal de la planète à travers le kernel au cours de la nuit. Sa forme dépend de la position de la planète : on la retrouve en ajustant cette courbe.",
+        },
+        waves: "Ondes de quatre télescopes, A, B, C et D, mises en quadrature de phase, puis signal de la planète à travers la carte de transmission du kernel pendant la rotation de la Terre",
         sum: "Σ",
         star: "étoile",
         planet: "planète",
         on: "nulling",
-        aria: "Animation : la lumière d'une étoile est éteinte par interférométrie, révélant une planète voisine.",
+        kernel: "kernel",
+        single: "1 télescope",
+        hour: "H",
+        aria: "Animation : un télescope seul voit l'étoile ; trois autres s'ajoutent et éteignent sa lumière par interférométrie, révélant une planète voisine. La rotation de la Terre fait tourner la carte de transmission et module le signal de la planète.",
     },
     en: {
         fig: "Fig. 1",
-        caption: "My PhD project: cancelling the light of a star with nulling interferometry, using active photonic chips, to see the planets right next to it.",
-        waves: "Combining the waves of four telescopes, A, B, C and D, in phase quadrature",
+        caption: "My PhD project: cancelling the light of a star with nulling interferometry (= putting the signals of several telescopes in opposition), using active photonic chips, to detect the planets close to it, measure their brightness, find their position by studying their signal as the Earth rotates, and even their spectrum (= their atmospheric composition)!",
+        tips: {
+            starSingle: "Star seen by a single telescope: its light, billions of times brighter than the planet's, swamps everything around it.",
+            star: "Star: the telescope signals, put in opposition, cancel out on axis. Its light is switched off.",
+            planet: "Planet: offset from the star, it is not cancelled. It stands out once the star is switched off.",
+            map: "Kernel transmission map: depending on its position, an object gives a positive or negative signal. The star, at the centre, always gives zero.",
+            sky: "Image of the sky at the telescope focus, on a logarithmic scale.",
+            telescopes: "Telescopes as seen from the star (layout of the four 8 m VLTI telescopes). Their signals are recombined in a photonic chip.",
+            earth: "Earth's rotation: seen from the star, the telescopes turn, and the transmission map with them.",
+            wavesSingle: "Wave received by a single telescope: with no other signal, no interference is possible.",
+            waves: "Waves received by each telescope and their sum Σ. Shifted by a quarter period from one another, they cancel out: that is nulling.",
+            curve: "Planet signal through the kernel over the night. Its shape depends on the planet's position, which is recovered by fitting this curve.",
+        },
+        waves: "Waves of four telescopes, A, B, C and D, brought into phase quadrature, then the planet signal through the kernel transmission map as the Earth rotates",
         sum: "Σ",
         star: "star",
         planet: "planet",
         on: "nulling",
-        aria: "Animation: a star's light is cancelled by interferometry, revealing a nearby planet.",
+        kernel: "kernel",
+        single: "1 telescope",
+        hour: "H",
+        aria: "Animation: a single telescope sees the star; three more join and cancel its light by interferometry, revealing a nearby planet. Earth's rotation turns the transmission map and modulates the planet signal.",
     },
 }[lang];
 ---
 
-<figure class="plate" data-plate data-variant={variant}>
+<figure class="plate" data-plate data-variant={variant} data-single={copy.single} data-hour={copy.hour} data-tips={JSON.stringify(copy.tips)}>
     <div class="plate__body">
     <div class="plate__frame">
         <canvas class="plate__canvas" width="360" height="360" role="img" aria-label={copy.aria}></canvas>
+        {variant === "nulling" && <canvas class="plate__overlay" data-plate-overlay aria-hidden="true"></canvas>}
         <span class="plate__label plate__label--fig">{fig ?? copy.fig}</span>
         <span class="plate__label plate__label--state" data-plate-state>
             <span class="plate__dot"></span>{copy.on}
@@ -59,11 +90,13 @@ const copy = {
                 <canvas class="plate__waves-canvas" data-plate-waves></canvas>
                 <span class="plate__label plate__label--fig">Fig. 1b</span>
                 <span class="plate__label plate__label--phase" data-plate-phase>Δφ = 0.00π</span>
-                <span class="plate__label plate__label--lane-ab" data-plate-legend><span><i class="plate__key plate__key--a"></i>A</span><span><i class="plate__key plate__key--b"></i>B</span><span><i class="plate__key plate__key--c"></i>C</span><span><i class="plate__key plate__key--d"></i>D</span></span>
+                <span class="plate__label plate__label--lane-ab" data-plate-legend><span><i class="plate__key plate__key--a"></i>A</span><span data-plate-tel><i class="plate__key plate__key--b"></i>B</span><span data-plate-tel><i class="plate__key plate__key--c"></i>C</span><span data-plate-tel><i class="plate__key plate__key--d"></i>D</span></span>
                 <span class="plate__label plate__label--lane-sum" data-plate-legend><i class="plate__key plate__key--sum"></i>{copy.sum}</span>
+                <span class="plate__label plate__label--lane-k" data-plate-klegend><span><i class="plate__key plate__key--sum"></i>{copy.kernel}</span><span>{copy.planet}</span></span>
             </div>
         )
     }
+    {variant === "nulling" && <span class="plate__tip" aria-hidden="true" data-plate-tip></span>}
     </div>
     <figcaption class="plate__caption">{caption ?? copy.caption}</figcaption>
 </figure>
@@ -302,6 +335,34 @@ const copy = {
         top: calc(78% - 0.45rem);
     }
 
+    /* Calque de la carte de transmission et du médaillon des télescopes */
+    .plate__overlay {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    /* Légende de la courbe du kernel, qui remplace celles des ondes pendant la rotation */
+    .plate__label--lane-k {
+        left: var(--space-3);
+        top: 58%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        font-size: 0.625rem;
+        text-transform: none;
+        opacity: 0;
+    }
+
+    .plate__label--lane-k > span {
+        display: flex;
+        align-items: center;
+        gap: 0.4em;
+    }
+
     .plate__label--lane-ab,
     .plate__label--lane-sum,
     .plate__waves .plate__label--fig {
@@ -349,6 +410,36 @@ const copy = {
 
     :global(.light-theme) .plate__key--d {
         background: hsl(275, 35%, 42%);
+    }
+
+    /* Description de l'élément survolé, près du pointeur */
+    .plate__tip {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 2;
+        max-width: 15rem;
+        padding: 0.45rem 0.6rem;
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        background: var(--color-surface);
+        font-family: var(--font-mono);
+        font-size: 0.6875rem;
+        line-height: 1.5;
+        color: var(--color-text);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.15s ease;
+    }
+
+    .plate__tip.is-visible {
+        opacity: 1;
+    }
+
+    @media (hover: none) {
+        .plate__tip {
+            display: none;
+        }
     }
 
     .plate__caption {
@@ -516,32 +607,159 @@ const copy = {
             planetLabel.classList.toggle("is-visible", nulled);
         }
 
-        // Cycle du déphasage entre télescopes voisins : 0 (interférence constructive),
-        // montée vers π/2 (quadrature), null tenu, retour
-        const CYCLE = 9000;
+        // Scénario en cinq temps (durées en ms) : un télescope seul ; arrivée des trois autres, qui se placent
+        // pendant que leurs phases passent en quadrature (l'étoile s'éteint, la carte de transmission apparaît) ;
+        // palier ; rotation de la Terre, qui fait tourner les télescopes et la carte ; palier puis retour
+        const T_SINGLE = 3500;
+        const T_ADD = 3500;
+        const T_HOLD = 1200;
+        const T_ROT = 12000;
+        const T_END = 1800;
+        const T_BACK = 1800;
+        const CYCLE = T_SINGLE + T_ADD + T_HOLD + T_ROT + T_END + T_BACK;
         const MIN_FLUX = 2e-4; // fuite résiduelle : un null n'est jamais parfait
-        function phaseAt(time: number): number {
-            const u = (time % CYCLE) / CYCLE;
-            const ease = (x: number) => 0.5 - 0.5 * Math.cos(Math.PI * x);
-            let level;
-            if (u < 0.25) level = 0;
-            else if (u < 0.45) level = ease((u - 0.25) / 0.2);
-            else if (u < 0.85) level = 1;
-            else level = 1 - ease((u - 0.85) / 0.15);
-            return (level * Math.PI) / 2;
+
+        const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
+        const ease = (x: number) => 0.5 - 0.5 * Math.cos(Math.PI * clamp01(x));
+
+        // add : arrivée des télescopes B, C, D (et Δφ = add · π/2) ; rot : avancement de la rotation ;
+        // plot : passage des ondes à la courbe du kernel ; trace : part de la courbe déjà tracée
+        interface Scene {
+            add: number;
+            rot: number;
+            plot: number;
+            trace: number;
+        }
+        function sceneAt(time: number): Scene {
+            let t = time % CYCLE;
+            if (t < T_SINGLE) return { add: 0, rot: 0, plot: 0, trace: 0 };
+            t -= T_SINGLE;
+            if (t < T_ADD) return { add: ease(t / T_ADD), rot: 0, plot: 0, trace: 0 };
+            t -= T_ADD;
+            if (t < T_HOLD) return { add: 1, rot: 0, plot: 0, trace: 0 };
+            t -= T_HOLD;
+            if (t < T_ROT) return { add: 1, rot: t / T_ROT, plot: ease(t / 900), trace: t / T_ROT };
+            t -= T_ROT;
+            if (t < T_END) return { add: 1, rot: 1, plot: 1, trace: 1 };
+            t -= T_END;
+            const back = 1 - ease(t / T_BACK);
+            return { add: back, rot: back, plot: back, trace: 1 };
         }
 
-        // Intensité de l'étoile sur l'axe dans la sortie combinée, le télescope n étant déphasé de n·Δφ :
-        // |Σ exp(i n Δφ)|² / 16 = (sin(2Δφ) / (4 sin(Δφ/2)))², nulle en quadrature (Δφ = π/2)
-        const starFlux = (phase: number) =>
-            phase < 1e-6 ? 1 : Math.max(MIN_FLUX, (Math.sin(2 * phase) / (4 * Math.sin(phase / 2))) ** 2);
+        // Intensité de l'étoile sur l'axe dans la sortie combinée : le télescope n, de poids w_n
+        // (B, C et D arrivent progressivement), est déphasé de n·Δφ ; |Σ w_n exp(i n Δφ)|² / (Σ w_n)²,
+        // nulle en quadrature (Δφ = π/2) avec les quatre télescopes
+        function starFlux(add: number): number {
+            const phase = (add * Math.PI) / 2;
+            let re = 1;
+            let im = 0;
+            for (let n = 1; n < 4; n++) {
+                re += add * Math.cos(n * phase);
+                im += add * Math.sin(n * phase);
+            }
+            return Math.max(MIN_FLUX, (re * re + im * im) / (1 + 3 * add) ** 2);
+        }
 
-        // Fig. 1b : ondes A, B, C et D (déphasées de 0, Δφ, 2Δφ, 3Δφ) et leur somme
+        // Télescopes : les quatre UT du VLTI (est, nord, en m), centrés et ramenés à la plus grande base (130 m).
+        // Coordonnées en repère écran (y vers le bas)
+        const UT = [
+            [-9.925, -20.335],
+            [14.887, 30.502],
+            [44.915, 66.183],
+            [103.306, 43.999],
+        ];
+        const meanE = UT.reduce((s, p) => s + p[0], 0) / 4;
+        const meanN = UT.reduce((s, p) => s + p[1], 0) / 4;
+        const TEL = UT.map(([e, n]) => [(e - meanE) / 130, -(n - meanN) / 130]);
+
+        // Carte de transmission d'un kernel (Martinache & Ireland 2018) : les quatre faisceaux passent dans un
+        // nuller (matrice de Hadamard), puis deux sorties sombres N1 et N2 sont recombinées en quadrature ;
+        // la différence des deux sorties vaut Im(N1* N2), antisymétrique, nulle sur l'axe donc insensible à l'étoile.
+        // Frange de la plus grande base : FRINGE pixels (échelle choisie pour la lisibilité, pas celle du VLTI)
+        const FRINGE = 40;
+        const KAPPA = (2 * Math.PI) / FRINGE;
+        function kernel(x: number, y: number): number {
+            const re = [0, 0, 0, 0];
+            const im = [0, 0, 0, 0];
+            for (let n = 0; n < 4; n++) {
+                const phi = KAPPA * (TEL[n][0] * x + TEL[n][1] * y);
+                re[n] = Math.cos(phi);
+                im[n] = Math.sin(phi);
+            }
+            const n1re = (re[0] + re[1] - re[2] - re[3]) / 2;
+            const n1im = (im[0] + im[1] - im[2] - im[3]) / 2;
+            const n2re = (re[0] - re[1] + re[2] - re[3]) / 2;
+            const n2im = (im[0] - im[1] + im[2] - im[3]) / 2;
+            return n1re * n2im - n1im * n2re;
+        }
+
+        // Orientation des bases projetées : de −60° à +60° pendant la rotation (angle horaire de −4 h à +4 h)
+        const PSI0 = (-60 * Math.PI) / 180;
+        const PSI_SPAN = (120 * Math.PI) / 180;
+        const psiAt = (rot: number) => PSI0 + PSI_SPAN * rot;
+
+        // Carte calculée une fois, sur un carré qui couvre la plaque quelle que soit sa rotation
+        const G = 2 * Math.ceil(Math.hypot(W / 2, H / 2)) + 2;
+        let mapValues: Float32Array | null = null;
+        let mapMax = 1;
+        function mapValuesOnce(): Float32Array {
+            if (mapValues) return mapValues;
+            mapValues = new Float32Array(G * G);
+            let max = 0;
+            for (let j = 0; j < G; j++) {
+                for (let i = 0; i < G; i++) {
+                    const v = kernel(i - G / 2, j - G / 2);
+                    mapValues[j * G + i] = v;
+                    max = Math.max(max, Math.abs(v));
+                }
+            }
+            mapMax = max || 1;
+            return mapValues;
+        }
+
+        // Signal de la planète à travers la carte, pour chaque orientation : tourner les télescopes de ψ
+        // revient à lire la carte de départ au point tourné de −ψ
+        const CURVE_SAMPLES = 240;
+        let curve: Float32Array | null = null;
+        function planetCurve(): Float32Array {
+            if (curve) return curve;
+            mapValuesOnce();
+            curve = new Float32Array(CURVE_SAMPLES + 1);
+            for (let s = 0; s <= CURVE_SAMPLES; s++) curve[s] = planetKernel(psiAt(s / CURVE_SAMPLES));
+            return curve;
+        }
+        function planetKernel(psi: number): number {
+            const c = Math.cos(psi);
+            const s = Math.sin(psi);
+            const x = PLANET.dx * c + PLANET.dy * s;
+            const y = -PLANET.dx * s + PLANET.dy * c;
+            return kernel(x, y) / mapMax;
+        }
+
+        // Couleurs du calque : sortie positive en couleur primaire, négative en accent
+        const toRgb = (colour: string): number[] => {
+            const probe = document.createElement("canvas").getContext("2d")!;
+            probe.fillStyle = colour;
+            const hex = probe.fillStyle as string;
+            if (hex.startsWith("#")) return [1, 3, 5].map((k) => parseInt(hex.slice(k, k + 2), 16));
+            const m = hex.match(/[\d.]+/g) ?? ["0", "0", "0"];
+            return m.slice(0, 3).map(Number);
+        };
+        const mapCanvas = document.createElement("canvas");
+        mapCanvas.width = G;
+        mapCanvas.height = G;
+        let mapPainted = false;
+
+        // Ondes, courbe et médaillon : couleurs du thème
         const wavesCanvas = root.querySelector<HTMLCanvasElement>("[data-plate-waves]");
         const wavesCtx = wavesCanvas?.getContext("2d");
+        const overlay = root.querySelector<HTMLCanvasElement>("[data-plate-overlay]");
+        const overlayCtx = overlay?.getContext("2d");
         const phaseLabel = root.querySelector<HTMLElement>("[data-plate-phase]");
         const legends = root.querySelectorAll<HTMLElement>("[data-plate-legend]");
-        let palette = { a: "", b: "", c: "", d: "", sum: "", axis: "" };
+        const telLegends = root.querySelectorAll<HTMLElement>("[data-plate-tel]");
+        const kernelLegend = root.querySelector<HTMLElement>("[data-plate-klegend]");
+        let palette = { a: "", b: "", c: "", d: "", sum: "", neg: "", axis: "", ground: "" };
         function readPalette() {
             const light = document.documentElement.classList.contains("light-theme");
             const css = getComputedStyle(document.documentElement);
@@ -551,26 +769,55 @@ const copy = {
                 c: light ? "hsl(150, 40%, 30%)" : "hsl(150, 35%, 62%)",
                 d: light ? "hsl(275, 35%, 42%)" : "hsl(265, 40%, 74%)",
                 sum: css.getPropertyValue("--color-primary").trim(),
+                neg: css.getPropertyValue("--color-accent").trim(),
                 axis: light ? "rgba(30, 40, 70, 0.18)" : "rgba(220, 225, 240, 0.14)",
+                ground: light ? "hsla(44, 28%, 96%, 0.88)" : "rgba(2, 4, 10, 0.82)",
             };
+            mapPainted = false;
         }
         readPalette();
+
+        function paintMap() {
+            const values = mapValuesOnce();
+            const pos = toRgb(palette.sum);
+            const neg = toRgb(palette.neg);
+            const mctx = mapCanvas.getContext("2d")!;
+            const img = mctx.createImageData(G, G);
+            for (let k = 0; k < values.length; k++) {
+                const v = values[k] / mapMax;
+                const c = v >= 0 ? pos : neg;
+                const p = k * 4;
+                img.data[p] = c[0];
+                img.data[p + 1] = c[1];
+                img.data[p + 2] = c[2];
+                img.data[p + 3] = 105 * Math.abs(v) ** 0.9;
+            }
+            mctx.putImageData(img, 0, 0);
+            mapPainted = true;
+        }
 
         // Dimensions lues une fois puis à chaque redimensionnement : les lire à chaque image
         // forcerait un recalcul de la mise en page 60 fois par seconde
         let wavesBox = { w: 0, h: 0, left: 56 };
-        function measureWaves() {
+        let overlayWidth = 0;
+        function measure() {
+            if (overlay) overlayWidth = overlay.clientWidth;
             if (!wavesCanvas) return;
             // Les ondes commencent après la plus large des légendes
             let left = 0;
             legends.forEach((legend) => (left = Math.max(left, legend.offsetLeft + legend.offsetWidth)));
             wavesBox = { w: wavesCanvas.clientWidth, h: wavesCanvas.clientHeight, left: Math.max(56, left + 12) };
         }
-        measureWaves();
-        if (wavesCanvas) new ResizeObserver(measureWaves).observe(wavesCanvas);
+        measure();
+        const resize = new ResizeObserver(measure);
+        if (wavesCanvas) resize.observe(wavesCanvas);
+        if (overlay) resize.observe(overlay);
         let phaseText = "";
+        const singleText = root.dataset.single ?? "1";
+        const hourText = root.dataset.hour ?? "H";
+        const fmtSigned = (v: number, digits: number) => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(digits);
 
-        function drawWaves(phase: number, time: number) {
+        function drawWaves(sc: Scene, time: number) {
             if (!wavesCanvas || !wavesCtx) return;
             const ratio = window.devicePixelRatio || 1;
             const { w, h, left } = wavesBox;
@@ -582,36 +829,234 @@ const copy = {
             ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
             ctx.clearRect(0, 0, w, h);
 
-            const k = (2 * Math.PI) / ((w - left) / 2.5); // deux périodes et demie
-            const omega = (2 * Math.PI) / 1400;
-            const amplitude = h * 0.085;
-            const laneAB = h * 0.44;
-            const laneSum = h * 0.78;
+            const phase = (sc.add * Math.PI) / 2;
+            const wavesAlpha = 1 - sc.plot;
+            if (wavesAlpha > 0.001) {
+                const k = (2 * Math.PI) / ((w - left) / 2.5); // deux périodes et demie
+                const omega = (2 * Math.PI) / 1400;
+                const amplitude = h * 0.085;
+                const laneAB = h * 0.44;
+                const laneSum = h * 0.78;
 
-            const trace = (y0: number, f: (x: number) => number, colour: string, width: number) => {
-                ctx.beginPath();
-                for (let x = left; x <= w; x += 2) {
-                    const y = y0 - f(x) * amplitude;
-                    if (x === left) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
+                const trace = (y0: number, f: (x: number) => number, colour: string, width: number) => {
+                    ctx.beginPath();
+                    for (let x = left; x <= w; x += 2) {
+                        const y = y0 - f(x) * amplitude;
+                        if (x === left) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.strokeStyle = colour;
+                    ctx.lineWidth = width;
+                    ctx.stroke();
+                };
+
+                ctx.globalAlpha = wavesAlpha;
+                ctx.fillStyle = palette.axis;
+                ctx.fillRect(left, laneAB, w - left, 1);
+                ctx.fillRect(left, laneSum, w - left, 1);
+
+                const colours = [palette.a, palette.b, palette.c, palette.d];
+                const weights = [1, sc.add, sc.add, sc.add];
+                const wave = (n: number) => (x: number) => Math.sin(k * x - omega * time + n * phase);
+                colours.forEach((colour, n) => {
+                    if (weights[n] < 0.001) return;
+                    ctx.globalAlpha = wavesAlpha * weights[n];
+                    trace(laneAB, wave(n), colour, 1.25);
+                });
+                // Somme : amplitude d'une onde pour un télescope seul, ramenée à deux ondes pour quatre en phase
+                const total = 1 + 3 * sc.add;
+                const norm = Math.max(1, total / 2);
+                ctx.globalAlpha = wavesAlpha;
+                trace(laneSum, (x) => weights.reduce((s, wn, n) => s + wn * wave(n)(x), 0) / norm, palette.sum, 2);
+            }
+
+            // Courbe du signal de la planète à travers le kernel, tracée au fil de la rotation
+            if (sc.plot > 0.001) {
+                const right = w - 12;
+                const zero = h * 0.58;
+                const amplitude = h * 0.3;
+                const xAt = (u: number) => left + u * (right - left);
+                const last = Math.round(sc.trace * CURVE_SAMPLES);
+                const values = planetCurve();
+                ctx.globalAlpha = sc.plot;
+                ctx.fillStyle = palette.axis;
+                ctx.fillRect(left, zero, right - left, 1);
+                // Graduations en heures d'angle horaire (−4 h à +4 h)
+                for (let hr = 0; hr <= 8; hr++) ctx.fillRect(xAt(hr / 8), zero - 2, 1, 5);
+
+                if (last > 0) {
+                    // Aire positive et négative, aux couleurs de la carte
+                    for (const [sign, colour] of [
+                        [1, palette.sum],
+                        [-1, palette.neg],
+                    ] as [number, string][]) {
+                        ctx.beginPath();
+                        ctx.moveTo(xAt(0), zero);
+                        for (let s = 0; s <= last; s++) {
+                            const v = sign * values[s] > 0 ? values[s] : 0;
+                            ctx.lineTo(xAt(s / CURVE_SAMPLES), zero - v * amplitude);
+                        }
+                        ctx.lineTo(xAt(last / CURVE_SAMPLES), zero);
+                        ctx.closePath();
+                        ctx.fillStyle = colour;
+                        ctx.globalAlpha = sc.plot * 0.18;
+                        ctx.fill();
+                    }
+                    ctx.globalAlpha = sc.plot;
+                    ctx.beginPath();
+                    for (let s = 0; s <= last; s++) {
+                        const x = xAt(s / CURVE_SAMPLES);
+                        const y = zero - values[s] * amplitude;
+                        if (s === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.strokeStyle = palette.sum;
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+                    const v = values[last];
+                    ctx.beginPath();
+                    ctx.arc(xAt(last / CURVE_SAMPLES), zero - v * amplitude, 2.5, 0, 2 * Math.PI);
+                    ctx.fillStyle = v >= 0 ? palette.sum : palette.neg;
+                    ctx.fill();
                 }
-                ctx.strokeStyle = colour;
-                ctx.lineWidth = width;
-                ctx.stroke();
-            };
+                ctx.globalAlpha = 1;
+            }
+            ctx.globalAlpha = 1;
 
-            ctx.fillStyle = palette.axis;
-            ctx.fillRect(left, laneAB, w - left, 1);
-            ctx.fillRect(left, laneSum, w - left, 1);
+            // Légendes : B, C, D arrivent avec leurs télescopes ; celle du kernel remplace celles des ondes
+            telLegends.forEach((el) => (el.style.opacity = String(sc.add)));
+            legends.forEach((el) => (el.style.opacity = String(1 - sc.plot)));
+            if (kernelLegend) kernelLegend.style.opacity = String(sc.plot);
 
-            const colours = [palette.a, palette.b, palette.c, palette.d];
-            const wave = (n: number) => (x: number) => Math.sin(k * x - omega * time + n * phase);
-            colours.forEach((colour, n) => trace(laneAB, wave(n), colour, 1.25));
-            // Somme ramenée à la même échelle que deux ondes (amplitude maximale 4 → 2)
-            trace(laneSum, (x) => (wave(0)(x) + wave(1)(x) + wave(2)(x) + wave(3)(x)) / 2, palette.sum, 2);
-
-            const text = `Δφ = ${(phase / Math.PI).toFixed(2)}π`;
+            let text: string;
+            if (sc.plot > 0.5) text = `${hourText} = ${fmtSigned((psiAt(sc.rot) * 180) / Math.PI / 15, 1)} h`;
+            else if (sc.add < 0.01) text = singleText;
+            else text = `Δφ = ${(phase / Math.PI).toFixed(2)}π`;
             if (phaseLabel && text !== phaseText) phaseLabel.textContent = phaseText = text;
+        }
+
+        // Calque de la plaque : carte de transmission tournante, repère de la planète, médaillon des télescopes
+        const INSET = { x: 10, y: 30, s: 78 };
+        const TEL_SCALE = 42; // unités de plaque par unité de base normalisée
+        function drawOverlay(sc: Scene) {
+            if (!overlay || !overlayCtx || !overlayWidth) return;
+            const ratio = window.devicePixelRatio || 1;
+            const pw = Math.round(overlayWidth * ratio);
+            const ph = Math.round((overlayWidth * H * ratio) / W);
+            if (overlay.width !== pw || overlay.height !== ph) {
+                overlay.width = pw;
+                overlay.height = ph;
+            }
+            const ctx = overlayCtx;
+            const scale = pw / W;
+            ctx.setTransform(scale, 0, 0, scale, 0, 0);
+            ctx.clearRect(0, 0, W, H);
+            const psi = psiAt(sc.rot);
+
+            if (sc.add > 0.001) {
+                if (!mapPainted) paintMap();
+                ctx.save();
+                ctx.globalAlpha = sc.add;
+                ctx.translate(W / 2, H / 2);
+                ctx.rotate(psi);
+                ctx.drawImage(mapCanvas, -G / 2, -G / 2);
+                ctx.restore();
+            }
+
+            // Repère autour de la planète, à la couleur du signe de sa sortie kernel
+            if (sc.plot > 0.001) {
+                const v = planetKernel(psi);
+                ctx.globalAlpha = sc.plot;
+                ctx.beginPath();
+                ctx.arc(W / 2 + PLANET.dx, H / 2 + PLANET.dy, 7 + 3 * Math.abs(v), 0, 2 * Math.PI);
+                ctx.strokeStyle = v >= 0 ? palette.sum : palette.neg;
+                ctx.lineWidth = 1.2;
+                ctx.stroke();
+                ctx.globalAlpha = 1;
+            }
+
+            // Médaillon : position des télescopes vue depuis l'étoile
+            const { x, y, s } = INSET;
+            const cx = x + s / 2;
+            const cy = y + s / 2;
+            ctx.fillStyle = palette.ground;
+            ctx.fillRect(x, y, s, s);
+            ctx.strokeStyle = palette.axis;
+            ctx.lineWidth = 0.8;
+            ctx.strokeRect(x + 0.4, y + 0.4, s - 0.8, s - 0.8);
+
+            const c = Math.cos(psi);
+            const sn = Math.sin(psi);
+            const pos = TEL.map(([tx, ty]) => {
+                const rx = tx * c - ty * sn;
+                const ry = tx * sn + ty * c;
+                return [cx + sc.add * rx * TEL_SCALE, cy + sc.add * ry * TEL_SCALE];
+            });
+            // Bases entre télescopes
+            ctx.globalAlpha = sc.add;
+            ctx.strokeStyle = palette.axis;
+            ctx.beginPath();
+            for (let a = 0; a < 4; a++) {
+                for (let b = a + 1; b < 4; b++) {
+                    ctx.moveTo(pos[a][0], pos[a][1]);
+                    ctx.lineTo(pos[b][0], pos[b][1]);
+                }
+            }
+            ctx.stroke();
+            const colours = [palette.a, palette.b, palette.c, palette.d];
+            ctx.font = "7px 'IBM Plex Mono', monospace";
+            ctx.textBaseline = "middle";
+            for (let n = 3; n >= 0; n--) {
+                ctx.globalAlpha = n === 0 ? 1 : sc.add;
+                ctx.beginPath();
+                ctx.arc(pos[n][0], pos[n][1], 3.2, 0, 2 * Math.PI);
+                ctx.fillStyle = colours[n];
+                ctx.fill();
+                ctx.fillText("ABCD"[n], pos[n][0] + 4.5, pos[n][1] - 4);
+            }
+
+            // Terre qui tourne, dans le coin du médaillon : méridiens visibles de la face avant
+            if (sc.plot > 0.001) {
+                const ex = x + s - 10;
+                const ey = y + s - 10;
+                const R = 7;
+                ctx.globalAlpha = sc.plot;
+                ctx.fillStyle = palette.ground;
+                ctx.beginPath();
+                ctx.arc(ex, ey, R, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.strokeStyle = palette.a;
+                ctx.lineWidth = 0.8;
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(ex - R, ey);
+                ctx.lineTo(ex + R, ey);
+                for (let m = 0; m < 6; m++) {
+                    const lon = (m * Math.PI) / 3 + psi * 2;
+                    if (Math.cos(lon) <= 0) continue;
+                    for (let k = 0; k <= 12; k++) {
+                        const lat = -Math.PI / 2 + (k * Math.PI) / 12;
+                        const px = ex + R * Math.cos(lat) * Math.sin(lon);
+                        const py = ey - R * Math.sin(lat);
+                        if (k === 0) ctx.moveTo(px, py);
+                        else ctx.lineTo(px, py);
+                    }
+                }
+                ctx.stroke();
+                // Flèche du sens de rotation, au-dessus du globe
+                ctx.beginPath();
+                ctx.arc(ex, ey, R + 3, -Math.PI * 0.8, -Math.PI * 0.2);
+                ctx.stroke();
+                const ax = ex + (R + 3) * Math.cos(-Math.PI * 0.2);
+                const ay = ey + (R + 3) * Math.sin(-Math.PI * 0.2);
+                ctx.beginPath();
+                ctx.moveTo(ax, ay);
+                ctx.lineTo(ax - 3, ay - 1);
+                ctx.moveTo(ax, ay);
+                ctx.lineTo(ax - 0.5, ay - 3);
+                ctx.stroke();
+            }
+            ctx.globalAlpha = 1;
         }
 
         // Plaque vide : rien au-dessus du bruit, image fixe
@@ -631,8 +1076,62 @@ const copy = {
         }
 
         const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const STILL: Scene = { add: 1, rot: 0, plot: 0, trace: 0 };
         let visible = true;
         const start = performance.now();
+
+        // Description de l'élément survolé, selon l'étape en cours
+        let current: Scene = reduced ? STILL : sceneAt(0);
+        const tip = root.querySelector<HTMLElement>("[data-plate-tip]");
+        const body = root.querySelector<HTMLElement>(".plate__body");
+        const tips = JSON.parse(root.dataset.tips ?? "{}") as Record<string, string>;
+        // Espace fine insécable devant « : ; ! ? » (typographie française) : jamais de ponctuation en début de ligne
+        for (const key in tips) tips[key] = tips[key].replace(/ ([:;!?])/g, " $1");
+        function tipForPlate(px: number, py: number): string {
+            const { x, y, s } = INSET;
+            if (px >= x && px <= x + s && py >= y && py <= y + s) {
+                if (current.plot > 0.3 && Math.hypot(px - (x + s - 10), py - (y + s - 10)) < 11) return tips.earth;
+                return tips.telescopes;
+            }
+            if (Math.hypot(px - (W / 2 + PLANET.dx), py - (H / 2 + PLANET.dy)) < 16) return tips.planet;
+            if (Math.hypot(px - W / 2, py - H / 2) < 24) return current.add < 0.5 ? tips.starSingle : tips.star;
+            return current.add > 0.3 ? tips.map : tips.sky;
+        }
+        function showTip(event: PointerEvent, text: string) {
+            if (!tip || !body) return;
+            if (tip.textContent !== text) tip.textContent = text;
+            const rect = body.getBoundingClientRect();
+            const tx = event.clientX - rect.left;
+            const ty = event.clientY - rect.top;
+            // À droite et sous le pointeur, ou de l'autre côté près des bords
+            const left = tx + 16 + tip.offsetWidth > rect.width ? tx - 12 - tip.offsetWidth : tx + 16;
+            const top = ty + 18 + tip.offsetHeight > rect.height ? ty - 12 - tip.offsetHeight : ty + 18;
+            tip.style.transform = `translate(${Math.max(0, left)}px, ${top}px)`;
+            tip.classList.add("is-visible");
+        }
+        const hideTip = () => tip?.classList.remove("is-visible");
+        frame.addEventListener("pointermove", (event) => {
+            const rect = frame.getBoundingClientRect();
+            const px = ((event.clientX - rect.left) / rect.width) * W;
+            const py = ((event.clientY - rect.top) / rect.height) * H;
+            showTip(event, tipForPlate(px, py));
+        });
+        frame.addEventListener("pointerleave", hideTip);
+        const wavesPanel = root.querySelector<HTMLElement>(".plate__waves");
+        wavesPanel?.addEventListener("pointermove", (event) => {
+            const text = current.plot > 0.5 ? tips.curve : current.add < 0.3 ? tips.wavesSingle : tips.waves;
+            showTip(event, text);
+        });
+        wavesPanel?.addEventListener("pointerleave", hideTip);
+
+        function drawScene(sc: Scene, time: number) {
+            current = sc;
+            const flux = starFlux(sc.add);
+            // L'image n'est recalculée que si le flux de l'étoile a changé (pas pendant les paliers)
+            if (Math.abs(flux - lastFlux) > lastFlux * 0.01) render(flux);
+            drawWaves(sc, time);
+            drawOverlay(sc);
+        }
 
         // Mode allégé (data-perf="low", voir BaseLayout) : 30 images/s suffisent à ces ondes lentes
         let lastDraw = 0;
@@ -640,18 +1139,19 @@ const copy = {
             const low = document.documentElement.dataset.perf === "low";
             if (visible && (!low || now - lastDraw > 30)) {
                 lastDraw = now;
-                const phase = phaseAt(now - start);
-                const flux = starFlux(phase);
-                // L'image n'est recalculée que si le flux de l'étoile a changé (pas pendant les paliers)
-                if (Math.abs(flux - lastFlux) > lastFlux * 0.01) render(flux);
-                drawWaves(phase, now - start);
+                drawScene(sceneAt(now - start), now - start);
             }
             requestAnimationFrame(loop);
         }
 
         if (reduced) {
-            render(MIN_FLUX);
-            drawWaves(Math.PI / 2, 0);
+            drawScene(STILL, 0);
+            // Le calque attend les dimensions réelles de la plaque
+            requestAnimationFrame(() => {
+                measure();
+                drawWaves(STILL, 0);
+                drawOverlay(STILL);
+            });
         } else {
             new IntersectionObserver(([entry]) => (visible = entry.isIntersecting)).observe(canvas);
             requestAnimationFrame(loop);
@@ -662,10 +1162,7 @@ const copy = {
             lut = buildLut(document.documentElement.classList.contains("light-theme"));
             readPalette();
             lastFlux = -1;
-            if (reduced) {
-                render(MIN_FLUX);
-                drawWaves(Math.PI / 2, 0);
-            }
+            if (reduced) drawScene(STILL, 0);
         }).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
     }
 
