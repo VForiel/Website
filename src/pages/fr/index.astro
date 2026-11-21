@@ -160,7 +160,7 @@ const featuredProjects = allProjects
     <!-- CTA Section -->
     <Section class="cta-section">
         <div class="cta-box">
-            <h2 class="cta-box__title">Vous avez un projet ?</h2>
+            <h2 class="cta-box__title">Vous avez un <em class="cta-emph">projet</em> ?</h2>
             <div class="cta-box__body">
                 <p class="cta-box__description">
                     Je suis disponible pour la réalisation de projets web clés en main, des collaborations en recherche, du
@@ -344,8 +344,13 @@ const featuredProjects = allProjects
 
     .cta-box__title {
         font-size: var(--text-4xl);
-        font-style: italic;
     }
+
+    .cta-emph {
+        font-style: italic;
+        color: var(--color-primary);
+    }
+
 
     .cta-box__description {
         font-size: var(--text-lg);
