@@ -22,7 +22,7 @@ export async function getStaticPaths() {
     };
 
     return catalogue.map((project, index) => {
-        // Remove .en suffix from slug (e.g., "heliosen" -> "helios")
+        // Remove .en suffix from slug (e.g., "lumosen" -> "lumos")
         const cleanSlug = project.id.replace(/en$/, "");
         return {
             params: { slug: cleanSlug },

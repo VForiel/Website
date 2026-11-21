@@ -38,7 +38,7 @@ const regularProjects = projects.filter((p) => !p.data.featured);
                 <h2 class="section-title">Main Projects</h2>
                 <div class="projects-grid">
                     {featuredProjects.map((project, index) => {
-                        // Remove .en suffix from slug (e.g., "heliosen" -> "helios")
+                        // Remove .en suffix from slug (e.g., "lumosen" -> "lumos")
                         const cleanSlug = project.id.replace(/en$/, "");
                         return (
                             <ProjectCard
