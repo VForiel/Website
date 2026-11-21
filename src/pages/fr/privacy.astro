@@ -1,0 +1,70 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import Section from "../../components/Section.astro";
+---
+
+<PageLayout
+    title="Confidentialité - Vincent Foriel"
+    description="Politique de confidentialité du site de Vincent Foriel : statistiques de visite sans cookie (Umami), pas de formulaire."
+    currentPath={Astro.url.pathname}
+>
+    <Section>
+        <article class="legal">
+            <h1>Confidentialité</h1>
+
+            <h2>Statistiques de visite</h2>
+            <p>
+                Pour savoir quelles pages sont lues, ce site utilise <a href="https://umami.is">Umami</a> (service
+                Umami Cloud). Il ne dépose aucun cookie et ne sert à aucune publicité. À chaque page vue, il enregistre
+                la page, le site d'où vous venez, le type de navigateur, de système et d'appareil, la langue et le pays.
+                Votre adresse IP lui est transmise pour déduire le pays, mais d'après Umami elle n'est pas conservée.
+                Le détail est dans la <a href="https://umami.is/privacy">politique de confidentialité d'Umami</a>.
+            </p>
+            <p>
+                Si vous préférez ne pas être compté, un bloqueur de contenu ou le réglage « Ne pas suivre » de votre
+                navigateur suffit : le site fonctionne de la même façon.
+            </p>
+
+            <h2>Stockage dans votre navigateur</h2>
+            <p>
+                Le thème clair ou sombre, la fermeture du bandeau d'information et le mode « animations allégées »
+                sont gardés dans votre propre navigateur (stockage local ou de session). Rien de tout cela ne m'est envoyé.
+            </p>
+
+            <h2>Hébergement</h2>
+            <p>
+                Comme tout hébergeur, GitHub (qui sert ce site) reçoit l'adresse IP des visiteurs pour afficher les pages
+                et protéger son service, selon sa
+                <a href="https://docs.github.com/fr/site-policy/privacy-policies/github-general-privacy-statement">déclaration de confidentialité</a>.
+            </p>
+
+            <h2>Si vous m'écrivez</h2>
+            <p>
+                Le site n'a pas de formulaire. Les messages envoyés à
+                <a href="mailto:vincent.foriel@gmail.com">vincent.foriel@gmail.com</a> servent seulement à vous
+                répondre.
+            </p>
+
+            <h2>Vos droits</h2>
+            <p>
+                Pour toute question sur vos données, écrivez-moi à l'adresse ci-dessus. Vous pouvez aussi adresser une
+                réclamation à la CNIL (<a href="https://www.cnil.fr">cnil.fr</a>).
+            </p>
+        </article>
+    </Section>
+</PageLayout>
+
+<style>
+    .legal {
+        max-width: 72ch;
+    }
+
+    .legal h2 {
+        font-size: var(--text-xl);
+        margin-block: var(--space-10) var(--space-3);
+    }
+
+    .legal p + p {
+        margin-block-start: var(--space-3);
+    }
+</style>

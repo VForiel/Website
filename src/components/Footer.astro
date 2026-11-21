@@ -181,6 +181,12 @@ const currentYear = new Date().getFullYear();
                         ? "All rights reserved."
                         : "Tous droits réservés."
                 }
+                <a class="footer__legal" href={withLocalePrefix("/legal", lang)}
+                    >{lang === "en" ? "Legal notice" : "Mentions légales"}</a
+                >
+                <a class="footer__legal" href={withLocalePrefix("/privacy", lang)}
+                    >{lang === "en" ? "Privacy" : "Confidentialité"}</a
+                >
             </p>
             <p class="footer__colophon">
                 {
@@ -444,6 +450,17 @@ const currentYear = new Date().getFullYear();
         font-size: var(--text-xs);
         color: var(--color-text-muted);
         max-width: none;
+    }
+
+    .footer__legal {
+        margin-inline-start: var(--space-4);
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    .footer__legal:hover {
+        color: var(--color-text);
     }
 
     .footer__hint {

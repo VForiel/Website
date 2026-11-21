@@ -1,0 +1,50 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import Section from "../../components/Section.astro";
+---
+
+<PageLayout
+    title="Mentions légales - Vincent Foriel"
+    description="Mentions légales du site de Vincent Foriel : éditeur, hébergeur et propriété des contenus."
+    currentPath={Astro.url.pathname}
+>
+    <Section>
+        <article class="legal">
+            <h1>Mentions légales</h1>
+
+            <h2>Éditeur du site</h2>
+            <p>
+                Ce site est le site personnel de Vincent Foriel, qui en est aussi le directeur de la publication.<br />
+                Contact : <a href="mailto:vincent.foriel@gmail.com">vincent.foriel@gmail.com</a>
+            </p>
+
+            <h2>Hébergement</h2>
+            <p>
+                GitHub, Inc. (service GitHub Pages)<br />
+                88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis<br />
+                <a href="https://github.com">github.com</a>
+            </p>
+
+            <h2>Propriété des contenus</h2>
+            <p>
+                Les textes, figures et animations de ce site m'appartiennent, sauf mention contraire (les images marquées
+                comme générées par IA servent seulement d'illustration). Le code du site est public sur
+                <a href="https://github.com/VForiel/Website">GitHub</a>.
+            </p>
+
+            <h2>Données personnelles</h2>
+            <p>Voir la page <a href="/fr/privacy/">Confidentialité</a>.</p>
+        </article>
+    </Section>
+</PageLayout>
+
+<style>
+    .legal {
+        max-width: 72ch;
+    }
+
+    .legal h2 {
+        font-size: var(--text-xl);
+        margin-block: var(--space-10) var(--space-3);
+    }
+</style>

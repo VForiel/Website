@@ -1,0 +1,50 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import Section from "../../components/Section.astro";
+---
+
+<PageLayout
+    title="Legal notice - Vincent Foriel"
+    description="Legal notice of Vincent Foriel's website: publisher, host and ownership of the content."
+    currentPath={Astro.url.pathname}
+>
+    <Section>
+        <article class="legal">
+            <h1>Legal notice</h1>
+
+            <h2>Publisher</h2>
+            <p>
+                This is the personal website of Vincent Foriel, who is also its director of publication.<br />
+                Contact: <a href="mailto:vincent.foriel@gmail.com">vincent.foriel@gmail.com</a>
+            </p>
+
+            <h2>Hosting</h2>
+            <p>
+                GitHub, Inc. (GitHub Pages service)<br />
+                88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, United States<br />
+                <a href="https://github.com">github.com</a>
+            </p>
+
+            <h2>Ownership of the content</h2>
+            <p>
+                The texts, figures and animations of this website belong to me unless stated otherwise (images marked as
+                AI-generated are only illustrations). The source code of the website is public on
+                <a href="https://github.com/VForiel/Website">GitHub</a>.
+            </p>
+
+            <h2>Personal data</h2>
+            <p>See the <a href="/en/privacy/">Privacy</a> page.</p>
+        </article>
+    </Section>
+</PageLayout>
+
+<style>
+    .legal {
+        max-width: 72ch;
+    }
+
+    .legal h2 {
+        font-size: var(--text-xl);
+        margin-block: var(--space-10) var(--space-3);
+    }
+</style>
